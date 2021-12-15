@@ -13,6 +13,9 @@ public class PauseGame : MonoBehaviour
     public Canvas PauseMenu;
     public Button ResumeButton;
 
+    public Text EscText;
+    public Text RestartText;
+
     public EventSystem eventSystem;
 
     [HideInInspector]
@@ -97,6 +100,24 @@ public class PauseGame : MonoBehaviour
             MenuIsOpen = false;
             PauseMenu.gameObject.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    public void ControlsHaveChanged(PlayerInput playerInput)
+    {
+        var currentScheme = playerInput.currentControlScheme;
+        Debug.Log(playerInput.currentControlScheme);
+
+        if (currentScheme == "Keyboard")
+        {
+            EscText.text = "Pause (Esc)";
+            RestartText.text = "Restart (R)";
+
+        }
+        else if (currentScheme == "Controller")
+        {
+            EscText.text = "Pause (+/Menu)";
+            RestartText.text = "Restart (L+R)";
         }
     }
 }

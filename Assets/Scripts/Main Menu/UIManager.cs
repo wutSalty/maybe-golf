@@ -9,20 +9,25 @@ using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
     public GameObject MainMenu; //Main Menu object
+    public GameObject MultiplayerSelect;
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
 
     public Button PlayButton;
+    public Button TwoPlayerBtn;
     public Button SettingsButton;
     public Button QuitButton;
 
     public Selectable DropdownA;
+    public Selectable MultiSlider;
 
     public EventSystem eventSystem;
 
     public PlayerInput inputSystem;
 
     private Vector2 LeftMove;
+
+    private Selectable FromButton;
 
     //Gets value of movement stick
     public void UpDownLeftRight(InputAction.CallbackContext value)
@@ -44,6 +49,7 @@ public class UIManager : MonoBehaviour
     {
         ConfirmRevertScreen.SetActive(false);
         Settings.SetActive(false);
+        MultiplayerSelect.SetActive(false);
         MainMenu.SetActive(true);
     }
 
@@ -74,18 +80,20 @@ public class UIManager : MonoBehaviour
     //Main Menu buttons
     public void PressPlay()
     {
-        GameManager.GM.TwoPlayerMode = false;
+        GameManager.GM.NumPlayers[0].ControlType = PlayerPrefs.GetInt("InputType", 0);
         SceneManager.LoadScene("SampleScene");
     }
 
     public void PressPlay2P()
     {
-        GameManager.GM.TwoPlayerMode = true;
-        SceneManager.LoadScene("SampleScene");
+        //GameManager.GM.TwoPlayerMode = true;
+        //FromButton = gameObject.GetComponent<Selectable>();
+        ButtonManager(MainMenu, MultiplayerSelect, MultiSlider);
     }
 
     public void PressSettings()
     {
+        //FromButton = gameObject.GetComponent<Selectable>();
         ButtonManager(MainMenu, Settings, DropdownA);
     }
 
@@ -95,9 +103,9 @@ public class UIManager : MonoBehaviour
     }
 
     //Settings
-    public void PressReturnToMain()
+    public void PressReturnToMain(GameObject FromObject)
     {
-        ButtonManager(Settings, MainMenu, SettingsButton);
+        ButtonManager(FromObject, MainMenu, SettingsButton);
     }
 
     public void ButtonManager(GameObject oldScreen, GameObject newScreen, Selectable setButton)

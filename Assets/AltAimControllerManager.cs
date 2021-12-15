@@ -41,18 +41,11 @@ public class AltAimControllerManager : MonoBehaviour
 
     public void OnControlsChanged()
     {
-        var currentScheme = playerInput.currentControlScheme;
-        Debug.Log(playerInput.currentControlScheme);
+        PauseGame.pM.ControlsHaveChanged(playerInput);
+    }
 
-        if (currentScheme == "Keyboard")
-        {
-            PauseText.text = "Pause (Esc)";
-            RestartText.text = "Restart (R)";
-
-        } else if (currentScheme == "Controller")
-        {
-            PauseText.text = "Pause (+/Menu)";
-            RestartText.text = "Restart (L+R)";
-        }
+    public void OnDeviceLost()
+    {
+        Debug.Log("Device has been lost");
     }
 }

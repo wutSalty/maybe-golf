@@ -10,13 +10,12 @@ public class SpawnBall : MonoBehaviour
 
     void Awake()
     {
+        GameManager gameMan = GameManager.GM;
         //If entering via 2 player mode, spawn both balls
-        if (GameManager.GM.TwoPlayerMode == true)
-        {
-            Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
-            Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
 
-        } else //Or else, grab single player preference and spawn in the corresponding ball
+        //!!!Need to update with new method of profiling users
+
+        if (gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
         {
             var InputType = PlayerPrefs.GetInt("InputType", 0);
 
@@ -32,6 +31,25 @@ public class SpawnBall : MonoBehaviour
 
                 default:
                     break;
+            }
+        }
+        else //Or else, spawn a ball for every user with the option they want
+        {
+            foreach (var item in gameMan.NumPlayers)
+            {
+                switch (item.ControlType)
+                {
+                    case 0:
+                        Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                        break;
+
+                    case 1:
+                        Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
     }

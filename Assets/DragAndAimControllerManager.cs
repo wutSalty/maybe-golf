@@ -41,4 +41,9 @@ public class DragAndAimControllerManager : MonoBehaviour
     {
         PauseGame.pM.LeftMove = value.Get<Vector2>();
     }
+
+    public void OnDeviceLost()
+    {
+        Debug.Log("Device has been lost");
+    }
 }

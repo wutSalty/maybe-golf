@@ -1,0 +1,20 @@
+---TODO---
+
+Create World Map
+Create Stages
+
+SINGLEPLAYER:
+Create hit counter
+Create time trials
+Finalise win condition
+
+MULTIPLAYER:
+Detect how many controllers are connected. Only allow proceeding from MultiScreen if enough are detected
+Disable collisions when on the T
+Set up Player names (P1, P2, etc) for each ball
+Disable game from proceeding if controller disconnects
+
+EXTRAS:
+Button remapping
+Save file
+Premium currency
