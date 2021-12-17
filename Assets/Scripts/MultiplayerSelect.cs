@@ -18,26 +18,17 @@ public class MultiplayerSelect : MonoBehaviour
 
     private bool CurrentlyLoading = false;
 
-    //public void SliderChange()
-    //{
-    //    switch (PlayerSelectSlider.value)
-    //    {
-    //        case 2:
-    //            NoOfPlayers.text = "2 Players";
-    //            break;
-
-    //        case 3:
-    //            NoOfPlayers.text = "3 Players";
-    //            break;
-
-    //        case 4:
-    //            NoOfPlayers.text = "4 Players";
-    //            break;
-
-    //        default:
-    //            break;
-    //    }
-    //}
+    public void UpdatePlayerOneText()
+    {
+        if (PlayerPrefs.GetInt("InputType", 0) == 0) //Set input type text
+        {
+            P1Connect.text = "Connected\nClick and Drag";
+        }
+        else
+        {
+            P1Connect.text = "Connected\nKeyboard/Buttons";
+        }
+    }
 
     public void WhenAPlayerJoins(PlayerInput value)
     {
@@ -47,10 +38,10 @@ public class MultiplayerSelect : MonoBehaviour
             GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) }); //Create new array
             if (PlayerPrefs.GetInt("InputType", 0) == 0) //Set input type text
             {
-                ControlName = "Click and Drag";
+                ControlName = "Mouse/Drag";
             } else
             {
-                ControlName = "Buttons/Controller";
+                ControlName = "Keyboard/Buttons";
             }
         } else //If more than player 1, check if entry doesn't already exist
         {
@@ -60,7 +51,7 @@ public class MultiplayerSelect : MonoBehaviour
             } //If it already exists, skip this step
 
             //GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = 1 });
-            ControlName = "Buttons/Controller";
+            ControlName = "Controller/Buttons";
         }
 
         switch (value.playerIndex)

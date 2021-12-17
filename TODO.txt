@@ -3,6 +3,9 @@
 Create World Map
 Create Stages
 
+MENU:
+Returning from 2P selectable
+
 SINGLEPLAYER:
 Create hit counter
 Create time trials

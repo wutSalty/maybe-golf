@@ -1209,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &258536701
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 509159770}
   - component: {fileID: 509159769}
   m_Layer: 5
-  m_Name: 2p demo Btn
+  m_Name: Multiplayer Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2052,8 +2052,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 375.6, y: 26.000002}
-  m_SizeDelta: {x: 85.1789, y: 33.2603}
+  m_AnchoredPosition: {x: 332, y: 26}
+  m_SizeDelta: {x: 167.95, y: 55.2047}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509159769
 MonoBehaviour:
@@ -3317,7 +3317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.10030808, g: 0.4811321, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3326,10 +3326,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -3337,7 +3337,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2P Demo
+  m_Text: Multiplayer
 --- !u!222 &699279574
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3432,10 +3432,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1479502440}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: PressReturnToMain
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 673077121}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5342,11 +5342,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1479502440}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: PressReturnToMain
-        m_Mode: 2
+        m_MethodName: ReturnMainFromMulti
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 258536700}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5754,9 +5754,11 @@ MonoBehaviour:
   SettingsButton: {fileID: 1914410487}
   QuitButton: {fileID: 2072706723}
   DropdownA: {fileID: 928487157}
-  MultiSlider: {fileID: 1027378631}
+  ButtonReady: {fileID: 277374890}
   eventSystem: {fileID: 1891956011}
   inputSystem: {fileID: 83909639}
+  inputManager: {fileID: 1891956013}
+  MultiSelectScript: {fileID: 1479502443}
 --- !u!4 &1479502441
 Transform:
   m_ObjectHideFlags: 0
@@ -6891,14 +6893,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891956009}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
   m_MaxPlayerCount: 4
-  m_AllowJoining: 1
+  m_AllowJoining: 0
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
@@ -7062,7 +7064,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000037838, y: -92}
+  m_AnchoredPosition: {x: 42.836, y: -84.1}
   m_SizeDelta: {x: 249.0852, y: 48.707}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1914410487
@@ -7174,7 +7176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1926102508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7594,7 +7596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -192}
+  m_AnchoredPosition: {x: 108.42, y: -182}
   m_SizeDelta: {x: 117.9089, y: 41.692}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072706723
@@ -8043,7 +8045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: 26}
+  m_AnchoredPosition: {x: -126, y: 26}
   m_SizeDelta: {x: 586.7567, y: 67.4143}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2141681559

@@ -19,15 +19,15 @@ public class UIManager : MonoBehaviour
     public Button QuitButton;
 
     public Selectable DropdownA;
-    public Selectable MultiSlider;
+    public Selectable ButtonReady;
 
     public EventSystem eventSystem;
-
     public PlayerInput inputSystem;
+    public PlayerInputManager inputManager;
+
+    public MultiplayerSelect MultiSelectScript;
 
     private Vector2 LeftMove;
-
-    private Selectable FromButton;
 
     //Gets value of movement stick
     public void UpDownLeftRight(InputAction.CallbackContext value)
@@ -86,14 +86,13 @@ public class UIManager : MonoBehaviour
 
     public void PressPlay2P()
     {
-        //GameManager.GM.TwoPlayerMode = true;
-        //FromButton = gameObject.GetComponent<Selectable>();
-        ButtonManager(MainMenu, MultiplayerSelect, MultiSlider);
+        inputManager.EnableJoining();
+        MultiSelectScript.UpdatePlayerOneText();
+        ButtonManager(MainMenu, MultiplayerSelect, ButtonReady);
     }
 
     public void PressSettings()
     {
-        //FromButton = gameObject.GetComponent<Selectable>();
         ButtonManager(MainMenu, Settings, DropdownA);
     }
 
@@ -102,10 +101,16 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    //Settings
-    public void PressReturnToMain(GameObject FromObject)
+    //Returning from Settings
+    public void PressReturnToMain()
     {
-        ButtonManager(FromObject, MainMenu, SettingsButton);
+        ButtonManager(Settings, MainMenu, SettingsButton);
+    }
+
+    public void ReturnMainFromMulti()
+    {
+        inputManager.DisableJoining();
+        ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
     }
 
     public void ButtonManager(GameObject oldScreen, GameObject newScreen, Selectable setButton)
