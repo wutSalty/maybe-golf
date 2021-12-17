@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpawnBall : MonoBehaviour
 {
     public GameObject SpawnLocation;
     public GameObject BallDragPrefab;
     public GameObject BallButtonPrefab;
+
+    private PlayerInput CurrentBall;
+
+    public int[] DefaultSpriteMasks;
+
+    public Sprite[] MultiSprites;
 
     void Awake()
     {
@@ -15,7 +22,7 @@ public class SpawnBall : MonoBehaviour
 
         //!!!Need to update with new method of profiling users
 
-        if (gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
+        if (gameMan.NumPlayers.Count == 1 || gameMan.NumPlayers.Count == 0) //If game is entering with only 1 player, grab their preference
         {
             var InputType = PlayerPrefs.GetInt("InputType", 0);
 
@@ -35,20 +42,30 @@ public class SpawnBall : MonoBehaviour
         }
         else //Or else, spawn a ball for every user with the option they want
         {
-            foreach (var item in gameMan.NumPlayers)
+            foreach (var item in gameMan.NumPlayers) //For every player registered in GameManager
             {
-                switch (item.ControlType)
+                if (item.PlayerIndex != 99) //If their index is not 99 (currently disconnected)
                 {
-                    case 0:
-                        Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
-                        break;
+                    switch (item.ControlType) //Depending on their control type, spawn in different ball
+                    {
+                        case 0:
+                            CurrentBall = PlayerInput.Instantiate(BallDragPrefab, item.PlayerIndex, null, -1, item.inputDevice);
+                            break;
 
-                    case 1:
-                        Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
-                        break;
+                        case 1:
+                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, null, -1, item.inputDevice);
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    };
+
+                    CurrentBall.gameObject.GetComponent<SpriteRenderer>().sprite = MultiSprites[item.PlayerIndex];
+
+                    CurrentBall.gameObject.transform.position = SpawnLocation.transform.position;
+                    CurrentBall.gameObject.GetComponent<MoveBall>().MaskSprite.GetComponent<SpriteMask>().frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 5;
+                    CurrentBall.gameObject.GetComponent<MoveBall>().MaskSprite.GetComponent<SpriteMask>().backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 5;
+                    CurrentBall.gameObject.GetComponent<MoveBall>().InsideSprite.GetComponent<SpriteRenderer>().sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                 }
             }
         }

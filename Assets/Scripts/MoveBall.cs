@@ -9,6 +9,9 @@ public class MoveBall : MonoBehaviour
     public int RotateMultiplier = 100; //Multiply how fast the ball rotates
     public int VelocityMultiplier = 15; //Multiply how fast the ball goes
 
+    public GameObject MaskSprite;
+    public GameObject InsideSprite;
+
     [HideInInspector]
     public bool FlagHitYet = false; //Has the ball hit the flag yet
 

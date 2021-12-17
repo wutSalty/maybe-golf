@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayButton.Select();
+        eventSystem.GetComponent<PlayerInputManager>().enabled = true;
     }
 
     //Any time the user uses arrow keys, make sure FirstSeleced isn't missing, set the current item to the FirstSelected item, and or set the current item to FirstSelected

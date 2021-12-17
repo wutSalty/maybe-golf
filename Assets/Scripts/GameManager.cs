@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
 
     //Guide for Multiplayer Players
     //Number of records = Number of players
-    //Int in each record = Controller type
+    //ControlType = The controller they are using; 0 = Mouse, 1 = Buttons
+    //PlayerIndex = The position the player has connected; 99 = Player disconnected so please ignore
+    //inputDevice = The device the player used to connect
 
     void Awake()
     {
@@ -22,8 +24,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void Start()
-    {
-        GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0)});
-    }
+    //private void Start()
+    //{
+    //    GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0)});
+    //}
 }

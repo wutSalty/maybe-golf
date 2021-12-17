@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 4642421792198873462}
   - component: {fileID: 4642421792198873463}
   - component: {fileID: 4642421792198873460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: The Ball (Keyboard + Controller)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -539,6 +539,8 @@ MonoBehaviour:
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
   VelocityMultiplier: 15
+  MaskSprite: {fileID: 4642421790613174878}
+  InsideSprite: {fileID: 4642421792116939627}
   FlagHitYet: 0
 --- !u!50 &4642421792198873463
 Rigidbody2D:

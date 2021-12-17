@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 1381961635818196445}
   - component: {fileID: 1381961635818196418}
   - component: {fileID: 1381961635818196419}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: The Ball (Mouse + Drag)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -319,7 +319,6 @@ MonoBehaviour:
   TheActualArrow: {fileID: 1381961636586025118}
   TheMask: {fileID: 1381961635360601637}
   TheBall: {fileID: 1381961635818196446}
-  EscapeMenu: {fileID: 0}
 --- !u!114 &1381961635818196422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +350,8 @@ MonoBehaviour:
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
   VelocityMultiplier: 15
+  MaskSprite: {fileID: 1381961635360601637}
+  InsideSprite: {fileID: 1381961636243894079}
   FlagHitYet: 0
 --- !u!50 &1381961635818196418
 Rigidbody2D:

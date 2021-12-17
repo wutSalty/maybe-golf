@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &332221015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332221017}
+  - component: {fileID: 332221016}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &332221016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332221015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b09f4c6cfdd124aa297e181ae3007d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumPlayers: []
+--- !u!4 &332221017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332221015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &345056455
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,8 +178,9 @@ GameObject:
   - component: {fileID: 345056457}
   - component: {fileID: 345056456}
   - component: {fileID: 345056458}
+  - component: {fileID: 345056459}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: Play Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +201,12 @@ MonoBehaviour:
   SpawnLocation: {fileID: 398776115}
   BallDragPrefab: {fileID: 1381961635818196446, guid: b13b613d4a6312345ace5fb0907c9a7e, type: 3}
   BallButtonPrefab: {fileID: 4642421792198873458, guid: e0e223fe8da4279458cde10c80d2067c, type: 3}
+  DefaultSpriteMasks: 64000000c80000002c01000090010000
+  MultiSprites:
+  - {fileID: 21300000, guid: 467f3f68b21b89c4e939216a619d28a2, type: 3}
+  - {fileID: 21300000, guid: 5cc2cb6bcffd25c489a64ad51d5a1a61, type: 3}
+  - {fileID: 21300000, guid: d5134a00027888944b7b88c19e03e451, type: 3}
+  - {fileID: 21300000, guid: 3bc6f1e86f0eb2a4aa46484da0a7afb1, type: 3}
 --- !u!4 &345056457
 Transform:
   m_ObjectHideFlags: 0
@@ -184,9 +235,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 605186422}
   ResumeButton: {fileID: 534053086}
+  EscText: {fileID: 0}
+  RestartText: {fileID: 0}
   eventSystem: {fileID: 850759727}
   LeftMove: {x: 0, y: 0}
   MenuIsOpen: 0
+--- !u!114 &345056459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345056455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 1
+  m_MaxPlayerCount: 4
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &398776115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,6 +3225,8 @@ MonoBehaviour:
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
   VelocityMultiplier: 15
+  MaskSprite: {fileID: 0}
+  InsideSprite: {fileID: 0}
   FlagHitYet: 0
 --- !u!114 &1148567863
 MonoBehaviour:

@@ -44,14 +44,14 @@ public class DragAndAim : MonoBehaviour
             //Debug.Log(targetObject + ", " + ClickableObject.gameObject);
 
             offset = targetObject.transform.position - mousePosition;
-            Debug.Log("Clicking on object");
+            //Debug.Log("Clicking on object");
         }
     }
 
     //When mouse is released and it is the object we want, shoot the ball
     public void OnMouseLeftCancelled()
     {
-        Debug.Log("Object let go");
+        //Debug.Log("Object let go");
         if (ClickableObject.gameObject == targetObject)
         {
             targetObject = null;
