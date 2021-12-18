@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        eventSystem.GetComponent<PlayerInputManager>().enabled = true;
+        GameManager.GM.SingleMode = false;
     }
 
     //Any time the user uses arrow keys, make sure FirstSeleced isn't missing, set the current item to the FirstSelected item, and or set the current item to FirstSelected
@@ -80,7 +80,8 @@ public class UIManager : MonoBehaviour
     //Main Menu buttons
     public void PressPlay()
     {
-        GameManager.GM.NumPlayers[0].ControlType = PlayerPrefs.GetInt("InputType", 0);
+        GameManager.GM.SingleMode = true;
+        MultiSelectScript.CurrentlyLoading = true;
         SceneManager.LoadScene("SampleScene");
     }
 

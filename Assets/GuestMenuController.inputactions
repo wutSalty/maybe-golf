@@ -1,0 +1,51 @@
+{
+    "name": "GuestMenuController",
+    "maps": [
+        {
+            "name": "Multiplayer Menu",
+            "id": "01d4b943-d85b-4406-b548-1b9f08cdbdee",
+            "actions": [
+                {
+                    "name": "Remove Controller",
+                    "type": "Button",
+                    "id": "46e82fac-fda7-49b7-9446-845370f46711",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4e1b41ca-74c8-43c3-80b9-a9a87a0b1f70",
+                    "path": "*/{Back}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Other Menu",
+            "id": "7addfedd-dbd6-4b2e-bb12-3fccbb521fb2",
+            "actions": [],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Controller",
+            "bindingGroup": "Controller",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

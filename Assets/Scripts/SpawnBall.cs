@@ -18,11 +18,8 @@ public class SpawnBall : MonoBehaviour
     void Awake()
     {
         GameManager gameMan = GameManager.GM;
-        //If entering via 2 player mode, spawn both balls
 
-        //!!!Need to update with new method of profiling users
-
-        if (gameMan.NumPlayers.Count == 1 || gameMan.NumPlayers.Count == 0) //If game is entering with only 1 player, grab their preference
+        if (gameMan.SingleMode == true || gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
         {
             var InputType = PlayerPrefs.GetInt("InputType", 0);
 
@@ -40,9 +37,9 @@ public class SpawnBall : MonoBehaviour
                     break;
             }
         }
-        else //Or else, spawn a ball for every user with the option they want
+        else //Or else, spawn a ball for every valid user
         {
-            foreach (var item in gameMan.NumPlayers) //For every player registered in GameManager
+            foreach (var item in gameMan.NumPlayers) //For every record registered in GameManager
             {
                 if (item.PlayerIndex != 99) //If their index is not 99 (currently disconnected)
                 {
@@ -60,6 +57,7 @@ public class SpawnBall : MonoBehaviour
                             break;
                     };
 
+                    //Assigns different sprite, and sprite layer for each player
                     CurrentBall.gameObject.GetComponent<SpriteRenderer>().sprite = MultiSprites[item.PlayerIndex];
 
                     CurrentBall.gameObject.transform.position = SpawnLocation.transform.position;

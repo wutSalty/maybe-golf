@@ -14,7 +14,9 @@ public class AltAimControllerManager : MonoBehaviour
     //private RestartScene restartScene; //script for restarting scene
     //private EscMenu escMenu; //script for escape menu
 
-    //When start, grab the things we need
+    public int PlayerIndex;
+
+    //When awake, grab the things we need
     private void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
@@ -24,28 +26,46 @@ public class AltAimControllerManager : MonoBehaviour
         //OnControlsChanged(); !!!Not very priority but try and fix because of prefabs. Need to get reference to text when spawn
     }
 
+    //When start, grab playerindex (we need this for disconnect purposes)
+    private void Start()
+    {
+        PlayerIndex = playerInput.playerIndex;
+    }
+
+    //When L+R pressed
     public void OnRestart()
     {
         RestartScene.DoTheRestart();
     }
 
+    //When 'Menu' pressed
     public void OnMenu()
     {
         PauseGame.pM.ButtonClickOverrideCauseImLazy(false);
     }
 
+    //When 'left stick' moved
     public void OnMove(InputValue value)
     {
         PauseGame.pM.LeftMove = value.Get<Vector2>();
     }
 
+    //When control type changed (should only work in singleplayer)
     public void OnControlsChanged()
     {
         PauseGame.pM.ControlsHaveChanged(playerInput);
     }
 
+    //When controller has disconnected, make a call
     public void OnDeviceLost()
     {
-        Debug.Log("Device has been lost");
+        ControllerDisconnectPause.ControlDC.ControllerDisconnected(PlayerIndex);
     }
+
+    //When controller re-connected, also make a call
+    public void OnDeviceRegained()
+    {
+        ControllerDisconnectPause.ControlDC.ControllerConnected(PlayerIndex);
+    }
+
 }

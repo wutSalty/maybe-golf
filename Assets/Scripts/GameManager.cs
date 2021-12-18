@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
+    public bool SingleMode = false;
     public List<MultiPlayerClass> NumPlayers;
 
     //Guide for Multiplayer Players
@@ -14,18 +15,18 @@ public class GameManager : MonoBehaviour
     //PlayerIndex = The position the player has connected; 99 = Player disconnected so please ignore
     //inputDevice = The device the player used to connect
 
+    //Upon first load, make GM the only GameManager possible
     void Awake()
     {
         if (GM != null && GM != this)
+        {
             Destroy(this.gameObject);
-        else
+        } else
+        {
             GM = this;
-
+            GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) });
+            GM.NumPlayers[0].PlayerIndex = 0;
+        }
         DontDestroyOnLoad(this);
     }
-
-    //private void Start()
-    //{
-    //    GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0)});
-    //}
 }

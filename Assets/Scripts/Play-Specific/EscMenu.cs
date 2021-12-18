@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class EscMenu : MonoBehaviour
 {
+    //Migrated script to PauseGame
+
     //public Canvas PauseMenu;
     //public Button ResumeButton;
 
@@ -44,7 +46,8 @@ public class EscMenu : MonoBehaviour
     //        if (MenuIsOpen == false)
     //        {
     //            item.SwitchCurrentActionMap("Pause Menu");
-    //        } else
+    //        }
+    //        else
     //        {
     //            item.SwitchCurrentActionMap("In-Game Ball");
     //        }
@@ -77,7 +80,8 @@ public class EscMenu : MonoBehaviour
     //        MenuIsOpen = true;
     //        PauseMenu.gameObject.SetActive(true);
     //        eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
-    //    } else
+    //    }
+    //    else
     //    {
     //        Time.timeScale = 1;
     //        MenuIsOpen = false;
@@ -91,6 +95,13 @@ public class EscMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         PauseGame.pM.MenuIsOpen = false;
+
+        //Reset NumPlayers from GM
+        if (GameManager.GM.NumPlayers.Count > 1)
+        {
+            GameManager.GM.NumPlayers.RemoveRange(1, GameManager.GM.NumPlayers.Count - 1);
+        }
+
         SceneManager.LoadScene("MainMenu");
     }
 }

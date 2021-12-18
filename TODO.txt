@@ -12,10 +12,9 @@ Create time trials
 Finalise win condition
 
 MULTIPLAYER:
-P1 control scheme text
-Pairing always on
 Disable collisions when on the T (Currently using Matrix to disable Player on Player collision)
-Disable game from proceeding if controller disconnects
+Multiple player disconnects in-game (HOW DO I PARSE TEXT)
+Pause menu behaviour
 
 EXTRAS:
 Button remapping

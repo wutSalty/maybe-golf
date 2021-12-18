@@ -1209,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &258536701
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1229,6 +1229,7 @@ RectTransform:
   - {fileID: 1267848443}
   - {fileID: 1807776807}
   - {fileID: 1173563377}
+  - {fileID: 1429653889}
   m_Father: {fileID: 1486959903}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2693,7 +2694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3532396, g: 0.9245283, b: 0.633283, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.002667904, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5714,6 +5715,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420424168}
   m_CullTransparentMesh: 1
+--- !u!1 &1429653888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429653889}
+  - component: {fileID: 1429653891}
+  - component: {fileID: 1429653890}
+  m_Layer: 5
+  m_Name: ToDC Txt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1429653889
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429653888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 258536701}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0000076294, y: -75.895}
+  m_SizeDelta: {x: 350.11, y: 94.2094}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1429653890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429653888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3532396, g: 0.9245283, b: 0.633283, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 50
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: To disconnect a controller, press 'B' or Back
+--- !u!222 &1429653891
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429653888}
+  m_CullTransparentMesh: 1
 --- !u!1 &1479502439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5809,10 +5889,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSelectSlider: {fileID: 1027378631}
   NoOfPlayers: {fileID: 609728436}
+  PlayBtn: {fileID: 277374890}
+  PlayText: {fileID: 1261101002}
   P1Connect: {fileID: 1145217972}
   P2Connect: {fileID: 2055194952}
   P3Connect: {fileID: 2071135096}
   P4Connect: {fileID: 1884504071}
+  inputManager: {fileID: 1891956013}
 --- !u!1 &1486959899
 GameObject:
   m_ObjectHideFlags: 0
@@ -6297,6 +6380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b09f4c6cfdd124aa297e181ae3007d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SingleMode: 0
+  multiplayerSelect: {fileID: 1479502443}
   NumPlayers: []
 --- !u!4 &1616751990
 Transform:
@@ -7176,7 +7261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1926102508
 RectTransform:
   m_ObjectHideFlags: 0

@@ -26,10 +26,14 @@ public class PauseGame : MonoBehaviour
 
     void Awake()
     {
-        if (pM != null)
-            Destroy(pM);
+        if (pM != null && pM != this)
+        {
+            Destroy(this.gameObject);
+        }
         else
+        {
             pM = this;
+        }
 
         //DontDestroyOnLoad(this);
     }

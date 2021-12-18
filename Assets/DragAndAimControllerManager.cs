@@ -14,7 +14,7 @@ public class DragAndAimControllerManager : MonoBehaviour
     //private RestartScene restartScene; //script for restarting scene
     //private EscMenu escMenu; //script for escape menu
 
-    //When start, grab the things we need
+    //When awake, grab the things we need
     private void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
@@ -22,28 +22,33 @@ public class DragAndAimControllerManager : MonoBehaviour
         //escMenu = UIManager.GetComponent<EscMenu>();
     }
 
+    //When 'r' is pressed
     public void OnRestart()
     {
         RestartScene.DoTheRestart();
     }
 
+    //When 'esc' is pressed
     public void OnMenuMouse()
     {
         PauseGame.pM.ButtonClickOverrideCauseImLazy(true);
     }
 
+    //When menu is clicked normally
     public void OnMenu()
     {
         PauseGame.pM.ButtonClickOverrideCauseImLazy(false);
     }
 
+    //When arrow keys pressed
     public void OnMove(InputValue value)
     {
         PauseGame.pM.LeftMove = value.Get<Vector2>();
     }
 
+    //When controller disconnected, but not used cause mouse/keyboard should always be there anyways
     public void OnDeviceLost()
     {
-        Debug.Log("Device has been lost");
+        Debug.Log("Device has been lost. Insert Pause here");
     }
 }

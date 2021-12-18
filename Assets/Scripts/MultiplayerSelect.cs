@@ -10,14 +10,27 @@ public class MultiplayerSelect : MonoBehaviour
 {
     public Slider PlayerSelectSlider;
     public Text NoOfPlayers;
+    public Button PlayBtn;
+    public Text PlayText;
 
     public Text P1Connect;
     public Text P2Connect;
     public Text P3Connect;
     public Text P4Connect;
 
-    private bool CurrentlyLoading = false;
+    public PlayerInputManager inputManager;
 
+    [HideInInspector]
+    public bool CurrentlyLoading = false;
+
+    private void Start()
+    {
+        CurrentlyLoading = false;
+        PlayBtn.interactable = false;
+        PlayText.text = "Waiting for players...";
+    }
+
+    //Updates text for P1 when entering menu
     public void UpdatePlayerOneText()
     {
         if (PlayerPrefs.GetInt("InputType", 0) == 0) //Set input type text
@@ -32,33 +45,22 @@ public class MultiplayerSelect : MonoBehaviour
 
     public void WhenAPlayerJoins(PlayerInput value)
     {
-        string ControlName;
-        if(value.playerIndex == 0) //If Player 1
+        string ControlName = "Demo";
+        if(value.playerIndex != 0) //If NOT Player 1
         {
-            GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) }); //Create new array
-            if (PlayerPrefs.GetInt("InputType", 0) == 0) //Set input type text
+            if (GameManager.GM.NumPlayers.Count - 1 < value.playerIndex) //And if NumPlayers does not already have an entry for new player
             {
-                ControlName = "Mouse/Drag";
-            } else
-            {
-                ControlName = "Keyboard/Buttons";
+                GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = 1 }); //Create new entry
             }
-        } else //If more than player 1, check if entry doesn't already exist
-        {
-            if (GameManager.GM.NumPlayers.Count - 1 < value.playerIndex) //If not, add new entry
-            {
-                GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = 1 });
-            } //If it already exists, skip this step
-
-            //GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = 1 });
-            ControlName = "Controller/Buttons";
+            ControlName = "Controller/Buttons"; //And set text to this
         }
 
+        //Depending on what number player joined, change text and assign data items to array
         switch (value.playerIndex)
         {
             case 0:
-                P1Connect.text = "Connected\n" + ControlName;
-                GameManager.GM.NumPlayers[0].PlayerIndex = 0;
+                //P1Connect.text = "Connected\n" + ControlName;
+                //GameManager.GM.NumPlayers[0].PlayerIndex = 0;
                 GameManager.GM.NumPlayers[0].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
                 break;
 
@@ -83,14 +85,20 @@ public class MultiplayerSelect : MonoBehaviour
             default:
                 break;
         };
-        //Debug.Log(InputUser.all[value.playerIndex].pairedDevices[0]);
+        
+        //Once more than 1 player is present, allow game to start
+        if (value.playerIndex >= 1)
+        {
+            PlayBtn.interactable = true;
+            PlayText.text = "Ready to Play!";
+        }
     }
 
     public void WhenAPlayerDisconnects(PlayerInput value)
     {
-        if (CurrentlyLoading == false)
+        if (CurrentlyLoading == false) //Needs check in-case game is changing scenes
         {
-            switch (value.playerIndex)
+            switch (value.playerIndex) //Depending on the player that disconnected, update stuff
             {
                 case 0:
                     P1Connect.text = "Not Connected";
@@ -115,11 +123,19 @@ public class MultiplayerSelect : MonoBehaviour
                 default:
                     break;
             };
+            
+            if (inputManager.playerCount == 1) //If player left is only 1, disable play button
+            {
+                PlayBtn.interactable = false;
+                PlayText.text = "Waiting for players...";
+            }
         }
     }
 
+    //The play button
     public void PlayReady()
     {
+        GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
         SceneManager.LoadScene("SampleScene");
     }
