@@ -296,7 +296,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f6e6756d-fc5e-479b-af94-c02ebbd05e54
     m_ActionName: Mouse/Mouse Left[/Mouse/leftButton]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Mouse
   m_DefaultActionMap: In-Game Ball
   m_SplitScreenIndex: -1

@@ -38,8 +38,6 @@ public class ControllerDisconnectPause : MonoBehaviour
             ControlDC.CurrentDead.Add(new CurrentDC { PlayerIndex = 99 });
             ControlDC.CurrentDead.Add(new CurrentDC { PlayerIndex = 99 });
         }
-
-        //DontDestroyOnLoad(this);
     }
 
     //When a controller has disconnected, change the Action Map and display the Warning Screen 
@@ -84,7 +82,18 @@ public class ControllerDisconnectPause : MonoBehaviour
             EmergencyPause();
         } else
         {
-            ControllerTemplate.text = ControllerTemplate.text + ", Player " + (playerIndex + 1);
+            string NewText = "";
+            foreach (var item in ControlDC.CurrentDead) //If stuff still exists, update the text
+            {
+                if (item.PlayerIndex != 99)
+                {
+                    NewText = NewText + "Player " + (item.PlayerIndex + 1) + ", ";
+                }
+            }
+
+            NewText = NewText.Remove(NewText.Length - 2, 2); //Cuts off the extra comma
+
+            ControllerTemplate.text = NewText;
         }
     }
 
@@ -93,6 +102,7 @@ public class ControllerDisconnectPause : MonoBehaviour
     {
         ControlDC.CurrentDead[playerIndex].PlayerIndex = 99; //When controller reconnects, set internal index to 99 (now connected)
         bool NothingLeft = true;
+
         foreach (var item in ControlDC.CurrentDead) //Check if there's any controllers still not connected
         {
             if (item.PlayerIndex != 99)
@@ -106,13 +116,18 @@ public class ControllerDisconnectPause : MonoBehaviour
             EmergencyPause();
         } else
         {
+            string NewText = "";
             foreach (var item in ControlDC.CurrentDead) //If stuff still exists, update the text
             {
                 if (item.PlayerIndex != 99)
                 {
-                    ControllerTemplate.text = "Player " + (item.PlayerIndex + 1) + ", ";
+                    NewText = NewText + "Player " + (item.PlayerIndex + 1) + ", ";
                 }
             }
+
+            NewText = NewText.Remove(NewText.Length - 2, 2); //Cuts off the extra comma
+
+            ControllerTemplate.text = NewText;
         }
     }
 }

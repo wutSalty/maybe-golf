@@ -5896,6 +5896,7 @@ MonoBehaviour:
   P3Connect: {fileID: 2071135096}
   P4Connect: {fileID: 1884504071}
   inputManager: {fileID: 1891956013}
+  CurrentlyLoading: 0
 --- !u!1 &1486959899
 GameObject:
   m_ObjectHideFlags: 0
@@ -6381,7 +6382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SingleMode: 0
-  multiplayerSelect: {fileID: 1479502443}
   NumPlayers: []
 --- !u!4 &1616751990
 Transform:
@@ -6978,7 +6978,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891956009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 

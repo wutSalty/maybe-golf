@@ -46,39 +46,61 @@ public class MultiplayerSelect : MonoBehaviour
     public void WhenAPlayerJoins(PlayerInput value)
     {
         string ControlName = "Demo";
-        if(value.playerIndex != 0) //If NOT Player 1
+        int ControlType = 0;
+
+        //Checks if enough indexes are available, if not create new index
+        if (GameManager.GM.NumPlayers.Count - 1 < value.playerIndex)
         {
-            if (GameManager.GM.NumPlayers.Count - 1 < value.playerIndex) //And if NumPlayers does not already have an entry for new player
+            GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) });
+        }
+
+        //Checks device type being connected
+        if (value.currentControlScheme == "Controller")
+        {
+            ControlName = "Controller/Buttons";
+            ControlType = 2; //2 = Controller buttons
+        } else
+        {
+            if (PlayerPrefs.GetInt("InputType", 0) == 1)
             {
-                GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = 1 }); //Create new entry
+                ControlName = "Keyboard/Buttons";
+                ControlType = 1; //1 = Keyboard Buttons
+            } else
+            {
+                ControlName = "Click and Drag";
+                ControlType = 0; //0 = Mouse click and drag
             }
-            ControlName = "Controller/Buttons"; //And set text to this
         }
 
         //Depending on what number player joined, change text and assign data items to array
         switch (value.playerIndex)
         {
             case 0:
-                //P1Connect.text = "Connected\n" + ControlName;
-                //GameManager.GM.NumPlayers[0].PlayerIndex = 0;
+                P1Connect.text = "Connected\n" + ControlName;
+                GameManager.GM.NumPlayers[0].PlayerIndex = 0;
+                GameManager.GM.NumPlayers[0].ControlType = ControlType;
                 GameManager.GM.NumPlayers[0].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
+                Debug.Log(InputUser.all[value.playerIndex].pairedDevices[0]);
                 break;
 
             case 1:
                 P2Connect.text = "Connected\n" + ControlName;
                 GameManager.GM.NumPlayers[1].PlayerIndex = 1;
+                GameManager.GM.NumPlayers[1].ControlType = ControlType;
                 GameManager.GM.NumPlayers[1].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
                 break;
 
             case 2:
                 P3Connect.text = "Connected\n" + ControlName;
                 GameManager.GM.NumPlayers[2].PlayerIndex = 2;
+                GameManager.GM.NumPlayers[2].ControlType = ControlType;
                 GameManager.GM.NumPlayers[2].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
                 break;
 
             case 3:
                 P4Connect.text = "Connected\n" + ControlName;
                 GameManager.GM.NumPlayers[3].PlayerIndex = 3;
+                GameManager.GM.NumPlayers[3].ControlType = ControlType;
                 GameManager.GM.NumPlayers[3].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
                 break;
 
@@ -87,7 +109,7 @@ public class MultiplayerSelect : MonoBehaviour
         };
         
         //Once more than 1 player is present, allow game to start
-        if (value.playerIndex >= 1)
+        if (inputManager.playerCount > 1)
         {
             PlayBtn.interactable = true;
             PlayText.text = "Ready to Play!";

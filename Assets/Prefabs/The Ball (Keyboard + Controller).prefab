@@ -485,7 +485,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ba0e43ae-943b-48f2-bb2c-20f433df9f77
     m_ActionName: Pause Menu/New action
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: In-Game Ball
   m_SplitScreenIndex: -1
@@ -523,6 +523,7 @@ MonoBehaviour:
   PauseText: {fileID: 0}
   RestartText: {fileID: 0}
   UIManager: {fileID: 0}
+  PlayerIndex: 0
 --- !u!114 &4642421792198873462
 MonoBehaviour:
   m_ObjectHideFlags: 0

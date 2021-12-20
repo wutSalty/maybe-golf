@@ -1,9 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OnDeviceLostScript : MonoBehaviour
 {
+    private PlayerInput playerInput;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Start()
+    {
+        if (playerInput.playerIndex == 0)
+        {
+            playerInput.SwitchCurrentActionMap("MultiHost");
+        }
+        else
+        {
+            playerInput.SwitchCurrentActionMap("MultiGuest");
+        }
+    }
+
     //If the controller has been disconnected due to running out of batteries or other, start the delay
     void OnDeviceLost()
     {

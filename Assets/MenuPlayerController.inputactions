@@ -224,13 +224,13 @@
             "bindingGroup": "Mouse Keyboard",
             "devices": [
                 {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
                     "isOR": false
                 },
                 {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": true,
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
                     "isOR": false
                 }
             ]

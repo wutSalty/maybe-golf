@@ -87,8 +87,10 @@ public class UIManager : MonoBehaviour
 
     public void PressPlay2P()
     {
+        inputSystem.enabled = false;
+        inputManager.enabled = true;
         inputManager.EnableJoining();
-        MultiSelectScript.UpdatePlayerOneText();
+        //MultiSelectScript.UpdatePlayerOneText();
         ButtonManager(MainMenu, MultiplayerSelect, ButtonReady);
     }
 
@@ -110,7 +112,19 @@ public class UIManager : MonoBehaviour
 
     public void ReturnMainFromMulti()
     {
-        inputManager.DisableJoining();
+        inputManager.DisableJoining(); //Disable new players from joining
+
+        OnDeviceLostScript[] objects = FindObjectsOfType<OnDeviceLostScript>(); //Find and remove all guest game objects
+        foreach (var item in objects)
+        {
+            Destroy(item.gameObject);
+        }
+
+        GameManager.GM.NumPlayers.Clear();
+
+        inputManager.enabled = false; //Disable input manager
+
+        inputSystem.enabled = true; //Re-enable menu input player
         ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
     }
 

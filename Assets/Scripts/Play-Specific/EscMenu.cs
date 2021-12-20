@@ -97,10 +97,7 @@ public class EscMenu : MonoBehaviour
         PauseGame.pM.MenuIsOpen = false;
 
         //Reset NumPlayers from GM
-        if (GameManager.GM.NumPlayers.Count > 1)
-        {
-            GameManager.GM.NumPlayers.RemoveRange(1, GameManager.GM.NumPlayers.Count - 1);
-        }
+        GameManager.GM.NumPlayers.Clear();
 
         SceneManager.LoadScene("MainMenu");
     }

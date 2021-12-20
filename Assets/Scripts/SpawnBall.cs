@@ -50,7 +50,11 @@ public class SpawnBall : MonoBehaviour
                             break;
 
                         case 1:
-                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, null, -1, item.inputDevice);
+                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Keyboard", -1, item.inputDevice);
+                            break;
+
+                        case 2:
+                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Controller", -1, item.inputDevice);
                             break;
 
                         default:

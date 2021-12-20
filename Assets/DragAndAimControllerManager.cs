@@ -31,17 +31,11 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' is pressed
     public void OnMenuMouse()
     {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(true);
-    }
-
-    //When menu is clicked normally
-    public void OnMenu()
-    {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(false);
+        PauseGame.pM.ButtonClickOverrideCauseImLazy(true, playerInput.playerIndex);
     }
 
     //When arrow keys pressed
-    public void OnMove(InputValue value)
+    public void OnNavigate(InputValue value)
     {
         PauseGame.pM.LeftMove = value.Get<Vector2>();
     }

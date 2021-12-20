@@ -41,11 +41,11 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(false);
+        PauseGame.pM.ButtonClickOverrideCauseImLazy(false, playerInput.playerIndex);
     }
 
     //When 'left stick' moved
-    public void OnMove(InputValue value)
+    public void OnNavigate(InputValue value)
     {
         PauseGame.pM.LeftMove = value.Get<Vector2>();
     }

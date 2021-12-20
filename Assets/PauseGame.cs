@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class PauseGame : MonoBehaviour
 {
@@ -15,14 +16,19 @@ public class PauseGame : MonoBehaviour
 
     public Text EscText;
     public Text RestartText;
+    public Text PlayerPausedText;
 
     public EventSystem eventSystem;
+    public InputSystemUIInputModule UiInputModule;
 
     [HideInInspector]
     public Vector2 LeftMove;
 
     [HideInInspector]
     public bool MenuIsOpen = false;
+
+    private PlayerInput CurrentPlayer;
+    public InputActionAsset inputActionAsset;
 
     void Awake()
     {
@@ -34,8 +40,11 @@ public class PauseGame : MonoBehaviour
         {
             pM = this;
         }
+    }
 
-        //DontDestroyOnLoad(this);
+    private void Start()
+    {
+        inputActionAsset = UiInputModule.actionsAsset;
     }
 
     //If user moves stuff, make sure things are updated
@@ -52,38 +61,65 @@ public class PauseGame : MonoBehaviour
         }
     }
 
-    //When the pause menu is accessed
-    public void ButtonClickOverrideCauseImLazy(bool FromKey)
+    public void OverrideForThePauseOverride()
     {
-        bool ControllerYes = false;
+        ButtonClickOverrideCauseImLazy(false, 99);
+    }
+
+    //When the pause menu is accessed
+    public void ButtonClickOverrideCauseImLazy(bool FromKey, int pIndex)
+    {
         PlayerInput[] listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
         foreach (PlayerInput item in listofInputs) //For each of them
         {
             //Change the Action Map to the required one
             if (MenuIsOpen == false)
             {
-                item.SwitchCurrentActionMap("Pause Menu");
+                if (item.playerIndex == pIndex) //Sets menu to the user who opened it
+                {
+                    item.SwitchCurrentActionMap("UI");
+                    CurrentPlayer = item;
+                    CurrentPlayer.uiInputModule = UiInputModule;
+                } else
+                {
+                    item.SwitchCurrentActionMap("Not Caller Menu");
+                }
             }
             else
             {
                 item.SwitchCurrentActionMap("In-Game Ball");
             }
+        }
 
-            //If any of them are using button controls, set ControllerYes to true
-            if (item.currentControlScheme == "Keyboard" || item.currentControlScheme == "Controller" || FromKey)
-            {
-                ControllerYes = true;
-            }
+        //If menu was clicked by mouse, show "by host" instead of "by player"
+        if (pIndex == 99)
+        {
+            PlayerPausedText.text = "Paused By: Host";
+        } else
+        {
+            PlayerPausedText.text = "Paused By: Player " + (pIndex + 1);
         }
 
         OpenCloseMenu(); //Do menu stuff
 
-        //If accessed from a button, make sure the first option is selected
-        if (ControllerYes)
+        if (pIndex != 99 && MenuIsOpen) //Select Resume button if not selected by mouse
         {
-            if (MenuIsOpen == true)
+            switch (GameManager.GM.NumPlayers[pIndex].ControlType)
             {
-                ResumeButton.Select();
+                case 0: //Mouse
+                    break;
+
+                case 1: //Keyboard
+                    ResumeButton.Select();
+                    break;
+
+                case 2: //Controller
+                    ResumeButton.Select();
+                    break;
+
+                default:
+                    ResumeButton.Select();
+                    break;
             }
         }
     }
@@ -103,7 +139,12 @@ public class PauseGame : MonoBehaviour
             Time.timeScale = 1;
             MenuIsOpen = false;
             PauseMenu.gameObject.SetActive(false);
+            eventSystem.firstSelectedGameObject = null;
             eventSystem.SetSelectedGameObject(null);
+
+            //For UI stuff that only needs to happen once
+            //CurrentPlayer.uiInputModule = null;
+            UiInputModule.actionsAsset = inputActionAsset;
         }
     }
 
