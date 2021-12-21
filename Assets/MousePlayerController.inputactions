@@ -86,7 +86,7 @@
             ]
         },
         {
-            "name": "Pause Menu",
+            "name": "UI",
             "id": "a97a435a-19b1-40e7-8f12-960843266cc3",
             "actions": [
                 {
@@ -106,10 +106,58 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Submit",
+                    "name": "Entering",
                     "type": "PassThrough",
                     "id": "9aa8a97e-9ed4-4cac-bc94-889518cd0c21",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Clicking",
+                    "type": "PassThrough",
+                    "id": "b3766d4b-cb77-48f9-96e1-6f2880b749e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ScrollWheeling",
+                    "type": "PassThrough",
+                    "id": "19e99819-b39b-4787-bb7f-e2c5f696201f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MiddleClicking",
+                    "type": "PassThrough",
+                    "id": "2f0fcfa6-cf16-4bc8-a5d4-0d0de7f49e8c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RightClicking",
+                    "type": "PassThrough",
+                    "id": "b38d6dbf-c6f2-4dad-a881-a401878ed7cd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GoBack",
+                    "type": "PassThrough",
+                    "id": "6bc5b8ca-5d92-4330-8885-e25af149a4c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Curser",
+                    "type": "PassThrough",
+                    "id": "16096e29-728f-4e70-bcdf-979d463cfb91",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -188,7 +236,73 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse",
-                    "action": "Submit",
+                    "action": "Entering",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28b2340d-8603-4a18-be6a-c97575375700",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7091fa55-9cb1-41a3-a220-abab9b8dc1f4",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "ScrollWheeling",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb3b1023-f2d3-479e-81d2-82283cd26ef0",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "MiddleClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "936c1810-f3a9-4996-8054-8071d74f2812",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "RightClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ca5e188-749d-4394-a216-a6d1e21180b4",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GoBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93e6e2c1-b0b0-481e-9485-5a849d06aa17",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Curser",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

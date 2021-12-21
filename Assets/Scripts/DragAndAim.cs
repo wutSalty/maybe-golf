@@ -12,7 +12,6 @@ public class DragAndAim : MonoBehaviour
     public GameObject TheActualArrow; //It's an arrow
     public GameObject TheMask; //Mask to show arrow strength
     public GameObject TheBall; //The script to pass info to move the ball
-    //public EscMenu EscapeMenu; //Grabbing the status of the pause menu
 
     GameObject targetObject; //Top layer collider object
     Vector3 offset; //Offset of object to mouse
@@ -26,11 +25,6 @@ public class DragAndAim : MonoBehaviour
     private bool InMotion = false;
 
     private Vector3 mousePosition;
-
-    //void Awake()
-    //{
-    //    EscapeMenu = FindObjectOfType<EscMenu>().GetComponent<EscMenu>();
-    //}
 
     //When mouse is clicked, check if it's the item we want
     public void OnMouseLeftStarted(InputValue value)

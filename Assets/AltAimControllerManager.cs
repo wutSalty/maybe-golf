@@ -3,33 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 public class AltAimControllerManager : MonoBehaviour
 {
     private PlayerInput playerInput; //player input to switch stuff
+    public MultiplayerEventSystem eventSystem;
 
-    public Text PauseText; //the text for the pause button
-    public Text RestartText; //text for restart button
-    public GameObject UIManager; //the UIManager
-    //private RestartScene restartScene; //script for restarting scene
-    //private EscMenu escMenu; //script for escape menu
+    public GameObject PauseUI;
+    public Selectable ResumeButton;
 
-    public int PlayerIndex;
+    private Vector2 LeftMove;
+    private int PlayerIndex;
+
+    public SpriteRenderer BallSprite;
+    public SpriteMask spriteMask;
+    public SpriteRenderer insideSprite;
 
     //When awake, grab the things we need
     private void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
-        //restartScene = UIManager.GetComponent<RestartScene>();
-        //escMenu = UIManager.GetComponent<EscMenu>();
-
-        //OnControlsChanged(); !!!Not very priority but try and fix because of prefabs. Need to get reference to text when spawn
     }
 
     //When start, grab playerindex (we need this for disconnect purposes)
     private void Start()
     {
         PlayerIndex = playerInput.playerIndex;
+    }
+
+    public void Update()
+    {
+        if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject != null))
+        {
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+
+        if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject == null || eventSystem.currentSelectedGameObject.activeSelf))
+        {
+            eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
+        }
     }
 
     //When L+R pressed
@@ -41,13 +55,24 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(false, playerInput.playerIndex);
+        PauseGame.pM.ButtonClickOverrideCauseImLazy(true, PlayerIndex);
+        if (PauseGame.pM.MenuIsOpen)
+        {
+            PauseUI.SetActive(true);
+            eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
+            eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
+        }
+        else
+        {
+            PauseUI.SetActive(false);
+            eventSystem.SetSelectedGameObject(null);
+        }
     }
 
     //When 'left stick' moved
     public void OnNavigate(InputValue value)
     {
-        PauseGame.pM.LeftMove = value.Get<Vector2>();
+        LeftMove = value.Get<Vector2>();
     }
 
     //When control type changed (should only work in singleplayer)

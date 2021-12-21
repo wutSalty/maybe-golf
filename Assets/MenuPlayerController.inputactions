@@ -6,8 +6,8 @@
             "id": "59f41a1d-830c-4f2f-aeac-4551e7795221",
             "actions": [
                 {
-                    "name": "Up-Down-Left-Right",
-                    "type": "Value",
+                    "name": "Move",
+                    "type": "PassThrough",
                     "id": "2d1c271c-0df7-4238-af7a-ae2a7b8d71f4",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -46,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -57,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -68,18 +68,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
                     "id": "f7339eaa-2ede-4ce3-b898-3dced9b287af",
-                    "path": "<Gamepad>/leftStick/right",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -90,7 +90,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -101,7 +101,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -112,7 +112,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -123,7 +123,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -145,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

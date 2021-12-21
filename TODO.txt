@@ -13,9 +13,10 @@ Finalise win condition
 
 MULTIPLAYER:
 Disable collisions when on the T (Currently using Matrix to disable Player on Player collision)
-Try and fix Pause Menu ownership
+Clean up Pause Ownership (lots of left over things need to delete)
+Restart Button resets ball position, not scene
 
 EXTRAS:
 Button remapping
-Save file
+Save file (currently only player prefs is saved)
 Premium currency

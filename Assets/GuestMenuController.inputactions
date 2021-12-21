@@ -6,8 +6,8 @@
             "id": "ea105011-ab85-4a59-9ccf-911aa718ca7b",
             "actions": [
                 {
-                    "name": "Up-Down-Left-Right",
-                    "type": "Value",
+                    "name": "Move",
+                    "type": "PassThrough",
                     "id": "ce554f44-98d9-41b4-b9ed-507b362cbcdf",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Exit Menu",
+                    "type": "Button",
+                    "id": "f8b21177-9ba6-44dd-8080-60f68c93b2a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -46,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -57,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -68,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -79,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -90,7 +98,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -134,7 +142,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -145,7 +153,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -156,7 +164,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -167,7 +175,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -178,7 +186,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Up-Down-Left-Right",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -203,6 +211,39 @@
                     "action": "Remove Controller",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "88e38b5e-e31e-4e81-9345-1cc1c21a7c29",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit Menu",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "09e6f565-e4b6-406d-9f8c-fcd343ee4a28",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Exit Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "ce30799c-7c8d-4520-9117-1409caf43a28",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Exit Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

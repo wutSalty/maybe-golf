@@ -6,10 +6,12 @@ using UnityEngine.InputSystem;
 public class OnDeviceLostScript : MonoBehaviour
 {
     private PlayerInput playerInput;
+    public UIManager uiManager;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     private void Start()
@@ -22,6 +24,11 @@ public class OnDeviceLostScript : MonoBehaviour
         {
             playerInput.SwitchCurrentActionMap("MultiGuest");
         }
+    }
+
+    public void OnMove(InputValue value)
+    {
+        uiManager.LeftMove = value.Get<Vector2>();
     }
 
     //If the controller has been disconnected due to running out of batteries or other, start the delay
@@ -42,5 +49,10 @@ public class OnDeviceLostScript : MonoBehaviour
     void OnRemoveController()
     {
         Destroy(this.gameObject);
+    }
+
+    void OnExitMenu()
+    {
+        FindObjectOfType<UIManager>().ReturnMainFromMulti();
     }
 }

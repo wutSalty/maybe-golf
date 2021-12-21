@@ -290,10 +290,58 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Submit",
+                    "name": "Submitting",
                     "type": "PassThrough",
                     "id": "b24e622c-b5a7-424f-b764-250915dd18b7",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancelling",
+                    "type": "PassThrough",
+                    "id": "6d7d7f94-7a52-4e7f-94c4-136f245d2be7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Curser",
+                    "type": "PassThrough",
+                    "id": "dbed5b88-362a-448c-af49-8bca5795c55f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Clicking",
+                    "type": "PassThrough",
+                    "id": "a6f3b951-32cb-4e41-80fb-9dfb5f9950ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MiddleClicking",
+                    "type": "PassThrough",
+                    "id": "c3f5008e-3b76-40b9-a867-49de45e40831",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RightClicking",
+                    "type": "PassThrough",
+                    "id": "23b969f8-9f8e-4ae1-abea-00713db6dbe3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ScrollWheeling",
+                    "type": "PassThrough",
+                    "id": "76cb0320-edfd-4990-9aa3-2a1823a89750",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -433,12 +481,89 @@
                 },
                 {
                     "name": "",
+                    "id": "b598a6c9-1d7b-416c-a24b-2c3b87662a7a",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6baa4624-3cfc-4bde-8007-18bbba901329",
                     "path": "*/{Submit}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller;Keyboard",
-                    "action": "Submit",
+                    "action": "Submitting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87f0b404-9758-4411-90c0-274e7d6bec2a",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller;Keyboard",
+                    "action": "Cancelling",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7e9feaf-fb1f-4801-ac4b-1da9f9fb3f6b",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Curser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85b7d98d-cc26-4b67-8577-6b4454740806",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53d6538e-d5b4-497c-bb7c-97f80af514e9",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MiddleClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70204f5d-a9d1-4a97-8348-e618a2da09e7",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "RightClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da6139de-0a5b-4b38-829a-a154d4204009",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ScrollWheeling",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

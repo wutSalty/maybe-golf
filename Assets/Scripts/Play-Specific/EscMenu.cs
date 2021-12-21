@@ -8,87 +8,15 @@ using UnityEngine.InputSystem;
 
 public class EscMenu : MonoBehaviour
 {
-    //Migrated script to PauseGame
+    private PlayerInput playerInput;
+    public Text CurrentPlayerText;
 
-    //public Canvas PauseMenu;
-    //public Button ResumeButton;
+    private void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
 
-    //public EventSystem eventSystem;
-
-    //[HideInInspector]
-    //public Vector2 LeftMove;
-
-    //[HideInInspector]
-    //public static bool MenuIsOpen = false;
-
-    ////If user moves stuff, make sure things are updated
-    //public void Update()
-    //{
-    //    if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject != null))
-    //    {
-    //        eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
-    //    }
-
-    //    if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject == null || eventSystem.currentSelectedGameObject.activeSelf))
-    //    {
-    //        eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
-    //    }
-    //}
-
-    ////When the pause menu is accessed
-    //public void ButtonClickOverrideCauseImLazy(bool FromKey)
-    //{
-    //    bool ControllerYes = false;
-    //    PlayerInput[] listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
-    //    foreach (PlayerInput item in listofInputs) //For each of them
-    //    {
-    //        //Change the Action Map to the required one
-    //        if (MenuIsOpen == false)
-    //        {
-    //            item.SwitchCurrentActionMap("Pause Menu");
-    //        }
-    //        else
-    //        {
-    //            item.SwitchCurrentActionMap("In-Game Ball");
-    //        }
-
-    //        //If any of them are using button controls, set ControllerYes to true
-    //        if (item.currentControlScheme == "Keyboard" || item.currentControlScheme == "Controller" || FromKey)
-    //        {
-    //            ControllerYes = true;
-    //        }
-    //    }
-
-    //    OpenCloseMenu(); //Do menu stuff
-
-    //    //If accessed from a button, make sure the first option is selected
-    //    if (ControllerYes)
-    //    {
-    //        if (MenuIsOpen == true)
-    //        {
-    //            ResumeButton.Select();
-    //        }
-    //    }
-    //}
-
-    ////Opens or closes the menu
-    //public void OpenCloseMenu()
-    //{
-    //    if (MenuIsOpen == false)
-    //    {
-    //        Time.timeScale = 0;
-    //        MenuIsOpen = true;
-    //        PauseMenu.gameObject.SetActive(true);
-    //        eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
-    //    }
-    //    else
-    //    {
-    //        Time.timeScale = 1;
-    //        MenuIsOpen = false;
-    //        PauseMenu.gameObject.SetActive(false);
-    //        eventSystem.SetSelectedGameObject(null);
-    //    }
-    //}
+        CurrentPlayerText.text = "Paused By: Player " + (playerInput.playerIndex + 1);
+    }
 
     //Returns to main menu
     public void ReturnToMain()
@@ -100,5 +28,10 @@ public class EscMenu : MonoBehaviour
         GameManager.GM.NumPlayers.Clear();
 
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ResumeGame()
+    {
+
     }
 }

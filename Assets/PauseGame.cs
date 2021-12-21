@@ -19,7 +19,6 @@ public class PauseGame : MonoBehaviour
     public Text PlayerPausedText;
 
     public EventSystem eventSystem;
-    public InputSystemUIInputModule UiInputModule;
 
     [HideInInspector]
     public Vector2 LeftMove;
@@ -28,7 +27,6 @@ public class PauseGame : MonoBehaviour
     public bool MenuIsOpen = false;
 
     private PlayerInput CurrentPlayer;
-    public InputActionAsset inputActionAsset;
 
     void Awake()
     {
@@ -40,11 +38,6 @@ public class PauseGame : MonoBehaviour
         {
             pM = this;
         }
-    }
-
-    private void Start()
-    {
-        inputActionAsset = UiInputModule.actionsAsset;
     }
 
     //If user moves stuff, make sure things are updated
@@ -78,8 +71,8 @@ public class PauseGame : MonoBehaviour
                 if (item.playerIndex == pIndex) //Sets menu to the user who opened it
                 {
                     item.SwitchCurrentActionMap("UI");
-                    CurrentPlayer = item;
-                    CurrentPlayer.uiInputModule = UiInputModule;
+                    //CurrentPlayer = item;
+                    //CurrentPlayer.uiInputModule = UiInputModule;
                 } else
                 {
                     item.SwitchCurrentActionMap("Not Caller Menu");
@@ -102,26 +95,26 @@ public class PauseGame : MonoBehaviour
 
         OpenCloseMenu(); //Do menu stuff
 
-        if (pIndex != 99 && MenuIsOpen) //Select Resume button if not selected by mouse
-        {
-            switch (GameManager.GM.NumPlayers[pIndex].ControlType)
-            {
-                case 0: //Mouse
-                    break;
+        //if (pIndex != 99 && MenuIsOpen) //Select Resume button if not selected by mouse
+        //{
+        //    switch (GameManager.GM.NumPlayers[pIndex].ControlType)
+        //    {
+        //        case 0: //Mouse
+        //            break;
 
-                case 1: //Keyboard
-                    ResumeButton.Select();
-                    break;
+        //        case 1: //Keyboard
+        //            ResumeButton.Select();
+        //            break;
 
-                case 2: //Controller
-                    ResumeButton.Select();
-                    break;
+        //        case 2: //Controller
+        //            ResumeButton.Select();
+        //            break;
 
-                default:
-                    ResumeButton.Select();
-                    break;
-            }
-        }
+        //        default:
+        //            ResumeButton.Select();
+        //            break;
+        //    }
+        //}
     }
 
     //Opens or closes the menu
@@ -131,20 +124,20 @@ public class PauseGame : MonoBehaviour
         {
             Time.timeScale = 0;
             MenuIsOpen = true;
-            PauseMenu.gameObject.SetActive(true);
-            eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
+            //PauseMenu.gameObject.SetActive(true);
+            //eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else
         {
             Time.timeScale = 1;
             MenuIsOpen = false;
-            PauseMenu.gameObject.SetActive(false);
-            eventSystem.firstSelectedGameObject = null;
-            eventSystem.SetSelectedGameObject(null);
+            //PauseMenu.gameObject.SetActive(false);
+            //eventSystem.firstSelectedGameObject = null;
+            //eventSystem.SetSelectedGameObject(null);
 
             //For UI stuff that only needs to happen once
             //CurrentPlayer.uiInputModule = null;
-            UiInputModule.actionsAsset = inputActionAsset;
+            //UiInputModule.actionsAsset = inputActionAsset;
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.EventSystems;
 
 public class MultiplayerSelect : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MultiplayerSelect : MonoBehaviour
     public Text P4Connect;
 
     public PlayerInputManager inputManager;
+    public EventSystem eventSystem;
 
     [HideInInspector]
     public bool CurrentlyLoading = false;
@@ -112,6 +114,7 @@ public class MultiplayerSelect : MonoBehaviour
         if (inputManager.playerCount > 1)
         {
             PlayBtn.interactable = true;
+            eventSystem.firstSelectedGameObject = PlayBtn.gameObject;
             PlayText.text = "Ready to Play!";
         }
     }
@@ -149,6 +152,7 @@ public class MultiplayerSelect : MonoBehaviour
             if (inputManager.playerCount == 1) //If player left is only 1, disable play button
             {
                 PlayBtn.interactable = false;
+                eventSystem.firstSelectedGameObject = null;
                 PlayText.text = "Waiting for players...";
             }
         }

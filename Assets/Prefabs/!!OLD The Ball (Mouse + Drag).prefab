@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1381961635818196418}
   - component: {fileID: 1381961635818196419}
   m_Layer: 7
-  m_Name: The Ball (Mouse + Drag)
+  m_Name: '!!OLD The Ball (Mouse + Drag)'
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

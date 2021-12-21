@@ -27,7 +27,8 @@ public class UIManager : MonoBehaviour
 
     public MultiplayerSelect MultiSelectScript;
 
-    private Vector2 LeftMove;
+    [HideInInspector]
+    public Vector2 LeftMove;
 
     //Gets value of movement stick
     public void UpDownLeftRight(InputAction.CallbackContext value)

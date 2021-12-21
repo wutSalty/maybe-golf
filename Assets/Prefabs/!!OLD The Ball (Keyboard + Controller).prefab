@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 4642421792198873463}
   - component: {fileID: 4642421792198873460}
   m_Layer: 7
-  m_Name: The Ball (Keyboard + Controller)
+  m_Name: '!!OLD The Ball (Keyboard + Controller)'
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,10 +520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805a497ce6a67a14d8e167bf3dc95aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseText: {fileID: 0}
-  RestartText: {fileID: 0}
-  UIManager: {fileID: 0}
-  PlayerIndex: 0
+  PauseUI: {fileID: 0}
+  ResumeButton: {fileID: 0}
 --- !u!114 &4642421792198873462
 MonoBehaviour:
   m_ObjectHideFlags: 0
