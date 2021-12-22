@@ -68,9 +68,7 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'r' is pressed
     public void OnRestart()
     {
-        //RestartScene.DoTheRestart();
         BroadcastMessage("OnRestartBall");
-        //gameObject.transform.position = spawnLocation;
     }
 
     //When 'esc' is pressed
@@ -80,11 +78,11 @@ public class DragAndAimControllerManager : MonoBehaviour
         if (PauseGame.pM.MenuIsOpen) //Then do local menu
         {
             //Hijack input actions
-            //inputModule.point = uiPoint;
-            //inputModule.leftClick = uiLeftClick;
-            //inputModule.middleClick = uiMiddleClick;
-            //inputModule.rightClick = uiRightClick;
-            //inputModule.scrollWheel = uiScrollWheel;
+            inputModule.point = uiPoint;
+            inputModule.leftClick = uiLeftClick;
+            inputModule.middleClick = uiMiddleClick;
+            inputModule.rightClick = uiRightClick;
+            inputModule.scrollWheel = uiScrollWheel;
 
             //Pull up menu
             PauseUI.SetActive(true);
@@ -92,11 +90,11 @@ public class DragAndAimControllerManager : MonoBehaviour
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         } else
         {
-            //inputModule.point = InGamePoint;
-            //inputModule.leftClick = InGameLeftClick;
-            //inputModule.middleClick = InGameMiddleClick;
-            //inputModule.rightClick = InGameRightClick;
-            //inputModule.scrollWheel = InGameScrollWheel;
+            inputModule.point = InGamePoint;
+            inputModule.leftClick = InGameLeftClick;
+            inputModule.middleClick = InGameMiddleClick;
+            inputModule.rightClick = InGameRightClick;
+            inputModule.scrollWheel = InGameScrollWheel;
 
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
@@ -109,22 +107,22 @@ public class DragAndAimControllerManager : MonoBehaviour
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
         if (PauseGame.pM.MenuIsOpen)
         {
-            //inputModule.point = uiPoint;
-            //inputModule.leftClick = uiLeftClick;
-            //inputModule.middleClick = uiMiddleClick;
-            //inputModule.rightClick = uiRightClick;
-            //inputModule.scrollWheel = uiScrollWheel;
+            inputModule.point = uiPoint;
+            inputModule.leftClick = uiLeftClick;
+            inputModule.middleClick = uiMiddleClick;
+            inputModule.rightClick = uiRightClick;
+            inputModule.scrollWheel = uiScrollWheel;
 
             PauseUI.SetActive(true);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else
         {
-            //inputModule.point = InGamePoint;
-            //inputModule.leftClick = InGameLeftClick;
-            //inputModule.middleClick = InGameMiddleClick;
-            //inputModule.rightClick = InGameRightClick;
-            //inputModule.scrollWheel = InGameScrollWheel;
+            inputModule.point = InGamePoint;
+            inputModule.leftClick = InGameLeftClick;
+            inputModule.middleClick = InGameMiddleClick;
+            inputModule.rightClick = InGameRightClick;
+            inputModule.scrollWheel = InGameScrollWheel;
 
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);

@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 1986369610367205532}
   - component: {fileID: 1986369610367205535}
   m_Layer: 0
-  m_Name: The Ball (Keyboard + Controller) Master A
+  m_Name: The Ball (Keyboard + Controller) Master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,21 +1026,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1986369610367205532}
-  inputModule: {fileID: 1986369610367205535}
-  inputAsset: {fileID: -944628639613478452, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  InGamePoint: {fileID: -6186088050282873333, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  InGameLeftClick: {fileID: 4246325976636562315, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  InGameMiddleClick: {fileID: 2212470646157241703, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  InGameRightClick: {fileID: 2401949698316748264, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  InGameScrollWheel: {fileID: 3010807740689907707, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiPoint: {fileID: 3434351200542015722, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiLeftClick: {fileID: 5430074132966526429, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiMiddleClick: {fileID: -1485361594326287783, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiRightClick: {fileID: 8932199289409849662, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiScrollWheel: {fileID: -1455969413669312816, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiNavigate: {fileID: 8209940246242989401, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiSubmit: {fileID: 2076735126655584363, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  uiCancel: {fileID: 3142197284504463912, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
   PauseUI: {fileID: 917585092144311986}
   HUDUi: {fileID: 1017705876363112938}
   ResumeButton: {fileID: 1986369608609332678}
@@ -1091,14 +1076,14 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_ActionsAsset: {fileID: -944628639613478452, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  m_PointAction: {fileID: -6186088050282873333, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
+  m_PointAction: {fileID: 3434351200542015722, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
   m_MoveAction: {fileID: 8209940246242989401, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
   m_SubmitAction: {fileID: 2076735126655584363, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
   m_CancelAction: {fileID: 3142197284504463912, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  m_LeftClickAction: {fileID: 4246325976636562315, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  m_MiddleClickAction: {fileID: 2212470646157241703, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  m_RightClickAction: {fileID: 2401949698316748264, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
-  m_ScrollWheelAction: {fileID: 3010807740689907707, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
+  m_LeftClickAction: {fileID: 5430074132966526429, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
+  m_MiddleClickAction: {fileID: -1485361594326287783, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
+  m_RightClickAction: {fileID: 8932199289409849662, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
+  m_ScrollWheelAction: {fileID: -1455969413669312816, guid: 14b741353f6cff942837dd6131b36fce, type: 3}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1

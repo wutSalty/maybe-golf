@@ -3,9 +3,6 @@
 Create World Map
 Create Stages
 
-MENU:
-Returning from 2P selectable
-
 SINGLEPLAYER:
 Create hit counter
 Create time trials
@@ -13,7 +10,8 @@ Finalise win condition
 
 MULTIPLAYER:
 Disable collisions when on the T (Currently using Matrix to disable Player on Player collision)
-Clean up Pause Ownership (lots of left over things need to delete)
+Decide on HUD behaviour (may only work for Drag mode)
+Allow KB to decide control type on Multiscreen
 
 EXTRAS:
 Button remapping
