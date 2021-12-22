@@ -36,6 +36,46 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "Curser",
+                    "type": "PassThrough",
+                    "id": "ed649a68-72b2-43fb-98ff-2a148ad8a735",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Clicking",
+                    "type": "PassThrough",
+                    "id": "5ee1d610-f72d-4099-9fd5-404629107f50",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MiddleClicking",
+                    "type": "PassThrough",
+                    "id": "25798f0b-89e1-4963-99e4-ddb74693993b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RightClicking",
+                    "type": "PassThrough",
+                    "id": "c75f4e25-b6ba-4d99-928d-9ecfa3b081b5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ScrollWheeling",
+                    "type": "PassThrough",
+                    "id": "7b87b49d-5f1b-4e09-b837-9731b6ffdc4e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -80,6 +120,61 @@
                     "processors": "",
                     "groups": "Mouse",
                     "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bf63c57-b7f5-4b52-a3d7-5fb1fe6c16d9",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Curser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bc3312b-a3fb-410e-97e2-aa251edeba42",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "034563de-f3de-4131-99d4-3e0af717a852",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "RightClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2293d216-024f-4ca3-adde-0c824fc539e7",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "MiddleClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a51b88e2-4a20-4c78-9a39-41570206abd9",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "ScrollWheeling",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

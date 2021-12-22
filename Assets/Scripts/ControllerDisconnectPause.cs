@@ -49,7 +49,7 @@ public class ControllerDisconnectPause : MonoBehaviour
             //Change the Action Map to the required one
             if (PauseGame.pM.MenuIsOpen == false)
             {
-                item.SwitchCurrentActionMap("Pause Menu");
+                item.SwitchCurrentActionMap("UI");
             }
             else
             {
