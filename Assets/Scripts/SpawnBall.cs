@@ -15,6 +15,8 @@ public class SpawnBall : MonoBehaviour
 
     public Sprite[] MultiSprites;
 
+    public GameObject[] BallButtonPrefabs;
+
     void Awake()
     {
         GameManager gameMan = GameManager.GM;
@@ -58,7 +60,7 @@ public class SpawnBall : MonoBehaviour
                             break;
 
                         case 1:
-                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Keyboard", -1, item.inputDevice);
+                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefabs[item.PlayerIndex], item.PlayerIndex, "Keyboard", -1, item.inputDevice);
 
                             var ControllerManagerB = CurrentBall.GetComponent<AltAimControllerManager>();
 
@@ -70,7 +72,7 @@ public class SpawnBall : MonoBehaviour
                             break;
 
                         case 2:
-                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Controller", -1, item.inputDevice);
+                            CurrentBall = PlayerInput.Instantiate(BallButtonPrefabs[item.PlayerIndex], item.PlayerIndex, "Controller", -1, item.inputDevice);
 
                             var ControllerManagerC = CurrentBall.GetComponent<AltAimControllerManager>();
 

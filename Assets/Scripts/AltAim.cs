@@ -85,4 +85,13 @@ public class AltAim : MonoBehaviour
         ArrowOutline.SetActive(true);
         ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
     }
+
+    void OnRestartBall()
+    {
+        gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+        BallPhysics.velocity = Vector2.zero;
+        ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
+        ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+    }
 }

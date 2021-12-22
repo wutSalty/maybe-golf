@@ -26,8 +26,6 @@ public class PauseGame : MonoBehaviour
     [HideInInspector]
     public bool MenuIsOpen = false;
 
-    private PlayerInput CurrentPlayer;
-
     void Awake()
     {
         if (pM != null && pM != this)
@@ -56,11 +54,11 @@ public class PauseGame : MonoBehaviour
 
     public void OverrideForThePauseOverride()
     {
-        ButtonClickOverrideCauseImLazy(false, 99);
+        ButtonClickOverrideCauseImLazy(99);
     }
 
     //When the pause menu is accessed
-    public void ButtonClickOverrideCauseImLazy(bool FromKey, int pIndex)
+    public void ButtonClickOverrideCauseImLazy(int pIndex)
     {
         PlayerInput[] listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
         foreach (PlayerInput item in listofInputs) //For each of them
@@ -71,8 +69,6 @@ public class PauseGame : MonoBehaviour
                 if (item.playerIndex == pIndex) //Sets menu to the user who opened it
                 {
                     item.SwitchCurrentActionMap("UI");
-                    //CurrentPlayer = item;
-                    //CurrentPlayer.uiInputModule = UiInputModule;
                 } else
                 {
                     item.SwitchCurrentActionMap("Not Caller Menu");
@@ -83,38 +79,7 @@ public class PauseGame : MonoBehaviour
                 item.SwitchCurrentActionMap("In-Game Ball");
             }
         }
-
-        //If menu was clicked by mouse, show "by host" instead of "by player"
-        if (pIndex == 99)
-        {
-            PlayerPausedText.text = "Paused By: Host";
-        } else
-        {
-            PlayerPausedText.text = "Paused By: Player " + (pIndex + 1);
-        }
-
         OpenCloseMenu(); //Do menu stuff
-
-        //if (pIndex != 99 && MenuIsOpen) //Select Resume button if not selected by mouse
-        //{
-        //    switch (GameManager.GM.NumPlayers[pIndex].ControlType)
-        //    {
-        //        case 0: //Mouse
-        //            break;
-
-        //        case 1: //Keyboard
-        //            ResumeButton.Select();
-        //            break;
-
-        //        case 2: //Controller
-        //            ResumeButton.Select();
-        //            break;
-
-        //        default:
-        //            ResumeButton.Select();
-        //            break;
-        //    }
-        //}
     }
 
     //Opens or closes the menu
@@ -124,20 +89,11 @@ public class PauseGame : MonoBehaviour
         {
             Time.timeScale = 0;
             MenuIsOpen = true;
-            //PauseMenu.gameObject.SetActive(true);
-            //eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else
         {
             Time.timeScale = 1;
             MenuIsOpen = false;
-            //PauseMenu.gameObject.SetActive(false);
-            //eventSystem.firstSelectedGameObject = null;
-            //eventSystem.SetSelectedGameObject(null);
-
-            //For UI stuff that only needs to happen once
-            //CurrentPlayer.uiInputModule = null;
-            //UiInputModule.actionsAsset = inputActionAsset;
         }
     }
 

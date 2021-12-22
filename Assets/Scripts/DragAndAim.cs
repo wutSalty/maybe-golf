@@ -135,4 +135,13 @@ public class DragAndAim : MonoBehaviour
         ClickableObject.gameObject.SetActive(false);
         TheActualArrow.SetActive(false);
     }
+
+    void OnRestartBall()
+    {
+        gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+        BallPhysics.velocity = Vector2.zero;
+        TheActualArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
+        TheMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+    }
 }

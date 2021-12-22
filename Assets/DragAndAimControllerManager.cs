@@ -9,7 +9,22 @@ using UnityEngine.InputSystem.UI;
 public class DragAndAimControllerManager : MonoBehaviour
 {
     private PlayerInput playerInput; //player input to switch stuff
-    public MultiplayerEventSystem eventSystem;
+    public MultiplayerEventSystem eventSystem; //Multiplayer event system to set active object
+    public InputSystemUIInputModule inputModule; //ui input system to hijack actions
+
+    //Pointing and clicking for in-game HUD
+    public InputActionReference InGamePoint;
+    public InputActionReference InGameLeftClick;
+    public InputActionReference InGameMiddleClick;
+    public InputActionReference InGameRightClick;
+    public InputActionReference InGameScrollWheel;
+
+    //Pointing and clicking for menu
+    public InputActionReference uiPoint;
+    public InputActionReference uiLeftClick;
+    public InputActionReference uiMiddleClick;
+    public InputActionReference uiRightClick;
+    public InputActionReference uiScrollWheel;
 
     public GameObject PauseUI;
     public Selectable ResumeButton;
@@ -21,17 +36,22 @@ public class DragAndAimControllerManager : MonoBehaviour
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
 
+    private Vector3 spawnLocation;
+
     //When awake, grab the things we need
     private void Awake()
     {
         playerInput = gameObject.GetComponent<PlayerInput>();
     }
 
+    //When start, grab references to these stuff
     private void Start()
     {
         PlayerIndex = playerInput.playerIndex;
+        spawnLocation = gameObject.transform.position;
     }
 
+    //On every frame, check these things
     public void Update()
     {
         if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject != null))
@@ -48,20 +68,36 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'r' is pressed
     public void OnRestart()
     {
-        RestartScene.DoTheRestart();
+        //RestartScene.DoTheRestart();
+        BroadcastMessage("OnRestartBall");
+        //gameObject.transform.position = spawnLocation;
     }
 
     //When 'esc' is pressed
     public void OnMenuMouse()
     {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(true, PlayerIndex);
-        if (PauseGame.pM.MenuIsOpen)
+        PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex); //Set global pause
+        if (PauseGame.pM.MenuIsOpen) //Then do local menu
         {
+            //Hijack input actions
+            //inputModule.point = uiPoint;
+            //inputModule.leftClick = uiLeftClick;
+            //inputModule.middleClick = uiMiddleClick;
+            //inputModule.rightClick = uiRightClick;
+            //inputModule.scrollWheel = uiScrollWheel;
+
+            //Pull up menu
             PauseUI.SetActive(true);
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         } else
         {
+            //inputModule.point = InGamePoint;
+            //inputModule.leftClick = InGameLeftClick;
+            //inputModule.middleClick = InGameMiddleClick;
+            //inputModule.rightClick = InGameRightClick;
+            //inputModule.scrollWheel = InGameScrollWheel;
+
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
@@ -70,13 +106,26 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' pressed from in menu
     public void OnMenu()
     {
-        PauseGame.pM.ButtonClickOverrideCauseImLazy(false, PlayerIndex);
+        PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
         if (PauseGame.pM.MenuIsOpen)
         {
+            //inputModule.point = uiPoint;
+            //inputModule.leftClick = uiLeftClick;
+            //inputModule.middleClick = uiMiddleClick;
+            //inputModule.rightClick = uiRightClick;
+            //inputModule.scrollWheel = uiScrollWheel;
+
             PauseUI.SetActive(true);
+            eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else
         {
+            //inputModule.point = InGamePoint;
+            //inputModule.leftClick = InGameLeftClick;
+            //inputModule.middleClick = InGameMiddleClick;
+            //inputModule.rightClick = InGameRightClick;
+            //inputModule.scrollWheel = InGameScrollWheel;
+
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
