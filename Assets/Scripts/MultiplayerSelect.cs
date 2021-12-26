@@ -9,19 +9,21 @@ using UnityEngine.EventSystems;
 
 public class MultiplayerSelect : MonoBehaviour
 {
-    public Slider PlayerSelectSlider;
-    public Text NoOfPlayers;
+    //The play buttons and text
     public Button PlayBtn;
     public Text PlayText;
 
-    public Text P1Connect;
-    public Text P2Connect;
-    public Text P3Connect;
-    public Text P4Connect;
+    //List of text showing connected players
+    public List<Text> TextList;
 
+    //List of dropdown for keyboard user
+    public List<Dropdown> DropdownList;
+
+    //Input managers
     public PlayerInputManager inputManager;
     public EventSystem eventSystem;
 
+    //Flag to signal switch scenes
     [HideInInspector]
     public bool CurrentlyLoading = false;
 
@@ -32,84 +34,36 @@ public class MultiplayerSelect : MonoBehaviour
         PlayText.text = "Waiting for players...";
     }
 
-    //Updates text for P1 when entering menu
-    public void UpdatePlayerOneText()
-    {
-        if (PlayerPrefs.GetInt("InputType", 0) == 0) //Set input type text
-        {
-            P1Connect.text = "Connected\nClick and Drag";
-        }
-        else
-        {
-            P1Connect.text = "Connected\nKeyboard/Buttons";
-        }
-    }
-
     public void WhenAPlayerJoins(PlayerInput value)
     {
         string ControlName = "Demo";
         int ControlType = 0;
+        int pIndex = value.playerIndex;
 
         //Checks if enough indexes are available, if not create new index
-        if (GameManager.GM.NumPlayers.Count - 1 < value.playerIndex)
+        if (GameManager.GM.NumPlayers.Count - 1 < pIndex)
         {
-            GameManager.GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) });
+            GameManager.GM.NumPlayers.Add(new MultiPlayerClass { });
         }
 
-        //Checks device type being connected
+        //Checks device type being connected. Applies appropriate text or control type
         if (value.currentControlScheme == "Controller")
         {
             ControlName = "Controller/Buttons";
             ControlType = 2; //2 = Controller buttons
         } else
         {
-            if (PlayerPrefs.GetInt("InputType", 0) == 1)
-            {
-                ControlName = "Keyboard/Buttons";
-                ControlType = 1; //1 = Keyboard Buttons
-            } else
-            {
-                ControlName = "Click and Drag";
-                ControlType = 0; //0 = Mouse click and drag
-            }
+            DropdownList[pIndex].gameObject.SetActive(true);
+            ControlType = 0;
         }
 
-        //Depending on what number player joined, change text and assign data items to array
-        switch (value.playerIndex)
-        {
-            case 0:
-                P1Connect.text = "Connected\n" + ControlName;
-                GameManager.GM.NumPlayers[0].PlayerIndex = 0;
-                GameManager.GM.NumPlayers[0].ControlType = ControlType;
-                GameManager.GM.NumPlayers[0].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
-                Debug.Log(InputUser.all[value.playerIndex].pairedDevices[0]);
-                break;
-
-            case 1:
-                P2Connect.text = "Connected\n" + ControlName;
-                GameManager.GM.NumPlayers[1].PlayerIndex = 1;
-                GameManager.GM.NumPlayers[1].ControlType = ControlType;
-                GameManager.GM.NumPlayers[1].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
-                break;
-
-            case 2:
-                P3Connect.text = "Connected\n" + ControlName;
-                GameManager.GM.NumPlayers[2].PlayerIndex = 2;
-                GameManager.GM.NumPlayers[2].ControlType = ControlType;
-                GameManager.GM.NumPlayers[2].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
-                break;
-
-            case 3:
-                P4Connect.text = "Connected\n" + ControlName;
-                GameManager.GM.NumPlayers[3].PlayerIndex = 3;
-                GameManager.GM.NumPlayers[3].ControlType = ControlType;
-                GameManager.GM.NumPlayers[3].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
-                break;
-
-            default:
-                break;
-        };
-        
+        //Displays and stores all relevant information
+        TextList[pIndex].text = "Connected\n" + ControlName;
+        GameManager.GM.NumPlayers[pIndex].PlayerIndex = pIndex;
+        GameManager.GM.NumPlayers[pIndex].ControlType = ControlType;
+        GameManager.GM.NumPlayers[pIndex].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
+        Debug.Log("Player " + pIndex + "'s input device is: " + InputUser.all[pIndex].pairedDevices[0]);
+   
         //Once more than 1 player is present, allow game to start
         if (inputManager.playerCount > 1)
         {
@@ -119,35 +73,20 @@ public class MultiplayerSelect : MonoBehaviour
         }
     }
 
+    //When the dropdown is updated, update the relevant Control Type
+    public void DropdownUpdate(int playerIndex)
+    {
+        GameManager.GM.NumPlayers[playerIndex].ControlType = DropdownList[playerIndex].value;
+    }
+
     public void WhenAPlayerDisconnects(PlayerInput value)
     {
         if (CurrentlyLoading == false) //Needs check in-case game is changing scenes
         {
-            switch (value.playerIndex) //Depending on the player that disconnected, update stuff
-            {
-                case 0:
-                    P1Connect.text = "Not Connected";
-                    GameManager.GM.NumPlayers[0].PlayerIndex = 99;
-                    break;
-
-                case 1:
-                    P2Connect.text = "Not Connected";
-                    GameManager.GM.NumPlayers[1].PlayerIndex = 99;
-                    break;
-
-                case 2:
-                    P3Connect.text = "Not Connected";
-                    GameManager.GM.NumPlayers[2].PlayerIndex = 99;
-                    break;
-
-                case 3:
-                    P4Connect.text = "Not Connected";
-                    GameManager.GM.NumPlayers[3].PlayerIndex = 99;
-                    break;
-
-                default:
-                    break;
-            };
+            //Disable and reset everything
+            DropdownList[value.playerIndex].gameObject.SetActive(false);
+            TextList[value.playerIndex].text = "Not Connected";
+            GameManager.GM.NumPlayers[value.playerIndex].PlayerIndex = 99;
             
             if (inputManager.playerCount == 1) //If player left is only 1, disable play button
             {

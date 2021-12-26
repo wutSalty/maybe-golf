@@ -22,6 +22,9 @@ public class AltAimControllerManager : MonoBehaviour
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
 
+    public InputSystemUIInputModule ingameModule;
+    public InputSystemUIInputModule uiModule;
+
     private Vector3 spawnLocation;
 
     //When awake, grab the things we need
@@ -35,6 +38,7 @@ public class AltAimControllerManager : MonoBehaviour
     {
         PlayerIndex = playerInput.playerIndex;
         spawnLocation = gameObject.transform.position;
+        uiModule.enabled = false;
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
@@ -67,12 +71,20 @@ public class AltAimControllerManager : MonoBehaviour
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
         if (PauseGame.pM.MenuIsOpen)
         {
+            //ingameModule.enabled = false;
+            //playerInput.uiInputModule = uiModule;
+            //uiModule.enabled = true;
+
             PauseUI.SetActive(true);
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else
         {
+            //uiModule.enabled = false;
+            //playerInput.uiInputModule = ingameModule;
+            //ingameModule.enabled = true;
+
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }

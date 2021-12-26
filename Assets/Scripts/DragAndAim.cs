@@ -13,6 +13,8 @@ public class DragAndAim : MonoBehaviour
     public GameObject TheMask; //Mask to show arrow strength
     public GameObject TheBall; //The script to pass info to move the ball
 
+    public int NoOfHits = 0;
+
     GameObject targetObject; //Top layer collider object
     Vector3 offset; //Offset of object to mouse
     float XDist; //Distance of A to B in X
@@ -55,6 +57,11 @@ public class DragAndAim : MonoBehaviour
             }
             else if (MaskScaleX > 1)
             {
+                NoOfHits += 1;
+                if (NoOfHits >= 1)
+                {
+                    gameObject.layer = 7;
+                }
                 BallMoveScript.ReceiveBallInfo(MaskScaleX, AngleOfAim);
                 InMotion = true;
                 TurnThingsOff();
@@ -143,5 +150,6 @@ public class DragAndAim : MonoBehaviour
         BallPhysics.velocity = Vector2.zero;
         TheActualArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
         TheMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+        gameObject.layer = 8;
     }
 }

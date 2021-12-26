@@ -5,14 +5,16 @@ using UnityEngine.InputSystem;
 
 public class SpawnBall : MonoBehaviour
 {
-    public GameObject SpawnLocation;
-    public GameObject BallDragPrefab;
-    public GameObject BallButtonPrefab;
+    public GameObject SpawnLocation; //Location to spawn the ball (uses empty gameobject)
+    public GameObject BallDragPrefab; //The "template" for mouse input
+    public GameObject BallButtonPrefab; //The "template" for button input
 
     private PlayerInput CurrentBall;
 
+    //Numbers required to set sprite mask layers
     public int[] DefaultSpriteMasks;
 
+    //Different sprites for the balls in multiplayer
     public Sprite[] MultiSprites;
 
     void Awake()

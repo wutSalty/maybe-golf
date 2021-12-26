@@ -4,14 +4,12 @@ Create World Map
 Create Stages
 
 SINGLEPLAYER:
-Create hit counter
+Create hit counter - Need to sync with global
 Create time trials
 Finalise win condition
 
 MULTIPLAYER:
-Disable collisions when on the T (Currently using Matrix to disable Player on Player collision)
-Decide on HUD behaviour (may only work for Drag mode)
-Allow KB to decide control type on Multiscreen
+Try updating Input System?
 
 EXTRAS:
 Button remapping

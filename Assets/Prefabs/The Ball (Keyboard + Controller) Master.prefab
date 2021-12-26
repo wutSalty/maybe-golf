@@ -1761,7 +1761,7 @@ GameObject:
   - component: {fileID: 6628228445740085669}
   - component: {fileID: 6628228445740085668}
   - component: {fileID: 6628228445740085671}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: The Ball Visual (Keyboard + Controller)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1852,6 +1852,7 @@ MonoBehaviour:
   RotMultiplier: 450
   MaskScale: 5
   ScriptToMoveTheBall: {fileID: 6628228445740085669}
+  NoOfHits: 0
 --- !u!114 &6628228445740085669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,7 +1902,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 6628228445740085665}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e17f3012c41bacd4e8fdc80a5f1fff0e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

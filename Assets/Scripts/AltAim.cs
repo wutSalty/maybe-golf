@@ -14,7 +14,8 @@ public class AltAim : MonoBehaviour
 
     public MoveBall ScriptToMoveTheBall; //The script that applies the velocity
 
-    //public EscMenu PauseMenu; //Pause menu
+    public int NoOfHits = 0;
+
     private bool PlayOK = true; //Whether it's OK to be in play or not
 
     private bool InMotion = false; //Is the ball moving
@@ -39,6 +40,11 @@ public class AltAim : MonoBehaviour
     {
         if (InMotion == false)
         {
+            NoOfHits += 1;
+            if (NoOfHits >= 1)
+            {
+                gameObject.layer = 7;
+            }
             ScriptToMoveTheBall.ReceiveBallInfo(ScaleX, ArrowOutline.transform.eulerAngles.z);
             TurnThingsOff();
             InMotion = true;
@@ -93,5 +99,6 @@ public class AltAim : MonoBehaviour
         BallPhysics.velocity = Vector2.zero;
         ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
         ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+        gameObject.layer = 8;
     }
 }
