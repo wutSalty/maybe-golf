@@ -11,8 +11,7 @@ public class FlagWin : MonoBehaviour
         {
             Debug.Log("You win");
 
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            collision.gameObject.GetComponent<MoveBall>().FlagHitYet = true;
+            collision.gameObject.GetComponent<MoveBall>().BallHasWon();
 
             //StartCoroutine(MoveToPosition(TheBall.transform, EndPosition, 0.5f)); //!!Testing
         }      
@@ -38,5 +37,4 @@ public class FlagWin : MonoBehaviour
     //}
 }
 //TODO
-//Set End pos to location of collider OR change flag to non-tile object
 //Tweak smoothing velocity once hit goal

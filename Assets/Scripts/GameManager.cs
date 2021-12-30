@@ -8,13 +8,16 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
 
     public bool SingleMode = false;
-    public List<MultiPlayerClass> NumPlayers;
 
-    //Guide for Multiplayer Players
+    public List<MultiPlayerClass> NumPlayers;
+    //Guide for Multiplayer Players (NumPlayers)
 
     //ControlType = The controller they are using; 0 = Mouse, 1 = Buttons
     //PlayerIndex = The position the player has connected; 99 = Player disconnected so please ignore
     //inputDevice = The device the player used to connect. Required for pairing when switching scenes
+
+    public List<LevelFormat> LevelData;
+    //LevelData required for saving level data
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -25,9 +28,23 @@ public class GameManager : MonoBehaviour
         } else
         {
             GM = this;
-            //GM.NumPlayers.Add(new MultiPlayerClass { ControlType = PlayerPrefs.GetInt("InputType", 0) });
-            //GM.NumPlayers[0].PlayerIndex = 0;
         }
         DontDestroyOnLoad(this);
+    }
+
+    public void SavePlayer()
+    {
+        PlayerData data = new PlayerData(this);
+        SaveSystem.SaveGame(data);
+
+        Debug.Log("Game saved at: " + System.DateTime.Now);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadGame();
+        LevelData = data.LevelData;
+
+        Debug.Log("Game loaded at: " + System.DateTime.Now);
     }
 }

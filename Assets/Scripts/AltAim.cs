@@ -14,8 +14,6 @@ public class AltAim : MonoBehaviour
 
     public MoveBall ScriptToMoveTheBall; //The script that applies the velocity
 
-    public int NoOfHits = 0;
-
     private bool PlayOK = true; //Whether it's OK to be in play or not
 
     private bool InMotion = false; //Is the ball moving
@@ -24,6 +22,11 @@ public class AltAim : MonoBehaviour
 
     private float AimingVal = 0;
     private float PowerVal = 0;
+
+    private void Start()
+    {
+        ScriptToMoveTheBall.playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
+    }
 
     //Input System Magic
     public void OnAiming(InputValue value)
@@ -40,11 +43,6 @@ public class AltAim : MonoBehaviour
     {
         if (InMotion == false)
         {
-            NoOfHits += 1;
-            if (NoOfHits >= 1)
-            {
-                gameObject.layer = 7;
-            }
             ScriptToMoveTheBall.ReceiveBallInfo(ScaleX, ArrowOutline.transform.eulerAngles.z);
             TurnThingsOff();
             InMotion = true;
@@ -71,7 +69,7 @@ public class AltAim : MonoBehaviour
         }
 
         //Pause needs to be checked at the end of update to prevent ball from launching when closing menu
-        if (PauseGame.pM.MenuIsOpen)
+        if (PauseGame.pM.MenuIsOpen || ControllerDisconnectPause.ControlDC.CurrentlyDC)
         {
             PlayOK = false;
         }
@@ -94,11 +92,14 @@ public class AltAim : MonoBehaviour
 
     void OnRestartBall()
     {
-        gameObject.transform.localPosition = Vector3.zero;
-        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-        BallPhysics.velocity = Vector2.zero;
-        ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
-        ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
-        gameObject.layer = 8;
+        if (ScriptToMoveTheBall.FlagHitYet == false)
+        {
+            gameObject.transform.localPosition = Vector3.zero;
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            BallPhysics.velocity = Vector2.zero;
+            ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
+            ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+            gameObject.layer = 8;
+        }
     }
 }

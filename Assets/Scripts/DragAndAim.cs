@@ -13,8 +13,6 @@ public class DragAndAim : MonoBehaviour
     public GameObject TheMask; //Mask to show arrow strength
     public GameObject TheBall; //The script to pass info to move the ball
 
-    public int NoOfHits = 0;
-
     GameObject targetObject; //Top layer collider object
     Vector3 offset; //Offset of object to mouse
     float XDist; //Distance of A to B in X
@@ -31,7 +29,7 @@ public class DragAndAim : MonoBehaviour
     //When mouse is clicked, check if it's the item we want
     public void OnMouseLeftStarted(InputValue value)
     {
-        if (Physics2D.OverlapPoint(mousePosition) && PauseGame.pM.MenuIsOpen == false)
+        if (Physics2D.OverlapPoint(mousePosition) && PauseGame.pM.MenuIsOpen == false && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
             Collider2D[] results = Physics2D.OverlapPointAll(mousePosition);
             Collider2D highestCollider = GetHighestObject(results);
@@ -57,11 +55,6 @@ public class DragAndAim : MonoBehaviour
             }
             else if (MaskScaleX > 1)
             {
-                NoOfHits += 1;
-                if (NoOfHits >= 1)
-                {
-                    gameObject.layer = 7;
-                }
                 BallMoveScript.ReceiveBallInfo(MaskScaleX, AngleOfAim);
                 InMotion = true;
                 TurnThingsOff();
@@ -74,6 +67,8 @@ public class DragAndAim : MonoBehaviour
     {
         BallPhysics = TheBall.GetComponent<Rigidbody2D>();
         BallMoveScript = TheBall.GetComponent<MoveBall>();
+
+        BallMoveScript.playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
     }
 
     //Every frame, check the position of the mouse and the movement of the ball
@@ -145,11 +140,14 @@ public class DragAndAim : MonoBehaviour
 
     void OnRestartBall()
     {
-        gameObject.transform.localPosition = Vector3.zero;
-        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-        BallPhysics.velocity = Vector2.zero;
-        TheActualArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
-        TheMask.transform.localScale = new Vector3(1f, 0.7f, 0);
-        gameObject.layer = 8;
+        if (BallMoveScript.FlagHitYet == false)
+        {
+            gameObject.transform.localPosition = Vector3.zero;
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            BallPhysics.velocity = Vector2.zero;
+            TheActualArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
+            TheMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+            gameObject.layer = 8;
+        }
     }
 }

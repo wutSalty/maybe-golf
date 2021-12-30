@@ -1,17 +1,19 @@
 ---TODO---
 
 Create World Map
-Create Stages
+Create Stages (3-4 + Scripted tutorial?)
 
 SINGLEPLAYER:
-Create hit counter - Need to sync with global
 Create time trials
 Finalise win condition
 
 MULTIPLAYER:
-Try updating Input System?
 
 EXTRAS:
 Button remapping
-Save file (currently only player prefs is saved)
+- Looks too hard now due to multiplayer support. Instead show controls and allow adjusting sensitivity in pause menu
+
+Save file (preliminary level format)
+- Need to make game save high scores only in singleplayer mode. Maybe some multi data too
+
 Premium currency

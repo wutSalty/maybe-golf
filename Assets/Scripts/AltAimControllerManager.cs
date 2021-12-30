@@ -22,9 +22,6 @@ public class AltAimControllerManager : MonoBehaviour
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
 
-    public InputSystemUIInputModule ingameModule;
-    public InputSystemUIInputModule uiModule;
-
     private Vector3 spawnLocation;
 
     //When awake, grab the things we need
@@ -38,7 +35,6 @@ public class AltAimControllerManager : MonoBehaviour
     {
         PlayerIndex = playerInput.playerIndex;
         spawnLocation = gameObject.transform.position;
-        uiModule.enabled = false;
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
@@ -69,22 +65,14 @@ public class AltAimControllerManager : MonoBehaviour
     public void OnMenu()
     {
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
-        if (PauseGame.pM.MenuIsOpen)
+        if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
-            //ingameModule.enabled = false;
-            //playerInput.uiInputModule = uiModule;
-            //uiModule.enabled = true;
-
             PauseUI.SetActive(true);
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
-        else
+        else if (ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
-            //uiModule.enabled = false;
-            //playerInput.uiInputModule = ingameModule;
-            //ingameModule.enabled = true;
-
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
@@ -97,10 +85,10 @@ public class AltAimControllerManager : MonoBehaviour
     }
 
     //When control type changed (should only work in singleplayer)
-    public void OnControlsChanged()
-    {
-        PauseGame.pM.ControlsHaveChanged(playerInput);
-    }
+    //public void OnControlsChanged()
+    //{
+    //    PauseGame.pM.ControlsHaveChanged(playerInput);
+    //}
 
     //When controller has disconnected, make a call
     public void OnDeviceLost()

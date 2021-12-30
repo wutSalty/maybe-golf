@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveBall : MonoBehaviour
 {
@@ -12,33 +13,23 @@ public class MoveBall : MonoBehaviour
     public GameObject MaskSprite;
     public GameObject InsideSprite;
 
+    public Text NumHitsText;
+
+    private Vector3 LastBallLocation; //The ball's last location
+    private int NumHits;
+
     [HideInInspector]
     public bool FlagHitYet = false; //Has the ball hit the flag yet
 
-    private Vector3 LastBallLocation; //The ball's last location
-    
+    [HideInInspector]
+    public int playerIndex;
+
     //Every frame, check has the ball stopped moving yet and to rotate the ball while in motion
     private void Update()
     {
-        //if (FlagHitYet == true)
-        //{
-        //    StartCoroutine(ManualVelocityOverride());
-        //}
-
         float BallVelocity = TheBall.velocity.magnitude * RotateMultiplier;
         TheBall.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
     }
-
-    //private IEnumerator ManualVelocityOverride()
-    //{
-    //    var t = 0f;
-    //    while (t < 1)
-    //    {
-    //        t += Time.deltaTime / 0.5f;
-    //        TheBall.velocity = TheBall.velocity * 0.30f * Time.deltaTime;
-    //        yield return null;
-    //    }
-    //}
 
     //Reset the ball to it's last position if it enters death area
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,6 +45,13 @@ public class MoveBall : MonoBehaviour
     //Gets the info from Ballthings and converts into angle and speed, then launches the ball
     public void ReceiveBallInfo(float HitStrength, float HitAngle)
     {
+        NumHits += 1;
+        NumHitsText.text = "Shots taken: " + NumHits;
+        if (NumHits >= 1)
+        {
+            gameObject.layer = 7;
+        }
+
         Debug.Log("Hitstrength: " + HitStrength + " Hitangle: " + HitAngle);
 
         LastBallLocation = TheBall.transform.position;
@@ -64,5 +62,14 @@ public class MoveBall : MonoBehaviour
         float YDir = HitStrength * Mathf.Sin(HitAngle * Mathf.Deg2Rad);
 
         TheBall.velocity = new Vector3(XDir, YDir);
+    }
+
+    //Get call from flag. Once hit flag, stop ball and pass info to game status
+    public void BallHasWon()
+    {
+        TheBall.velocity = Vector2.zero;
+        FlagHitYet = true;
+        gameObject.layer = 8;
+        GameStatus.gameStat.SubmitRecord(playerIndex, NumHits);
     }
 }

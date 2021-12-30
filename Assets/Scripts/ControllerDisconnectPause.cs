@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class ControllerDisconnectPause : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ControllerDisconnectPause : MonoBehaviour
 
     public Canvas DisconnectPanel;
     public Text ControllerTemplate;
+    public GameObject ReturnBtn;
 
     public bool CurrentlyDC = false;
 
@@ -47,26 +49,41 @@ public class ControllerDisconnectPause : MonoBehaviour
         foreach (PlayerInput item in listofInputs) //For each of them
         {
             //Change the Action Map to the required one
-            if (PauseGame.pM.MenuIsOpen == false)
+            if (ControlDC.CurrentlyDC == false)
             {
                 item.SwitchCurrentActionMap("UI");
+                item.gameObject.GetComponent<MultiplayerEventSystem>().playerRoot = DisconnectPanel.gameObject;
+                item.gameObject.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(null);
+                item.gameObject.GetComponent<MultiplayerEventSystem>().firstSelectedGameObject = ReturnBtn;
+                if (item.gameObject.TryGetComponent(out DragAndAimControllerManager manager))
+                {
+                    manager.SetToUI();
+                }
             }
             else
             {
                 item.SwitchCurrentActionMap("In-Game Ball");
+                item.gameObject.GetComponent<MultiplayerEventSystem>().playerRoot = item.gameObject;
+                item.gameObject.GetComponent<MultiplayerEventSystem>().firstSelectedGameObject = null;
+                if (item.gameObject.TryGetComponent(out DragAndAimControllerManager manager))
+                {
+                    manager.SetToInGame();
+                }
             }
         }
 
-        if (PauseGame.pM.MenuIsOpen == false)
+        if (ControlDC.CurrentlyDC == false)
         {
             Time.timeScale = 0;
-            PauseGame.pM.MenuIsOpen = true;
+            ControlDC.CurrentlyDC = true;
+            //PauseGame.pM.MenuIsOpen = true;
             DisconnectPanel.gameObject.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
-            PauseGame.pM.MenuIsOpen = false;
+            ControlDC.CurrentlyDC = false;
+            //PauseGame.pM.MenuIsOpen = false;
             DisconnectPanel.gameObject.SetActive(false);
         }
     }
@@ -77,7 +94,6 @@ public class ControllerDisconnectPause : MonoBehaviour
         ControlDC.CurrentDead[playerIndex].PlayerIndex = playerIndex;
         if (ControlDC.CurrentlyDC == false)
         {
-            ControlDC.CurrentlyDC = true;
             ControllerTemplate.text = "Player " + (playerIndex + 1);
             EmergencyPause();
         } else
