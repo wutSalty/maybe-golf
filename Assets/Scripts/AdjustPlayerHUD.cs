@@ -12,6 +12,9 @@ public class AdjustPlayerHUD : MonoBehaviour
     public Text playerNumText;
     public Text shotHit;
 
+    private int Xdist = 90;
+    private int Ydist = 60;
+
     private void Start()
     {
         pIndex = gameObject.GetComponent<PlayerInput>().playerIndex;
@@ -24,7 +27,7 @@ public class AdjustPlayerHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(0, 1);
                 HUDObject.anchorMin = new Vector2(0, 1);
-                HUDObject.anchoredPosition = new Vector2(75, -40);
+                HUDObject.anchoredPosition = new Vector2(Xdist, -Ydist);
                 break;
 
             case 1: //top right
@@ -33,7 +36,7 @@ public class AdjustPlayerHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(1, 1);
                 HUDObject.anchorMin = new Vector2(1, 1);
-                HUDObject.anchoredPosition = new Vector2(-75, -40);
+                HUDObject.anchoredPosition = new Vector2(-Xdist, -Ydist);
                 break;
                
             case 2: //bottom left
@@ -42,7 +45,7 @@ public class AdjustPlayerHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(0, 0);
                 HUDObject.anchorMin = new Vector2(0, 0);
-                HUDObject.anchoredPosition = new Vector2(75, 40);
+                HUDObject.anchoredPosition = new Vector2(Xdist, Ydist);
                 break;
 
             case 3: //bottom right
@@ -51,7 +54,7 @@ public class AdjustPlayerHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(1, 0);
                 HUDObject.anchorMin = new Vector2(1, 0);
-                HUDObject.anchoredPosition = new Vector2(-75, 40);
+                HUDObject.anchoredPosition = new Vector2(-Xdist, Ydist);
                 break;
 
             default:
@@ -63,6 +66,4 @@ public class AdjustPlayerHUD : MonoBehaviour
     //Top-right: 1,1 & 1,1
     //Bottom-left: 0,0 & 0,0
     //Bottom-right: 1,0 & 1,0
-
-    //pos: 100, -50
 }

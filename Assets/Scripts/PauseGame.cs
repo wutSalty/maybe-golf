@@ -26,6 +26,8 @@ public class PauseGame : MonoBehaviour
     [HideInInspector]
     public bool MenuIsOpen = false;
 
+    private PlayerInput[] listofInputs;
+
     void Awake()
     {
         if (pM != null && pM != this)
@@ -36,6 +38,11 @@ public class PauseGame : MonoBehaviour
         {
             pM = this;
         }
+    }
+
+    private void Start()
+    {
+        listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
     }
 
     //If user moves stuff, make sure things are updated
@@ -60,7 +67,6 @@ public class PauseGame : MonoBehaviour
     //When the pause menu is accessed
     public void ButtonClickOverrideCauseImLazy(int pIndex)
     {
-        PlayerInput[] listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
         foreach (PlayerInput item in listofInputs) //For each of them
         {
             //Change the Action Map to the required one

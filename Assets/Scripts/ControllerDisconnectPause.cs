@@ -24,6 +24,8 @@ public class ControllerDisconnectPause : MonoBehaviour
 
     public List<CurrentDC> CurrentDead;
 
+    private PlayerInput[] listofInputs;
+
     //Make this the only instance possible
     void Awake()
     {
@@ -42,10 +44,14 @@ public class ControllerDisconnectPause : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
+    }
+
     //When a controller has disconnected, change the Action Map and display the Warning Screen 
     public void EmergencyPause()
     {
-        PlayerInput[] listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
         foreach (PlayerInput item in listofInputs) //For each of them
         {
             //Change the Action Map to the required one

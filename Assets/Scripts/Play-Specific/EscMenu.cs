@@ -29,9 +29,4 @@ public class EscMenu : MonoBehaviour
 
         SceneManager.LoadScene("MainMenu");
     }
-
-    public void ResumeGame()
-    {
-
-    }
 }

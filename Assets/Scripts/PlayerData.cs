@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerData 
 {
     public List<LevelFormat> LevelData;
+    public string Version;
 
     public PlayerData(GameManager player)
     {
         LevelData = player.LevelData;
+        Version = player.Version;
     }
 }

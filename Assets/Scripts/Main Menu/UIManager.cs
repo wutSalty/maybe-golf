@@ -82,8 +82,11 @@ public class UIManager : MonoBehaviour
     public void PressPlay()
     {
         GameManager.GM.SingleMode = true;
+        GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0 });
         MultiSelectScript.CurrentlyLoading = true;
-        SceneManager.LoadScene("SampleScene");
+
+        LoadingScreen.loadingScreen.BeginLoadingScene("SampleScene");
+        //SceneManager.LoadScene("SampleScene");
     }
 
     public void PressPlay2P()

@@ -6,18 +6,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem 
 {
+    //To save the game. Convert data to binary then save to file
     public static void SaveGame(PlayerData data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/playerData.golf";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        //PlayerData data = new PlayerData(player);
-
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
+    //Load the game. Open file, convert to data then return data
     public static PlayerData LoadGame()
     {
         string path = Application.persistentDataPath + "/playerData.golf";

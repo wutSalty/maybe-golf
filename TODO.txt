@@ -4,7 +4,6 @@ Create World Map
 Create Stages (3-4 + Scripted tutorial?)
 
 SINGLEPLAYER:
-Create time trials
 Finalise win condition
 
 MULTIPLAYER:
@@ -13,7 +12,8 @@ EXTRAS:
 Button remapping
 - Looks too hard now due to multiplayer support. Instead show controls and allow adjusting sensitivity in pause menu
 
-Save file (preliminary level format)
-- Need to make game save high scores only in singleplayer mode. Maybe some multi data too
+Save file
 
 Premium currency
+
+Loading screen (somewhat implemented, need to apply to rest of scene switches)

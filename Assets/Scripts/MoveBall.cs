@@ -14,6 +14,7 @@ public class MoveBall : MonoBehaviour
     public GameObject InsideSprite;
 
     public Text NumHitsText;
+    public Text TimeTakenText;
 
     private Vector3 LastBallLocation; //The ball's last location
     private int NumHits;
@@ -67,9 +68,14 @@ public class MoveBall : MonoBehaviour
     //Get call from flag. Once hit flag, stop ball and pass info to game status
     public void BallHasWon()
     {
-        TheBall.velocity = Vector2.zero;
         FlagHitYet = true;
+        TheBall.velocity = Vector2.zero;
         gameObject.layer = 8;
-        GameStatus.gameStat.SubmitRecord(playerIndex, NumHits);
+        GameStatus.gameStat.SubmitRecord(playerIndex, NumHits, this);
+    }
+
+    public void UpdateTimerText(float text)
+    {
+        TimeTakenText.text = "Time Taken: " + text.ToString("F2");
     }
 }

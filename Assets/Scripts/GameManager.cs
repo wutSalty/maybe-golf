@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     //inputDevice = The device the player used to connect. Required for pairing when switching scenes
 
     public List<LevelFormat> LevelData;
+    public string Version = "Pre-Alpha v0.0.0";
     //LevelData required for saving level data
 
     //Upon first load, make GM the only GameManager possible
@@ -28,13 +29,18 @@ public class GameManager : MonoBehaviour
         } else
         {
             GM = this;
+
+            LoadPlayer();
         }
         DontDestroyOnLoad(this);
     }
 
     public void SavePlayer()
     {
+        //Package savedata from GM into PlayerData data
         PlayerData data = new PlayerData(this);
+
+        //Send data to SaveSystem
         SaveSystem.SaveGame(data);
 
         Debug.Log("Game saved at: " + System.DateTime.Now);
@@ -42,8 +48,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadPlayer()
     {
+        //Get savedata from SaveSystem
         PlayerData data = SaveSystem.LoadGame();
+
+        //Insert back into GM
         LevelData = data.LevelData;
+        Version = data.Version;
 
         Debug.Log("Game loaded at: " + System.DateTime.Now);
     }
