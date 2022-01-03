@@ -65,7 +65,7 @@ public class MultiplayerSelect : MonoBehaviour
         Debug.Log("Player " + pIndex + "'s input device is: " + InputUser.all[pIndex].pairedDevices[0]);
    
         //Once more than 1 player is present, allow game to start
-        if (inputManager.playerCount > 1)
+        if (inputManager.playerCount > 1 && value.playerIndex > 0)
         {
             PlayBtn.interactable = true;
             eventSystem.firstSelectedGameObject = PlayBtn.gameObject;
@@ -88,7 +88,7 @@ public class MultiplayerSelect : MonoBehaviour
             TextList[value.playerIndex].text = "Not Connected";
             GameManager.GM.NumPlayers[value.playerIndex].PlayerIndex = 99;
             
-            if (inputManager.playerCount == 1) //If player left is only 1, disable play button
+            if (inputManager.playerCount == 1 || value.playerIndex == 0) //If player left is only 1, disable play button
             {
                 PlayBtn.interactable = false;
                 eventSystem.firstSelectedGameObject = null;
@@ -102,6 +102,6 @@ public class MultiplayerSelect : MonoBehaviour
     {
         GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
-        SceneManager.LoadScene("SampleScene");
+        LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
     }
 }

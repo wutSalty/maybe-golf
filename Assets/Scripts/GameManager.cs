@@ -35,6 +35,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    private void Start()
+    {
+        Application.wantsToQuit += WantsToQuit;
+    }
+
+    bool WantsToQuit()
+    {
+        Debug.Log("Game quitting... see you next time");
+        return true;
+    }
+
+    //Save manager stuffs
     public void SavePlayer()
     {
         //Package savedata from GM into PlayerData data

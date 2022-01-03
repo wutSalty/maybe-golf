@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0 });
         MultiSelectScript.CurrentlyLoading = true;
 
-        LoadingScreen.loadingScreen.BeginLoadingScene("SampleScene");
+        LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
         //SceneManager.LoadScene("SampleScene");
     }
 
@@ -105,7 +106,11 @@ public class UIManager : MonoBehaviour
 
     public void PressQuit()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
     }
 
     //Returning from Settings
@@ -136,7 +141,7 @@ public class UIManager : MonoBehaviour
     {
         oldScreen.SetActive(false);
         newScreen.SetActive(true);
-        if (inputSystem.currentControlScheme == "Keyboard" || inputSystem.currentControlScheme == "Controller")
+        if (inputSystem.currentControlScheme == "Controller")
         {
             setButton.Select();
             eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;

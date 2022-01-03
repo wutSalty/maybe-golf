@@ -31,6 +31,10 @@ public class GameStatus : MonoBehaviour
     public Button ReturnButton;
 
     public GameObject ResultsCanvas;
+    public Text ResultDetails;
+
+    private int MaxHits = 0;
+    private int ThePlayerWithMaxHits = 99;
 
     //Make sure there's only one GameStat
     void Awake()
@@ -76,10 +80,25 @@ public class GameStatus : MonoBehaviour
     //Increment timer every frame
     private void Update()
     {
-        if (gameStat.GameOver == false)
+        //if (gameStat.GameOver == false)
+        //{
+        //    gameStat.Timer += Time.deltaTime;
+        //    timertext.text = "Timer: " + gameStat.Timer.ToString("F2");
+        //}
+    }
+
+    public void StartTimer()
+    {
+        StartCoroutine(IncrementTimer());
+    }
+
+    IEnumerator IncrementTimer()
+    {
+        while (gameStat.GameOver == false)
         {
             gameStat.Timer += Time.deltaTime;
             timertext.text = "Timer: " + gameStat.Timer.ToString("F2");
+            yield return null;
         }
     }
 
@@ -91,6 +110,12 @@ public class GameStatus : MonoBehaviour
         gameStat.playerStatuses[pIndex].Time = gameStat.Timer;
 
         ball.UpdateTimerText(gameStat.playerStatuses[pIndex].Time);
+
+        if (NumHits > MaxHits)
+        {
+            MaxHits = NumHits;
+            ThePlayerWithMaxHits = pIndex;
+        }
 
         gameStat.CheckStatus();
     }
@@ -124,22 +149,37 @@ public class GameStatus : MonoBehaviour
 
             var GMLevel = GameManager.GM.LevelData[GMLevelIndex];
 
+            ResultDetails.text = "Great job in completing this course in " + ThisHits + " hit/s and " + ThisTime.ToString("F2") + " seconds!\n\n";
+
             if (ThisTime < GMLevel.BestTime || GMLevel.BestTime == 0)
             {
+                ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + GMLevel.BestTime.ToString("F2") + " seconds!\n\n";
+
                 GMLevel.BestTime = ThisTime;
+                
                 Debug.Log("New Time Record");
+            } else
+            {
+                ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestTime.ToString("F2") + " seconds. Keep shaving those time saves!\n\n";
             }
 
             if (ThisHits < GMLevel.BestHits || GMLevel.BestHits == 0)
             {
+                ResultDetails.text = ResultDetails.text + "You managed to beat your old hit record of " + GMLevel.BestHits + "!\n\n";
+
                 GMLevel.BestHits = ThisHits;
+
                 Debug.Log("New Hits Record");
+            } else
+            {
+                ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestHits + " hit/s. Try working on tigher bounces!\n\n";
             }
 
             GameManager.GM.SavePlayer();
 
         } else
         {
+            ResultDetails.text = "Great job! All players have cleared the course in less than " + gameStat.Timer.ToString("F2") + " seconds! By the way Player " + (ThePlayerWithMaxHits + 1) + ", well done with getting it in " + MaxHits + ". Keep working on it!" + "\n \nPlayer 1, feel free to choose whether to Restart Course, Return to Course Select, or just Quit to Main Menu.";
             //maybe add some random stats for multiplayer or something
 
         }
@@ -167,14 +207,14 @@ public class GameStatus : MonoBehaviour
     public void RestartScene()
     {
         Debug.Log("Button has been pressed");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
     }
 
     public void ReturnToMain()
     {
         Debug.Log("Button has been pressed");
         GameManager.GM.NumPlayers.Clear();
-        SceneManager.LoadScene("MainMenu");
+        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 
     public void StageSelect()

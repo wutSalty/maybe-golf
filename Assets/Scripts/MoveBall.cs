@@ -76,6 +76,7 @@ public class MoveBall : MonoBehaviour
 
     public void UpdateTimerText(float text)
     {
+        Debug.Log(text);
         TimeTakenText.text = "Time Taken: " + text.ToString("F2");
     }
 }

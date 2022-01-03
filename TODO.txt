@@ -15,5 +15,3 @@ Button remapping
 Save file
 
 Premium currency
-
-Loading screen (somewhat implemented, need to apply to rest of scene switches)

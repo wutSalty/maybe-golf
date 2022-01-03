@@ -10,6 +10,7 @@ public class SettingsManager : MonoBehaviour
     public Dropdown WindowMode;
     public Dropdown WindowSize;
     public Dropdown InputType;
+    public Toggle DebugWindow;
 
     public GameObject ConfirmRevertScreen;
     public Text CountdownText;
@@ -26,6 +27,7 @@ public class SettingsManager : MonoBehaviour
     private int OldWindow;
     private int OldResolution;
     private int OldInputType;
+    private bool OldDebugWindow;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
 
@@ -35,12 +37,14 @@ public class SettingsManager : MonoBehaviour
         OldWindow = PlayerPrefs.GetInt("WindowMode", 0);
         OldResolution = PlayerPrefs.GetInt("WindowSize", 0);
         OldInputType = PlayerPrefs.GetInt("InputType", 0);
+        OldDebugWindow = IntToBool(PlayerPrefs.GetInt("DebugWindow", 0));
 
         ForcedOverride = true;
 
         WindowMode.value = OldWindow;
         WindowSize.value = OldResolution;
         InputType.value = OldInputType;
+        DebugWindow.isOn = OldDebugWindow;
 
         ForcedOverride = false;
 
@@ -81,6 +85,17 @@ public class SettingsManager : MonoBehaviour
     public void CheckInputType()
     {
         PlayerPrefs.SetInt("InputType", InputType.value);
+        PlayerPrefs.Save();
+    }
+
+    //Check toggle for debug menu
+    public void CheckDebugWindow(bool value)
+    {
+        var bean = BoolToInt(value);
+
+        PlayerPrefs.SetInt("DebugWindow", bean);
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().enabled = value;
+
         PlayerPrefs.Save();
     }
 
@@ -220,4 +235,22 @@ public class SettingsManager : MonoBehaviour
         TheConfirmButton.Select();
         eventSystem.firstSelectedGameObject = TheConfirmButton.gameObject;
     }
+
+    int BoolToInt(bool val)
+    {
+        if (val)
+            return 1;
+        else
+            return 0;
+    }
+
+    //0 is false
+    bool IntToBool(int val)
+    {
+        if (val != 0)
+            return true;
+        else
+            return false;
+    }
+
 }
