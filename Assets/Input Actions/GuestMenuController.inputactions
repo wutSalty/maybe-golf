@@ -6,12 +6,58 @@
             "id": "ea105011-ab85-4a59-9ccf-911aa718ca7b",
             "actions": [
                 {
+                    "name": "Curser",
+                    "type": "PassThrough",
+                    "id": "c32b6ef6-b49e-417a-989f-ce5ac89cf5ad",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Clicking",
+                    "type": "PassThrough",
+                    "id": "6d20dca7-3b65-417f-aa0a-43f0cc60e902",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiddleClicking",
+                    "type": "PassThrough",
+                    "id": "40a55961-25b8-4c06-a7a0-468a38aac969",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightClicking",
+                    "type": "PassThrough",
+                    "id": "9ef26df2-74cd-4502-8239-cea31a8179f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollWheeling",
+                    "type": "PassThrough",
+                    "id": "13f5a59f-12b6-4742-bf83-dfa64c588bc8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "PassThrough",
                     "id": "ce554f44-98d9-41b4-b9ed-507b362cbcdf",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Enter",
@@ -19,7 +65,8 @@
                     "id": "717f5804-b765-4a15-a51a-b4da9d9c7945",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Remove Controller",
@@ -27,7 +74,8 @@
                     "id": "463fb5c4-beae-4eed-9a24-d51c158bb47b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Click Started",
@@ -35,7 +83,8 @@
                     "id": "a1bd9b67-d091-4e7a-b153-8b6becc69e55",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Exit Menu",
@@ -43,7 +92,8 @@
                     "id": "f8b21177-9ba6-44dd-8080-60f68c93b2a4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -244,6 +294,61 @@
                     "action": "Exit Menu",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2678242b-765a-4f83-90b3-88e1bfc273a4",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Curser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99802838-abfa-4b86-9fc7-54ff422c3e07",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ae3cacb-4ed7-4052-b421-25f2b76a1903",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "MiddleClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5e8db0b-f308-44a5-860e-b7fdcf8a8863",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "RightClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b283b979-6199-42d0-a72d-7c4a5c03d474",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "ScrollWheeling",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -257,7 +362,8 @@
                     "id": "46e82fac-fda7-49b7-9446-845370f46711",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

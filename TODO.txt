@@ -9,9 +9,10 @@ Finalise win condition
 MULTIPLAYER:
 
 EXTRAS:
-Button remapping
-- Looks too hard now due to multiplayer support. Instead show controls and allow adjusting sensitivity in pause menu
+Show further controls in pause menu
 
 Save file
 
 Premium currency
+
+Further customisation

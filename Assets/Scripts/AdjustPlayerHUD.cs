@@ -13,7 +13,7 @@ public class AdjustPlayerHUD : MonoBehaviour
     public Text shotHit;
 
     private int Xdist = 90;
-    private int Ydist = 60;
+    private int Ydist = 45;
 
     private void Start()
     {

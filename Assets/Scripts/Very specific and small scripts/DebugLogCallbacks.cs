@@ -9,7 +9,19 @@ public class DebugLogCallbacks : MonoBehaviour
     public int maxLines = 8; //Max lines that debug should show
     private Queue<string> queue = new Queue<string>(); //Allows to hold items in an order
     private string currentText = "";
-    public GUIStyle style; //The style used to display the log
+    private string playerPrefsTxt = "";
+    private GUIStyle styleA; //The style used to display the log
+    private GUIStyle styleB;
+
+    private void Start()
+    {
+        UpdatePlayPrefsText();
+    }
+
+    public void UpdatePlayPrefsText()
+    {
+        playerPrefsTxt = "WindowMode: " + PlayerPrefs.GetInt("WindowMode") + "\nWindowSize: " + PlayerPrefs.GetInt("WindowSize", 0) + "\nInputType: " + PlayerPrefs.GetInt("InputType", 0) + "\nSensitivity: " + PlayerPrefs.GetFloat("Sensitivity", 4) + "\nDebugWindow: " + PlayerPrefs.GetInt("DebugWindow", 0);
+    }
 
     //When the script is enabled, subscribe to the debug log. This will make HandleLog occur whenever something happens
     void OnEnable()
@@ -65,11 +77,25 @@ public class DebugLogCallbacks : MonoBehaviour
                Screen.height * 270f / 1080                 // height
            ),
            currentText,             // the display text
-           style = new GUIStyle(GUI.skin.textArea)
+           styleA = new GUIStyle(GUI.skin.textArea)
            {
                fontSize = 20,
                alignment = TextAnchor.LowerLeft
            }
         );
+
+        GUI.Label(
+            new Rect(
+                Screen.width - (Screen.width * 300f / 1920) - 5,
+                5,
+                Screen.width * 300f / 1920,
+                Screen.height * 200f / 1080
+                ),
+            playerPrefsTxt,
+            styleB = new GUIStyle(GUI.skin.textArea)
+            {
+                fontSize = 24,
+            }
+            );
     }
 }

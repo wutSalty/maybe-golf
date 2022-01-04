@@ -50,7 +50,7 @@ public class LoadingScreen : MonoBehaviour
 
         if (timer)
         {
-            GameStatus.gameStat.StartTimer();
+            GameStatus.gameStat.BeginGame();
         }
     }
 

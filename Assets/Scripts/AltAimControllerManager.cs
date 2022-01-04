@@ -14,6 +14,7 @@ public class AltAimControllerManager : MonoBehaviour
     public GameObject PauseUI;
     public Canvas HUDUi;
     public Selectable ResumeButton;
+    public Text ControlsText;
 
     private Vector2 LeftMove;
     private int PlayerIndex;
@@ -38,8 +39,13 @@ public class AltAimControllerManager : MonoBehaviour
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
-            HUDUi.sortingOrder = 19;
+            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nRestart Position - R\nPause Game - ESC";
+            //HUDUi.sortingOrder = 19;
+        } else
+        {
+            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nRestart Position - LB + RB\nPause Game - Menu Button";
         }
+        
     }
 
     public void Update()

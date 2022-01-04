@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Save manager stuffs
+    [ContextMenu("Force Save")]
     public void SavePlayer()
     {
         //Package savedata from GM into PlayerData data
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game saved at: " + System.DateTime.Now);
     }
 
+    [ContextMenu("Force Load")]
     public void LoadPlayer()
     {
         //Get savedata from SaveSystem

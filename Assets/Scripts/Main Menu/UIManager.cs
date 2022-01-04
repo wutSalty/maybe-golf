@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
     public void PressPlay()
     {
         GameManager.GM.SingleMode = true;
-        GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0 });
+        GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
         LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);

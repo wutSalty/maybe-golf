@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.EventSystems;
 
@@ -12,6 +13,7 @@ public class MultiplayerSelect : MonoBehaviour
     //The play buttons and text
     public Button PlayBtn;
     public Text PlayText;
+    public GameObject dummyObject;
 
     //List of text showing connected players
     public List<Text> TextList;
@@ -68,7 +70,8 @@ public class MultiplayerSelect : MonoBehaviour
         if (inputManager.playerCount > 1 && value.playerIndex > 0)
         {
             PlayBtn.interactable = true;
-            eventSystem.firstSelectedGameObject = PlayBtn.gameObject;
+            eventSystem.firstSelectedGameObject = dummyObject;
+            eventSystem.SetSelectedGameObject(dummyObject);
             PlayText.text = "Ready to Play!";
         }
     }
@@ -77,6 +80,22 @@ public class MultiplayerSelect : MonoBehaviour
     public void DropdownUpdate(int playerIndex)
     {
         GameManager.GM.NumPlayers[playerIndex].ControlType = DropdownList[playerIndex].value;
+        StartCoroutine(Delay());
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.05f);
+        if (PlayBtn.interactable == true)
+        {
+            eventSystem.firstSelectedGameObject = dummyObject;
+            eventSystem.SetSelectedGameObject(dummyObject);
+        } else
+        {
+            eventSystem.firstSelectedGameObject = null;
+            eventSystem.SetSelectedGameObject(null);
+        }
+        
     }
 
     public void WhenAPlayerDisconnects(PlayerInput value)
@@ -92,6 +111,7 @@ public class MultiplayerSelect : MonoBehaviour
             {
                 PlayBtn.interactable = false;
                 eventSystem.firstSelectedGameObject = null;
+                eventSystem.SetSelectedGameObject(null);
                 PlayText.text = "Waiting for players...";
             }
         }

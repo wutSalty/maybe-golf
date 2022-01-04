@@ -10,6 +10,7 @@ public class SettingsManager : MonoBehaviour
     public Dropdown WindowMode;
     public Dropdown WindowSize;
     public Dropdown InputType;
+    public Slider Sensitivity;
     public Toggle DebugWindow;
 
     public GameObject ConfirmRevertScreen;
@@ -27,6 +28,7 @@ public class SettingsManager : MonoBehaviour
     private int OldWindow;
     private int OldResolution;
     private int OldInputType;
+    private float OldSensitivity;
     private bool OldDebugWindow;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
@@ -37,6 +39,7 @@ public class SettingsManager : MonoBehaviour
         OldWindow = PlayerPrefs.GetInt("WindowMode", 0);
         OldResolution = PlayerPrefs.GetInt("WindowSize", 0);
         OldInputType = PlayerPrefs.GetInt("InputType", 0);
+        OldSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4);
         OldDebugWindow = IntToBool(PlayerPrefs.GetInt("DebugWindow", 0));
 
         ForcedOverride = true;
@@ -44,6 +47,7 @@ public class SettingsManager : MonoBehaviour
         WindowMode.value = OldWindow;
         WindowSize.value = OldResolution;
         InputType.value = OldInputType;
+        Sensitivity.value = OldSensitivity;
         DebugWindow.isOn = OldDebugWindow;
 
         ForcedOverride = false;
@@ -86,6 +90,24 @@ public class SettingsManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("InputType", InputType.value);
         PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+    }
+
+    //public void UpdateInputType()
+    //{
+    //    PlayerPrefs.SetInt("InputType", InputType.value);
+    //    PlayerPrefs.Save();
+
+    //    GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+    //}
+
+    public void CheckSensitivity(float value)
+    {
+        PlayerPrefs.SetFloat("Sensitivity", value);
+        PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
     //Check toggle for debug menu
@@ -97,6 +119,9 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().enabled = value;
 
         PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+        Debug.Log("Debug viewer set to: " + value);
     }
 
     //Reset windows to original values
@@ -170,6 +195,8 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("WindowSize", WindowSize.value);
         PlayerPrefs.Save();
 
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+
         LastButtonSelected.Select();
     }
 
@@ -187,12 +214,6 @@ public class SettingsManager : MonoBehaviour
         ForcedOverride = false;
 
         LastButtonSelected.Select();
-    }
-
-    public void UpdateInputType()
-    {
-        PlayerPrefs.SetInt("InputType", InputType.value);
-        PlayerPrefs.Save();
     }
 
     //Countdown timer

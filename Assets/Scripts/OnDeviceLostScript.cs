@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
+//This script just handles all the input from the multiplayer menu at this point
 public class OnDeviceLostScript : MonoBehaviour
 {
     private PlayerInput playerInput;
-    public UIManager uiManager;
+    private UIManager uiManager;
 
     private void Awake()
     {

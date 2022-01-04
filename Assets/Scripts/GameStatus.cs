@@ -36,6 +36,8 @@ public class GameStatus : MonoBehaviour
     private int MaxHits = 0;
     private int ThePlayerWithMaxHits = 99;
 
+    private PlayerInput[] inputs;
+
     //Make sure there's only one GameStat
     void Awake()
     {
@@ -66,7 +68,7 @@ public class GameStatus : MonoBehaviour
         }
         SingleMode = GameManager.GM.SingleMode;
 
-        PlayerInput[] inputs = FindObjectsOfType<PlayerInput>();
+        inputs = FindObjectsOfType<PlayerInput>();
         foreach (var item in inputs)
         {
             if (item.playerIndex == 0)
@@ -77,14 +79,15 @@ public class GameStatus : MonoBehaviour
         }
     }
 
-    //Increment timer every frame
-    private void Update()
+    public void BeginGame()
     {
-        //if (gameStat.GameOver == false)
-        //{
-        //    gameStat.Timer += Time.deltaTime;
-        //    timertext.text = "Timer: " + gameStat.Timer.ToString("F2");
-        //}
+        inputs = FindObjectsOfType<PlayerInput>();
+        foreach (var item in inputs)
+        {
+            item.SwitchCurrentActionMap("In-Game Ball");
+        }
+
+        gameStat.StartTimer();
     }
 
     public void StartTimer()

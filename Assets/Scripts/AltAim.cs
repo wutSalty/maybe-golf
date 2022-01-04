@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class AltAim : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class AltAim : MonoBehaviour
 
     public MoveBall ScriptToMoveTheBall; //The script that applies the velocity
 
+    public Slider sensSlider;
+
     private bool PlayOK = true; //Whether it's OK to be in play or not
 
     private bool InMotion = false; //Is the ball moving
@@ -22,10 +25,18 @@ public class AltAim : MonoBehaviour
 
     private float AimingVal = 0;
     private float PowerVal = 0;
+    private float AimingSensitivity = 4;
+
+    [HideInInspector]
+    public int playerIndex;
 
     private void Start()
     {
-        ScriptToMoveTheBall.playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
+        playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
+        ScriptToMoveTheBall.playerIndex = playerIndex;
+
+        AimingSensitivity = GameManager.GM.NumPlayers[playerIndex].AimingSensitivity;
+        sensSlider.value = AimingSensitivity;
     }
 
     //Input System Magic
@@ -61,7 +72,7 @@ public class AltAim : MonoBehaviour
 
         if (InMotion == false && PlayOK == true) //As long as the ball isn't already moving or the game is paused
         {
-            ArrowOutline.transform.Rotate(0, 0, -AimingVal * RotMultiplier * Time.deltaTime);
+            ArrowOutline.transform.Rotate(0, 0, -AimingVal * RotMultiplier * (AimingSensitivity / 4) * Time.deltaTime);
 
             ScaleX = ArrowMask.transform.localScale.x + (PowerVal * MaskScale * Time.deltaTime);
             ScaleX = Mathf.Clamp(ScaleX, 1, 3);
@@ -79,11 +90,13 @@ public class AltAim : MonoBehaviour
         }
     }
 
+    //When the ball is moving
     private void TurnThingsOff()
     {
         ArrowOutline.SetActive(false);
     }
 
+    //When the ball has stopped moving
     private void TurnThingsOn()
     {
         ArrowOutline.SetActive(true);
@@ -101,5 +114,11 @@ public class AltAim : MonoBehaviour
             ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
             gameObject.layer = 8;
         }
+    }
+
+    public void UpdateSensitivity(float value)
+    {
+        AimingSensitivity = value;
+        GameManager.GM.NumPlayers[playerIndex].AimingSensitivity = value;
     }
 }
