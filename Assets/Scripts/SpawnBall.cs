@@ -61,6 +61,7 @@ public class SpawnBall : MonoBehaviour
 
                         case 1:
                             CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Keyboard", -1, item.inputDevice);
+                            CurrentBall.neverAutoSwitchControlSchemes = true;
 
                             var ControllerManagerB = CurrentBall.GetComponent<AltAimControllerManager>();
 
@@ -73,6 +74,7 @@ public class SpawnBall : MonoBehaviour
 
                         case 2:
                             CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Controller", -1, item.inputDevice);
+                            CurrentBall.neverAutoSwitchControlSchemes = true;
 
                             var ControllerManagerC = CurrentBall.GetComponent<AltAimControllerManager>();
 

@@ -82,8 +82,10 @@ MonoBehaviour:
 
     Power - Right Stick Up/Down
 
-    Restart
-    Position - LB+RB
+    Shoot
+    - A/Submit
+
+    Restart Position - LB+RB
 
     Pause Game - Menu Button'
 --- !u!1 &917585092144311986
@@ -644,8 +646,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: bc426bd87205cb24bb856d0ee93faf29, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1135,7 +1137,7 @@ MonoBehaviour:
     m_ActionName: Pause Menu/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 34f218ea-16b6-4c39-a4b8-4f7f8b7239d5
+  m_DefaultActionMap: Not Caller Menu
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1986369610367205533
@@ -1158,6 +1160,7 @@ MonoBehaviour:
   BallSprite: {fileID: 6628228445740085667}
   spriteMask: {fileID: 6628228445177780876}
   insideSprite: {fileID: 6628228445687544762}
+  pauseText: {fileID: 0}
 --- !u!114 &1986369610367207264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2263,7 +2266,7 @@ MonoBehaviour:
   BallPhysics: {fileID: 6628228445740085668}
   ArrowOutline: {fileID: 6628228446488989394}
   ArrowMask: {fileID: 6628228445177780877}
-  RotMultiplier: 450
+  RotMultiplier: 400
   MaskScale: 5
   ScriptToMoveTheBall: {fileID: 6628228445740085669}
   sensSlider: {fileID: 154959731228135671}

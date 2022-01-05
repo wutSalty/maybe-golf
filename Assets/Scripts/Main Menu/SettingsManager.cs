@@ -13,6 +13,17 @@ public class SettingsManager : MonoBehaviour
     public Slider Sensitivity;
     public Toggle DebugWindow;
 
+    public GameObject DelPanel;
+    public Button DelButton;
+    public Text DelButtonTxt;
+    public Text DelText;
+    public Button DelCancel;
+    public Text DelTextA;
+    public Text DelTextB;
+
+    public GameObject ReturnButton;
+    public GameObject OriginalDeleteButton;
+
     public GameObject ConfirmRevertScreen;
     public Text CountdownText;
 
@@ -23,8 +34,7 @@ public class SettingsManager : MonoBehaviour
 
     public EventSystem eventSystem;
 
-    [HideInInspector]
-    public bool CurrentlyFullscreen; //true = yes its fullscreen. false = window mode.
+    private bool CurrentlyFullscreen; //true = yes its fullscreen. false = window mode.
     private int OldWindow;
     private int OldResolution;
     private int OldInputType;
@@ -32,6 +42,9 @@ public class SettingsManager : MonoBehaviour
     private bool OldDebugWindow;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
+    private int NumOfDelete = 0;
+
+    public List<LevelFormat> DefaultLevelData;
 
     //On start, check the saved values and set them to int
     private void Start()
@@ -94,14 +107,6 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
-    //public void UpdateInputType()
-    //{
-    //    PlayerPrefs.SetInt("InputType", InputType.value);
-    //    PlayerPrefs.Save();
-
-    //    GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
-    //}
-
     public void CheckSensitivity(float value)
     {
         PlayerPrefs.SetFloat("Sensitivity", value);
@@ -121,7 +126,117 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.Save();
 
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
-        Debug.Log("Debug viewer set to: " + value);
+        
+        if (value)
+        {
+            Debug.Log("--Debug viewer now active--");
+            Debug.Log("NOTE: This will output all developer messages.");
+            Debug.Log("Some errors may appear in the log.");
+            Debug.Log("There should be no need to worry about these.");
+            Debug.Log("Please use this purely for your own curiosity");
+            Debug.Log("If this message get cut, please change resolution");
+        }
+    }
+
+    public void DeleteButton()
+    {
+        switch (NumOfDelete)
+        {
+            case 0:
+                NumOfDelete = 1;
+
+                DelPanel.SetActive(true);
+
+                eventSystem.SetSelectedGameObject(DelCancel.gameObject);
+                DelText.text = "Are you sure?";
+                DelButtonTxt.text = "Yes";
+
+                StartCoroutine(FadeText(1, 1, 0));
+                break;
+
+            case 1:
+                NumOfDelete = 2;
+
+                DelText.text = "Really, really sure? (Last chance)";
+                DelButtonTxt.text = "Yes, nuke it all";
+                break;
+
+            case 2:
+                NumOfDelete = 0;
+
+                DelButton.interactable = false;
+                DelCancel.interactable = false;
+
+                ReturnButton.SetActive(false);
+                OriginalDeleteButton.SetActive(false);
+
+                DelText.text = "Done. Game will restart in 3";
+                DelButtonTxt.text = "Confirmed";
+                StartCoroutine(DeleteCountdown());
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    IEnumerator DeleteCountdown()
+    {
+        int CountdownValue = 3;
+
+        while (CountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            CountdownValue -= 1;
+            DelText.text = "Done. Game will restart in " + CountdownValue;
+        }
+
+        Debug.Log("Save data reset.");
+
+        PlayerPrefs.SetInt("WindowMode", 0);
+        PlayerPrefs.SetInt("WindowSize", 0);
+        PlayerPrefs.SetInt("InputType", 0);
+        PlayerPrefs.SetFloat("Sensitivity", 4);
+        PlayerPrefs.SetInt("DebugWindow", 0);
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+
+        SetWindow(0);
+        SetResolution(0);
+
+        GameManager.GM.LevelData = DefaultLevelData;
+        GameManager.GM.SavePlayer();
+
+        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+    }
+
+    public void CancelDelete()
+    {
+        NumOfDelete = 0;
+        DelPanel.SetActive(false);
+        DelText.text = "Are you sure?";
+        DelButtonTxt.text = "Yes";
+
+        eventSystem.SetSelectedGameObject(WindowMode.gameObject);
+    }
+
+    IEnumerator FadeText(float targetValue, float duration, float ogValue)
+    {
+        float startValue = ogValue;
+        float time = 0;
+        float alpha;
+
+        while (time < duration)
+        {
+            alpha = Mathf.Lerp(startValue, targetValue, time / duration);
+
+            DelTextA.color = new Color(DelTextA.color.r, DelTextA.color.g, DelTextA.color.b, alpha);
+            DelTextB.color = new Color(DelTextB.color.r, DelTextB.color.g, DelTextB.color.b, alpha);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        DelTextA.color = new Color(DelTextA.color.r, DelTextA.color.g, DelTextA.color.b, targetValue);
+        DelTextB.color = new Color(DelTextB.color.r, DelTextB.color.g, DelTextB.color.b, targetValue);
     }
 
     //Reset windows to original values

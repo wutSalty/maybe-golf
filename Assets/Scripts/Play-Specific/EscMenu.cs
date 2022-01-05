@@ -21,12 +21,14 @@ public class EscMenu : MonoBehaviour
     //Returns to main menu
     public void ReturnToMain()
     {
+        foreach (var item in FindObjectsOfType<MoveBall>())
+        {
+            item.EmergancyEscape();
+        }
         Time.timeScale = 1;
-        PauseGame.pM.MenuIsOpen = false;
-
-        //Reset NumPlayers from GM
+        //PauseGame.pM.MenuIsOpen = false;
+        GameStatus.gameStat.GameOver = true;
         GameManager.GM.NumPlayers.Clear();
-
-        SceneManager.LoadScene("MainMenu");
+        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 }

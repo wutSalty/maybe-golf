@@ -21,7 +21,8 @@ public class GameStatus : MonoBehaviour
 
     public List<PlayerStatus> playerStatuses; //List of players
     private float Timer; //The time
-    private bool GameOver; //Has the game ended yet
+    [HideInInspector]
+    public bool GameOver; //Has the game ended yet
     private bool SingleMode = false; //Are we playing in singleplayer mode
     private PlayerInput InputOne;
     private MultiplayerEventSystem POneUISys;
@@ -154,26 +155,42 @@ public class GameStatus : MonoBehaviour
 
             ResultDetails.text = "Great job in completing this course in " + ThisHits + " hit/s and " + ThisTime.ToString("F2") + " seconds!\n\n";
 
-            if (ThisTime < GMLevel.BestTime || GMLevel.BestTime == 0)
+            if (ThisTime < GMLevel.BestTime)
             {
                 ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + GMLevel.BestTime.ToString("F2") + " seconds!\n\n";
 
                 GMLevel.BestTime = ThisTime;
                 
                 Debug.Log("New Time Record");
-            } else
+
+            } else if (GMLevel.BestTime == 0) {
+                ResultDetails.text = ResultDetails.text + "This is your first time record in this course!";
+
+                GMLevel.BestTime = ThisTime;
+
+                Debug.Log("Fresh Time Record");
+            }
+            else
             {
                 ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestTime.ToString("F2") + " seconds. Keep shaving those time saves!\n\n";
             }
 
-            if (ThisHits < GMLevel.BestHits || GMLevel.BestHits == 0)
+            if (ThisHits < GMLevel.BestHits)
             {
                 ResultDetails.text = ResultDetails.text + "You managed to beat your old hit record of " + GMLevel.BestHits + "!\n\n";
 
                 GMLevel.BestHits = ThisHits;
 
                 Debug.Log("New Hits Record");
-            } else
+            } else if (GMLevel.BestHits == 0)
+            {
+                ResultDetails.text = ResultDetails.text + "It's also your first hit record too! Think you can go back and beat these?";
+
+                GMLevel.BestHits = ThisHits;
+
+                Debug.Log("Fresh Hits Record");
+            }
+            else
             {
                 ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestHits + " hit/s. Try working on tigher bounces!\n\n";
             }
@@ -222,6 +239,6 @@ public class GameStatus : MonoBehaviour
 
     public void StageSelect()
     {
-        Debug.Log("this is still broken lol, come back later");
+        Debug.Log("This is still broken lol, come back later");
     }
 }

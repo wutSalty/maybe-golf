@@ -9,10 +9,10 @@ Finalise win condition
 MULTIPLAYER:
 
 EXTRAS:
-Show further controls in pause menu
-
 Save file
 
 Premium currency
 
 Further customisation
+- Save skin options to somewhere then apply during singleplayer
+- Update details on skins

@@ -23,6 +23,8 @@ public class AltAimControllerManager : MonoBehaviour
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
 
+    public Text pauseText;
+
     private Vector3 spawnLocation;
 
     //When awake, grab the things we need
@@ -39,11 +41,11 @@ public class AltAimControllerManager : MonoBehaviour
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
-            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nRestart Position - R\nPause Game - ESC";
+            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nShoot - Enter\nRestart Position - R\nPause Game - ESC";
             //HUDUi.sortingOrder = 19;
         } else
         {
-            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nRestart Position - LB + RB\nPause Game - Menu Button";
+            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
         }
         
     }
@@ -90,11 +92,18 @@ public class AltAimControllerManager : MonoBehaviour
         LeftMove = value.Get<Vector2>();
     }
 
-    //When control type changed (should only work in singleplayer)
-    //public void OnControlsChanged()
-    //{
-    //    PauseGame.pM.ControlsHaveChanged(playerInput);
-    //}
+    //When control type changed(should only work in singleplayer)
+    public void OnControlsChanged()
+    {
+        if (playerInput.currentControlScheme == "Keyboard")
+        {
+            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nShoot - Enter\nRestart Position - R\nPause Game - ESC";
+        }
+        else
+        {
+            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
+        }
+    }
 
     //When controller has disconnected, make a call
     public void OnDeviceLost()

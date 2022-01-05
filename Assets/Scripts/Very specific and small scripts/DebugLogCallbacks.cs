@@ -86,15 +86,15 @@ public class DebugLogCallbacks : MonoBehaviour
 
         GUI.Label(
             new Rect(
-                Screen.width - (Screen.width * 300f / 1920) - 5,
+                Screen.width - (Screen.width * 390f / 1920) - 5,
                 5,
-                Screen.width * 300f / 1920,
-                Screen.height * 200f / 1080
+                Screen.width * 390f / 1920,
+                Screen.height * 220f / 1080
                 ),
             playerPrefsTxt,
             styleB = new GUIStyle(GUI.skin.textArea)
             {
-                fontSize = 24,
+                fontSize = 20,
             }
             );
     }

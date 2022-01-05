@@ -74,6 +74,13 @@ public class MoveBall : MonoBehaviour
         GameStatus.gameStat.SubmitRecord(playerIndex, NumHits, this);
     }
 
+    public void EmergancyEscape()
+    {
+        FlagHitYet = true;
+        TheBall.velocity = Vector2.zero;
+        gameObject.layer = 8;
+    }
+
     public void UpdateTimerText(float text)
     {
         Debug.Log(text);
