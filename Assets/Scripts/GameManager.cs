@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
-    public bool SingleMode = false;
+    public Animator NotiAnimator;
 
+    public bool SingleMode = false;
     public List<MultiPlayerClass> NumPlayers;
+    public Sprite[] BallSkins;
     //Guide for Multiplayer Players (NumPlayers)
 
     //ControlType = The controller they are using; 0 = Mouse, 1 = Buttons
@@ -17,8 +19,13 @@ public class GameManager : MonoBehaviour
     //inputDevice = The device the player used to connect. Required for pairing when switching scenes
 
     public List<LevelFormat> LevelData;
+    public bool[] UnlockedBallSkins;
+    public int TimesPlayed;
+
     public string Version = "Pre-Alpha v0.0.0";
     //LevelData required for saving level data
+
+    public List<int> LockedBalls;
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -38,12 +45,74 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.wantsToQuit += WantsToQuit;
+
+        int index = 0;
+        foreach (var item in GM.UnlockedBallSkins)
+        {
+            if (item == false)
+            {
+                GM.LockedBalls.Add(index);
+            }
+            index += 1;
+        }
     }
 
     bool WantsToQuit()
     {
         Debug.Log("Game quitting... see you next time");
         return true;
+    }
+
+    //Check unlockables
+    [ContextMenu("Force Check")]
+    public void CheckUnlockables()
+    {
+        int LockedIndex;
+        int UnlockIndex;
+
+        if (GM.LockedBalls.Count > 0)
+        {
+            switch (TimesPlayed)
+            {
+                case 5:
+                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
+                    UnlockIndex = GM.LockedBalls[LockedIndex];
+
+                    GM.UnlockedBallSkins[UnlockIndex] = true;
+                    GM.LockedBalls.RemoveAt(LockedIndex);
+                    break;
+
+                case 10:
+                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
+                    UnlockIndex = GM.LockedBalls[LockedIndex];
+
+                    GM.UnlockedBallSkins[UnlockIndex] = true;
+                    GM.LockedBalls.RemoveAt(LockedIndex);
+                    break;
+
+                case 15:
+                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
+                    UnlockIndex = GM.LockedBalls[LockedIndex];
+
+                    GM.UnlockedBallSkins[UnlockIndex] = true;
+                    GM.LockedBalls.RemoveAt(LockedIndex);
+                    break;
+
+                case 20:
+                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
+                    UnlockIndex = GM.LockedBalls[LockedIndex];
+
+                    GM.UnlockedBallSkins[UnlockIndex] = true;
+                    GM.LockedBalls.RemoveAt(LockedIndex);
+                    break;
+
+                default:
+                    break;
+            }
+        } else
+        {
+            Debug.Log("We've run out of collectables, come back next time");
+        }
     }
 
     //Save manager stuffs
@@ -67,7 +136,8 @@ public class GameManager : MonoBehaviour
 
         //Insert back into GM
         LevelData = data.LevelData;
-        Version = data.Version;
+        TimesPlayed = data.TimesPlayed;
+        UnlockedBallSkins = data.UnlockedBallSkins;
 
         Debug.Log("Game loaded at: " + System.DateTime.Now);
     }

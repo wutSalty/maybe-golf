@@ -17,6 +17,9 @@ public class SpawnBall : MonoBehaviour
     //Different sprites for the balls in multiplayer
     public Sprite[] MultiSprites;
 
+    //Skin sprites
+    public Sprite[] BallSkins;
+
     void Awake()
     {
         GameManager gameMan = GameManager.GM;
@@ -24,15 +27,21 @@ public class SpawnBall : MonoBehaviour
         if (gameMan.SingleMode == true || gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
         {
             var InputType = PlayerPrefs.GetInt("InputType", 0);
+            var SkinType = PlayerPrefs.GetInt("BallSkin", 0);
+            GameObject ABall;
 
             switch (InputType)
             {
                 case 0:
-                    Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                    ABall = Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                    var BallControllerA = ABall.GetComponent<DragAndAimControllerManager>();
+                    BallControllerA.BallSprite.sprite = gameMan.BallSkins[SkinType];
                     break;
 
                 case 1:
-                    Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                    ABall = Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
+                    var BallControllerB = ABall.GetComponent<AltAimControllerManager>();
+                    BallControllerB.BallSprite.sprite = gameMan.BallSkins[SkinType];
                     break;
 
                 default:

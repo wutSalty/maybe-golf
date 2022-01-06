@@ -6,11 +6,13 @@ using UnityEngine;
 public class PlayerData 
 {
     public List<LevelFormat> LevelData;
-    public string Version;
+    public bool[] UnlockedBallSkins;
+    public int TimesPlayed;
 
     public PlayerData(GameManager player)
     {
         LevelData = player.LevelData;
-        Version = player.Version;
+        TimesPlayed = player.TimesPlayed;
+        UnlockedBallSkins = player.UnlockedBallSkins;
     }
 }

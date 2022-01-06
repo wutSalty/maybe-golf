@@ -32,14 +32,21 @@ public class MoveBall : MonoBehaviour
         TheBall.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
     }
 
-    //Reset the ball to it's last position if it enters death area
+    //Handles the ball going into areas it might be in
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6)
         {
             TheBall.velocity = new Vector2(0, 0);
             TheBall.transform.position = LastBallLocation;
-            Debug.Log("Death");
+            Debug.Log("Ball has hit death");
+        }
+
+        if (collision.tag == "Flag")
+        {
+            Debug.Log("Player " + (playerIndex + 1) + "cleared");
+
+            BallHasWon();
         }
     }
 

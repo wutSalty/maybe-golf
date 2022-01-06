@@ -11,7 +11,7 @@ public class LoadingScreen : MonoBehaviour
     public GameObject loadingCanvas;
     public Slider loadingSlider;
     public CanvasGroup canvasGroup;
-    public GameObject SpinImg;
+    public Image BallImg;
 
     private void Awake()
     {
@@ -32,7 +32,8 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator StartLoad(string SceneToLoad, bool timer)
     {
-        SpinImg.transform.localRotation = Quaternion.identity;
+        BallImg.sprite = GameManager.GM.BallSkins[PlayerPrefs.GetInt("BallSkin", 0)];
+
         loadingSlider.value = 0;
         loadingCanvas.SetActive(true);
         yield return StartCoroutine(FadeScreen(1, 1, 0));

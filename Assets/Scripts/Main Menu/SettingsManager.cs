@@ -45,6 +45,7 @@ public class SettingsManager : MonoBehaviour
     private int NumOfDelete = 0;
 
     public List<LevelFormat> DefaultLevelData;
+    public bool[] DefaultUnlockables;
 
     //On start, check the saved values and set them to int
     private void Start()
@@ -198,12 +199,15 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InputType", 0);
         PlayerPrefs.SetFloat("Sensitivity", 4);
         PlayerPrefs.SetInt("DebugWindow", 0);
+        PlayerPrefs.SetInt("BallSkin", 0);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
         SetResolution(0);
 
         GameManager.GM.LevelData = DefaultLevelData;
+        GameManager.GM.UnlockedBallSkins = DefaultUnlockables;
+        GameManager.GM.TimesPlayed = 0;
         GameManager.GM.SavePlayer();
 
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);

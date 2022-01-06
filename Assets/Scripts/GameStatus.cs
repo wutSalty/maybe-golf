@@ -146,7 +146,7 @@ public class GameStatus : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("All players finished");
-        if (SingleMode)
+        if (SingleMode) //Singleplayer
         {
             var ThisTime = gameStat.playerStatuses[0].Time;
             var ThisHits = gameStat.playerStatuses[0].NumHits;
@@ -164,7 +164,7 @@ public class GameStatus : MonoBehaviour
                 Debug.Log("New Time Record");
 
             } else if (GMLevel.BestTime == 0) {
-                ResultDetails.text = ResultDetails.text + "This is your first time record in this course!";
+                ResultDetails.text = ResultDetails.text + "This is your first time record in this course! ";
 
                 GMLevel.BestTime = ThisTime;
 
@@ -195,9 +195,7 @@ public class GameStatus : MonoBehaviour
                 ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestHits + " hit/s. Try working on tigher bounces!\n\n";
             }
 
-            GameManager.GM.SavePlayer();
-
-        } else
+        } else //Multiplayer
         {
             ResultDetails.text = "Great job! All players have cleared the course in less than " + gameStat.Timer.ToString("F2") + " seconds! By the way Player " + (ThePlayerWithMaxHits + 1) + ", well done with getting it in " + MaxHits + ". Keep working on it!" + "\n \nPlayer 1, feel free to choose whether to Restart Course, Return to Course Select, or just Quit to Main Menu.";
             //maybe add some random stats for multiplayer or something
@@ -222,6 +220,10 @@ public class GameStatus : MonoBehaviour
         {
             POneUISys.SetSelectedGameObject(ReturnButton.gameObject);
         }
+
+        GameManager.GM.TimesPlayed += 1;
+        GameManager.GM.CheckUnlockables();
+        GameManager.GM.SavePlayer();
     }
 
     public void RestartScene()
