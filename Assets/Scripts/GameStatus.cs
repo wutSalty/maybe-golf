@@ -228,19 +228,19 @@ public class GameStatus : MonoBehaviour
 
     public void RestartScene()
     {
-        Debug.Log("Button has been pressed");
         LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
     }
 
     public void ReturnToMain()
     {
-        Debug.Log("Button has been pressed");
+        GameManager.GM.SingleMode = false;
         GameManager.GM.NumPlayers.Clear();
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 
     public void StageSelect()
     {
-        Debug.Log("This is still broken lol, come back later");
+        GameManager.GM.LoadIntoLevelSelect = true;
+        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public List<int> LockedBalls;
 
+    public bool LoadIntoLevelSelect = false;
+
     //Upon first load, make GM the only GameManager possible
     void Awake()
     {
@@ -45,6 +48,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.wantsToQuit += WantsToQuit;
+        CheckLocked();
+    }
+
+    bool WantsToQuit()
+    {
+        Debug.Log("Game quitting... see you next time");
+        return true;
+    }
+
+    public void CheckLocked()
+    {
+        GM.LockedBalls.Clear();
 
         int index = 0;
         foreach (var item in GM.UnlockedBallSkins)
@@ -57,12 +72,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool WantsToQuit()
-    {
-        Debug.Log("Game quitting... see you next time");
-        return true;
-    }
-
     //Check unlockables
     [ContextMenu("Force Check")]
     public void CheckUnlockables()
@@ -70,48 +79,19 @@ public class GameManager : MonoBehaviour
         int LockedIndex;
         int UnlockIndex;
 
-        if (GM.LockedBalls.Count > 0)
+        if ((GM.LockedBalls.Count > 0) && (TimesPlayed % 5 == 0))
         {
-            switch (TimesPlayed)
-            {
-                case 5:
-                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
-                    UnlockIndex = GM.LockedBalls[LockedIndex];
+            LockedIndex = Random.Range(0, GM.LockedBalls.Count);
+            UnlockIndex = GM.LockedBalls[LockedIndex];
 
-                    GM.UnlockedBallSkins[UnlockIndex] = true;
-                    GM.LockedBalls.RemoveAt(LockedIndex);
-                    break;
+            GM.UnlockedBallSkins[UnlockIndex] = true;
+            
+            CheckLocked();
 
-                case 10:
-                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
-                    UnlockIndex = GM.LockedBalls[LockedIndex];
-
-                    GM.UnlockedBallSkins[UnlockIndex] = true;
-                    GM.LockedBalls.RemoveAt(LockedIndex);
-                    break;
-
-                case 15:
-                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
-                    UnlockIndex = GM.LockedBalls[LockedIndex];
-
-                    GM.UnlockedBallSkins[UnlockIndex] = true;
-                    GM.LockedBalls.RemoveAt(LockedIndex);
-                    break;
-
-                case 20:
-                    LockedIndex = Random.Range(0, GM.LockedBalls.Count);
-                    UnlockIndex = GM.LockedBalls[LockedIndex];
-
-                    GM.UnlockedBallSkins[UnlockIndex] = true;
-                    GM.LockedBalls.RemoveAt(LockedIndex);
-                    break;
-
-                default:
-                    break;
-            }
+            NotiAnimator.SetTrigger("ShowNoti");
         } else
         {
-            Debug.Log("We've run out of collectables, come back next time");
+            Debug.Log("No collectables yet");
         }
     }
 
@@ -134,11 +114,31 @@ public class GameManager : MonoBehaviour
         //Get savedata from SaveSystem
         PlayerData data = SaveSystem.LoadGame();
 
-        //Insert back into GM
-        LevelData = data.LevelData;
-        TimesPlayed = data.TimesPlayed;
-        UnlockedBallSkins = data.UnlockedBallSkins;
+        if (data == null)
+        {
+            Debug.Log("Instead of not having data, how about I create some for you.");
+            SavePlayer();
+            Debug.Log("No need to thank me.");
+        } else
+        {
+            //Insert back into GM
+            LevelData = data.LevelData;
+            TimesPlayed = data.TimesPlayed;
+            UnlockedBallSkins = data.UnlockedBallSkins;
 
-        Debug.Log("Game loaded at: " + System.DateTime.Now);
+            Debug.Log("Game loaded at: " + System.DateTime.Now);
+        }
+    }
+
+    [ContextMenu("Force Delete Save")]
+    void ForceDeleteSave()
+    {
+        Debug.Log("File itself deleted");
+
+        string path = Application.persistentDataPath + "/playerData.golf";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 }

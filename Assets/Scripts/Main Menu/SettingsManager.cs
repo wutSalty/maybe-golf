@@ -208,6 +208,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.LevelData = DefaultLevelData;
         GameManager.GM.UnlockedBallSkins = DefaultUnlockables;
         GameManager.GM.TimesPlayed = 0;
+        GameManager.GM.CheckLocked();
         GameManager.GM.SavePlayer();
 
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);

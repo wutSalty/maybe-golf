@@ -93,9 +93,9 @@ public class AltAimControllerManager : MonoBehaviour
     }
 
     //When control type changed(should only work in singleplayer)
-    public void OnControlsChanged()
+    public void OnControlsChanged(PlayerInput pInput)
     {
-        if (playerInput.currentControlScheme == "Keyboard")
+        if (pInput.currentControlScheme == "Keyboard")
         {
             ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nShoot - Enter\nRestart Position - R\nPause Game - ESC";
         }

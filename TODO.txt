@@ -1,6 +1,6 @@
 ---TODO---
 
-Create World Map
+Neaten up level select
 Create Stages (3-4 + Scripted tutorial?)
 
 SINGLEPLAYER:
@@ -9,8 +9,6 @@ Finalise win condition
 MULTIPLAYER:
 
 EXTRAS:
-Save file
-
 Premium currency
 
 Further customisation

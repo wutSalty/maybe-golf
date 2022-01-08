@@ -10,23 +10,26 @@ using UnityEditor;
 public class UIManager : MonoBehaviour
 {
     public GameObject MainMenu; //Main Menu object
-    public GameObject MultiplayerSelect;
+    public GameObject MultiplayerSelect; //Multiplayer controller screen
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
+    public GameObject LevelSelectScreen; //Level select screen
 
     public Button PlayButton;
     public Button TwoPlayerBtn;
     public Button SettingsButton;
     public Button QuitButton;
 
-    public Selectable DropdownA;
-    public Selectable ButtonReady;
+    public Selectable SettingsFirstButton;
+    public Selectable MultiplayerFirstButton;
+    public Selectable LevelSelectFirstButton;
 
     public EventSystem eventSystem;
     public PlayerInput inputSystem;
     public PlayerInputManager inputManager;
 
     public MultiplayerSelect MultiSelectScript;
+    public LevelManager levelManager;
 
     [HideInInspector]
     public Vector2 LeftMove;
@@ -49,15 +52,21 @@ public class UIManager : MonoBehaviour
     //When the game starts, make sure all the menus are correctly active or not
     private void Awake()
     {
+        LevelSelectScreen.SetActive(false);
         ConfirmRevertScreen.SetActive(false);
         Settings.SetActive(false);
         MultiplayerSelect.SetActive(false);
         MainMenu.SetActive(true);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        GameManager.GM.SingleMode = false;
+        SceneManager.sceneLoaded += CheckLevelSelect;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= CheckLevelSelect;
     }
 
     //Any time the user uses arrow keys, make sure FirstSeleced isn't missing, set the current item to the FirstSelected item, and or set the current item to FirstSelected
@@ -86,8 +95,9 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
-        //SceneManager.LoadScene("SampleScene");
+        //LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
+
+        ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
     }
 
     public void PressPlay2P()
@@ -96,12 +106,12 @@ public class UIManager : MonoBehaviour
         inputManager.enabled = true;
         inputManager.EnableJoining();
         //MultiSelectScript.UpdatePlayerOneText();
-        ButtonManager(MainMenu, MultiplayerSelect, ButtonReady);
+        ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
     }
 
     public void PressSettings()
     {
-        ButtonManager(MainMenu, Settings, DropdownA);
+        ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
 
     public void PressQuit()
@@ -135,6 +145,22 @@ public class UIManager : MonoBehaviour
 
         inputSystem.enabled = true; //Re-enable menu input player
         ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
+    }
+
+    public void ReturnFromLevelSelect()
+    {
+        GameManager.GM.NumPlayers.Clear();
+        GameManager.GM.SingleMode = false;
+        ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+    }
+
+    public void CheckLevelSelect(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.GM.LoadIntoLevelSelect)
+        {
+            GameManager.GM.LoadIntoLevelSelect = false;
+            ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        }
     }
 
     public void ButtonManager(GameObject oldScreen, GameObject newScreen, Selectable setButton)
