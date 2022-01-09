@@ -24,6 +24,7 @@ public class MultiplayerSelect : MonoBehaviour
     //Input managers
     public PlayerInputManager inputManager;
     public EventSystem eventSystem;
+    public UIManager uiManager;
 
     //Flag to signal switch scenes
     [HideInInspector]
@@ -122,6 +123,7 @@ public class MultiplayerSelect : MonoBehaviour
     {
         GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
-        LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
+        
+        uiManager.ButtonManager(uiManager.MultiplayerSelect, uiManager.LevelSelectScreen, uiManager.LevelSelectFirstButton);
     }
 }

@@ -56,7 +56,6 @@ public class AltAim : MonoBehaviour
         {
             ScriptToMoveTheBall.ReceiveBallInfo(ScaleX, ArrowOutline.transform.eulerAngles.z);
             TurnThingsOff();
-            InMotion = true;
         }
     }
 
@@ -66,7 +65,6 @@ public class AltAim : MonoBehaviour
         //When the ball has stopped moving, enable things again
         if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && ScriptToMoveTheBall.FlagHitYet == false)
         {
-            InMotion = false;
             TurnThingsOn();
         }
 
@@ -91,14 +89,16 @@ public class AltAim : MonoBehaviour
     }
 
     //When the ball is moving
-    private void TurnThingsOff()
+    public void TurnThingsOff()
     {
+        InMotion = true;
         ArrowOutline.SetActive(false);
     }
 
     //When the ball has stopped moving
     private void TurnThingsOn()
     {
+        InMotion = false;
         ArrowOutline.SetActive(true);
         ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
     }

@@ -17,9 +17,6 @@ public class SpawnBall : MonoBehaviour
     //Different sprites for the balls in multiplayer
     public Sprite[] MultiSprites;
 
-    //Skin sprites
-    public Sprite[] BallSkins;
-
     void Awake()
     {
         GameManager gameMan = GameManager.GM;

@@ -624,7 +624,7 @@ MonoBehaviour:
   playerStatuses: []
   GameOver: 0
   ForcePause: 0
-  GMLevelIndex: 0
+  GMLevelIndex: 1
   timertext: {fileID: 330218118}
   ReturnButton: {fileID: 81296883}
   ResultsCanvas: {fileID: 462831755}
@@ -797,7 +797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &398776116
 Transform:
   m_ObjectHideFlags: 0
@@ -4086,7 +4086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &967298076
 MonoBehaviour:
   m_ObjectHideFlags: 0

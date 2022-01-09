@@ -74,6 +74,11 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' is pressed
     public void OnMenuMouse()
     {
+        if (GameStatus.gameStat.GameOver)
+        {
+            return;
+        }
+
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex); //Set global pause
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false) //Then do local menu
         {
@@ -96,6 +101,11 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' pressed from in menu
     public void OnMenu()
     {
+        if (GameStatus.gameStat.GameOver)
+        {
+            return;
+        }
+
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {

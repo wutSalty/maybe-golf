@@ -11,7 +11,8 @@
                     "id": "f6e6756d-fc5e-479b-af94-c02ebbd05e54",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Mouse Left Cancelled",
@@ -19,7 +20,8 @@
                     "id": "6812be9f-181d-4175-865a-0b449de2a3fb",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MenuMouse",
@@ -27,7 +29,8 @@
                     "id": "80449181-bc9a-4bb0-801f-026cff228683",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Restart",
@@ -35,7 +38,8 @@
                     "id": "bb2298c3-fcba-497f-be0e-93a271383093",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Curser",
@@ -43,7 +47,8 @@
                     "id": "ed649a68-72b2-43fb-98ff-2a148ad8a735",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Clicking",
@@ -51,7 +56,8 @@
                     "id": "5ee1d610-f72d-4099-9fd5-404629107f50",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MiddleClicking",
@@ -59,7 +65,8 @@
                     "id": "25798f0b-89e1-4963-99e4-ddb74693993b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RightClicking",
@@ -67,7 +74,8 @@
                     "id": "c75f4e25-b6ba-4d99-928d-9ecfa3b081b5",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ScrollWheeling",
@@ -75,7 +83,8 @@
                     "id": "7b87b49d-5f1b-4e09-b837-9731b6ffdc4e",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -190,7 +199,8 @@
                     "id": "0fb3d1cb-8b5f-47e2-b98f-05bdbb2f745f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Navigate",
@@ -198,7 +208,8 @@
                     "id": "ccbe64a1-7476-4b0b-acf2-b4d3ea6709e4",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Entering",
@@ -206,7 +217,8 @@
                     "id": "9aa8a97e-9ed4-4cac-bc94-889518cd0c21",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Clicking",
@@ -214,7 +226,8 @@
                     "id": "b3766d4b-cb77-48f9-96e1-6f2880b749e3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ScrollWheeling",
@@ -222,7 +235,8 @@
                     "id": "19e99819-b39b-4787-bb7f-e2c5f696201f",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MiddleClicking",
@@ -230,7 +244,8 @@
                     "id": "2f0fcfa6-cf16-4bc8-a5d4-0d0de7f49e8c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RightClicking",
@@ -238,7 +253,8 @@
                     "id": "b38d6dbf-c6f2-4dad-a881-a401878ed7cd",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "GoBack",
@@ -246,7 +262,8 @@
                     "id": "6bc5b8ca-5d92-4330-8885-e25af149a4c1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Curser",
@@ -254,7 +271,8 @@
                     "id": "16096e29-728f-4e70-bcdf-979d463cfb91",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

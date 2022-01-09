@@ -72,6 +72,11 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
+        if (GameStatus.gameStat.GameOver)
+        {
+            return;
+        }
+
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {

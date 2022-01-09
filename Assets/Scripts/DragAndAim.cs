@@ -56,7 +56,7 @@ public class DragAndAim : MonoBehaviour
             else if (MaskScaleX > 1)
             {
                 BallMoveScript.ReceiveBallInfo(MaskScaleX, AngleOfAim);
-                InMotion = true;
+                
                 TurnThingsOff();
             }
         }
@@ -76,7 +76,6 @@ public class DragAndAim : MonoBehaviour
     {
         if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && BallMoveScript.FlagHitYet == false)
         {
-            InMotion = false;
             TurnOnThings();
         }
 
@@ -124,6 +123,8 @@ public class DragAndAim : MonoBehaviour
     //When the ball stops moving, do this
     private void TurnOnThings()
     {
+        InMotion = false;
+
         ClickableObject.gameObject.SetActive(true);
         TheMask.transform.localScale = new Vector3(0.9f, 0.7f, 0);
         TheObjectShowingDirection.transform.localPosition = new Vector3(0, 0, 0);
@@ -132,8 +133,9 @@ public class DragAndAim : MonoBehaviour
     }
 
     //When the ball starts moving, do this
-    private void TurnThingsOff()
+    public void TurnThingsOff()
     {
+        InMotion = true;
         ClickableObject.gameObject.SetActive(false);
         TheActualArrow.SetActive(false);
     }

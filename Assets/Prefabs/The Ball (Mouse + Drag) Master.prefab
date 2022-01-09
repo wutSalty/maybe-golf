@@ -2405,6 +2405,7 @@ MonoBehaviour:
   InsideSprite: {fileID: 3684017024386598754}
   NumHitsText: {fileID: 8872351895978323330}
   TimeTakenText: {fileID: 8315154585099755520}
+  NumHits: 0
   FlagHitYet: 0
   playerIndex: 0
 --- !u!50 &3684017026125243807

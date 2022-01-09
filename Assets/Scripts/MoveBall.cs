@@ -17,7 +17,8 @@ public class MoveBall : MonoBehaviour
     public Text TimeTakenText;
 
     private Vector3 LastBallLocation; //The ball's last location
-    private int NumHits;
+    [HideInInspector]
+    public int NumHits;
 
     [HideInInspector]
     public bool FlagHitYet = false; //Has the ball hit the flag yet
@@ -75,6 +76,7 @@ public class MoveBall : MonoBehaviour
     //Get call from flag. Once hit flag, stop ball and pass info to game status
     public void BallHasWon()
     {
+        gameObject.SendMessage("TurnThingsOff");
         FlagHitYet = true;
         TheBall.velocity = Vector2.zero;
         gameObject.layer = 8;

@@ -95,9 +95,8 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        //LoadingScreen.loadMan.BeginLoadingScene("SampleScene", true);
-
         ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        levelManager.enabled = true;
     }
 
     public void PressPlay2P()
@@ -105,7 +104,7 @@ public class UIManager : MonoBehaviour
         inputSystem.enabled = false;
         inputManager.enabled = true;
         inputManager.EnableJoining();
-        //MultiSelectScript.UpdatePlayerOneText();
+
         ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
     }
 
@@ -149,9 +148,30 @@ public class UIManager : MonoBehaviour
 
     public void ReturnFromLevelSelect()
     {
-        GameManager.GM.NumPlayers.Clear();
-        GameManager.GM.SingleMode = false;
+        if (GameManager.GM.SingleMode)
+        {
+            GameManager.GM.NumPlayers.Clear();
+            GameManager.GM.SingleMode = false;
+            MultiSelectScript.CurrentlyLoading = false;
+        } else
+        {
+            MultiSelectScript.CurrentlyLoading = false;
+
+            inputManager.DisableJoining(); //Disable new players from joining
+
+            OnDeviceLostScript[] objects = FindObjectsOfType<OnDeviceLostScript>(); //Find and remove all guest game objects
+            foreach (var item in objects)
+            {
+                Destroy(item.gameObject);
+            }
+
+            GameManager.GM.NumPlayers.Clear();
+
+            inputManager.enabled = false; //Disable input manager
+            inputSystem.enabled = true; //Re-enable menu input player
+        }
         ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+        levelManager.enabled = false;
     }
 
     public void CheckLevelSelect(Scene scene, LoadSceneMode mode)
@@ -160,6 +180,7 @@ public class UIManager : MonoBehaviour
         {
             GameManager.GM.LoadIntoLevelSelect = false;
             ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+            levelManager.enabled = true;
         }
     }
 

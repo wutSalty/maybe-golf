@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     public bool LoadIntoLevelSelect = false;
 
+    public bool TutorialMode = false;
+
     //Upon first load, make GM the only GameManager possible
     void Awake()
     {

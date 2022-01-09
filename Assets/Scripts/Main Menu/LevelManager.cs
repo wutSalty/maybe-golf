@@ -1,23 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    GameManager gameMan;
-    LoadingScreen loading;
     List<LevelFormat> LevelList;
+
+    public Button TutorialButton;
 
     private void Start()
     {
-        loading = LoadingScreen.loadMan;
-        gameMan = GameManager.GM;
+        LevelList = GameManager.GM.LevelData;
+    }
 
-        LevelList = gameMan.LevelData;
+    private void OnEnable()
+    {
+        if (gameObject.activeSelf)
+        {
+            LevelList = GameManager.GM.LevelData;
+
+            if (GameManager.GM.SingleMode)
+            {
+                TutorialButton.interactable = true;
+            }
+            else
+            {
+                TutorialButton.interactable = false;
+            }
+        }
     }
 
     public void LoadLevel(int LevelInt)
     {
-        loading.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+        if (LevelInt == 0)
+        {
+            GameManager.GM.TutorialMode = true;
+        } else
+        {
+            GameManager.GM.TutorialMode = false;
+        }
+        LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
     }
 }

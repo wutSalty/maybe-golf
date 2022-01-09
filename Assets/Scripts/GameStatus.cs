@@ -23,6 +23,8 @@ public class GameStatus : MonoBehaviour
     private float Timer; //The time
     [HideInInspector]
     public bool GameOver; //Has the game ended yet
+    [HideInInspector]
+    public bool ForcePause = false;
     private bool SingleMode = false; //Are we playing in singleplayer mode
     private PlayerInput InputOne;
     private MultiplayerEventSystem POneUISys;
@@ -83,9 +85,13 @@ public class GameStatus : MonoBehaviour
     public void BeginGame()
     {
         inputs = FindObjectsOfType<PlayerInput>();
-        foreach (var item in inputs)
+
+        if (!GameManager.GM.TutorialMode)
         {
-            item.SwitchCurrentActionMap("In-Game Ball");
+            foreach (var item in inputs)
+            {
+                item.SwitchCurrentActionMap("In-Game Ball");
+            }
         }
 
         gameStat.StartTimer();
@@ -100,8 +106,11 @@ public class GameStatus : MonoBehaviour
     {
         while (gameStat.GameOver == false)
         {
-            gameStat.Timer += Time.deltaTime;
-            timertext.text = "Timer: " + gameStat.Timer.ToString("F2");
+            if (ForcePause == false)
+            {
+                gameStat.Timer += Time.deltaTime;
+                timertext.text = "Timer: " + gameStat.Timer.ToString("F2");
+            }
             yield return null;
         }
     }
@@ -220,6 +229,7 @@ public class GameStatus : MonoBehaviour
         {
             POneUISys.SetSelectedGameObject(ReturnButton.gameObject);
         }
+        POneUISys.firstSelectedGameObject = ReturnButton.gameObject;
 
         GameManager.GM.TimesPlayed += 1;
         GameManager.GM.CheckUnlockables();
