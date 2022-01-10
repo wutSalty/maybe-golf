@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//Handles loading between scenes and the loading screen
 public class LoadingScreen : MonoBehaviour
 {
     public static LoadingScreen loadMan;
 
+    //UI elements for loading
     public GameObject loadingCanvas;
     public Slider loadingSlider;
     public CanvasGroup canvasGroup;
@@ -25,11 +27,13 @@ public class LoadingScreen : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    //When instructed to begin, begin loading
     public void BeginLoadingScene(string SceneToLoad, bool timer)
     {
         StartCoroutine(StartLoad(SceneToLoad, timer));
     }
 
+    //Begins fade to black, loads the scene in the background, then fades out
     IEnumerator StartLoad(string SceneToLoad, bool timer)
     {
         BallImg.sprite = GameManager.GM.BallSkins[PlayerPrefs.GetInt("BallSkin", 0)];
@@ -55,6 +59,7 @@ public class LoadingScreen : MonoBehaviour
         }
     }
 
+    //Fades or unfades the screen as required
     IEnumerator FadeScreen(float targetValue, float duration, float ogValue)
     {
         float startValue = ogValue;

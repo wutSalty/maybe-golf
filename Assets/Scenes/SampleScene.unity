@@ -540,13 +540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 312505df283e1fa4b9c643c36a106a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseMenu: {fileID: 605186422}
-  ResumeButton: {fileID: 534053086}
-  EscText: {fileID: 1881749713}
-  RestartText: {fileID: 1206062819}
-  PlayerPausedText: {fileID: 879401088}
-  eventSystem: {fileID: 0}
-  LeftMove: {x: 0, y: 0}
   MenuIsOpen: 0
 --- !u!114 &345056459
 MonoBehaviour:
@@ -789,8 +782,6 @@ GameObject:
   m_Component:
   - component: {fileID: 398776116}
   - component: {fileID: 398776117}
-  - component: {fileID: 398776119}
-  - component: {fileID: 398776118}
   m_Layer: 0
   m_Name: StartPos Tutorial
   m_TagString: Respawn
@@ -827,49 +818,6 @@ MonoBehaviour:
   SpawnLocation: {fileID: 398776115}
   TutorialBallDragPrefab: {fileID: 3575854407117217675, guid: 881179d5964ea1a449b41c680cbb9f9a, type: 3}
   TutorialBallButtonPrefab: {fileID: 1986369610367205534, guid: 787366f5bf400f845b34e12ac65e69ef, type: 3}
---- !u!114 &398776118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398776115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
---- !u!114 &398776119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398776115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
 --- !u!1 &416476487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,6 +2637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6378677a039dea64da16b5f146407e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SixteenByNine: 7
+  FourByThree: 5
   cam: {fileID: 0}
 --- !u!20 &519420031
 Camera:
@@ -3695,7 +3645,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NotiAnimator: {fileID: 1045095928}
   SingleMode: 0
+  LoadIntoLevelSelect: 0
+  TutorialMode: 0
   NumPlayers: []
+  LevelData:
+  - LevelName: SampleScene
+    LevelInt: 1
+    BestTime: 0
+    BestHits: 0
+  TimesPlayed: 0
+  Version: 0.1.0-alpha
   BallSkins:
   - {fileID: 21300000, guid: db1ff6fffd870e446b764e84169ae2dc, type: 3}
   - {fileID: 21300000, guid: 6803723a326b2054d82ed2ff425fbac8, type: 3}
@@ -3705,17 +3664,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9e725d6af1c60634f90474c9927fb635, type: 3}
   - {fileID: 21300000, guid: 31b333d53d0f7464d8d290f3dd0c74dd, type: 3}
   - {fileID: 21300000, guid: d23d21eb1e80ff343a772796557a0db7, type: 3}
-  LevelData:
-  - LevelName: SampleScene
-    LevelInt: 1
-    BestTime: 0
-    BestHits: 0
   UnlockedBallSkins: 0101000000000000
-  TimesPlayed: 0
-  Version: 0.1.0-alpha
   LockedBalls: 
-  LoadIntoLevelSelect: 0
-  TutorialMode: 0
 --- !u!4 &949260927
 Transform:
   m_ObjectHideFlags: 0

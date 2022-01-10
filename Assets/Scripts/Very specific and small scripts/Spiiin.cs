@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Literally only spins a gameobject around on the spot, that's all
 public class Spiiin : MonoBehaviour
 {
     public int SpinSpeed = 400;

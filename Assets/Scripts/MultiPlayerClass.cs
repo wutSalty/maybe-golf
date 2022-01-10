@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Another simple class to handle multiple players for GameManager
 [System.Serializable]
 public class MultiPlayerClass
 {

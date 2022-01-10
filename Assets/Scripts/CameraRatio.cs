@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Adjusts the size of the camera so the entire map can be viewed
 public class CameraRatio : MonoBehaviour
 {
+    public float SixteenByNine = 7f;
+    public float FourByThree = 5f;
+
     [HideInInspector]
     public Camera cam;
 
@@ -32,11 +36,11 @@ public class CameraRatio : MonoBehaviour
         cam = GetComponent<Camera>();
         if ((Screen.width * 1.0) / Screen.height == (4 * 1.0) / 3)
         {
-            FixCamera(7f);
+            FixCamera(SixteenByNine);
         }
         else if ((Screen.width * 1.0) / Screen.height == (16 * 1.0) / 9)
         {
-            FixCamera(5f);
+            FixCamera(FourByThree);
         }
         Debug.Log("OnSceneLoaded " + (Screen.width * 1.0) / Screen.height);
     }

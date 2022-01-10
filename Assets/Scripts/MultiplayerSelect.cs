@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.EventSystems;
 
+//Handles joining and leaving players in multiplayer menu
 public class MultiplayerSelect : MonoBehaviour
 {
     //The play buttons and text
@@ -25,11 +26,13 @@ public class MultiplayerSelect : MonoBehaviour
     public PlayerInputManager inputManager;
     public EventSystem eventSystem;
     public UIManager uiManager;
+    public LevelManager levelManager;
 
     //Flag to signal switch scenes
     [HideInInspector]
     public bool CurrentlyLoading = false;
 
+    //Sets text and everything ready
     private void Start()
     {
         CurrentlyLoading = false;
@@ -37,6 +40,7 @@ public class MultiplayerSelect : MonoBehaviour
         PlayText.text = "Waiting for players...";
     }
 
+    //When the player joins, add them to GameManager, change text, etc etc
     public void WhenAPlayerJoins(PlayerInput value)
     {
         string ControlName = "Demo";
@@ -54,8 +58,10 @@ public class MultiplayerSelect : MonoBehaviour
         {
             ControlName = "Controller/Buttons";
             ControlType = 2; //2 = Controller buttons
-        } else
+
+        } else //Or else it's a keyboard user and let them make a choice
         {
+            ControlName = "";
             DropdownList[pIndex].gameObject.SetActive(true);
             ControlType = 0;
         }
@@ -84,6 +90,7 @@ public class MultiplayerSelect : MonoBehaviour
         StartCoroutine(Delay());
     }
 
+    //Delay for non-host controller trickery
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(0.05f);
@@ -99,6 +106,7 @@ public class MultiplayerSelect : MonoBehaviour
         
     }
 
+    //When a controller disconnects or other
     public void WhenAPlayerDisconnects(PlayerInput value)
     {
         if (CurrentlyLoading == false) //Needs check in-case game is changing scenes
@@ -125,5 +133,6 @@ public class MultiplayerSelect : MonoBehaviour
         CurrentlyLoading = true;
         
         uiManager.ButtonManager(uiManager.MultiplayerSelect, uiManager.LevelSelectScreen, uiManager.LevelSelectFirstButton);
+        levelManager.enabled = true;
     }
 }

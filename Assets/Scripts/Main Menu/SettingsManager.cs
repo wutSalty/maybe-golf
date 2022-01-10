@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+//Handles most of the settings on the settings screen
 public class SettingsManager : MonoBehaviour
 {
     //Settings buttons
@@ -13,6 +14,7 @@ public class SettingsManager : MonoBehaviour
     public Slider Sensitivity;
     public Toggle DebugWindow;
 
+    //UI element for delete button
     public GameObject DelPanel;
     public Button DelButton;
     public Text DelButtonTxt;
@@ -20,20 +22,22 @@ public class SettingsManager : MonoBehaviour
     public Button DelCancel;
     public Text DelTextA;
     public Text DelTextB;
-
     public GameObject ReturnButton;
     public GameObject OriginalDeleteButton;
 
+    //Elements for screen resolution confirm
     public GameObject ConfirmRevertScreen;
     public Text CountdownText;
-
     public Button TheConfirmButton;
     public Button TheRevertButton;
 
+    //For UI funky business
     public Selectable LastButtonSelected;
 
+    //To take over the selected object
     public EventSystem eventSystem;
 
+    //Holds data loaded from prefs or if it needs to revert
     private bool CurrentlyFullscreen; //true = yes its fullscreen. false = window mode.
     private int OldWindow;
     private int OldResolution;
@@ -44,10 +48,11 @@ public class SettingsManager : MonoBehaviour
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
     private int NumOfDelete = 0;
 
+    //Default playerdata in-case data is reset or other
     public List<LevelFormat> DefaultLevelData;
     public bool[] DefaultUnlockables;
 
-    //On start, check the saved values and set them to int
+    //On start, check the saved values and set them to old
     private void Start()
     {
         OldWindow = PlayerPrefs.GetInt("WindowMode", 0);
@@ -56,6 +61,7 @@ public class SettingsManager : MonoBehaviour
         OldSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4);
         OldDebugWindow = IntToBool(PlayerPrefs.GetInt("DebugWindow", 0));
 
+        //Update the values of each setting
         ForcedOverride = true;
 
         WindowMode.value = OldWindow;
@@ -66,10 +72,11 @@ public class SettingsManager : MonoBehaviour
 
         ForcedOverride = false;
 
+        //Get the game to actually update the screen size
         RevertWindowed();
     }
 
-    //Check the dropdown for window mode
+    //Check the dropdown for window mode (fullscreen or not)
     public void CheckWindowed()
     {
         if (ForcedOverride == false)
@@ -84,7 +91,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    //Check the dropdown for resolution
+    //Check the dropdown for resolution (screen size)
     public void CheckResolution()
     {
         if (ForcedOverride == false)
@@ -108,6 +115,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
+    //Check slider for player's sensitivity in button controls
     public void CheckSensitivity(float value)
     {
         PlayerPrefs.SetFloat("Sensitivity", value);
@@ -139,6 +147,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    //Initiates delete sequence. Player must click button 3 times before data will be deleted
     public void DeleteButton()
     {
         switch (NumOfDelete)
@@ -171,7 +180,7 @@ public class SettingsManager : MonoBehaviour
                 ReturnButton.SetActive(false);
                 OriginalDeleteButton.SetActive(false);
 
-                DelText.text = "Done. Game will restart in 3";
+                DelText.text = "Done. Game will reload in 3";
                 DelButtonTxt.text = "Confirmed";
                 StartCoroutine(DeleteCountdown());
                 break;
@@ -181,6 +190,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    //The countdown for deleting and then the actual deleting
     IEnumerator DeleteCountdown()
     {
         int CountdownValue = 3;
@@ -189,11 +199,12 @@ public class SettingsManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             CountdownValue -= 1;
-            DelText.text = "Done. Game will restart in " + CountdownValue;
+            DelText.text = "Done. Game will reload in " + CountdownValue;
         }
 
         Debug.Log("Save data reset.");
 
+        //Resets all preferences, resets player data, then reloads to main menu
         PlayerPrefs.SetInt("WindowMode", 0);
         PlayerPrefs.SetInt("WindowSize", 0);
         PlayerPrefs.SetInt("InputType", 0);
@@ -214,6 +225,7 @@ public class SettingsManager : MonoBehaviour
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 
+    //If the player cancels deleting data, reset the counter
     public void CancelDelete()
     {
         NumOfDelete = 0;
@@ -224,6 +236,7 @@ public class SettingsManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(WindowMode.gameObject);
     }
 
+    //Text fade for the ominous delete message
     IEnumerator FadeText(float targetValue, float duration, float ogValue)
     {
         float startValue = ogValue;
@@ -336,7 +349,7 @@ public class SettingsManager : MonoBehaviour
         LastButtonSelected.Select();
     }
 
-    //Countdown timer
+    //Countdown timer before reverting screen options
     float currentCountdownValue;
     public IEnumerator StartCountdown(float countdownValue = 10)
     {
@@ -369,6 +382,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    //To allow confirm button to be default when revert screen appears
     public IEnumerator WeirdOverride()
     {
         yield return new WaitForSeconds(0.05f);
@@ -377,6 +391,7 @@ public class SettingsManager : MonoBehaviour
         eventSystem.firstSelectedGameObject = TheConfirmButton.gameObject;
     }
 
+    //Converts boolean to int and int to boolean so that they can be saved in playerprefs
     int BoolToInt(bool val)
     {
         if (val)

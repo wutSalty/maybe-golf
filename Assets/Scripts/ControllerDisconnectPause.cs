@@ -5,14 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
+//Handles controller disconnects during a game
 public class ControllerDisconnectPause : MonoBehaviour
 {
     public static ControllerDisconnectPause ControlDC;
 
+    //UI elements
     public Canvas DisconnectPanel;
     public Text ControllerTemplate;
     public GameObject ReturnBtn;
 
+    //Flag for other components to check whether game is playing or not
     public bool CurrentlyDC = false;
 
     [System.Serializable]
@@ -22,9 +25,9 @@ public class ControllerDisconnectPause : MonoBehaviour
         public string ControlName = "dummy";
     };
 
-    public List<CurrentDC> CurrentDead;
+    public List<CurrentDC> CurrentDead; //List of all disconnected controllers
 
-    private PlayerInput[] listofInputs;
+    private PlayerInput[] listofInputs; //List of all players currently connected
 
     //Make this the only instance possible
     void Awake()
@@ -82,14 +85,12 @@ public class ControllerDisconnectPause : MonoBehaviour
         {
             Time.timeScale = 0;
             ControlDC.CurrentlyDC = true;
-            //PauseGame.pM.MenuIsOpen = true;
             DisconnectPanel.gameObject.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
             ControlDC.CurrentlyDC = false;
-            //PauseGame.pM.MenuIsOpen = false;
             DisconnectPanel.gameObject.SetActive(false);
         }
     }

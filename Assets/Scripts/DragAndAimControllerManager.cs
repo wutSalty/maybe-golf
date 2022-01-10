@@ -26,17 +26,17 @@ public class DragAndAimControllerManager : MonoBehaviour
     public InputActionReference uiRightClick;
     public InputActionReference uiScrollWheel;
 
+    //UI stuff
     public GameObject PauseUI;
     public Selectable ResumeButton;
 
     private Vector2 LeftMove;
     private int PlayerIndex;
 
+    //Allows Spawn Ball to access sprites
     public SpriteRenderer BallSprite;
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
-
-    private Vector3 spawnLocation;
 
     //When awake, grab the things we need
     private void Awake()
@@ -48,7 +48,6 @@ public class DragAndAimControllerManager : MonoBehaviour
     private void Start()
     {
         PlayerIndex = playerInput.playerIndex;
-        spawnLocation = gameObject.transform.position;
     }
 
     //On every frame, check these things
@@ -101,7 +100,7 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' pressed from in menu
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause)
         {
             return;
         }
@@ -123,6 +122,7 @@ public class DragAndAimControllerManager : MonoBehaviour
         }
     }
 
+    //Changes input stuff
     public void SetToUI()
     {
         inputModule.point = uiPoint;

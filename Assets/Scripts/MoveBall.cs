@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script that receives information to move the ball
 public class MoveBall : MonoBehaviour
 {
     public Rigidbody2D TheBall; //The ball itself
@@ -45,7 +46,7 @@ public class MoveBall : MonoBehaviour
 
         if (collision.tag == "Flag")
         {
-            Debug.Log("Player " + (playerIndex + 1) + "cleared");
+            Debug.Log("Player " + (playerIndex + 1) + " cleared");
 
             BallHasWon();
         }
@@ -73,7 +74,7 @@ public class MoveBall : MonoBehaviour
         TheBall.velocity = new Vector3(XDir, YDir);
     }
 
-    //Get call from flag. Once hit flag, stop ball and pass info to game status
+    //Handles when ball has hit flag
     public void BallHasWon()
     {
         gameObject.SendMessage("TurnThingsOff");
@@ -83,6 +84,7 @@ public class MoveBall : MonoBehaviour
         GameStatus.gameStat.SubmitRecord(playerIndex, NumHits, this);
     }
 
+    //Called when the scene is changing or restarting
     public void EmergancyEscape()
     {
         FlagHitYet = true;
@@ -90,6 +92,7 @@ public class MoveBall : MonoBehaviour
         gameObject.layer = 8;
     }
 
+    //Updates the time taken text on player HUD
     public void UpdateTimerText(float text)
     {
         Debug.Log(text);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Script to spawn the ball and any multiplayer players with skins
 public class SpawnBall : MonoBehaviour
 {
     public GameObject SpawnLocation; //Location to spawn the ball (uses empty gameobject)
@@ -29,13 +30,13 @@ public class SpawnBall : MonoBehaviour
 
             switch (InputType)
             {
-                case 0:
+                case 0: //Mouse and drag
                     ABall = Instantiate(BallDragPrefab, SpawnLocation.transform.position, Quaternion.identity);
                     var BallControllerA = ABall.GetComponent<DragAndAimControllerManager>();
                     BallControllerA.BallSprite.sprite = gameMan.BallSkins[SkinType];
                     break;
 
-                case 1:
+                case 1: //Button and controllers
                     ABall = Instantiate(BallButtonPrefab, SpawnLocation.transform.position, Quaternion.identity);
                     var BallControllerB = ABall.GetComponent<AltAimControllerManager>();
                     BallControllerB.BallSprite.sprite = gameMan.BallSkins[SkinType];
@@ -53,7 +54,7 @@ public class SpawnBall : MonoBehaviour
                 {
                     switch (item.ControlType) //Depending on their control type, spawn in different ball. And initialise properties
                     {
-                        case 0:
+                        case 0: //Mouse and drag
                             CurrentBall = PlayerInput.Instantiate(BallDragPrefab, item.PlayerIndex, null, -1, item.inputDevice);
 
                             var ControllerManagerA = CurrentBall.GetComponent<DragAndAimControllerManager>();
@@ -65,7 +66,7 @@ public class SpawnBall : MonoBehaviour
                             ControllerManagerA.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                             break;
 
-                        case 1:
+                        case 1: //Keyboard
                             CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Keyboard", -1, item.inputDevice);
                             CurrentBall.neverAutoSwitchControlSchemes = true;
 
@@ -78,7 +79,7 @@ public class SpawnBall : MonoBehaviour
                             ControllerManagerB.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                             break;
 
-                        case 2:
+                        case 2: //Controller
                             CurrentBall = PlayerInput.Instantiate(BallButtonPrefab, item.PlayerIndex, "Controller", -1, item.inputDevice);
                             CurrentBall.neverAutoSwitchControlSchemes = true;
 

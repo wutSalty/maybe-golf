@@ -4,33 +4,29 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 
+//Handles save data, any data that needs to travel through scenes, other things that are handy to have just one copy of, etc etc
 public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
-    public Animator NotiAnimator;
+    public Animator NotiAnimator; //Animation for notification bar
 
-    public bool SingleMode = false;
-    public List<MultiPlayerClass> NumPlayers;
-    public Sprite[] BallSkins;
-    //Guide for Multiplayer Players (NumPlayers)
+    public bool SingleMode = false; //Flag for playing in singleplayer
+    public bool LoadIntoLevelSelect = false; //Flag for whether user needs to go straight into Level Select
+    public bool TutorialMode = false; //Flag for whether the game is currently playing the tutorial
 
-    //ControlType = The controller they are using; 0 = Mouse, 1 = Buttons
-    //PlayerIndex = The position the player has connected; 99 = Player disconnected so please ignore
-    //inputDevice = The device the player used to connect. Required for pairing when switching scenes
+    public List<MultiPlayerClass> NumPlayers; //Holds data for every player playing or connected
 
-    public List<LevelFormat> LevelData;
-    public bool[] UnlockedBallSkins;
-    public int TimesPlayed;
+    public List<LevelFormat> LevelData; //Holds data about every level (This data is saved)
+    
+    public int TimesPlayed; //Number of times the user has cleared a course (This data is saved)
 
     public string Version = "Pre-Alpha v0.0.0";
-    //LevelData required for saving level data
 
+    //Holds the sprites and status of unlockable balls
+    public Sprite[] BallSkins;
+    public bool[] UnlockedBallSkins;
     public List<int> LockedBalls;
-
-    public bool LoadIntoLevelSelect = false;
-
-    public bool TutorialMode = false;
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -53,12 +49,14 @@ public class GameManager : MonoBehaviour
         CheckLocked();
     }
 
+    //Just makes a message when the application is quitting
     bool WantsToQuit()
     {
         Debug.Log("Game quitting... see you next time");
         return true;
     }
 
+    //Checks the status of balls still locked
     public void CheckLocked()
     {
         GM.LockedBalls.Clear();
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Check unlockables
+    //After every course, check whether it should unlock a skin
     [ContextMenu("Force Check")]
     public void CheckUnlockables()
     {
@@ -132,6 +130,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Deletes save file. Only occurs through editor
     [ContextMenu("Force Delete Save")]
     void ForceDeleteSave()
     {

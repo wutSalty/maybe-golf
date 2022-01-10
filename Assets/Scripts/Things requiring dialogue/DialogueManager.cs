@@ -10,33 +10,45 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager dMan;
 
-    public Text NameField;
-    public Text DialogueField;
-    public GameObject ContinueButton;
-    public GameObject ReturnToSelectButton;
-    public Animator animator;
+    public Text NameField; //NPC Name
+    public Text DialogueField; //NPC Dialogue box
+    public GameObject ContinueButton; //The continue button
+    public Animator animator; //Animator to animate box
 
     [HideInInspector]
-    public Queue<string> sentences;
+    public Queue<string> sentences; //The list of dialogue that needs to be said
 
+    //Various inputs to manipulate during play
     [HideInInspector]
     public PlayerInput playerInput;
-
-    [HideInInspector]
-    public EventSystem eventSystem;
-
     [HideInInspector]
     public MultiplayerEventSystem multiplayerEvent;
-
     [HideInInspector]
     public InputSystemUIInputModule inputSystem;
 
+    //Required when hijacking results screen
     [HideInInspector]
     public GameObject LastSelectedObject;
 
+    //Holds coroutine so only this routine can be stopped
     [HideInInspector]
-    public Coroutine Thingy;
+    public Coroutine TypeSentenceRoutine;
 
+    //Everything down here is to handle buttons, controllers, and keyboards
+    [HideInInspector]
+    public string ControlScheme;
+
+    [HideInInspector]
+    public string ControllerA = "To get started, use the LEFT STICK and RIGHT STICK to aim, and SUBMIT to shoot.";
+    [HideInInspector]
+    public string KeyboardA = "To get started, use the ARROW KEYS to aim, and ENTER to shoot.";
+
+    [HideInInspector]
+    public string ControllerB = "If you ever need to restart your position back to the start, press LB + RB. And use MENU to pause the game.";
+    [HideInInspector]
+    public string KeyboardB = "If you ever need to restart your position back to the start, press R. And use ESC to pause the game.";
+
+    //When awake, grab necessary components
     private void Awake()
     {
         if (dMan != null && dMan != this)
@@ -48,23 +60,24 @@ public class DialogueManager : MonoBehaviour
             dMan = this;
         }
         dMan.sentences = new Queue<string>();
-        eventSystem = GameObject.FindGameObjectWithTag("Respawn").GetComponent<EventSystem>();
+
         multiplayerEvent = GetComponentInParent<MultiplayerEventSystem>();
         inputSystem = GetComponentInParent<InputSystemUIInputModule>();
+        playerInput = GetComponentInParent<PlayerInput>();
     }
 
-    private void Start()
+    //Every frame, check whether the player has changed controls (required for tutorial text)
+    private void Update()
     {
-        if (PlayerPrefs.GetInt("InputType", 0) == 0)
+        if (playerInput.currentControlScheme != ControlScheme)
         {
-            eventSystem.enabled = false;
+            ControlScheme = playerInput.currentControlScheme;
         }
     }
 
-    public void StartDialogue(Dialogue dialogue, PlayerInput pInput)
+    //Dialogue gets passed into here. Pauses the timer and sets up the dialogue box
+    public void StartDialogue(Dialogue dialogue)
     {
-        playerInput = pInput;
-        
         GameStatus.gameStat.ForcePause = true;
 
         dMan.sentences.Clear();
@@ -74,15 +87,17 @@ public class DialogueManager : MonoBehaviour
         }
 
         NameField.text = dialogue.name;
-        animator.SetBool("IsOpen", true);
 
         StartCoroutine(HahaDelay());
+        animator.SetBool("IsOpen", true);
+
         DisplayNextSentence();
     }
 
+    //For every string of sentences, gets passed into here. It also checks if any strings need replacing then begings displaying them
     public void DisplayNextSentence()
     {
-        Debug.Log("DisplayNextSentence has been pressed");
+        //Debug.Log("DisplayNextSentence has been pressed");
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -91,14 +106,36 @@ public class DialogueManager : MonoBehaviour
 
         string sentence = sentences.Dequeue();
 
-        if (Thingy != null)
+        if (sentence.Contains("<CheckA>"))
         {
-            StopCoroutine(Thingy);
+            if (ControlScheme == "Keyboard") //Keyboard
+            {
+                sentence = KeyboardA;
+            } else //Controller
+            {
+                sentence = ControllerA;
+            }
+        } else if (sentence.Contains("<CheckB>"))
+        {
+            if (ControlScheme == "Keyboard") //Keyboard
+            {
+                sentence = KeyboardB;
+            }
+            else //Controller
+            {
+                sentence = ControllerB;
+            }
         }
 
-        Thingy = StartCoroutine(TypeSentence(sentence));
+        if (TypeSentenceRoutine != null)
+        {
+            StopCoroutine(TypeSentenceRoutine);
+        }
+
+        TypeSentenceRoutine = StartCoroutine(TypeSentence(sentence));
     }
 
+    //Types out each letter of the dialogue one at a time
     IEnumerator TypeSentence(string sentence)
     {
         DialogueField.text = "";
@@ -108,42 +145,45 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.002f);
         }
     }
-
+    
+    //If there's no more dialogue, return input to where ever
     public void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
-        eventSystem.SetSelectedGameObject(null);
 
         if (GameStatus.gameStat.GameOver)
         {
             playerInput.SwitchCurrentActionMap("UI");
             multiplayerEvent.playerRoot = GameObject.FindGameObjectWithTag("Results Screen");
-            
-            //eventSystem.firstSelectedGameObject = ReturnToSelectButton;
-            //eventSystem.SetSelectedGameObject(ReturnToSelectButton);
 
-            eventSystem.enabled = false;
+            StartCoroutine(HindsightIsFun());
 
             multiplayerEvent.firstSelectedGameObject = LastSelectedObject;
             multiplayerEvent.SetSelectedGameObject(LastSelectedObject);
         } else
         {
+            if (playerInput.gameObject.TryGetComponent(out DragAndAimControllerManager manager))
+            {
+                manager.SetToUI();
+            }
+
             playerInput.SwitchCurrentActionMap("In-Game Ball");
-            eventSystem.SetSelectedGameObject(null);
-            
-            //multiplayerEvent.SetSelectedGameObject(null);
+            multiplayerEvent.playerRoot = playerInput.gameObject;
+
+            multiplayerEvent.SetSelectedGameObject(null);
+            multiplayerEvent.firstSelectedGameObject = null;
         }
+        ContinueButton.SetActive(false);
         GameStatus.gameStat.ForcePause = false;
     }
 
+    //When dialogue box is needed, steal input to button can be clicked
     IEnumerator HahaDelay()
     {
         yield return new WaitForSeconds(0.02f);
 
         if (GameStatus.gameStat.GameOver)
         {
-            eventSystem.enabled = false;
-
             playerInput.SwitchCurrentActionMap("UI");
             multiplayerEvent.playerRoot = this.gameObject;
 
@@ -152,28 +192,37 @@ public class DialogueManager : MonoBehaviour
             multiplayerEvent.SetSelectedGameObject(null);
             multiplayerEvent.firstSelectedGameObject = null;
 
-            //eventSystem.SetSelectedGameObject(null);
-
             multiplayerEvent.firstSelectedGameObject = ContinueButton;
-            //eventSystem.firstSelectedGameObject = ContinueButton;
-
             multiplayerEvent.SetSelectedGameObject(ContinueButton);
-            //eventSystem.SetSelectedGameObject(ContinueButton);
         }
         else
         {
-            inputSystem.enabled = false;
+            //Oldtrial
+            if (playerInput.gameObject.TryGetComponent(out DragAndAimControllerManager manager))
+            {
+                manager.SetToUI();
+            }
 
-            playerInput.SwitchCurrentActionMap("Not Caller Menu");
+            playerInput.SwitchCurrentActionMap("UI");
 
-            eventSystem.SetSelectedGameObject(null);
-            eventSystem.firstSelectedGameObject = null;
+            multiplayerEvent.playerRoot = this.gameObject;
 
-            eventSystem.SetSelectedGameObject(ContinueButton);
-            eventSystem.firstSelectedGameObject = ContinueButton;
-            
-            //multiplayerEvent.SetSelectedGameObject(ContinueButton);
+            multiplayerEvent.SetSelectedGameObject(null);
+            multiplayerEvent.firstSelectedGameObject = null;
+
+            multiplayerEvent.SetSelectedGameObject(ContinueButton);
+            multiplayerEvent.firstSelectedGameObject = ContinueButton;
+
+            multiplayerEvent.SetSelectedGameObject(ContinueButton);
         }
+
+        ContinueButton.SetActive(true);
         inputSystem.enabled = true;
+    }
+
+    //Just a delay for the closing dialogue
+    IEnumerator HindsightIsFun()
+    {
+        yield return new WaitForSeconds(0.02f);
     }
 }

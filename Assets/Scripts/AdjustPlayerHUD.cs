@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
+//Gets the player index and changes where on the screen the Player's information is located
 public class AdjustPlayerHUD : MonoBehaviour
 {
     private int pIndex;

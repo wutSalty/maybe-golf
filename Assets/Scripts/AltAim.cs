@@ -103,6 +103,7 @@ public class AltAim : MonoBehaviour
         ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
     }
 
+    //When ball is asked to restart position
     void OnRestartBall()
     {
         if (ScriptToMoveTheBall.FlagHitYet == false)
@@ -116,9 +117,16 @@ public class AltAim : MonoBehaviour
         }
     }
 
+    //Updates the sensitivity of aiming locally and (if by yourself) globally
     public void UpdateSensitivity(float value)
     {
         AimingSensitivity = value;
         GameManager.GM.NumPlayers[playerIndex].AimingSensitivity = value;
+
+        if (GameManager.GM.SingleMode)
+        {
+            PlayerPrefs.SetFloat("Sensitivity", value);
+            PlayerPrefs.Save();
+        }
     }
 }

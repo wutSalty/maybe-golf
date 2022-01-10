@@ -35,17 +35,13 @@ public class DragAndAim : MonoBehaviour
             Collider2D highestCollider = GetHighestObject(results);
             targetObject = highestCollider.transform.gameObject;
 
-            //Debug.Log(targetObject + ", " + ClickableObject.gameObject);
-
             offset = targetObject.transform.position - mousePosition;
-            //Debug.Log("Clicking on object");
         }
     }
 
     //When mouse is released and it is the object we want, shoot the ball
     public void OnMouseLeftCancelled()
     {
-        //Debug.Log("Object let go");
         if (ClickableObject.gameObject == targetObject)
         {
             targetObject = null;
@@ -140,6 +136,7 @@ public class DragAndAim : MonoBehaviour
         TheActualArrow.SetActive(false);
     }
 
+    //This call is made from respective Controller Managers. Restarts position of ball
     void OnRestartBall()
     {
         if (BallMoveScript.FlagHitYet == false)

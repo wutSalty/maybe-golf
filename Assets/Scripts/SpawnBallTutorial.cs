@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Used to handle spawning balls during the tutorial as they use a different prefab for dialogue
+//Mostly identical to regular SpawnBall except Multiplayer is not supported
 public class SpawnBallTutorial : MonoBehaviour
 {
     public GameObject SpawnLocation; //Location to spawn the ball (uses empty gameobject)

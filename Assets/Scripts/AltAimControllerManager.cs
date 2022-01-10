@@ -9,8 +9,9 @@ using UnityEngine.InputSystem.UI;
 public class AltAimControllerManager : MonoBehaviour
 {
     private PlayerInput playerInput; //player input to switch stuff
-    public MultiplayerEventSystem eventSystem;
+    public MultiplayerEventSystem eventSystem; //the input system
 
+    //Any UI components
     public GameObject PauseUI;
     public Canvas HUDUi;
     public Selectable ResumeButton;
@@ -19,13 +20,10 @@ public class AltAimControllerManager : MonoBehaviour
     private Vector2 LeftMove;
     private int PlayerIndex;
 
+    //Hooked up here so SpawnBall can the sprites and layers
     public SpriteRenderer BallSprite;
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
-
-    public Text pauseText;
-
-    private Vector3 spawnLocation;
 
     //When awake, grab the things we need
     private void Awake()
@@ -37,7 +35,6 @@ public class AltAimControllerManager : MonoBehaviour
     private void Start()
     {
         PlayerIndex = playerInput.playerIndex;
-        spawnLocation = gameObject.transform.position;
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
@@ -72,7 +69,7 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause)
         {
             return;
         }

@@ -1880,10 +1880,10 @@ RectTransform:
   m_Father: {fileID: 911052244}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 131.88022, y: -219.32552}
+  m_SizeDelta: {x: 125, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138916752
 MonoBehaviour:
@@ -2741,7 +2741,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -9.731}
-  m_SizeDelta: {x: 545.1497, y: 229.2391}
+  m_SizeDelta: {x: 603.9351, y: 229.2391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &183347846
 MonoBehaviour:
@@ -2778,23 +2778,25 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '
 
-
     By continuing, you agree to:
 
 
     - Deleting all high scores
 
-    -Resetting
-    all user preferences
+    -
+    Resetting all user preferences
+
+    - Removing all unlocked Ball Skins
 
 
-    Continuing past this point will make this data unretreivable
+    Continuing
+    past this point will make this data unretreivable
 
-    If
-    you do not want to continue, press "Cancel Delete"
+    If you do not want to
+    continue, press "Cancel Delete"
 
-    If you wish to continue,
-    press the button in the top-right corner'
+    If you wish to continue, keep pressing the
+    button in the top-right corner'
 --- !u!222 &183347847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5217,10 +5219,10 @@ RectTransform:
   m_Father: {fileID: 911052244}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 296.88022, y: -219.32552}
+  m_SizeDelta: {x: 125, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514414664
 MonoBehaviour:
@@ -8679,7 +8681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &826511048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10850,10 +10852,10 @@ RectTransform:
   m_Father: {fileID: 911052244}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 791.88025, y: -219.32552}
+  m_SizeDelta: {x: 125, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169272124
 MonoBehaviour:
@@ -11242,8 +11244,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 545.1497, y: 209.7771}
+  m_AnchoredPosition: {x: 0, y: 126.95}
+  m_SizeDelta: {x: 545.1497, y: 34.7854}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1254346140
 MonoBehaviour:
@@ -11267,7 +11269,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -12695,7 +12697,7 @@ MonoBehaviour:
   QuitButton: {fileID: 2072706723}
   SettingsFirstButton: {fileID: 928487157}
   MultiplayerFirstButton: {fileID: 261894684}
-  LevelSelectFirstButton: {fileID: 138916752}
+  LevelSelectFirstButton: {fileID: 514414664}
   eventSystem: {fileID: 1891956011}
   inputSystem: {fileID: 83909639}
   inputManager: {fileID: 1891956013}
@@ -12786,6 +12788,7 @@ MonoBehaviour:
   inputManager: {fileID: 1891956013}
   eventSystem: {fileID: 1891956011}
   uiManager: {fileID: 1479502440}
+  levelManager: {fileID: 826511049}
   CurrentlyLoading: 0
 --- !u!1 &1486959899
 GameObject:
@@ -14026,16 +14029,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NotiAnimator: {fileID: 134588925}
   SingleMode: 0
+  LoadIntoLevelSelect: 0
+  TutorialMode: 0
   NumPlayers: []
-  BallSkins:
-  - {fileID: 21300000, guid: db1ff6fffd870e446b764e84169ae2dc, type: 3}
-  - {fileID: 21300000, guid: 6803723a326b2054d82ed2ff425fbac8, type: 3}
-  - {fileID: 21300000, guid: f9a1aa6a61467304aa63f5db2274bd56, type: 3}
-  - {fileID: 21300000, guid: 886d3641ef5787e469f48090df59887d, type: 3}
-  - {fileID: 21300000, guid: d2bca953eef3aa4499d6778f01043f0f, type: 3}
-  - {fileID: 21300000, guid: 9e725d6af1c60634f90474c9927fb635, type: 3}
-  - {fileID: 21300000, guid: 31b333d53d0f7464d8d290f3dd0c74dd, type: 3}
-  - {fileID: 21300000, guid: d23d21eb1e80ff343a772796557a0db7, type: 3}
   LevelData:
   - LevelName: SampleScene
     LevelInt: 1
@@ -14045,12 +14041,19 @@ MonoBehaviour:
     LevelInt: 2
     BestTime: 0
     BestHits: 0
-  UnlockedBallSkins: 0101000000000000
   TimesPlayed: 0
   Version: 0.1.0-alpha
+  BallSkins:
+  - {fileID: 21300000, guid: db1ff6fffd870e446b764e84169ae2dc, type: 3}
+  - {fileID: 21300000, guid: 6803723a326b2054d82ed2ff425fbac8, type: 3}
+  - {fileID: 21300000, guid: f9a1aa6a61467304aa63f5db2274bd56, type: 3}
+  - {fileID: 21300000, guid: 886d3641ef5787e469f48090df59887d, type: 3}
+  - {fileID: 21300000, guid: d2bca953eef3aa4499d6778f01043f0f, type: 3}
+  - {fileID: 21300000, guid: 9e725d6af1c60634f90474c9927fb635, type: 3}
+  - {fileID: 21300000, guid: 31b333d53d0f7464d8d290f3dd0c74dd, type: 3}
+  - {fileID: 21300000, guid: d23d21eb1e80ff343a772796557a0db7, type: 3}
+  UnlockedBallSkins: 0101000000000000
   LockedBalls: 
-  LoadIntoLevelSelect: 0
-  TutorialMode: 0
 --- !u!4 &1616751990
 Transform:
   m_ObjectHideFlags: 0
@@ -15783,10 +15786,10 @@ RectTransform:
   m_Father: {fileID: 911052244}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 461.88022, y: -219.32552}
+  m_SizeDelta: {x: 125, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1867017758
 MonoBehaviour:
@@ -16316,7 +16319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1926102508
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17313,10 +17316,10 @@ RectTransform:
   m_Father: {fileID: 911052244}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 626.88025, y: -219.32552}
+  m_SizeDelta: {x: 125, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2086055890
 MonoBehaviour:

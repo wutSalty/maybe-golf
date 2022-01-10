@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//The big ol Save and Load system
 public static class SaveSystem 
 {
     //To save the game. Convert data to binary then save to file

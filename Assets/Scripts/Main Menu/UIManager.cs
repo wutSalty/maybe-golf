@@ -7,27 +7,33 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEditor;
 
+//Handles Main Menu and other wacky UI business
 public class UIManager : MonoBehaviour
 {
+    //The different screens
     public GameObject MainMenu; //Main Menu object
     public GameObject MultiplayerSelect; //Multiplayer controller screen
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
     public GameObject LevelSelectScreen; //Level select screen
 
+    //Main Menu Buttons
     public Button PlayButton;
     public Button TwoPlayerBtn;
     public Button SettingsButton;
     public Button QuitButton;
 
+    //The buttons that should be selected when menus are accessed
     public Selectable SettingsFirstButton;
     public Selectable MultiplayerFirstButton;
     public Selectable LevelSelectFirstButton;
 
+    //Any event or input system
     public EventSystem eventSystem;
     public PlayerInput inputSystem;
     public PlayerInputManager inputManager;
 
+    //Scripts for interfacing
     public MultiplayerSelect MultiSelectScript;
     public LevelManager levelManager;
 
@@ -40,7 +46,7 @@ public class UIManager : MonoBehaviour
         LeftMove = value.ReadValue<Vector2>();
     }
 
-    //If button is pressed
+    //If button is pressed, make sure currentSelected isn't null
     public void EnterController(InputAction.CallbackContext value)
     {
         if (eventSystem.currentSelectedGameObject != null)
@@ -59,17 +65,17 @@ public class UIManager : MonoBehaviour
         MainMenu.SetActive(true);
     }
 
+    //Subscribes or unsubscribes from sceneLoaded, handles CourseSelect
     private void OnEnable()
     {
         SceneManager.sceneLoaded += CheckLevelSelect;
     }
-
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= CheckLevelSelect;
     }
 
-    //Any time the user uses arrow keys, make sure FirstSeleced isn't missing, set the current item to the FirstSelected item, and or set the current item to FirstSelected
+    //Any time the user uses arrow keys, make sure FirstSeleced isn't missing, set the current item to the FirstSelected item, and or set the current item to FirstSelected. Handles wacky mouse to controller behaviour
     private void Update()
     {
         if (eventSystem.firstSelectedGameObject == null)
@@ -88,7 +94,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //Main Menu buttons
+    //Level Select button
     public void PressPlay()
     {
         GameManager.GM.SingleMode = true;
@@ -99,6 +105,7 @@ public class UIManager : MonoBehaviour
         levelManager.enabled = true;
     }
 
+    //Multiplayer button
     public void PressPlay2P()
     {
         inputSystem.enabled = false;
@@ -108,11 +115,13 @@ public class UIManager : MonoBehaviour
         ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
     }
 
+    //Settings button
     public void PressSettings()
     {
         ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
 
+    //Quit button
     public void PressQuit()
     {
         #if UNITY_EDITOR
@@ -128,6 +137,7 @@ public class UIManager : MonoBehaviour
         ButtonManager(Settings, MainMenu, SettingsButton);
     }
 
+    //Returning from Multiplayer
     public void ReturnMainFromMulti()
     {
         inputManager.DisableJoining(); //Disable new players from joining
@@ -146,6 +156,7 @@ public class UIManager : MonoBehaviour
         ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
     }
 
+    //Returning from Level Select
     public void ReturnFromLevelSelect()
     {
         if (GameManager.GM.SingleMode)
@@ -174,6 +185,7 @@ public class UIManager : MonoBehaviour
         levelManager.enabled = false;
     }
 
+    //If returning from a Course to Course Select screen, this will load
     public void CheckLevelSelect(Scene scene, LoadSceneMode mode)
     {
         if (GameManager.GM.LoadIntoLevelSelect)
@@ -184,6 +196,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Handles swapping screens in and out and setting the active object
     public void ButtonManager(GameObject oldScreen, GameObject newScreen, Selectable setButton)
     {
         oldScreen.SetActive(false);
