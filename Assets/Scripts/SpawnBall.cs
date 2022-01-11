@@ -21,6 +21,7 @@ public class SpawnBall : MonoBehaviour
     void Awake()
     {
         GameManager gameMan = GameManager.GM;
+        SpawnLocation = gameObject;
 
         if (gameMan.SingleMode == true || gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
         {
