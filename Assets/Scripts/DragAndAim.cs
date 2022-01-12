@@ -70,7 +70,7 @@ public class DragAndAim : MonoBehaviour
     //Every frame, check the position of the mouse and the movement of the ball
     private void Update()
     {
-        if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && BallMoveScript.FlagHitYet == false)
+        if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && !BallMoveScript.FlagHitYet && !BallMoveScript.CurrentlyDead)
         {
             TurnOnThings();
         }

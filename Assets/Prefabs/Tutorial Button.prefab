@@ -1240,7 +1240,6 @@ MonoBehaviour:
   BallSprite: {fileID: 6628228445740085667}
   spriteMask: {fileID: 6628228445177780876}
   insideSprite: {fileID: 6628228445687544762}
-  pauseText: {fileID: 0}
 --- !u!114 &1986369610367207264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2501,7 +2500,7 @@ MonoBehaviour:
   TheBall: {fileID: 6628228445740085668}
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
-  VelocityMultiplier: 15
+  VelocityMultiplier: 10
   MaskSprite: {fileID: 6628228445177780877}
   InsideSprite: {fileID: 6628228445687544760}
   NumHitsText: {fileID: 6370697706170744042}
@@ -2509,6 +2508,7 @@ MonoBehaviour:
   NumHits: 0
   FlagHitYet: 0
   playerIndex: 0
+  CurrentlyDead: 0
 --- !u!50 &6628228445740085668
 Rigidbody2D:
   serializedVersion: 4

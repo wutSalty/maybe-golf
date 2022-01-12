@@ -962,7 +962,7 @@ MonoBehaviour:
   TheBall: {fileID: 2500142562290495178}
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
-  VelocityMultiplier: 15
+  VelocityMultiplier: 10
   MaskSprite: {fileID: 2500142563309344045}
   InsideSprite: {fileID: 2500142564024863799}
   NumHitsText: {fileID: 7688461053437044439}
@@ -970,6 +970,7 @@ MonoBehaviour:
   NumHits: 0
   FlagHitYet: 0
   playerIndex: 0
+  CurrentlyDead: 0
 --- !u!50 &2500142562290495178
 Rigidbody2D:
   serializedVersion: 4

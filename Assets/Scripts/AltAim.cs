@@ -63,7 +63,7 @@ public class AltAim : MonoBehaviour
     private void Update()
     {
         //When the ball has stopped moving, enable things again
-        if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && ScriptToMoveTheBall.FlagHitYet == false)
+        if (InMotion && BallPhysics.velocity.magnitude < 0.005f && !ScriptToMoveTheBall.FlagHitYet && !ScriptToMoveTheBall.CurrentlyDead)
         {
             TurnThingsOn();
         }

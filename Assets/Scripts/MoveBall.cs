@@ -9,7 +9,7 @@ public class MoveBall : MonoBehaviour
     public Rigidbody2D TheBall; //The ball itself
     public FlagWin TheScriptForFlagWin; //the script for the flag
     public int RotateMultiplier = 100; //Multiply how fast the ball rotates
-    public int VelocityMultiplier = 15; //Multiply how fast the ball goes
+    public int VelocityMultiplier = 5; //Multiply how fast the ball goes
 
     public GameObject MaskSprite;
     public GameObject InsideSprite;
@@ -18,6 +18,7 @@ public class MoveBall : MonoBehaviour
     public Text TimeTakenText;
 
     private Vector3 LastBallLocation; //The ball's last location
+
     [HideInInspector]
     public int NumHits;
 
@@ -26,6 +27,16 @@ public class MoveBall : MonoBehaviour
 
     [HideInInspector]
     public int playerIndex;
+
+    [HideInInspector]
+    public bool CurrentlyDead;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     //Every frame, check has the ball stopped moving yet and to rotate the ball while in motion
     private void Update()
@@ -37,14 +48,14 @@ public class MoveBall : MonoBehaviour
     //Handles the ball going into areas it might be in
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.layer == 6) //When the ball hits the water or illegal area
         {
+            CurrentlyDead = true;
             TheBall.velocity = new Vector2(0, 0);
-            TheBall.transform.position = LastBallLocation;
-            Debug.Log("Ball has hit death");
+            StartCoroutine(DeathFade());
         }
 
-        if (collision.tag == "Flag")
+        if (collision.tag == "Flag") //When the ball hits the flag
         {
             Debug.Log("Player " + (playerIndex + 1) + " cleared");
 
@@ -97,5 +108,43 @@ public class MoveBall : MonoBehaviour
     {
         Debug.Log(text);
         TimeTakenText.text = "Time Taken: " + text.ToString("F2");
+    }
+
+    IEnumerator DeathFade()
+    {
+        float targetValue = 0;
+        float duration = 1;
+        float startValue = 1;
+        float time = 0;
+        float alpha;
+
+        while (time < duration)
+        {
+            alpha = Mathf.Lerp(startValue, targetValue, time / duration);
+
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
+
+        TheBall.transform.position = LastBallLocation;
+
+        targetValue = 1;
+        startValue = 0;
+        time = 0;
+
+        while (time < duration)
+        {
+            alpha = Mathf.Lerp(startValue, targetValue, time / duration);
+
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
+        CurrentlyDead = false;
     }
 }
