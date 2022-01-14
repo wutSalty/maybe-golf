@@ -13,12 +13,12 @@ public class AdjustPlayerHUD : MonoBehaviour
     public Text playerNumText;
     public Text shotHit;
 
-    private int Xdist = 90;
-    private int Ydist = 45;
+    private int Xdist = 100;
+    private int Ydist = 50;
 
     private void Start()
     {
-        pIndex = gameObject.GetComponent<PlayerInput>().playerIndex;
+        pIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
 
         switch (pIndex)
         {

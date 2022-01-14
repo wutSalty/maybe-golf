@@ -13,7 +13,6 @@ public class AltAimControllerManager : MonoBehaviour
 
     //Any UI components
     public GameObject PauseUI;
-    public Canvas HUDUi;
     public Selectable ResumeButton;
     public Text ControlsText;
 

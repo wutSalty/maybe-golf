@@ -12752,14 +12752,18 @@ MonoBehaviour:
   eventSystem: {fileID: 1891956011}
   DefaultLevelData:
   - LevelName: SampleScene
-    LevelInt: 1
+    LevelInt: 0
     BestTime: 0
     BestHits: 0
   - LevelName: LevelOne
-    LevelInt: 2
+    LevelInt: 1
     BestTime: 0
     BestHits: 0
   - LevelName: LevelTwo
+    LevelInt: 2
+    BestTime: 0
+    BestHits: 0
+  - LevelName: LevelThree
     LevelInt: 3
     BestTime: 0
     BestHits: 0
@@ -14038,14 +14042,18 @@ MonoBehaviour:
   NumPlayers: []
   LevelData:
   - LevelName: SampleScene
-    LevelInt: 1
+    LevelInt: 0
     BestTime: 0
     BestHits: 0
   - LevelName: LevelOne
-    LevelInt: 2
+    LevelInt: 1
     BestTime: 0
     BestHits: 0
   - LevelName: LevelTwo
+    LevelInt: 2
+    BestTime: 0
+    BestHits: 0
+  - LevelName: LevelThree
     LevelInt: 3
     BestTime: 0
     BestHits: 0
@@ -17384,7 +17392,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2086055891}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 826511049}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2086055891
 MonoBehaviour:
   m_ObjectHideFlags: 0
