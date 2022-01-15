@@ -42,6 +42,12 @@ public class GameStatus : MonoBehaviour
     public GameObject ResultsCanvas;
     public Text ResultDetails;
 
+    //UI elements for scroll collectable
+    public Sprite NotCollectedSprite;
+    public Sprite CollectedSprite;
+    public Image UIIcon;
+    public int CollectableStatus;
+
     //Fun facts for multiplayer games
     private int MaxHits = 0;
     private int ThePlayerWithMaxHits = 99;
@@ -253,6 +259,10 @@ public class GameStatus : MonoBehaviour
         POneUISys.firstSelectedGameObject = ReturnButton.gameObject;
 
         //Checks unlockables then saves the game
+        if (CollectableStatus == 1)
+        {
+            GameManager.GM.LevelData[GMLevelIndex].CollectableGet = 2;
+        }
         GameManager.GM.TimesPlayed += 1;
         GameManager.GM.CheckUnlockables();
         GameManager.GM.SavePlayer();

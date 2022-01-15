@@ -12,6 +12,7 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue FirstShoot; //Dialogue after first shoot
     public Dialogue FirstGoal; //Dialogue after goal is hit
     public Dialogue FirstDeath; //Dialogue if water touched
+    public Dialogue FirstScroll; //Dialogue when pickup scroll
 
     private MoveBall MoveBallScript;
 
@@ -19,6 +20,7 @@ public class DialogueTrigger : MonoBehaviour
     private bool FirstMove = false;
     private bool HitFlag = false;
     private bool WaterHit = false;
+    private bool ScrollHit = false;
 
     //For first load
     private void Start()
@@ -50,6 +52,12 @@ public class DialogueTrigger : MonoBehaviour
         {
             WaterHit = true;
             TriggerDialogue(FirstDeath);
+        }
+
+        if (collision.tag == "Scroll" && !ScrollHit)
+        {
+            ScrollHit = true;
+            TriggerDialogue(FirstScroll);
         }
     }
 

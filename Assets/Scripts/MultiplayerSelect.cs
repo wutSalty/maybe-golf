@@ -74,7 +74,7 @@ public class MultiplayerSelect : MonoBehaviour
         Debug.Log("Player " + pIndex + "'s input device is: " + InputUser.all[pIndex].pairedDevices[0]);
    
         //Once more than 1 player is present, allow game to start
-        if (inputManager.playerCount > 1 && value.playerIndex > 0)
+        if (inputManager.playerCount > 1)
         {
             PlayBtn.interactable = true;
             eventSystem.firstSelectedGameObject = dummyObject;

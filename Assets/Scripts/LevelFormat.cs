@@ -10,4 +10,5 @@ public class LevelFormat
     public int LevelInt = -99; //The order it's supposed to show in
     public float BestTime = 0; //Time record
     public int BestHits = 0; //Hit record
+    public int CollectableGet = 0; //Whether the user has collected the course's collectable. 0 = No, 1 = Just got, 2 = Already get
 }

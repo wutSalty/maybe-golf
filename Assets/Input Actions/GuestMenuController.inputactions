@@ -166,7 +166,7 @@
                 {
                     "name": "",
                     "id": "ed0b19a3-dee6-4c75-918f-45ec1d125e6d",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
@@ -297,6 +297,17 @@
                 },
                 {
                     "name": "",
+                    "id": "28431225-fbd7-49a0-a8b7-7975081a20a2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Exit Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2678242b-765a-4f83-90b3-88e1bfc273a4",
                     "path": "<Pointer>/position",
                     "interactions": "",
@@ -381,7 +392,7 @@
                 {
                     "name": "",
                     "id": "886e4df9-a0ed-46ca-84dd-33231fea5e80",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",

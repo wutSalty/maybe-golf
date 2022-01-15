@@ -256,6 +256,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81296881}
   m_CullTransparentMesh: 1
+--- !u!1001 &146942167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540587, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149465894572540596, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
+      propertyPath: m_Name
+      value: Scroll Object
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6a3b1f8a1df1e1479a760a99de151de, type: 3}
 --- !u!1 &277505597
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +679,10 @@ MonoBehaviour:
   ReturnButton: {fileID: 81296883}
   ResultsCanvas: {fileID: 462831755}
   ResultDetails: {fileID: 1323388108}
+  NotCollectedSprite: {fileID: 0}
+  CollectedSprite: {fileID: 0}
+  UIIcon: {fileID: 0}
+  CollectableStatus: 0
 --- !u!1 &374172673
 GameObject:
   m_ObjectHideFlags: 0
@@ -4972,6 +5033,7 @@ MonoBehaviour:
     LevelInt: 1
     BestTime: 0
     BestHits: 0
+    CollectableGet: 0
   TimesPlayed: 0
   Version: 0.1.0-alpha
   BallSkins:

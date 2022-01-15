@@ -529,6 +529,16 @@ MonoBehaviour:
       time loss. (Well they do say time loss is time saved for next time)
     - Anyways, now you can see that if you happen to land in the water, we'll just
       place you back on solid ground. Back to making those shots!
+  FirstScroll:
+    name: Tutorial Master
+    sentences:
+    - Seems like you've just found an ancient scroll. Haven't seen any of those around
+      recently.
+    - You can find these scrolls in other places as well, though they may be slightly
+      trickier to reach.
+    - The scrolls usually contain random tidbits that may or may not be useful. If
+      you'd like to check them, feel free to read up on their secrets in the Records
+      tab.
 --- !u!1 &2500142562325649030
 GameObject:
   m_ObjectHideFlags: 0

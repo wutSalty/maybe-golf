@@ -15,18 +15,22 @@ public class UIManager : MonoBehaviour
     public GameObject MultiplayerSelect; //Multiplayer controller screen
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
+    public GameObject DeleteConfirmScreen; //Setting's delete everything screen
     public GameObject LevelSelectScreen; //Level select screen
+    public GameObject RecordsScreen;
 
     //Main Menu Buttons
     public Button PlayButton;
     public Button TwoPlayerBtn;
     public Button SettingsButton;
+    public Button RecordButton;
     public Button QuitButton;
 
     //The buttons that should be selected when menus are accessed
     public Selectable SettingsFirstButton;
     public Selectable MultiplayerFirstButton;
     public Selectable LevelSelectFirstButton;
+    public Selectable RecordsFirstButton;
 
     //Any event or input system
     public EventSystem eventSystem;
@@ -34,8 +38,10 @@ public class UIManager : MonoBehaviour
     public PlayerInputManager inputManager;
 
     //Scripts for interfacing
+    public SettingsManager settingsManager;
     public MultiplayerSelect MultiSelectScript;
     public LevelManager levelManager;
+    public RecordsManager recordManager;
 
     [HideInInspector]
     public Vector2 LeftMove;
@@ -55,9 +61,47 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void EscPressed(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            if (MainMenu.activeSelf)
+            {
+                //Lol shouldn't do anything here so its fine
+            }
+            else if (Settings.activeSelf) //If it's the settings
+            {
+                if (ConfirmRevertScreen.activeSelf) //Check the res menu isn't open. if it is, cancel the res screen instead
+                {
+                    settingsManager.RevertButton();
+                }
+                else if (DeleteConfirmScreen.activeSelf) //Or else, check it isn't the delete screen. Cancel the delete instead
+                {
+                    settingsManager.CancelDelete();
+                }
+                else //If none those screens are open
+                {
+                    if (settingsManager.WindowMode.gameObject.transform.childCount == 3 && settingsManager.WindowSize.gameObject.transform.childCount == 3 && settingsManager.InputType.gameObject.transform.childCount == 3) //Make sure a dropdown isn't open
+                    {
+                        PressReturnToMain(); //Then exit the screen
+                    }
+                }
+            }
+            else if (RecordsScreen.activeSelf)
+            {
+                ReturnFromRecords();
+            }
+            else if (LevelSelectScreen.activeSelf)
+            {
+                ReturnFromLevelSelect();
+            }
+        }
+    }
+
     //When the game starts, make sure all the menus are correctly active or not
     private void Awake()
     {
+        RecordsScreen.SetActive(false);
         LevelSelectScreen.SetActive(false);
         ConfirmRevertScreen.SetActive(false);
         Settings.SetActive(false);
@@ -121,6 +165,13 @@ public class UIManager : MonoBehaviour
         ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
 
+    //Records button
+    public void PressRecords()
+    {
+        recordManager.UpdateSkins();
+        ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
+    }
+
     //Quit button
     public void PressQuit()
     {
@@ -182,6 +233,18 @@ public class UIManager : MonoBehaviour
             inputSystem.enabled = true; //Re-enable menu input player
         }
         ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+        levelManager.enabled = false;
+    }
+
+    public void ReturnFromRecords()
+    {
+        ButtonManager(RecordsScreen, MainMenu, RecordButton);
+    }
+
+    public void LevelSelectToMultiplayer()
+    {
+        MultiSelectScript.CurrentlyLoading = false;
+        ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
         levelManager.enabled = false;
     }
 
