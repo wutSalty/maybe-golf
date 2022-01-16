@@ -17,7 +17,8 @@ public class UIManager : MonoBehaviour
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
     public GameObject DeleteConfirmScreen; //Setting's delete everything screen
     public GameObject LevelSelectScreen; //Level select screen
-    public GameObject RecordsScreen;
+    public GameObject RecordsScreen; //Records screen
+    public GameObject ScrollStoryScreen;
 
     //Main Menu Buttons
     public Button PlayButton;
@@ -89,7 +90,14 @@ public class UIManager : MonoBehaviour
             }
             else if (RecordsScreen.activeSelf)
             {
-                ReturnFromRecords();
+                if (ScrollStoryScreen.activeSelf)
+                {
+                    recordManager.ClickCloseScroll();
+                }
+                else
+                {
+                    ReturnFromRecords();
+                }
             }
             else if (LevelSelectScreen.activeSelf)
             {
@@ -101,6 +109,7 @@ public class UIManager : MonoBehaviour
     //When the game starts, make sure all the menus are correctly active or not
     private void Awake()
     {
+        ScrollStoryScreen.SetActive(false);
         RecordsScreen.SetActive(false);
         LevelSelectScreen.SetActive(false);
         ConfirmRevertScreen.SetActive(false);
@@ -168,7 +177,7 @@ public class UIManager : MonoBehaviour
     //Records button
     public void PressRecords()
     {
-        recordManager.UpdateSkins();
+        recordManager.UpdateThings();
         ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
     }
 

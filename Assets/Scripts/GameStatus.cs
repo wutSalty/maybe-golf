@@ -54,6 +54,10 @@ public class GameStatus : MonoBehaviour
 
     private PlayerInput[] inputs;
 
+    public List<GhostData> RecordingGhostData;
+    private float IntervalTime = 0;
+    private float AccumalativeTime;
+
     //Make sure there's only one GameStat
     void Awake()
     {
@@ -130,6 +134,14 @@ public class GameStatus : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    //Receive hit info from ball and add it to the list
+    public void AddGhostData(float Power, float Angle)
+    {
+        IntervalTime = Timer - AccumalativeTime;
+        AccumalativeTime = Timer;
+        RecordingGhostData.Add(new GhostData{HitAngle = Angle, HitPower = Power, Timing = IntervalTime});
     }
 
     //When flag is hit, pass parametres into list
@@ -236,10 +248,12 @@ public class GameStatus : MonoBehaviour
             {
                 ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestHits + " hit/s. Try working on tigher bounces!\n\n";
             }
+            GameManager.GM.TimesPlayedSolo += 1;
 
         } else //Multiplayer
         {
             ResultDetails.text = "Great job! All players have cleared the course in less than " + gameStat.Timer.ToString("F2") + " seconds! By the way Player " + (ThePlayerWithMaxHits + 1) + ", well done with getting it in " + MaxHits + ". Keep working on it!" + "\n\nPlayer 1, feel free to choose whether to Restart Course, Return to Course Select, or just Quit to Main Menu.";
+            GameManager.GM.TimesPlayedMulti += 1;
         }
 
         if (InputOne.gameObject.TryGetComponent(out DragAndAimControllerManager manager)) //Changes input mode for Mouse
@@ -263,7 +277,7 @@ public class GameStatus : MonoBehaviour
         {
             GameManager.GM.LevelData[GMLevelIndex].CollectableGet = 2;
         }
-        GameManager.GM.TimesPlayed += 1;
+        
         GameManager.GM.CheckUnlockables();
         GameManager.GM.SavePlayer();
     }

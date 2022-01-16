@@ -210,7 +210,6 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InputType", 0);
         PlayerPrefs.SetFloat("Sensitivity", 4);
         PlayerPrefs.SetInt("DebugWindow", 0);
-        PlayerPrefs.SetInt("BallSkin", 0);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
@@ -218,7 +217,9 @@ public class SettingsManager : MonoBehaviour
 
         GameManager.GM.LevelData = DefaultLevelData;
         GameManager.GM.UnlockedBallSkins = DefaultUnlockables;
-        GameManager.GM.TimesPlayed = 0;
+        GameManager.GM.TimesPlayedSolo = 0;
+        GameManager.GM.TimesPlayedMulti = 0;
+        GameManager.GM.BallSkin = 0;
         GameManager.GM.CheckLocked();
         GameManager.GM.SavePlayer();
 

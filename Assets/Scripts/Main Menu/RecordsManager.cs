@@ -5,18 +5,60 @@ using UnityEngine.UI;
 
 public class RecordsManager : MonoBehaviour
 {
+    //Elements for ball skins
     public GameObject parentPanel;
     public Sprite UnknownBallSprite;
 
+    //Elements for scroll shelf
+    public Image[] ScrollImages;
+    public Button[] ScrollButtons;
+    public Sprite[] KnownScrollSprites;
+    public Sprite UnknownScrollSprite;
+
+    //Elements for scroll screen
+    public Text ScrollTitle;
+    public Text ScrollBody;
+    public GameObject ScrollTextPanel;
+    [System.Serializable]
+    public class ScrollData
+    {
+        public string ScrollName;
+        [TextArea(4,10)] public string TheActualText;
+    }
+    public ScrollData[] scrollDatas;
+
+    //Elements for level records
+    public Text LevelNameTxt;
+    public Text HitRecordTxt;
+    public Text BestTimeTxt;
+    private int CurrentLevelIndex = 0;
+    public string[] LevelNames;
+
+    public Text TimesPlayedSoloTxt;
+    public Text TimesPlayedMultiTxt;
+
+    //To update everything in the records tab
+    public void UpdateThings()
+    {
+        UpdateSkins();
+
+        CheckScrolls();
+
+        FirstOpenLevelRecords();
+
+        CheckOtherStats();
+    }
+
+    //Updating the ball skins based on unlocked balls
     public void UpdateSkins()
     {
-        foreach (Transform children in parentPanel.transform)
+        foreach (Transform children in parentPanel.transform) //Delete all the old balls first
         {
             Destroy(children.gameObject);
         }
 
         int index = 0;
-        foreach (var item in GameManager.GM.BallSkins)
+        foreach (var item in GameManager.GM.BallSkins) //Then create new images for each of the balls and substitute the appropriate sprites
         {
             GameObject NewThing = new GameObject();
             Image NewImage = NewThing.AddComponent<Image>();
@@ -39,5 +81,105 @@ public class RecordsManager : MonoBehaviour
 
             index += 1;
         }
+    }
+
+    //Check which scrolls have already been unlocked and accessible
+    public void CheckScrolls()
+    {
+        int index = 0;
+        foreach (var item in GameManager.GM.LevelData)
+        {
+            if (item.CollectableGet != 2)
+            {
+                ScrollImages[index].sprite = UnknownScrollSprite;
+                ScrollButtons[index].interactable = false;
+            } else
+            {
+                ScrollImages[index].sprite = KnownScrollSprites[index];
+                ScrollButtons[index].interactable = true;
+            }
+            index += 1;
+        }
+    }
+
+    //When scroll button pressed, update the text then show the screen
+    public void ClickScroll(int ScrollInt)
+    {
+        ScrollTitle.text = scrollDatas[ScrollInt].ScrollName;
+        ScrollBody.text = scrollDatas[ScrollInt].TheActualText;
+
+        ScrollTextPanel.SetActive(true);
+    }
+
+    //Close scroll screen
+    public void ClickCloseScroll()
+    {
+        ScrollTextPanel.SetActive(false);
+    }
+
+    //Reset best-stuff to tutorial stuff
+    public void FirstOpenLevelRecords()
+    {
+        CurrentLevelIndex = 0;
+        LevelNameTxt.text = "Tutorial";
+        if (GameManager.GM.LevelData[0].BestHits == 0)
+        {
+            HitRecordTxt.text = "Hit Record: N/A";
+            BestTimeTxt.text = "Best Time: N/A";
+        }
+        else
+        {
+            HitRecordTxt.text = "Hit Record: " + GameManager.GM.LevelData[0].BestHits;
+            BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[0].BestTime.ToString("F2") + " sec";
+        } 
+    }
+
+    public void LevelClickLeft()
+    {
+        CurrentLevelIndex -= 1;
+        if (CurrentLevelIndex < 0)
+        {
+            CurrentLevelIndex = GameManager.GM.LevelData.Count - 1;
+        }
+
+        LevelNameTxt.text = LevelNames[CurrentLevelIndex];
+        if (GameManager.GM.LevelData[CurrentLevelIndex].BestHits == 0)
+        {
+            HitRecordTxt.text = "Hit Record: N/A";
+            BestTimeTxt.text = "Best Time: N/A";
+        }
+        else
+        {
+            HitRecordTxt.text = "Hit Record: " + GameManager.GM.LevelData[CurrentLevelIndex].BestHits;
+            BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
+        }
+
+    }
+
+    public void LevelClickRight()
+    {
+        CurrentLevelIndex += 1;
+        if (CurrentLevelIndex > GameManager.GM.LevelData.Count - 1)
+        {
+            CurrentLevelIndex = 0;
+        }
+
+        LevelNameTxt.text = LevelNames[CurrentLevelIndex];
+        if (GameManager.GM.LevelData[CurrentLevelIndex].BestHits == 0)
+        {
+            HitRecordTxt.text = "Hit Record: N/A";
+            BestTimeTxt.text = "Best Time: N/A";
+        }
+        else
+        {
+            HitRecordTxt.text = "Hit Record: " + GameManager.GM.LevelData[CurrentLevelIndex].BestHits;
+            BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
+        }
+    }
+
+    public void CheckOtherStats()
+    {
+        TimesPlayedSoloTxt.text = "Times Played (Solo): " + GameManager.GM.TimesPlayedSolo;
+        TimesPlayedMultiTxt.text = "Times Played (Multi): " + GameManager.GM.TimesPlayedMulti;
     }
 }

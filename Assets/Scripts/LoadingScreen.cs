@@ -36,7 +36,7 @@ public class LoadingScreen : MonoBehaviour
     //Begins fade to black, loads the scene in the background, then fades out
     IEnumerator StartLoad(string SceneToLoad, bool timer)
     {
-        BallImg.sprite = GameManager.GM.BallSkins[PlayerPrefs.GetInt("BallSkin", 0)];
+        BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
 
         loadingSlider.value = 0;
         loadingCanvas.SetActive(true);

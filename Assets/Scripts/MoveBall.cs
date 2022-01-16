@@ -48,7 +48,7 @@ public class MoveBall : MonoBehaviour
     //Handles the ball going into areas it might be in
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6) //When the ball hits the water or illegal area
+        if (collision.gameObject.layer == 6 || collision.tag == "Enemy") //When the ball hits the water or illegal area
         {
             CurrentlyDead = true;
             TheBall.velocity = new Vector2(0, 0);
@@ -74,6 +74,12 @@ public class MoveBall : MonoBehaviour
         }
 
         Debug.Log("Hitstrength: " + HitStrength + " Hitangle: " + HitAngle);
+
+        //If the game is singleplayer and or this is the only player, then add list to ghost data
+        if (GameManager.GM.SingleMode && playerIndex == 0)
+        {
+            GameStatus.gameStat.AddGhostData(HitStrength, HitAngle);
+        }
 
         LastBallLocation = TheBall.transform.position;
 

@@ -1,10 +1,11 @@
 ---TODO---
 
 Neaten up level select
-Create Stages (3-4 + Scripted tutorial?)
 
 SINGLEPLAYER:
-Finalise win condition
+Ghost Data
+- Each level has GhostData class. Holds power, angle, and timing of each shot
+- Ghost ball will iterate between each step, using WaitForSeconds for timings
 
 MULTIPLAYER:
 

@@ -21,7 +21,7 @@ public class ScrollWindow : MonoBehaviour
     {
         ListOfSprites = GameManager.GM.BallSkins;
 
-        CurrentIndex = PlayerPrefs.GetInt("BallSkin", 0);
+        CurrentIndex = GameManager.GM.BallSkin;
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
     }
 
@@ -43,7 +43,7 @@ public class ScrollWindow : MonoBehaviour
 
         //Updates the image, saves the preference, updates debug stuff
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
-        PlayerPrefs.SetInt("BallSkin", CurrentIndex);
+        GameManager.GM.BallSkin = CurrentIndex;
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
@@ -65,7 +65,7 @@ public class ScrollWindow : MonoBehaviour
 
         //Then saves everything and fixes things up as usual
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
-        PlayerPrefs.SetInt("BallSkin", CurrentIndex);
+        GameManager.GM.BallSkin = CurrentIndex;
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 }

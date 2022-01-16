@@ -13,7 +13,7 @@ public class SpawnBallTutorial : MonoBehaviour
     private void Awake()
     {
         var InputType = PlayerPrefs.GetInt("InputType", 0);
-        var SkinType = PlayerPrefs.GetInt("BallSkin", 0);
+        var SkinType = GameManager.GM.BallSkin;
         GameObject ABall;
 
         switch (InputType)

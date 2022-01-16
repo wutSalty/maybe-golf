@@ -26,7 +26,7 @@ public class SpawnBall : MonoBehaviour
         if (gameMan.SingleMode == true || gameMan.NumPlayers.Count == 1) //If game is entering with only 1 player, grab their preference
         {
             var InputType = PlayerPrefs.GetInt("InputType", 0);
-            var SkinType = PlayerPrefs.GetInt("BallSkin", 0);
+            var SkinType = gameMan.BallSkin;
             GameObject ABall;
 
             switch (InputType)

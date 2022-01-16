@@ -8,12 +8,16 @@ public class PlayerData
 {
     public List<LevelFormat> LevelData;
     public bool[] UnlockedBallSkins;
-    public int TimesPlayed;
+    public int TimesPlayedSolo;
+    public int TimesPlayedMulti;
+    public int BallSkin;
 
     public PlayerData(GameManager player)
     {
         LevelData = player.LevelData;
-        TimesPlayed = player.TimesPlayed;
+        TimesPlayedSolo = player.TimesPlayedSolo;
+        TimesPlayedMulti = player.TimesPlayedMulti;
         UnlockedBallSkins = player.UnlockedBallSkins;
+        BallSkin = player.BallSkin;
     }
 }

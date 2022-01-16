@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
 
     public List<LevelFormat> LevelData; //Holds data about every level (This data is saved)
     
-    public int TimesPlayed; //Number of times the user has cleared a course (This data is saved)
+    public int TimesPlayedSolo; //Number of times the user has cleared a course by themselves
+    public int TimesPlayedMulti; //Number of times user has cleared a course in multiplayer
+
+    public int BallSkin = 0; //Migrate ball skins from playerPrefs to serialisation cause cheaters
 
     public string Version = "Pre-Alpha v0.0.0";
 
@@ -79,7 +82,7 @@ public class GameManager : MonoBehaviour
         int LockedIndex;
         int UnlockIndex;
 
-        if ((GM.LockedBalls.Count > 0) && (TimesPlayed % 5 == 0))
+        if ((GM.LockedBalls.Count > 0) && (TimesPlayedSolo % 5 == 0))
         {
             LockedIndex = Random.Range(0, GM.LockedBalls.Count);
             UnlockIndex = GM.LockedBalls[LockedIndex];
@@ -123,8 +126,10 @@ public class GameManager : MonoBehaviour
         {
             //Insert back into GM
             LevelData = data.LevelData;
-            TimesPlayed = data.TimesPlayed;
+            TimesPlayedSolo = data.TimesPlayedSolo;
+            TimesPlayedMulti = data.TimesPlayedMulti;
             UnlockedBallSkins = data.UnlockedBallSkins;
+            BallSkin = data.BallSkin;
 
             Debug.Log("Game loaded at: " + System.DateTime.Now);
         }
