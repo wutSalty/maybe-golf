@@ -4,20 +4,37 @@ using UnityEngine;
 
 public class GhostBallMove : MonoBehaviour
 {
-    public List<GhostData> ghostData;
+    public List<GhostData> ghostData; //Holds all the instruction for the ball to move
 
+    //Replicate the movement of an actual ball
     public int VelocityMultiplier = 10;
     public int RotateMultiplier = 100;
 
+    //Ball elements that are manipulated
     private Rigidbody2D BallRigidbody;
     private Vector3 LastBallLocation;
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
+        //Get required components
         BallRigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        //Get ghostData and check whether it's ok to play
+        ghostData = GameManager.GM.LevelData[GameStatus.gameStat.GMLevelIndex].ghostData;
+        if (ghostData == null)
+        {
+            Destroy(gameObject); //If data does not exist, delete itself
+        }
+        else
+        {
+            //Wait for the go ahead from GameStat
+        }
+    }
+
+    public void StartReplay()
+    {
         StartCoroutine(IterateSteps());
     }
 
@@ -32,7 +49,13 @@ public class GhostBallMove : MonoBehaviour
         foreach (var item in ghostData)
         {
             yield return new WaitForSeconds(item.Timing);
-            ReceiveBallInfo(item.HitPower, item.HitAngle);
+            if (item.ResetPos)
+            {
+                RestartPos();
+            } else
+            {
+                ReceiveBallInfo(item.HitPower, item.HitAngle);
+            }
         }
     }
 
@@ -55,6 +78,13 @@ public class GhostBallMove : MonoBehaviour
         float YDir = HitStrength * Mathf.Sin(HitAngle * Mathf.Deg2Rad);
 
         BallRigidbody.velocity = new Vector3(XDir, YDir);
+    }
+
+    public void RestartPos()
+    {
+        BallRigidbody.velocity = Vector2.zero;
+        BallRigidbody.gameObject.transform.localPosition = Vector3.zero;
+        BallRigidbody.gameObject.transform.localRotation = Quaternion.identity;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

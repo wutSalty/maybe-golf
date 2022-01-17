@@ -158,6 +158,17 @@ public class UIManager : MonoBehaviour
         levelManager.enabled = true;
     }
 
+    public void PressPlayGhost()
+    {
+        GameManager.GM.SingleMode = true;
+        GameManager.GM.GhostMode = true;
+        GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
+        MultiSelectScript.CurrentlyLoading = true;
+
+        ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        levelManager.enabled = true;
+    }
+
     //Multiplayer button
     public void PressPlay2P()
     {
@@ -241,6 +252,8 @@ public class UIManager : MonoBehaviour
             inputManager.enabled = false; //Disable input manager
             inputSystem.enabled = true; //Re-enable menu input player
         }
+        GameManager.GM.GhostMode = true;
+
         ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
         levelManager.enabled = false;
     }

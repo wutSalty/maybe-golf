@@ -8,4 +8,5 @@ public class GhostData
     public float Timing;
     public float HitPower;
     public float HitAngle;
+    public bool ResetPos;
 }

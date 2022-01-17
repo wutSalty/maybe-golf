@@ -78,7 +78,7 @@ public class MoveBall : MonoBehaviour
         //If the game is singleplayer and or this is the only player, then add list to ghost data
         if (GameManager.GM.SingleMode && playerIndex == 0)
         {
-            GameStatus.gameStat.AddGhostData(HitStrength, HitAngle);
+            GameStatus.gameStat.AddGhostData(HitStrength, HitAngle, false);
         }
 
         LastBallLocation = TheBall.transform.position;

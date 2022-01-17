@@ -114,6 +114,13 @@ public class GameStatus : MonoBehaviour
             }
         }
 
+        GhostBallMove ghostBallMove = FindObjectOfType<GhostBallMove>();
+        //If ghosts are enabled, start the ghost
+        if (GameManager.GM.GhostMode && GameManager.GM.SingleMode && ghostBallMove != null)
+        {
+            ghostBallMove.StartReplay();
+        }
+
         gameStat.StartTimer(); //And start the timer
     }
 
@@ -137,11 +144,11 @@ public class GameStatus : MonoBehaviour
     }
 
     //Receive hit info from ball and add it to the list
-    public void AddGhostData(float Power, float Angle)
+    public void AddGhostData(float Power, float Angle, bool Restart)
     {
         IntervalTime = Timer - AccumalativeTime;
         AccumalativeTime = Timer;
-        RecordingGhostData.Add(new GhostData{HitAngle = Angle, HitPower = Power, Timing = IntervalTime});
+        RecordingGhostData.Add(new GhostData{HitAngle = Angle, HitPower = Power, Timing = IntervalTime, ResetPos = Restart});
     }
 
     //When flag is hit, pass parametres into list
@@ -190,64 +197,96 @@ public class GameStatus : MonoBehaviour
             var ThisHits = gameStat.playerStatuses[0].NumHits;
 
             var GMLevel = GameManager.GM.LevelData[GMLevelIndex];
+            var OldTime = GMLevel.BestTime;
+            var OldHits = GMLevel.BestHits;
 
             ResultDetails.text = "Great job in completing this course in " + ThisHits + " hit/s and " + ThisTime.ToString("F2") + " seconds!\n\n";
             
             //Handles records and text for hits
-            if (ThisTime < GMLevel.BestTime) //Beat old time record
+            if (OldTime == 0 && OldHits == 0) //First play
             {
-                ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + GMLevel.BestTime.ToString("F2") + " seconds!\n\n";
+                ResultDetails.text = ResultDetails.text + "Congrats on your first time and hit record in this course! Think you can go back and break new records?\n\nGhost Data has been created for this course.";
 
                 GMLevel.BestTime = ThisTime;
-                
-                Debug.Log("New Time Record");
-
-            } else if (GMLevel.BestTime == 0) //First record
+                GMLevel.BestHits = ThisHits;
+                GMLevel.ghostData = RecordingGhostData;
+            }
+            else if (ThisTime < OldTime && ThisHits > OldHits) //Beat time, lost hits
             {
-                ResultDetails.text = ResultDetails.text + "This is your first time record in this course! ";
+                ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + OldTime.ToString("F2") + " seconds!\n\nUnfortunately you missed your current hit record of " + OldHits + ". Try taking some more challenging bounces.\n\nGhost Data has been updated for this course.";
 
                 GMLevel.BestTime = ThisTime;
-
-                Debug.Log("Fresh Time Record");
-            } else if (ThisTime == GMLevel.BestTime) //Tied record
-            {
-                ResultDetails.text = ResultDetails.text + "Seems like you tied your old best time! Think you can get those last time saves?\n\n";
+                GMLevel.ghostData = RecordingGhostData;
             }
-            else //Doesn't beat record
+            else if (ThisTime < OldTime && ThisHits == OldHits) //Beat time, tied hits
             {
-                ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestTime.ToString("F2") + " seconds. Keep shaving those time saves!\n\n";
-            }
-
-            //Handles records and text for hits
-            if (ThisHits < GMLevel.BestHits) //Beat old hit record
-            {
-                ResultDetails.text = ResultDetails.text + "You managed to beat your old hit record of " + GMLevel.BestHits + "!\n\n";
-
-                GMLevel.BestHits = ThisHits;
-
-                Debug.Log("New Hits Record");
-
-            } else if (GMLevel.BestHits == 0) //Completely new hit record
-            {
-                ResultDetails.text = ResultDetails.text + "It's also your first hit record too! Think you can go back and beat these?";
-
-                GMLevel.BestHits = ThisHits;
-
-                Debug.Log("Fresh Hits Record");
-
-            }  else if (GMLevel.BestHits == ThisHits) //Tied old hit record
-            {
-                if (ThisHits == 1) //Tied old record *and* reached the min number of hits
+                if (OldHits == 1) //Tied hits and record is 1
                 {
-                    ResultDetails.text = ResultDetails.text + "Seems like you've peaked when it comes to taking these shots! Perhaps work on those time records now.\n\n";
-                } else
-                {
-                    ResultDetails.text = ResultDetails.text + "Looks like you've managed to tie your old hit record! Think you could go back and tightening those bounces?\n\n";
+                    ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + OldTime.ToString("F2") + " seconds!\n\nAnd it seems like you've peaked when it comes to taking those shots! Maybe keep grinding for even lower times!\n\nGhost Data has been updated for this course.";
+
+                    GMLevel.BestTime = ThisTime;
+                    GMLevel.ghostData = RecordingGhostData;
                 }
-            } else
-            {
-                ResultDetails.text = ResultDetails.text + "Unfortunately you missed your record of " + GMLevel.BestHits + " hit/s. Try working on tigher bounces!\n\n";
+                else //Tied but not 1
+                {
+                    ResultDetails.text = ResultDetails.text + "You managed to beat your old time of " + OldTime.ToString("F2") + " seconds!\n\nSeems like you also tied your current hit record of " + OldHits + ". Think you can tighten up some of those bounces?\n\nGhost Data has been updated for this course.";
+
+                    GMLevel.BestTime = ThisTime;
+                    GMLevel.ghostData = RecordingGhostData;
+                }   
             }
+            else if (ThisTime < OldTime && ThisHits < OldHits) //Beat both
+            {
+                ResultDetails.text = ResultDetails.text + "You managed to beat your old time record of " + OldTime.ToString("F2") + " seconds!\n\nYou also managed to beat your old hit record of " + OldHits + " too! Think you could go again to make more crucial plays?\n\nGhost Data has been updated for this course.";
+
+                GMLevel.BestTime = ThisTime;
+                GMLevel.BestHits = ThisHits;
+                GMLevel.ghostData = RecordingGhostData;
+            }
+            else if (ThisTime == OldTime && ThisHits > OldHits) //Tie and lose
+            {
+                ResultDetails.text = ResultDetails.text + "Somehow you've managed to tie your old record of " +OldTime.ToString("F2")+" seconds exactly to the dot! \n\nThough you missed your old hit record of " + OldHits + ". \n\nHow about finding some more challenging angles to take?";
+            }
+            else if (ThisTime == OldTime && ThisHits == OldHits) //Tie and tie
+            {
+                if (OldHits == 1) //if record is 1
+                {
+                    ResultDetails.text = ResultDetails.text + "Somehow you've managed to tie your current record of " + OldTime.ToString("F2") + " seconds exactly to the dot!\n\nYou've seemed to have peaked when it comes to taking those shots too! Why not try working on those time records now.";
+                }
+                else //Tied but not 1
+                {
+                    ResultDetails.text = ResultDetails.text + "Somehow you've managed to tie your current record of " + OldTime.ToString("F2") + " seconds exactly to the dot! \n\nAnd you tied your current hit record of " + OldHits + " too! How about about going again to beat either of them?\n\nGhost Data has been updated for this course.";
+
+                    GMLevel.ghostData = RecordingGhostData;
+                }                
+            }
+            else if (ThisTime == OldTime && ThisHits < OldHits) //Tie and beat
+            {
+                ResultDetails.text = ResultDetails.text + "Somehow you've managed to tie your current record of " + OldTime.ToString("F2") + " seconds exactly to the dot!\n\nAnd even better, you beat your old hit record of " + OldHits + " too! How about going again to shave some time to match those bounces.\n\nGhost Data has been updated for this course.";
+
+                GMLevel.BestHits = ThisHits;
+                GMLevel.ghostData = RecordingGhostData;
+            }
+            else if (ThisTime > OldTime && ThisHits > OldHits) //lose and lose
+            {
+                ResultDetails.text = ResultDetails.text + "It seems you've missed your old time record of " + OldTime.ToString("F2") + " seconds and missed your old hit record of " + OldHits + ". Why not take another shot at cracking some records!";
+            }
+            else if (ThisTime > OldTime && ThisHits == OldHits) //lose and tied
+            {
+                if (OldHits == 1) //if 1
+                {
+                    ResultDetails.text = ResultDetails.text + "It seems you've missed your old time record of " + OldTime.ToString("F2") + " seconds.\n\nBut you've managed to peak when it comes to taking those shots! All that's left to do is keep working on those times!";
+                }
+                else //Not one
+                {
+                    ResultDetails.text = ResultDetails.text + "It seems you've missed your old time record of " + OldTime.ToString("F2") + " seconds.\n\nBut you managed to tie your current hit record of " + OldHits + "! How about taking another go at those records.";
+                }
+            }
+            else if (ThisTime > OldTime && ThisHits < OldHits) //lose and win
+            {
+                ResultDetails.text = ResultDetails.text + "It seems you've missed your old time record of " + OldTime.ToString("F2") + " seconds.\n\nBut you managed to beat your old hit record of " + OldHits + "! Now try shaving down those seconds!";
+            }
+
             GameManager.GM.TimesPlayedSolo += 1;
 
         } else //Multiplayer
@@ -292,6 +331,7 @@ public class GameStatus : MonoBehaviour
     public void ReturnToMain()
     {
         GameManager.GM.SingleMode = false;
+        GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }

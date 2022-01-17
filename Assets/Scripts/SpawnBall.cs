@@ -9,6 +9,7 @@ public class SpawnBall : MonoBehaviour
     public GameObject SpawnLocation; //Location to spawn the ball (uses empty gameobject)
     public GameObject BallDragPrefab; //The "template" for mouse input
     public GameObject BallButtonPrefab; //The "template" for button input
+    public GameObject GhostBallPrefab; //GhostBall
 
     private PlayerInput CurrentBall;
 
@@ -45,6 +46,11 @@ public class SpawnBall : MonoBehaviour
 
                 default:
                     break;
+            }
+
+            if (GameManager.GM.GhostMode)
+            {
+                Instantiate(GhostBallPrefab, SpawnLocation.transform.position, Quaternion.identity);
             }
         }
         else //Or else, spawn a ball for every valid user

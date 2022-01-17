@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class RecordsManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class RecordsManager : MonoBehaviour
         [TextArea(4,10)] public string TheActualText;
     }
     public ScrollData[] scrollDatas;
+    public GameObject ScrollBackButton;
 
     //Elements for level records
     public Text LevelNameTxt;
@@ -36,6 +38,10 @@ public class RecordsManager : MonoBehaviour
 
     public Text TimesPlayedSoloTxt;
     public Text TimesPlayedMultiTxt;
+
+    //EventSys stuff
+    public EventSystem eventSystem;
+    public GameObject LastSelectedObject;
 
     //To update everything in the records tab
     public void UpdateThings()
@@ -92,11 +98,9 @@ public class RecordsManager : MonoBehaviour
             if (item.CollectableGet != 2)
             {
                 ScrollImages[index].sprite = UnknownScrollSprite;
-                ScrollButtons[index].interactable = false;
             } else
             {
                 ScrollImages[index].sprite = KnownScrollSprites[index];
-                ScrollButtons[index].interactable = true;
             }
             index += 1;
         }
@@ -105,16 +109,32 @@ public class RecordsManager : MonoBehaviour
     //When scroll button pressed, update the text then show the screen
     public void ClickScroll(int ScrollInt)
     {
-        ScrollTitle.text = scrollDatas[ScrollInt].ScrollName;
-        ScrollBody.text = scrollDatas[ScrollInt].TheActualText;
+        if (GameManager.GM.LevelData[ScrollInt].CollectableGet != 2)
+        {
+            ScrollTitle.text = "???";
+            ScrollBody.text = "This scroll hasn't been collected yet. Try looking around different levels to see if you can find it...";
+        }
+        else
+        {
+            ScrollTitle.text = scrollDatas[ScrollInt].ScrollName;
+            ScrollBody.text = scrollDatas[ScrollInt].TheActualText;
+        }
 
         ScrollTextPanel.SetActive(true);
+
+        LastSelectedObject = eventSystem.currentSelectedGameObject;
+        eventSystem.SetSelectedGameObject(ScrollBackButton);
+        eventSystem.firstSelectedGameObject = ScrollBackButton;
     }
 
     //Close scroll screen
     public void ClickCloseScroll()
     {
         ScrollTextPanel.SetActive(false);
+
+        eventSystem.SetSelectedGameObject(LastSelectedObject);
+        eventSystem.firstSelectedGameObject = LastSelectedObject;
+        LastSelectedObject = null;
     }
 
     //Reset best-stuff to tutorial stuff

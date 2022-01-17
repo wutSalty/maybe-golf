@@ -32,6 +32,8 @@ public class EscMenu : MonoBehaviour
         //PauseGame.pM.MenuIsOpen = false;
         GameStatus.gameStat.ForcePause = true;
         GameManager.GM.NumPlayers.Clear();
+        GameManager.GM.SingleMode = false;
+        GameManager.GM.GhostMode = false;
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 

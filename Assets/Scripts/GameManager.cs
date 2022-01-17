@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Animator NotiAnimator; //Animation for notification bar
 
     public bool SingleMode = false; //Flag for playing in singleplayer
+    public bool GhostMode = false; //Whether playing vs ghosts
     public bool LoadIntoLevelSelect = false; //Flag for whether user needs to go straight into Level Select
     public bool TutorialMode = false; //Flag for whether the game is currently playing the tutorial
 

@@ -114,6 +114,8 @@ public class AltAim : MonoBehaviour
             ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
             ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
             gameObject.layer = 8;
+
+            GameStatus.gameStat.AddGhostData(0, 0, true);
         }
     }
 
