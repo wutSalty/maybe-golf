@@ -9,6 +9,7 @@ public class SpawnBallTutorial : MonoBehaviour
     public GameObject SpawnLocation; //Location to spawn the ball (uses empty gameobject)
     public GameObject TutorialBallDragPrefab; //The "template" for mouse input
     public GameObject TutorialBallButtonPrefab; //The "template" for button input
+    public GameObject GhostBallPrefab; //GhostBall
 
     private void Awake()
     {
@@ -32,6 +33,11 @@ public class SpawnBallTutorial : MonoBehaviour
 
             default:
                 break;
+        }
+
+        if (GameManager.GM.GhostMode)
+        {
+            Instantiate(GhostBallPrefab, SpawnLocation.transform.position, Quaternion.identity);
         }
     }
 }

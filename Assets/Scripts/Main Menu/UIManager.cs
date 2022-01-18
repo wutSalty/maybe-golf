@@ -12,13 +12,22 @@ public class UIManager : MonoBehaviour
 {
     //The different screens
     public GameObject MainMenu; //Main Menu object
+
     public GameObject MultiplayerSelect; //Multiplayer controller screen
+
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
     public GameObject DeleteConfirmScreen; //Setting's delete everything screen
+
     public GameObject LevelSelectScreen; //Level select screen
+    public GameObject LevelSelectGhostPanel;
+
     public GameObject RecordsScreen; //Records screen
     public GameObject ScrollStoryScreen;
+
+    public RectTransform MainMenuRect;
+    public RectTransform SettingsRect;
+    public RectTransform RecordsRect;
 
     //Main Menu Buttons
     public Button PlayButton;
@@ -101,7 +110,14 @@ public class UIManager : MonoBehaviour
             }
             else if (LevelSelectScreen.activeSelf)
             {
-                ReturnFromLevelSelect();
+                if (LevelSelectGhostPanel.activeSelf)
+                {
+                    levelManager.CancelButton();
+                }
+                else
+                {
+                    ReturnFromLevelSelect();
+                }
             }
         }
     }
@@ -116,6 +132,11 @@ public class UIManager : MonoBehaviour
         Settings.SetActive(false);
         MultiplayerSelect.SetActive(false);
         MainMenu.SetActive(true);
+    }
+
+    private void Start()
+    {
+        eventSystem.firstSelectedGameObject = PlayButton.gameObject;
     }
 
     //Subscribes or unsubscribes from sceneLoaded, handles CourseSelect
@@ -182,14 +203,16 @@ public class UIManager : MonoBehaviour
     //Settings button
     public void PressSettings()
     {
-        ButtonManager(MainMenu, Settings, SettingsFirstButton);
+        StartCoroutine(SwipeLeft(MainMenuRect, SettingsRect, SettingsFirstButton));
+        //ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
 
     //Records button
     public void PressRecords()
     {
         recordManager.UpdateThings();
-        ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
+        StartCoroutine(SwipeRight(MainMenuRect, RecordsRect, RecordsFirstButton));
+        //ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
     }
 
     //Quit button
@@ -205,7 +228,8 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
-        ButtonManager(Settings, MainMenu, SettingsButton);
+        StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
+        //ButtonManager(Settings, MainMenu, SettingsButton);
     }
 
     //Returning from Multiplayer
@@ -252,15 +276,16 @@ public class UIManager : MonoBehaviour
             inputManager.enabled = false; //Disable input manager
             inputSystem.enabled = true; //Re-enable menu input player
         }
-        GameManager.GM.GhostMode = true;
 
+        GameManager.GM.GhostMode = false;
         ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
         levelManager.enabled = false;
     }
 
     public void ReturnFromRecords()
     {
-        ButtonManager(RecordsScreen, MainMenu, RecordButton);
+        StartCoroutine(SwipeLeft(RecordsRect, MainMenuRect, RecordButton));
+        //ButtonManager(RecordsScreen, MainMenu, RecordButton);
     }
 
     public void LevelSelectToMultiplayer()
@@ -286,6 +311,106 @@ public class UIManager : MonoBehaviour
     {
         oldScreen.SetActive(false);
         newScreen.SetActive(true);
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            setButton.Select();
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = setButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    IEnumerator SwipeLeft(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
+    {
+        float time = 0;
+        float Duration = 0.4f;
+        float newValue = 923.7604f;
+        float otherTargetValue = -923.7604f;
+        float oldValue = 0;
+
+        float NewScreenLocation;
+        float OldScreenLocation;
+
+        newScreen.gameObject.SetActive(true);
+
+        while (time < Duration)
+        {
+            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+            oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
+            oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
+
+            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+            newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
+            newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        oldScreen.offsetMin = new Vector2(otherTargetValue, 0);
+        oldScreen.offsetMax = new Vector2(otherTargetValue, 0);
+
+        newScreen.offsetMin = new Vector2(0, 0);
+        newScreen.offsetMax = new Vector2(0, 0);
+
+        oldScreen.gameObject.SetActive(false);
+
+        setButton.Select();
+
+        setButton.Select();
+        yield return null;
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            setButton.Select();
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = setButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    IEnumerator SwipeRight(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
+    {
+        float time = 0;
+        float Duration = 0.4f;
+        float newValue = -923.7604f;
+        float otherTargetValue = 923.7604f;
+        float oldValue = 0;
+
+        float NewScreenLocation;
+        float OldScreenLocation;
+
+        newScreen.gameObject.SetActive(true);
+
+        while (time < Duration)
+        {
+            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+            oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
+            oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
+
+            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+            newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
+            newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        oldScreen.offsetMin = new Vector2(otherTargetValue, 0);
+        oldScreen.offsetMax = new Vector2(otherTargetValue, 0);
+
+        newScreen.offsetMin = new Vector2(0, 0);
+        newScreen.offsetMax = new Vector2(0, 0);
+
+        oldScreen.gameObject.SetActive(false);
+
+        setButton.Select();
+        yield return null;
         if (inputSystem.currentControlScheme == "Controller")
         {
             setButton.Select();

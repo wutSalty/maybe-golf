@@ -1840,7 +1840,7 @@ MonoBehaviour:
   TheBall: {fileID: 6628228445740085668}
   TheScriptForFlagWin: {fileID: 0}
   RotateMultiplier: 100
-  VelocityMultiplier: 10
+  VelocityMultiplier: 5
   MaskSprite: {fileID: 6628228445177780877}
   InsideSprite: {fileID: 6628228445687544760}
   NumHitsText: {fileID: 4383676150203840445}

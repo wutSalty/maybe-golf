@@ -7,6 +7,7 @@ using UnityEngine;
 public class LevelFormat
 {
     public string LevelName = "dummy"; //The name saved in Unity
+    public string ExternalName = ""; //The name that should show up everywhere else
     public int LevelInt = -99; //The order it's supposed to show in
     public float BestTime = 0; //Time record
     public int BestHits = 0; //Hit record

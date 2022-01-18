@@ -128,24 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1577507f862d251499b284516bb61084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghostData:
-  - Timing: 2.4070103
-    HitPower: 1.4040715
-    HitAngle: 303.64487
-    ResetPos: 0
-  - Timing: 6.2967224
-    HitPower: 1
-    HitAngle: 322.82452
-    ResetPos: 0
-  - Timing: 5.673295
-    HitPower: 1.292679
-    HitAngle: 356.75446
-    ResetPos: 0
-  - Timing: 5.38089
-    HitPower: 2.9080346
-    HitAngle: 75.36151
-    ResetPos: 0
-  VelocityMultiplier: 10
+  ghostData: []
+  VelocityMultiplier: 5
   RotateMultiplier: 100
 --- !u!50 &1949507973504971740
 Rigidbody2D:

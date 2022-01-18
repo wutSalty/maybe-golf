@@ -23,7 +23,7 @@ public class GhostBallMove : MonoBehaviour
 
         //Get ghostData and check whether it's ok to play
         ghostData = GameManager.GM.LevelData[GameStatus.gameStat.GMLevelIndex].ghostData;
-        if (ghostData == null)
+        if (ghostData.Count == 0)
         {
             Destroy(gameObject); //If data does not exist, delete itself
         }
@@ -93,7 +93,7 @@ public class GhostBallMove : MonoBehaviour
         {
             //CurrentlyDead = true;
             BallRigidbody.velocity = new Vector2(0, 0);
-            //StartCoroutine(DeathFade());
+            StartCoroutine(DeathFade());
         }
 
         if (collision.tag == "Flag") //When the ball hits the flag

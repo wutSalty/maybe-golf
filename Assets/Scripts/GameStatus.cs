@@ -41,6 +41,7 @@ public class GameStatus : MonoBehaviour
     public Button ReturnButton;
     public GameObject ResultsCanvas;
     public Text ResultDetails;
+    public GameObject VsText;
 
     //UI elements for scroll collectable
     public Sprite NotCollectedSprite;
@@ -293,6 +294,14 @@ public class GameStatus : MonoBehaviour
         {
             ResultDetails.text = "Great job! All players have cleared the course in less than " + gameStat.Timer.ToString("F2") + " seconds! By the way Player " + (ThePlayerWithMaxHits + 1) + ", well done with getting it in " + MaxHits + ". Keep working on it!" + "\n\nPlayer 1, feel free to choose whether to Restart Course, Return to Course Select, or just Quit to Main Menu.";
             GameManager.GM.TimesPlayedMulti += 1;
+        }
+
+        if (GameManager.GM.GhostMode)
+        {
+            VsText.SetActive(true);
+        } else
+        {
+            VsText.SetActive(false);
         }
 
         if (InputOne.gameObject.TryGetComponent(out DragAndAimControllerManager manager)) //Changes input mode for Mouse

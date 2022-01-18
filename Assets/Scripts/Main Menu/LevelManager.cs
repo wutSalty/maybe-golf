@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //Handles Level Select screen and determines which scene to load
 public class LevelManager : MonoBehaviour
@@ -9,6 +10,12 @@ public class LevelManager : MonoBehaviour
     List<LevelFormat> LevelList; //The list of levels copied from game manager
 
     public Button TutorialButton;
+    public Button OKGhost;
+    public GameObject GhostWarningPanel;
+    public EventSystem eventSystem;
+
+    private int TempLevelInt;
+    private GameObject LastSelected;
 
     //Copies data from GameManager
     private void Start()
@@ -37,13 +44,49 @@ public class LevelManager : MonoBehaviour
     //When button pressed, load into level
     public void LoadLevel(int LevelInt)
     {
-        if (LevelInt == 0)
+        if (GameManager.GM.GhostMode && GameManager.GM.LevelData[LevelInt].ghostData.Count == 0)
+        {
+            TempLevelInt = LevelInt;
+
+            GhostWarningPanel.SetActive(true);
+
+            LastSelected = eventSystem.currentSelectedGameObject;
+
+            eventSystem.SetSelectedGameObject(OKGhost.gameObject);
+            eventSystem.firstSelectedGameObject = OKGhost.gameObject;
+        }
+        else
+        {
+            if (LevelInt == 0)
+            {
+                GameManager.GM.TutorialMode = true;
+            }
+            else
+            {
+                GameManager.GM.TutorialMode = false;
+            }
+            LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+        }        
+    }
+
+    public void OKButton()
+    {
+        if (TempLevelInt == 0)
         {
             GameManager.GM.TutorialMode = true;
-        } else
+        }
+        else
         {
             GameManager.GM.TutorialMode = false;
         }
-        LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+        LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
+    }
+
+    public void CancelButton()
+    {
+        GhostWarningPanel.SetActive(false);
+
+        eventSystem.SetSelectedGameObject(LastSelected);
+        eventSystem.firstSelectedGameObject = LastSelected;
     }
 }

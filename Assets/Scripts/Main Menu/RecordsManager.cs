@@ -34,7 +34,7 @@ public class RecordsManager : MonoBehaviour
     public Text HitRecordTxt;
     public Text BestTimeTxt;
     private int CurrentLevelIndex = 0;
-    public string[] LevelNames;
+    public List<string> LevelNames;
 
     public Text TimesPlayedSoloTxt;
     public Text TimesPlayedMultiTxt;
@@ -42,6 +42,14 @@ public class RecordsManager : MonoBehaviour
     //EventSys stuff
     public EventSystem eventSystem;
     public GameObject LastSelectedObject;
+
+    private void Start()
+    {
+        foreach (var item in GameManager.GM.LevelData)
+        {
+            LevelNames.Add(item.ExternalName);
+        }
+    }
 
     //To update everything in the records tab
     public void UpdateThings()

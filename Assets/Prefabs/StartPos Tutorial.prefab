@@ -46,3 +46,4 @@ MonoBehaviour:
   SpawnLocation: {fileID: 2254484355167970679}
   TutorialBallDragPrefab: {fileID: 3575854407117217675, guid: 881179d5964ea1a449b41c680cbb9f9a, type: 3}
   TutorialBallButtonPrefab: {fileID: 1986369610367205534, guid: 787366f5bf400f845b34e12ac65e69ef, type: 3}
+  GhostBallPrefab: {fileID: 1949507972895733981, guid: a452872d0203a804888b2c284d360e4a, type: 3}
