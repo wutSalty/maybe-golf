@@ -131,8 +131,8 @@ public class MultiplayerSelect : MonoBehaviour
     {
         GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
-        
-        uiManager.ButtonManager(uiManager.MultiplayerSelect, uiManager.LevelSelectScreen, uiManager.LevelSelectFirstButton);
+
+        uiManager.MultiplayerToLevelSelect();
         levelManager.enabled = true;
     }
 }

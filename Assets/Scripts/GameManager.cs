@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //Handles save data, any data that needs to travel through scenes, other things that are handy to have just one copy of, etc etc
 public class GameManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int BallSkin = 0; //Migrate ball skins from playerPrefs to serialisation cause cheaters
 
     public string Version = "Pre-Alpha v0.0.0";
+    public string LastSaved;
 
     //Holds the sprites and status of unlockable balls
     public Sprite[] BallSkins;
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
         int LockedIndex;
         int UnlockIndex;
 
-        if ((GM.LockedBalls.Count > 0) && (TimesPlayedSolo % 5 == 0))
+        if ((GM.LockedBalls.Count > 0) && ((TimesPlayedSolo + TimesPlayedMulti) % 5 == 0))
         {
             LockedIndex = Random.Range(0, GM.LockedBalls.Count);
             UnlockIndex = GM.LockedBalls[LockedIndex];
@@ -109,7 +111,8 @@ public class GameManager : MonoBehaviour
         //Send data to SaveSystem
         SaveSystem.SaveGame(data);
 
-        Debug.Log("Game saved at: " + System.DateTime.Now);
+        LastSaved = "Game saved at: " + System.DateTime.Now;
+        Debug.Log(LastSaved);
     }
 
     [ContextMenu("Force Load")]

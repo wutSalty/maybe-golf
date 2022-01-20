@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     public RectTransform MainMenuRect;
     public RectTransform SettingsRect;
     public RectTransform RecordsRect;
+    public RectTransform MultiplayerRect;
+    public RectTransform LevelSelectRect;
 
     //Main Menu Buttons
     public Button PlayButton;
@@ -175,7 +177,8 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
     }
 
@@ -186,7 +189,8 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
     }
 
@@ -197,7 +201,8 @@ public class UIManager : MonoBehaviour
         inputManager.enabled = true;
         inputManager.EnableJoining();
 
-        ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
+        //ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
+        StartCoroutine(SwipeDown(MainMenuRect, MultiplayerRect, MultiplayerFirstButton));
     }
 
     //Settings button
@@ -229,6 +234,7 @@ public class UIManager : MonoBehaviour
     public void PressReturnToMain()
     {
         StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
+        GameManager.GM.SavePlayer();
         //ButtonManager(Settings, MainMenu, SettingsButton);
     }
 
@@ -248,7 +254,8 @@ public class UIManager : MonoBehaviour
         inputManager.enabled = false; //Disable input manager
 
         inputSystem.enabled = true; //Re-enable menu input player
-        ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
+        //ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
+        StartCoroutine(SwipeUp(MultiplayerRect, MainMenuRect, TwoPlayerBtn));
     }
 
     //Returning from Level Select
@@ -278,7 +285,8 @@ public class UIManager : MonoBehaviour
         }
 
         GameManager.GM.GhostMode = false;
-        ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+        //ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+        StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
         levelManager.enabled = false;
     }
 
@@ -288,10 +296,16 @@ public class UIManager : MonoBehaviour
         //ButtonManager(RecordsScreen, MainMenu, RecordButton);
     }
 
+    public void MultiplayerToLevelSelect()
+    {
+        StartCoroutine(SwipeUp(MultiplayerRect, LevelSelectRect, LevelSelectFirstButton));
+    }
+
     public void LevelSelectToMultiplayer()
     {
         MultiSelectScript.CurrentlyLoading = false;
-        ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
+        StartCoroutine(SwipeDown(LevelSelectRect, MultiplayerRect, MultiplayerFirstButton));
+        //ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
         levelManager.enabled = false;
     }
 
@@ -301,7 +315,8 @@ public class UIManager : MonoBehaviour
         if (GameManager.GM.LoadIntoLevelSelect)
         {
             GameManager.GM.LoadIntoLevelSelect = false;
-            ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+            StartCoroutine(SwipeDown(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
+            //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
             levelManager.enabled = true;
         }
     }
@@ -403,6 +418,104 @@ public class UIManager : MonoBehaviour
 
         oldScreen.offsetMin = new Vector2(otherTargetValue, 0);
         oldScreen.offsetMax = new Vector2(otherTargetValue, 0);
+
+        newScreen.offsetMin = new Vector2(0, 0);
+        newScreen.offsetMax = new Vector2(0, 0);
+
+        oldScreen.gameObject.SetActive(false);
+
+        setButton.Select();
+        yield return null;
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            setButton.Select();
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = setButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    IEnumerator SwipeUp(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
+    {
+        float time = 0;
+        float Duration = 0.4f;
+        float newValue = -519.62f;
+        float otherTargetValue = 519.62f;
+        float oldValue = 0;
+
+        float NewScreenLocation;
+        float OldScreenLocation;
+
+        newScreen.gameObject.SetActive(true);
+
+        while (time < Duration)
+        {
+            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+            oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
+            oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
+
+            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+            newScreen.offsetMin = new Vector2(0, NewScreenLocation);
+            newScreen.offsetMax = new Vector2(0, NewScreenLocation);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        oldScreen.offsetMin = new Vector2(0, otherTargetValue);
+        oldScreen.offsetMax = new Vector2(0, otherTargetValue);
+
+        newScreen.offsetMin = new Vector2(0, 0);
+        newScreen.offsetMax = new Vector2(0, 0);
+
+        oldScreen.gameObject.SetActive(false);
+
+        setButton.Select();
+        yield return null;
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            setButton.Select();
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = setButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    IEnumerator SwipeDown(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
+    {
+        float time = 0;
+        float Duration = 0.4f;
+        float newValue = 519.62f;
+        float otherTargetValue = -519.62f;
+        float oldValue = 0;
+
+        float NewScreenLocation;
+        float OldScreenLocation;
+
+        newScreen.gameObject.SetActive(true);
+
+        while (time < Duration)
+        {
+            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+            oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
+            oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
+
+            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+            newScreen.offsetMin = new Vector2(0, NewScreenLocation);
+            newScreen.offsetMax = new Vector2(0, NewScreenLocation);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        oldScreen.offsetMin = new Vector2(0, otherTargetValue);
+        oldScreen.offsetMax = new Vector2(0, otherTargetValue);
 
         newScreen.offsetMin = new Vector2(0, 0);
         newScreen.offsetMax = new Vector2(0, 0);

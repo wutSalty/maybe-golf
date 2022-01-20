@@ -10,6 +10,8 @@ TagManager:
   - Scroll
   - Enemy
   - Ghost
+  - PlayerProjectile
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

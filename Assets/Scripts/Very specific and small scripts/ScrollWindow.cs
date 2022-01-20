@@ -44,7 +44,6 @@ public class ScrollWindow : MonoBehaviour
         //Updates the image, saves the preference, updates debug stuff
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
         GameManager.GM.BallSkin = CurrentIndex;
-        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
     //When the player goes right
@@ -66,6 +65,5 @@ public class ScrollWindow : MonoBehaviour
         //Then saves everything and fixes things up as usual
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
         GameManager.GM.BallSkin = CurrentIndex;
-        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 }

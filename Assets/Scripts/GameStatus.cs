@@ -47,6 +47,7 @@ public class GameStatus : MonoBehaviour
     public Sprite NotCollectedSprite;
     public Sprite CollectedSprite;
     public Image UIIcon;
+    public GameObject IconPanel;
     public int CollectableStatus;
 
     //Fun facts for multiplayer games
@@ -88,6 +89,12 @@ public class GameStatus : MonoBehaviour
             }
         }
         SingleMode = GameManager.GM.SingleMode;
+
+        if (!SingleMode)
+        {
+            UIIcon.gameObject.SetActive(false);
+            IconPanel.SetActive(false);
+        }
 
         //Get all player inputs and see whether they're player one
         inputs = FindObjectsOfType<PlayerInput>();

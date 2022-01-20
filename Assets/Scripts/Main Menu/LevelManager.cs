@@ -65,7 +65,15 @@ public class LevelManager : MonoBehaviour
             {
                 GameManager.GM.TutorialMode = false;
             }
-            LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+
+            if (LevelInt == 5)
+            {
+                LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, false);
+            }
+            else
+            {
+                LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+            }
         }        
     }
 
@@ -79,7 +87,15 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.GM.TutorialMode = false;
         }
-        LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
+
+        if (TempLevelInt == 5)
+        {
+            LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, false);
+        }
+        else
+        {
+            LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
+        }
     }
 
     public void CancelButton()
