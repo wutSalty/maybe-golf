@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerProjectileBehaviour : MonoBehaviour
 {
     public int DamageGiven = 1;
+    public float FlightSpeed = 15f;
+    public float FlightTime = 1.4f;
+    public bool BeatEnemyProjectileA;
+
     private float MyY;
     private float MyX;
 
@@ -20,11 +24,11 @@ public class PlayerProjectileBehaviour : MonoBehaviour
     IEnumerator ShootForwards()
     {
         float time = 0;
-        float duration = 1.6f;
+        float duration = FlightTime;
 
         while (time < duration)
         {
-            MyX += 15f * Time.deltaTime;
+            MyX += FlightSpeed * Time.deltaTime;
             transform.position = new Vector3(MyX, MyY, 0);
             time += Time.deltaTime;
             yield return null;
@@ -35,6 +39,15 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == "EnemyProjectileA")
+        {
+            Destroy(collision.gameObject, 0.02f);
+            if (!BeatEnemyProjectileA)
+            {
+                Destroy(this.gameObject, 0.02f);
+            }
+        }
+
         if (collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(DamageGiven);

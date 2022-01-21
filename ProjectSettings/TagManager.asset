@@ -11,7 +11,8 @@ TagManager:
   - Enemy
   - Ghost
   - PlayerProjectile
-  - EnemyProjectile
+  - EnemyProjectileA
+  - EnemyProjectileB
   layers:
   - Default
   - TransparentFX

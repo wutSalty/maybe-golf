@@ -19,7 +19,7 @@ public class AltAimControllerManager : MonoBehaviour
     private Vector2 LeftMove;
     private int PlayerIndex;
 
-    //Hooked up here so SpawnBall can the sprites and layers
+    //Hooked up here so SpawnBall can set the sprites and layers
     public SpriteRenderer BallSprite;
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;

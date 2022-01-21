@@ -12,18 +12,6 @@ public class PauseGame : MonoBehaviour
 {
     public static PauseGame pM;
 
-    //public Canvas PauseMenu;
-    //public Button ResumeButton;
-
-    //public Text EscText;
-    //public Text RestartText;
-    //public Text PlayerPausedText;
-
-    //public EventSystem eventSystem;
-
-    //[HideInInspector]
-    //public Vector2 LeftMove;
-
     [HideInInspector]
     public bool MenuIsOpen = false;
 
@@ -45,20 +33,6 @@ public class PauseGame : MonoBehaviour
     {
         listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
     }
-
-    ////If user moves stuff, make sure things are updated
-    //public void Update()
-    //{
-    //    if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject != null))
-    //    {
-    //        eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
-    //    }
-
-    //    if ((LeftMove != Vector2.zero) && (eventSystem.currentSelectedGameObject == null || eventSystem.currentSelectedGameObject.activeSelf))
-    //    {
-    //        eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
-    //    }
-    //}
 
     //If by any chance the pause menu has to be opened by the "host" user
     public void OverrideForThePauseOverride()
@@ -104,22 +78,4 @@ public class PauseGame : MonoBehaviour
             MenuIsOpen = false;
         }
     }
-
-    //public void ControlsHaveChanged(PlayerInput playerInput)
-    //{
-    //    var currentScheme = playerInput.currentControlScheme;
-    //    Debug.Log(playerInput.currentControlScheme);
-
-    //    if (currentScheme == "Keyboard")
-    //    {
-    //        EscText.text = "Pause (Esc)";
-    //        RestartText.text = "Restart (R)";
-
-    //    }
-    //    else if (currentScheme == "Controller")
-    //    {
-    //        EscText.text = "Pause (+/Menu)";
-    //        RestartText.text = "Restart (L+R)";
-    //    }
-    //}
 }

@@ -164,6 +164,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Left-Right",
+                    "id": "e2f131d4-96b6-480c-92b4-b29199c6eeec",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Aiming",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "88534ca3-8a83-4325-9397-dcd2bcbbfc2e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Aiming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "eb96facb-b80b-4486-bd17-4e140468156c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Aiming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Up-Down",
                     "id": "346063cc-2376-4a6b-a95d-614c861e5228",
                     "path": "1DAxis",
@@ -222,6 +255,39 @@
                     "name": "positive",
                     "id": "03d18411-5d45-44a0-b616-dee71bd947aa",
                     "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Power",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Up-Down",
+                    "id": "7bbabb36-22d9-4430-8cd2-1bbcf5e6e0db",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Power",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "b164fe05-ccec-4d87-ac54-9b8e25743c54",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Power",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1c879277-27d1-4dfb-87ac-d37929720d36",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
