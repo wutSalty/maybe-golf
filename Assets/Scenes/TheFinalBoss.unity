@@ -514,10 +514,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 370696720}
-  - component: {fileID: 370696721}
   - component: {fileID: 370696722}
+  - component: {fileID: 370696721}
   - component: {fileID: 370696723}
   - component: {fileID: 370696724}
+  - component: {fileID: 370696725}
   m_Layer: 0
   m_Name: Final Boss Level Manager
   m_TagString: Untagged
@@ -642,6 +643,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuIsOpen: 0
+--- !u!114 &370696725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370696719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec539d8e39c43b4fa2662770ff366a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameStart: 0
+  GameOver: 0
+  ForcePause: 0
+  GMLevelIndex: 5
 --- !u!1 &385476423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3001087786325619478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11, y: -2.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231034606777502754}
@@ -2216,6 +2233,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 145688253277867055}
+  - component: {fileID: 3001087786325619479}
+  - component: {fileID: 3001087786325619480}
   m_Layer: 0
   m_Name: Enemy Prefab
   m_TagString: Untagged
@@ -2223,6 +2242,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &3001087786325619479
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001087786325619478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8795e17106dab54782018f82e13bdc3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3001087786325619480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001087786325619478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a925adad2e02b5a4b8f2a7c12abed9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3001087786325619479}
+  spriteRenderer: {fileID: 4231034606777502755}
+  playerHealth: {fileID: 4231034606777502759}
+  spriteB: {fileID: 21300000, guid: ed63dda4a074cc74abb3c9375e6d22b1, type: 3}
 --- !u!114 &4231034606777502753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2230,7 +2284,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4231034606777502757}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b94dc63be934eaf4582eb9bf87f26abb, type: 3}
   m_Name: 
@@ -2246,9 +2300,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4231034606777502757}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.5, y: 3.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 145688253277867055}
   m_RootOrder: 0
@@ -2330,10 +2384,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4231034606777502754}
   - component: {fileID: 4231034606777502755}
-  - component: {fileID: 4231034606777502756}
   - component: {fileID: 4231034606777502759}
   - component: {fileID: 4231034606777502753}
   - component: {fileID: 4231034606777502758}
+  - component: {fileID: 4231034606777502756}
   - component: {fileID: 4231034606777502760}
   m_Layer: 0
   m_Name: Big Boss
@@ -2374,6 +2428,7 @@ MonoBehaviour:
   healthBar: {fileID: 1359224472}
   GolfGear: {fileID: 4231034606777502755}
   VulnCounter: 0
+  IFrames: 1
 --- !u!50 &4231034606777502760
 Rigidbody2D:
   serializedVersion: 4

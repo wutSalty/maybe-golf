@@ -11,12 +11,15 @@ public class PlayerHealth : MonoBehaviour
 
     public SpriteRenderer GolfGear;
     public int VulnCounter = 6;
-    private bool IFrames;
+    public bool IFrames;
 
     void Start()
     {
-        healthBar.SetMaxHealth(MaxHealth);
-        CurrentHealth = MaxHealth;
+        if (tag != "Enemy")
+        {
+            healthBar.SetMaxHealth(MaxHealth);
+            CurrentHealth = MaxHealth;
+        }
     }
 
     public void TakeDamage(int damage)

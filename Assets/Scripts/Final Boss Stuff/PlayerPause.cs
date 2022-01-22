@@ -52,10 +52,10 @@ public class PlayerPause : MonoBehaviour
     public void OnMenu()
     {
         //If currently game over or force pause
-        //if (!true)
-        //{
-        //    return;
-        //}
+        if (BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause)
+        {
+            return;
+        }
 
         BossPauseGame.bossPause.SetPause(pIndex);
 

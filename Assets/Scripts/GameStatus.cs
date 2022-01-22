@@ -56,6 +56,7 @@ public class GameStatus : MonoBehaviour
 
     private PlayerInput[] inputs;
 
+    //Ghost data recordings
     public List<GhostData> RecordingGhostData;
     private float IntervalTime = 0;
     private float AccumalativeTime;

@@ -52,7 +52,7 @@ public class PlayerMouseMovement : MonoBehaviour
 
     void Update()
     {
-        if (CurrentControls == "Mouse")
+        if (CurrentControls == "Mouse" && !BossStatus.bossStat.GameOver && !BossStatus.bossStat.ForcePause && BossStatus.bossStat.GameStart && !BossPauseGame.bossPause.MenuIsOpen)
         {
             mousepos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             YPos = Mathf.Clamp(mousepos.y, ScreenBounds.y * -1 + ObjectHeight, ScreenBounds.y - ObjectHeight);
