@@ -5,18 +5,20 @@ using UnityEngine;
 public class Boss_IdleA : StateMachineBehaviour
 {
     PlayerHealth healthScript;
+    BossPatternsManager patternMan;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         healthScript = animator.GetComponentInChildren<PlayerHealth>();
+        patternMan = animator.GetComponent<BossPatternsManager>();
         healthScript.IFrames = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (healthScript.CurrentHealth <= (healthScript.MaxHealth * 0.75))
+        if (healthScript.CurrentHealth <= (healthScript.MaxHealth * 0.85))
         {
             animator.SetBool("PhaseB", true);
         }
@@ -26,5 +28,6 @@ public class Boss_IdleA : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         healthScript.IFrames = true;
+        patternMan.PauseAttacks();
     }
 }

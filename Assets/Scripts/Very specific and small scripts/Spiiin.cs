@@ -14,6 +14,6 @@ public class Spiiin : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.Rotate(0, 0, -SpinSpeed * Time.deltaTime);
+        gameObject.transform.Rotate(0, 0, -SpinSpeed * Time.unscaledDeltaTime);
     }
 }

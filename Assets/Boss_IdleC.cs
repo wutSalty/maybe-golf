@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_IdleB : StateMachineBehaviour
+public class Boss_IdleC : StateMachineBehaviour
 {
     PlayerHealth healthScript;
     BossPatternsManager patternMan;
@@ -19,9 +19,9 @@ public class Boss_IdleB : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (healthScript.CurrentHealth <= (healthScript.MaxHealth * 0.60))
+        if (healthScript.CurrentHealth <= (healthScript.MaxHealth * 0.30))
         {
-            animator.SetBool("PhaseC", true);
+            animator.SetBool("PhaseD", true);
         }
     }
 

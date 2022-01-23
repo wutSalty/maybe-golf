@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 5609364919121563608}
   - component: {fileID: 5322663904126576949}
   - component: {fileID: 5609364919121563610}
-  - component: {fileID: 5609364919121563609}
+  - component: {fileID: 8905325435184285691}
   - component: {fileID: 5609364919121563611}
   m_Layer: 8
   m_Name: Shooter Character
@@ -1233,7 +1233,8 @@ MonoBehaviour:
   healthBar: {fileID: 5609364919478846130}
   GolfGear: {fileID: 5609364918957948327}
   VulnCounter: 6
---- !u!70 &5609364919121563609
+  IFrames: 0
+--- !u!70 &8905325435184285691
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1243,7 +1244,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.28027603, y: 0.000000033411503}
@@ -1257,7 +1258,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5609364919121563556}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2094,7 +2095,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -10}
+  m_SizeDelta: {x: -26.579998, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5609364920634001344
 CanvasRenderer:

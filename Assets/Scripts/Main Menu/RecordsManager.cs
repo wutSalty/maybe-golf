@@ -103,6 +103,11 @@ public class RecordsManager : MonoBehaviour
         int index = 0;
         foreach (var item in GameManager.GM.LevelData)
         {
+            if (item.LevelInt == 5)
+            {
+                break;
+            }
+
             if (item.CollectableGet != 2)
             {
                 ScrollImages[index].sprite = UnknownScrollSprite;

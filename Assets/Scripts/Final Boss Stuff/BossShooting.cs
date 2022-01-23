@@ -6,12 +6,20 @@ public class BossShooting : MonoBehaviour
 {
     public GameObject EnemyBullet;
     public GameObject EnemyRocket;
+    public GameObject EnemyLazer;
+
+    public GameObject LazerWarning;
+
     public float TimeInterval;
     public int AmountPerInterval;
 
     public bool PhaseA;
     public bool PhaseB;
     public bool PhaseC;
+    public bool PhaseD;
+    public bool PhaseE;
+
+    private GameObject warning;
 
     //Figure this out
     [System.Serializable]
@@ -35,36 +43,198 @@ public class BossShooting : MonoBehaviour
         StartCoroutine(ShootProjectile());
     }
 
+    public void StartShooting()
+    {
+        StartCoroutine(ShootProjectile());
+        Debug.Log("Shooting startd");
+    }
+
+    public void StopShooting()
+    {
+        StopAllCoroutines();
+        if (warning != null)
+        {
+            Destroy(warning, 0.02f);
+        }
+        Debug.Log("Shooting stopp");
+    }
+
     IEnumerator ShootProjectile()
     {
         while (true)
         {
-            yield return new WaitForSeconds(TimeInterval);
-
             if (PhaseA) //Phase A Attacks
             {
-                foreach (var item in attackPattern)
+                yield return new WaitForSeconds(attackPattern[0].TimeBetweenWaves);
+
+                foreach (var item in attackPattern[0].details)
                 {
+                    switch (item.TypeOfProjectile)
+                    {
+                        case 0:
+                            Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
 
-                }
+                        case 1:
+                            Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
 
-
-                for (int i = 0; i < AmountPerInterval; i++)
-                {
-                    Instantiate(EnemyBullet, transform.position, Quaternion.identity);
-                    yield return new WaitForSeconds(0.5f);
+                        default:
+                            break;
+                    }
                 }
             }
             
-            if (PhaseB)
+            else if (PhaseB) //Phase B attacks
             {
-                for (int i = 0; i < AmountPerInterval; i++)
+                yield return new WaitForSeconds(attackPattern[1].TimeBetweenWaves);
+
+                foreach (var item in attackPattern[1].details)
                 {
-                    Instantiate(EnemyRocket, transform.position, Quaternion.identity);
-                    yield return new WaitForSeconds(0.5f);
+                    switch (item.TypeOfProjectile)
+                    {
+                        case 0:
+                            Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 1:
+                            Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             }
-            
+
+            else if (PhaseC) //Phase C attacks
+            {
+                yield return new WaitForSeconds(attackPattern[2].TimeBetweenWaves);
+
+                foreach (var item in attackPattern[2].details)
+                {
+                    switch (item.TypeOfProjectile)
+                    {
+                        case 0:
+                            Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 1:
+                            Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 2:
+                            StartCoroutine(PrepareLazer());
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            else if (PhaseD) //Phase D attacks
+            {
+                yield return new WaitForSeconds(attackPattern[3].TimeBetweenWaves);
+
+                foreach (var item in attackPattern[3].details)
+                {
+                    switch (item.TypeOfProjectile)
+                    {
+                        case 0:
+                            Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 1:
+                            Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 2:
+                            StartCoroutine(PrepareLazer());
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            else if (PhaseE) //Phase E attacks
+            {
+                yield return new WaitForSeconds(attackPattern[4].TimeBetweenWaves);
+
+                foreach (var item in attackPattern[4].details)
+                {
+                    switch (item.TypeOfProjectile)
+                    {
+                        case 0:
+                            Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 1:
+                            Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        case 2:
+                            StartCoroutine(PrepareLazer());
+                            yield return new WaitForSeconds(item.TimeBetweenShots);
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            else
+            {
+                yield return null;
+            }
+        }
+    }
+
+    IEnumerator PrepareLazer()
+    {
+        Vector3 pos = transform.position;
+        //LazerWarning.transform.position = new Vector3(7, pos.y, 0);
+
+        warning = Instantiate(LazerWarning, new Vector3(7, pos.y, 0), Quaternion.identity);
+        warning.SetActive(false);
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (warning.activeSelf)
+            {
+                warning.SetActive(false);
+            }
+            else
+            {
+                warning.SetActive(true);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        Instantiate(EnemyLazer, new Vector3(25f, pos.y, 0), Quaternion.identity);
+        Destroy(warning, 0.02f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            collision.GetComponent<PlayerHealth>().TakeDamage(20);
         }
     }
 }

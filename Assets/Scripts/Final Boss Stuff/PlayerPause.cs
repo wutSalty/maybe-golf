@@ -97,13 +97,24 @@ public class PlayerPause : MonoBehaviour
 
     public void ReturnToMain()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+
+        //Find a way to pause everything without breaking anything. Or use unscaled time.
+
+        BossStatus.bossStat.ForcePause = true;
+        GameManager.GM.NumPlayers.Clear();
+        GameManager.GM.SingleMode = false;
+        GameManager.GM.GhostMode = false;
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 
     public void RestartScene()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
+
+        //Find a way to pause everything without breaking anything. Or use unscaled time.
+
+        BossStatus.bossStat.ForcePause = true;
         LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
     }
 }

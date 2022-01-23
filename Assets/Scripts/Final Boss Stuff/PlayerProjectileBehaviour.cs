@@ -42,10 +42,26 @@ public class PlayerProjectileBehaviour : MonoBehaviour
         if (collision.tag == "EnemyProjectileA")
         {
             Destroy(collision.gameObject, 0.02f);
+
             if (!BeatEnemyProjectileA)
             {
                 Destroy(this.gameObject, 0.02f);
             }
+        }
+
+        if (collision.tag == "EnemyProjectileB")
+        {
+            if (BeatEnemyProjectileA)
+            {
+                Destroy(collision.gameObject, 0.02f);
+            }
+
+            Destroy(this.gameObject, 0.02f);
+        }
+
+        if (collision.tag == "EnemyProjectileC")
+        {
+            Destroy(this.gameObject, 0.02f);
         }
 
         if (collision.tag == "Enemy")

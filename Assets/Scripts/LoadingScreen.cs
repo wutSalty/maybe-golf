@@ -42,6 +42,8 @@ public class LoadingScreen : MonoBehaviour
         loadingCanvas.SetActive(true);
         yield return StartCoroutine(FadeScreen(1, 1, 0));
 
+        Time.timeScale = 1;
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneToLoad);
         while (!operation.isDone)
         {
@@ -68,7 +70,7 @@ public class LoadingScreen : MonoBehaviour
         while (time < duration)
         {
             canvasGroup.alpha = Mathf.Lerp(startValue, targetValue, time / duration);
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
         canvasGroup.alpha = targetValue;

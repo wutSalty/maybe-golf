@@ -5,6 +5,11 @@ using UnityEngine;
 public class BossProjectileBehaviour : MonoBehaviour
 {
     public int DamageGiven = 5;
+    public float speed = 15f;
+    public float Duration = 1.6f;
+
+    public bool AmLazer = false;
+
     private float MyY;
     private float MyX;
 
@@ -20,11 +25,11 @@ public class BossProjectileBehaviour : MonoBehaviour
     IEnumerator ShootForwards()
     {
         float time = 0;
-        float duration = 1.6f;
+        float duration = Duration;
 
         while (time < duration)
         {
-            MyX += -15f * Time.deltaTime;
+            MyX += -speed * Time.deltaTime;
             transform.position = new Vector3(MyX, MyY, 0);
             time += Time.deltaTime;
             yield return null;
@@ -37,8 +42,11 @@ public class BossProjectileBehaviour : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            if (!AmLazer)
+            {
+                Destroy(this.gameObject, 0.02f);
+            }
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(DamageGiven);
-            Destroy(this.gameObject, 0.02f);
         }
     }
 }
