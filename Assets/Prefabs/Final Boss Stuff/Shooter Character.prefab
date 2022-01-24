@@ -1106,6 +1106,7 @@ GameObject:
   - component: {fileID: 5609364919121563610}
   - component: {fileID: 8905325435184285691}
   - component: {fileID: 5609364919121563611}
+  - component: {fileID: 6263632585336012025}
   m_Layer: 8
   m_Name: Shooter Character
   m_TagString: Player
@@ -1120,7 +1121,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5609364919121563556}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1205,7 +1206,7 @@ MonoBehaviour:
     Shoot - SUBMIT
 
     Switch projectiles -
-    West Button
+    RB
 
     Pause Game - Menu Button'
   - 'Movement - Mouse Position
@@ -1234,6 +1235,7 @@ MonoBehaviour:
   GolfGear: {fileID: 5609364918957948327}
   VulnCounter: 6
   IFrames: 0
+  PlayerDead: 0
 --- !u!70 &8905325435184285691
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1271,6 +1273,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &6263632585336012025
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609364919121563556}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c96fb0afb14c3b944b780d59e4a08bff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5609364919192495912
 GameObject:
   m_ObjectHideFlags: 0

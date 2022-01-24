@@ -409,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3285273091581952964, guid: 8a6d365d570c69f48bb72336638e5024, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3285273091581952965, guid: 8a6d365d570c69f48bb72336638e5024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3012,6 +3012,7 @@ MonoBehaviour:
     BestHits: 0
     CollectableGet: 0
     ghostData: []
+  BossLevelUnlocked: 0
   TimesPlayedSolo: 0
   TimesPlayedMulti: 0
   BallSkin: 0

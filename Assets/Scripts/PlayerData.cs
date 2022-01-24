@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerData 
 {
     public List<LevelFormat> LevelData;
+    public bool BossLevelUnlocked;
     public bool[] UnlockedBallSkins;
     public int TimesPlayedSolo;
     public int TimesPlayedMulti;
@@ -15,6 +16,7 @@ public class PlayerData
     public PlayerData(GameManager player)
     {
         LevelData = player.LevelData;
+        BossLevelUnlocked = player.BossLevelUnlocked;
         TimesPlayedSolo = player.TimesPlayedSolo;
         TimesPlayedMulti = player.TimesPlayedMulti;
         UnlockedBallSkins = player.UnlockedBallSkins;

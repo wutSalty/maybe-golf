@@ -21,8 +21,11 @@ public class PlayerShootProjectile : MonoBehaviour
     private float WaitTime;
     private bool Holding;
 
+    private PlayerHealth playerHealth;
+
     private void Start()
     {
+        playerHealth = GetComponent<PlayerHealth>();
         StartCoroutine(HoldingMouse());
         OnSwitchToPrimary();
     }
@@ -37,7 +40,7 @@ public class PlayerShootProjectile : MonoBehaviour
             GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
         }
 
-        if ((BossControllerDisconnect.BossControlDC.CurrentlyDC || BossPauseGame.bossPause.MenuIsOpen) && Holding)
+        if ((BossControllerDisconnect.BossControlDC.CurrentlyDC || BossPauseGame.bossPause.MenuIsOpen || BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause || playerHealth.PlayerDead) && Holding)
         {
             Holding = false;
         }

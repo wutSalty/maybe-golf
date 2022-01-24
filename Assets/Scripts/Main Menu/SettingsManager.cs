@@ -220,6 +220,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.TimesPlayedSolo = 0;
         GameManager.GM.TimesPlayedMulti = 0;
         GameManager.GM.BallSkin = 0;
+        GameManager.GM.BossLevelUnlocked = false;
         GameManager.GM.CheckLocked();
         GameManager.GM.SavePlayer();
 

@@ -2817,6 +2817,7 @@ MonoBehaviour:
     BestHits: 0
     CollectableGet: 0
     ghostData: []
+  BossLevelUnlocked: 0
   TimesPlayedSolo: 0
   TimesPlayedMulti: 0
   BallSkin: 0
@@ -13910,7 +13911,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 19
+  m_SortingOrder: 14
   m_Sprite: {fileID: -7437638704965093239, guid: 1107d9f1845fde2479b469de1b627c4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

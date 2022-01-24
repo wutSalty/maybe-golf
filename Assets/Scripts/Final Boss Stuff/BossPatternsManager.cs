@@ -41,6 +41,11 @@ public class BossPatternsManager : MonoBehaviour
         bossShoot.PhaseD = true;
     }
 
+    public void ToggleForceInvincibility()
+    {
+        playerHealth.IFrames = !playerHealth.IFrames;
+    }
+
     public void PauseAttacks()
     {
         bossShoot.StopShooting();

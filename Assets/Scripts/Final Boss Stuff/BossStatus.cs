@@ -33,6 +33,7 @@ public class BossStatus : MonoBehaviour
 
     //Result screen UI elements
     public GameObject ResultsScreen;
+    public Text ResultsTitle;
     public Text ResultsText;
     public Button ResultsFirstButton;
 
@@ -129,7 +130,7 @@ public class BossStatus : MonoBehaviour
         GameOver = true;
         foreach (var item in playerStatus)
         {
-            if (item.playerIndex != 99)
+            if (item.playerIndex != 99 && !item.ZeroHP)
             {
                 GameOver = false;
             }
@@ -143,21 +144,29 @@ public class BossStatus : MonoBehaviour
 
     public void PlayersAllDead()
     {
-        Debug.Log("Players are dead");
-    }
-
-    //Once the boss is killed, bring up the Results Screen
-    public void BossDefeated()
-    {
         GameOver = true;
-        Debug.Log("Boss is dead");
+        bossShooting.StopShooting();
+        Debug.Log("Players are dead");
+
+        float BossHPRemaining = (BossHealth.CurrentHealth * 1.0f / BossHealth.MaxHealth) * 100;
+        Debug.Log(BossHPRemaining);
+
+        ResultsTitle.text = "Boss Course Failed";
+        ResultsText.text = "The boss remains victorious. " + Mathf.RoundToInt(BossHPRemaining) + "% of it's HP is left.\n\n";
+
         if (GameManager.GM.SingleMode)
         {
             //Singleplayer logic
+            ResultsText.text += "Why not try again to get your revenge! Or feel free to return to the Level Select and Main Menu.";
+
+            GameManager.GM.TimesPlayedSolo += 1;
         }
         else
         {
             //Multiplayer logic
+            ResultsText.text += "Why not try again to get your revenge! Player One, feel free to make the calls. Or feel free to return to the Level Select and Main Menu.";
+
+            GameManager.GM.TimesPlayedMulti += 1;
         }
 
         PlayerOneInput.SwitchCurrentActionMap("Menu");
@@ -171,6 +180,62 @@ public class BossStatus : MonoBehaviour
             PlayerOneEvent.SetSelectedGameObject(ResultsFirstButton.gameObject);
         }
         PlayerOneEvent.firstSelectedGameObject = ResultsFirstButton.gameObject;
+
+        GameManager.GM.CheckUnlockables();
+        GameManager.GM.SavePlayer();
+    }
+
+    //Once the boss is killed, bring up the Results Screen
+    public void BossDefeated()
+    {
+        GameOver = true;
+        Debug.Log("Boss is dead");
+
+        ResultsTitle.text = "Boss Defeated";
+        ResultsText.text = "Congratulations on defeating the Boss! You managed to do it in " + Timer.ToString("F2") + " seconds!\n\n";
+
+        if (GameManager.GM.SingleMode)
+        {
+            //Singleplayer logic
+            ResultsText.text += "If you'd like to shave some more time to get a better score, feel free to try again! If not, you can always return to Level Select or Main Menu.";
+
+            if (GameManager.GM.LevelData[GMLevelIndex].BestTime == 0)
+            {
+                GameManager.GM.LevelData[GMLevelIndex].BestTime = Timer;
+            }
+            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime > Timer)
+            {
+                GameManager.GM.LevelData[GMLevelIndex].BestTime = Timer;
+            }
+            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime <= Timer)
+            {
+                //Nothing lol
+            }
+
+            GameManager.GM.TimesPlayedSolo += 1;
+        }
+        else
+        {
+            //Multiplayer logic
+            ResultsText.text += "If you'd like to shave some more time to get a better score, feel free to try again! If not, you can always return to Level Select or Main Menu. Feel free to make the call, Player One.";
+
+            GameManager.GM.TimesPlayedMulti += 1;
+        }
+
+        PlayerOneInput.SwitchCurrentActionMap("Menu");
+
+        ResultsScreen.SetActive(true); //Show results screen
+
+        //Hijacks player 1 input
+        PlayerOneEvent.playerRoot = ResultsScreen;
+        if (PlayerOneInput.currentControlScheme != "Mouse")
+        {
+            PlayerOneEvent.SetSelectedGameObject(ResultsFirstButton.gameObject);
+        }
+        PlayerOneEvent.firstSelectedGameObject = ResultsFirstButton.gameObject;
+
+        GameManager.GM.CheckUnlockables();
+        GameManager.GM.SavePlayer();
     }
 
     //Butten when restaring the course

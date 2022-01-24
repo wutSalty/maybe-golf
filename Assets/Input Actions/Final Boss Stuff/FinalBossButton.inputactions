@@ -185,7 +185,7 @@
                 {
                     "name": "",
                     "id": "92be6b4b-5d3e-42a3-b408-797feb665872",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -616,6 +616,17 @@
                     "name": "",
                     "id": "f36b896a-c3c8-4bc5-88a8-f005046ff480",
                     "path": "*/{Menu}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1aa4f8c6-784a-4f17-9cf1-8e02a61962e8",
+                    "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",

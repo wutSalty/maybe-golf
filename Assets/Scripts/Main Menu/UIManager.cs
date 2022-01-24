@@ -315,8 +315,18 @@ public class UIManager : MonoBehaviour
         if (GameManager.GM.LoadIntoLevelSelect)
         {
             GameManager.GM.LoadIntoLevelSelect = false;
-            StartCoroutine(SwipeDown(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
+            //StartCoroutine(SwipeDown(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
             //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+
+            MainMenu.SetActive(false);
+            LevelSelectScreen.SetActive(true);
+
+            MainMenuRect.offsetMin = new Vector2(-519.62f, 0);
+            MainMenuRect.offsetMax = new Vector2(-519.62f, 0);
+
+            LevelSelectRect.offsetMin = new Vector2(0, 0);
+            LevelSelectRect.offsetMax = new Vector2(0, 0);
+
             levelManager.enabled = true;
         }
     }

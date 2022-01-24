@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d9408077e590a468ceb37458791232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealthDropPrefabs: {fileID: 1420201201685618670, guid: 6a5be371600cbcd4ead22442815d52d5, type: 3}
   DamageGiven: 1
   FlightSpeed: 15
   FlightTime: 1.4

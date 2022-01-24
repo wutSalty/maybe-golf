@@ -175,11 +175,22 @@ public class RecordsManager : MonoBehaviour
             CurrentLevelIndex = GameManager.GM.LevelData.Count - 1;
         }
 
+        //Hiding Boss Level
+        if (CurrentLevelIndex == 5 && !GameManager.GM.BossLevelUnlocked)
+        {
+            CurrentLevelIndex -= 1;
+        }
+
         LevelNameTxt.text = LevelNames[CurrentLevelIndex];
-        if (GameManager.GM.LevelData[CurrentLevelIndex].BestHits == 0)
+        if (GameManager.GM.LevelData[CurrentLevelIndex].BestTime == 0)
         {
             HitRecordTxt.text = "Hit Record: N/A";
             BestTimeTxt.text = "Best Time: N/A";
+        }
+        else if (CurrentLevelIndex == 5)
+        {
+            HitRecordTxt.text = "Hit Record: N/A";
+            BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
         }
         else
         {
@@ -197,11 +208,21 @@ public class RecordsManager : MonoBehaviour
             CurrentLevelIndex = 0;
         }
 
+        if (CurrentLevelIndex == 5 && !GameManager.GM.BossLevelUnlocked)
+        {
+            CurrentLevelIndex = 0;
+        }
+
         LevelNameTxt.text = LevelNames[CurrentLevelIndex];
-        if (GameManager.GM.LevelData[CurrentLevelIndex].BestHits == 0)
+        if (GameManager.GM.LevelData[CurrentLevelIndex].BestTime == 0)
         {
             HitRecordTxt.text = "Hit Record: N/A";
             BestTimeTxt.text = "Best Time: N/A";
+        }
+        else if (CurrentLevelIndex == 5)
+        {
+            HitRecordTxt.text = "Hit Record: N/A";
+            BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
         }
         else
         {

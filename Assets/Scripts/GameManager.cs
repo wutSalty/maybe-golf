@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
 
     public Animator NotiAnimator; //Animation for notification bar
+    public Animator BossUnlockNoti;
 
     public bool SingleMode = false; //Flag for playing in singleplayer
     public bool GhostMode = false; //Whether playing vs ghosts
@@ -20,7 +21,8 @@ public class GameManager : MonoBehaviour
     public List<MultiPlayerClass> NumPlayers; //Holds data for every player playing or connected
 
     public List<LevelFormat> LevelData; //Holds data about every level (This data is saved)
-    
+    public bool BossLevelUnlocked; //Flag for whether the user has unlocked the Boss Level yet (Also saved)
+
     public int TimesPlayedSolo; //Number of times the user has cleared a course by themselves
     public int TimesPlayedMulti; //Number of times user has cleared a course in multiplayer
 
@@ -99,6 +101,24 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("No collectables yet");
         }
+
+        //Checks whether all other levels have been played through yet before unlocking boss level
+        if (!BossLevelUnlocked)
+        {
+            BossLevelUnlocked = true;
+            foreach (var item in LevelData)
+            {
+                if (item.BestTime == 0 && item.LevelInt != 5)
+                {
+                    BossLevelUnlocked = false;
+                }
+            }
+
+            if (BossLevelUnlocked)
+            {
+                BossUnlockNoti.SetTrigger("ShowNoti");
+            }
+        }
     }
 
     //Save manager stuffs
@@ -130,6 +150,7 @@ public class GameManager : MonoBehaviour
         {
             //Insert back into GM
             LevelData = data.LevelData;
+            BossLevelUnlocked = data.BossLevelUnlocked;
             TimesPlayedSolo = data.TimesPlayedSolo;
             TimesPlayedMulti = data.TimesPlayedMulti;
             UnlockedBallSkins = data.UnlockedBallSkins;

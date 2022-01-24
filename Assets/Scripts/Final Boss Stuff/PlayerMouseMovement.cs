@@ -12,8 +12,11 @@ public class PlayerMouseMovement : MonoBehaviour
     Vector2 mousepos;
     float YPos;
     float ObjectHeight;
+
     PlayerInput playerInput;
     int pIndex;
+
+    PlayerHealth pHealth;
 
     string CurrentControls;
     float MovingValue;
@@ -25,6 +28,7 @@ public class PlayerMouseMovement : MonoBehaviour
         ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         ObjectHeight = ObjectBounds.bounds.extents.y;
         CurrentControls = playerInput.currentControlScheme;
+        pHealth = GetComponent<PlayerHealth>();
     }
 
     void OnControlsChanged()
@@ -52,7 +56,13 @@ public class PlayerMouseMovement : MonoBehaviour
 
     void Update()
     {
-        if (CurrentControls == "Mouse" && !BossStatus.bossStat.GameOver && !BossStatus.bossStat.ForcePause && BossStatus.bossStat.GameStart && !BossPauseGame.bossPause.MenuIsOpen)
+        if ((BossControllerDisconnect.BossControlDC.CurrentlyDC || BossPauseGame.bossPause.MenuIsOpen || BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause || pHealth.PlayerDead) && MovingValue != 0)
+        {
+            MovingValue = 0;
+            return;
+        }
+
+        if (CurrentControls == "Mouse" && !BossStatus.bossStat.GameOver && !BossStatus.bossStat.ForcePause && BossStatus.bossStat.GameStart && !BossPauseGame.bossPause.MenuIsOpen && !pHealth.PlayerDead)
         {
             mousepos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             YPos = Mathf.Clamp(mousepos.y, ScreenBounds.y * -1 + ObjectHeight, ScreenBounds.y - ObjectHeight);

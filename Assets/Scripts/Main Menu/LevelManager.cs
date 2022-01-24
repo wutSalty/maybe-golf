@@ -9,7 +9,11 @@ public class LevelManager : MonoBehaviour
 {
     List<LevelFormat> LevelList; //The list of levels copied from game manager
 
+    public RectTransform LevelPanel;
+
     public Button TutorialButton;
+    public Button BossButton;
+
     public Button OKGhost;
     public GameObject GhostWarningPanel;
     public EventSystem eventSystem;
@@ -30,6 +34,7 @@ public class LevelManager : MonoBehaviour
         {
             LevelList = GameManager.GM.LevelData;
 
+            //If in multiplayer mode, disable the tutorial as it isn't supported in multiplayer
             if (GameManager.GM.SingleMode)
             {
                 TutorialButton.interactable = true;
@@ -37,6 +42,31 @@ public class LevelManager : MonoBehaviour
             else
             {
                 TutorialButton.interactable = false;
+            }
+
+            //If the Boss Level hasn't been unlocked yet, keep it tight lipped
+            if (GameManager.GM.BossLevelUnlocked)
+            {
+                BossButton.gameObject.SetActive(true);
+
+                LevelPanel.offsetMax = new Vector2(0, -70);
+                LevelPanel.offsetMin = new Vector2(0, 115);
+            }
+            else
+            {
+                BossButton.gameObject.SetActive(false);
+                LevelPanel.offsetMax = new Vector2(0, -70);
+                LevelPanel.offsetMin = new Vector2(0, 15);
+            }
+
+            //If GhostMode is active, disable Boss Level as it also isn't supported in GhostMode
+            if (GameManager.GM.GhostMode)
+            {
+                BossButton.interactable = false;
+            }
+            else
+            {
+                BossButton.interactable = true;
             }
         }
     }

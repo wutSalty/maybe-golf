@@ -828,6 +828,7 @@ MonoBehaviour:
   ForcePause: 0
   GMLevelIndex: 5
   ResultsScreen: {fileID: 1225494452}
+  ResultsTitle: {fileID: 1026070452}
   ResultsText: {fileID: 77155454}
   ResultsFirstButton: {fileID: 1412409637}
   LoseScreen: {fileID: 0}
@@ -3496,6 +3497,7 @@ MonoBehaviour:
   GolfGear: {fileID: 4231034606777502755}
   VulnCounter: 0
   IFrames: 1
+  PlayerDead: 0
 --- !u!50 &4231034606777502760
 Rigidbody2D:
   serializedVersion: 4

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerProjectileBehaviour : MonoBehaviour
 {
+    public GameObject HealthDropPrefabs;
+
     public int DamageGiven = 1;
     public float FlightSpeed = 15f;
     public float FlightTime = 1.4f;
@@ -53,6 +55,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
         {
             if (BeatEnemyProjectileA)
             {
+                Instantiate(HealthDropPrefabs, new Vector3(transform.position.x, transform.position.y, -1), Quaternion.identity);
                 Destroy(collision.gameObject, 0.02f);
             }
 

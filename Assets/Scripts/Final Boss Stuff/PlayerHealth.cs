@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public bool IFrames;
 
     public bool PlayerDead;
+    private Animator animator;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         {
             pInput = GetComponentInParent<PlayerInput>();
             pIndex = pInput.playerIndex;
+            animator = GetComponent<Animator>();
 
             healthBar.SetMaxHealth(MaxHealth);
             CurrentHealth = MaxHealth;
@@ -43,14 +45,33 @@ public class PlayerHealth : MonoBehaviour
             if (CurrentHealth <= 0 && IsPlayer)
             {
                 BossStatus.bossStat.UpdatePlayerStatus(pIndex);
+
                 PlayerDead = true;
-                gameObject.SetActive(false);
+                animator.SetTrigger("Death"); //Make death animation
                 return;
             }
 
             IFrames = true;
             StartCoroutine(VulnCountdown());
         }
+    }
+
+    public void TakeHeal(int heal, HealthPacks pack)
+    {
+        if (CurrentHealth + heal <= MaxHealth)
+        {
+            CurrentHealth += heal;
+            healthBar.SetHealth(CurrentHealth);
+        }
+
+        else if (CurrentHealth + heal - MaxHealth < 10)
+        {
+            heal = CurrentHealth + heal - MaxHealth;
+            CurrentHealth += heal;
+            healthBar.SetHealth(CurrentHealth);
+        }
+        
+        Destroy(pack.gameObject, 0.02f);
     }
 
     IEnumerator VulnCountdown()
