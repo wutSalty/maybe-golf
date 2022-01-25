@@ -62,16 +62,16 @@ public class PlayerMouseMovement : MonoBehaviour
             return;
         }
 
-        if (CurrentControls == "Mouse" && !BossStatus.bossStat.GameOver && !BossStatus.bossStat.ForcePause && BossStatus.bossStat.GameStart && !BossPauseGame.bossPause.MenuIsOpen && !pHealth.PlayerDead)
+        if (CurrentControls == "Mouse" && !BossControllerDisconnect.BossControlDC.CurrentlyDC && !BossStatus.bossStat.GameOver && !BossStatus.bossStat.ForcePause && BossStatus.bossStat.GameStart && !BossPauseGame.bossPause.MenuIsOpen && !pHealth.PlayerDead)
         {
             mousepos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            YPos = Mathf.Clamp(mousepos.y, ScreenBounds.y * -1 + ObjectHeight, ScreenBounds.y - ObjectHeight);
+            YPos = Mathf.Clamp(mousepos.y, 5 * -1 + ObjectHeight, 5 - ObjectHeight);
             gameObject.transform.position = new Vector3(transform.position.x, YPos, 0);
         }
         else
         {
             float Pos = gameObject.transform.position.y + (MovingValue * 10 * Time.deltaTime);
-            YPos = Mathf.Clamp(Pos, ScreenBounds.y * -1 + ObjectHeight, ScreenBounds.y - ObjectHeight);
+            YPos = Mathf.Clamp(Pos, 5 * -1 + ObjectHeight, 5 - ObjectHeight);
             gameObject.transform.position = new Vector3(transform.position.x, YPos, 0);
         }
     }

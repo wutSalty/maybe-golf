@@ -18,6 +18,10 @@ public class LevelManager : MonoBehaviour
     public GameObject GhostWarningPanel;
     public EventSystem eventSystem;
 
+    public GameObject HowToBossPanel;
+    public Button HowToBossButton;
+    public Button HowToBossOK;
+
     private int TempLevelInt;
     private GameObject LastSelected;
 
@@ -48,6 +52,7 @@ public class LevelManager : MonoBehaviour
             if (GameManager.GM.BossLevelUnlocked)
             {
                 BossButton.gameObject.SetActive(true);
+                HowToBossButton.gameObject.SetActive(true);
 
                 LevelPanel.offsetMax = new Vector2(0, -70);
                 LevelPanel.offsetMin = new Vector2(0, 115);
@@ -55,6 +60,8 @@ public class LevelManager : MonoBehaviour
             else
             {
                 BossButton.gameObject.SetActive(false);
+                HowToBossButton.gameObject.SetActive(false);
+
                 LevelPanel.offsetMax = new Vector2(0, -70);
                 LevelPanel.offsetMin = new Vector2(0, 15);
             }
@@ -134,5 +141,19 @@ public class LevelManager : MonoBehaviour
 
         eventSystem.SetSelectedGameObject(LastSelected);
         eventSystem.firstSelectedGameObject = LastSelected;
+    }
+
+    public void HowToBoss()
+    {
+        HowToBossPanel.SetActive(true);
+        eventSystem.firstSelectedGameObject = HowToBossOK.gameObject;
+        eventSystem.SetSelectedGameObject(HowToBossOK.gameObject);
+    }
+
+    public void HowBossOK()
+    {
+        HowToBossPanel.SetActive(false);
+        eventSystem.firstSelectedGameObject = HowToBossButton.gameObject;
+        eventSystem.SetSelectedGameObject(HowToBossButton.gameObject);
     }
 }

@@ -317,7 +317,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    //Button business
+    //Confirming display options buttons
     public void ConfirmButton()
     {
         StopCoroutine("StartCountdown");
@@ -349,6 +349,19 @@ public class SettingsManager : MonoBehaviour
         ForcedOverride = false;
 
         LastButtonSelected.Select();
+    }
+
+    //Audio stuff
+    public void AdjustBGM(float value)
+    {
+        foreach (Sound s in AudioManager.instance.sounds)
+        {
+            if (s.audioPurpose == 0)
+            {
+                s.source.volume = value / 10;
+            }
+        }
+        //Save option to prefs
     }
 
     //Countdown timer before reverting screen options

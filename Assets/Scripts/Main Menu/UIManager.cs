@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject LevelSelectScreen; //Level select screen
     public GameObject LevelSelectGhostPanel;
+    public GameObject LevelSelectHowToBoss;
 
     public GameObject RecordsScreen; //Records screen
     public GameObject ScrollStoryScreen;
@@ -115,6 +116,10 @@ public class UIManager : MonoBehaviour
                 if (LevelSelectGhostPanel.activeSelf)
                 {
                     levelManager.CancelButton();
+                }
+                else if (LevelSelectHowToBoss.activeSelf)
+                {
+                    levelManager.HowBossOK();
                 }
                 else
                 {
@@ -328,6 +333,17 @@ public class UIManager : MonoBehaviour
             LevelSelectRect.offsetMax = new Vector2(0, 0);
 
             levelManager.enabled = true;
+
+            if (inputSystem.currentControlScheme == "Controller")
+            {
+                LevelSelectFirstButton.Select();
+                eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+            }
+            else
+            {
+                eventSystem.firstSelectedGameObject = LevelSelectFirstButton.gameObject;
+                eventSystem.SetSelectedGameObject(null);
+            }
         }
     }
 
@@ -350,6 +366,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator SwipeLeft(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
     {
+        eventSystem.SetSelectedGameObject(null);
+
         float time = 0;
         float Duration = 0.4f;
         float newValue = 923.7604f;
@@ -384,8 +402,6 @@ public class UIManager : MonoBehaviour
         oldScreen.gameObject.SetActive(false);
 
         setButton.Select();
-
-        setButton.Select();
         yield return null;
         if (inputSystem.currentControlScheme == "Controller")
         {
@@ -401,6 +417,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator SwipeRight(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
     {
+        eventSystem.SetSelectedGameObject(null);
+
         float time = 0;
         float Duration = 0.4f;
         float newValue = -923.7604f;
@@ -450,6 +468,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator SwipeUp(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
     {
+        eventSystem.SetSelectedGameObject(null);
+
         float time = 0;
         float Duration = 0.4f;
         float newValue = -519.62f;
@@ -499,6 +519,8 @@ public class UIManager : MonoBehaviour
 
     IEnumerator SwipeDown(RectTransform oldScreen, RectTransform newScreen, Selectable setButton)
     {
+        eventSystem.SetSelectedGameObject(null);
+
         float time = 0;
         float Duration = 0.4f;
         float newValue = 519.62f;

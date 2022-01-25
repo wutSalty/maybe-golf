@@ -146,4 +146,13 @@ public class BossControllerDisconnect : MonoBehaviour
             ControllerTemplate.text = NewText;
         }
     }
+
+    public void ReturnToMain()
+    {
+        BossStatus.bossStat.ForcePause = true;
+        GameManager.GM.NumPlayers.Clear();
+        GameManager.GM.SingleMode = false;
+        GameManager.GM.GhostMode = false;
+        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+    }
 }

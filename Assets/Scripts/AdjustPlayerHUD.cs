@@ -16,15 +16,29 @@ public class AdjustPlayerHUD : MonoBehaviour
     private int Xdist = 100;
     private int Ydist = 50;
 
+    private PlayerInputManager pMan;
+
     private void Start()
     {
         pIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
+        pMan = FindObjectOfType<PlayerInputManager>();
+        bool Single = false;
+
+        if (pMan.playerCount == 1)
+        {
+            Single = true;
+        }
 
         switch (pIndex)
         {
             case 0: //top left
                 playerNumText.text = "Player 1";
                 shotHit.text = "Shots taken: 0";
+
+                if (!Single)
+                {
+                    playerNumText.color = new Color(57 * 1.0f / 255, 76 * 1.0f / 255, 255 * 1.0f / 255);
+                }
 
                 HUDObject.anchorMax = new Vector2(0, 1);
                 HUDObject.anchorMin = new Vector2(0, 1);
@@ -35,6 +49,11 @@ public class AdjustPlayerHUD : MonoBehaviour
                 playerNumText.text = "Player 2";
                 shotHit.text = "Shots taken: 0";
 
+                if (!Single)
+                {
+                    playerNumText.color = new Color(255 * 1.0f / 255, 69 * 1.0f / 255, 59 * 1.0f / 255);
+                }
+
                 HUDObject.anchorMax = new Vector2(1, 1);
                 HUDObject.anchorMin = new Vector2(1, 1);
                 HUDObject.anchoredPosition = new Vector2(-Xdist, -Ydist);
@@ -44,6 +63,11 @@ public class AdjustPlayerHUD : MonoBehaviour
                 playerNumText.text = "Player 3";
                 shotHit.text = "Shots taken: 0";
 
+                if (!Single)
+                {
+                    playerNumText.color = new Color(48 * 1.0f / 255, 255 * 1.0f / 255, 42 * 1.0f / 255);
+                }
+
                 HUDObject.anchorMax = new Vector2(0, 0);
                 HUDObject.anchorMin = new Vector2(0, 0);
                 HUDObject.anchoredPosition = new Vector2(Xdist, Ydist);
@@ -52,6 +76,11 @@ public class AdjustPlayerHUD : MonoBehaviour
             case 3: //bottom right
                 playerNumText.text = "Player 4";
                 shotHit.text = "Shots taken: 0";
+
+                if (!Single)
+                {
+                    playerNumText.color = new Color(255 * 1.0f / 255, 124 * 1.0f / 255, 250 * 1.0f / 255);
+                }
 
                 HUDObject.anchorMax = new Vector2(1, 0);
                 HUDObject.anchorMin = new Vector2(1, 0);
