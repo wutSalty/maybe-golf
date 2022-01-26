@@ -87,7 +87,7 @@ public class PlayerShootProjectile : MonoBehaviour
             {
                 ListOfProjectiles = FindObjectsOfType<PlayerProjectileBehaviour>();
 
-                if (ListOfProjectiles.Length < 6)
+                if (ListOfProjectiles.Length < 24)
                 {
                     switch (CurrentProjectile)
                     {

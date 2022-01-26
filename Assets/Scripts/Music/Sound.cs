@@ -8,6 +8,7 @@ public class Sound
 {
     public string name;
     public AudioClip clip;
+    [Range(0, 2)]
     public int audioPurpose; //0 = bgm, 1 = ui, 2 = in-game
 
     [Range(0f, 1f)]

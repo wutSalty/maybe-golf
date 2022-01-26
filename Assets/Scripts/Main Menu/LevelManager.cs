@@ -94,23 +94,65 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            if (LevelInt == 0)
-            {
-                GameManager.GM.TutorialMode = true;
-            }
-            else
-            {
-                GameManager.GM.TutorialMode = false;
-            }
+            GameManager.GM.TutorialMode = false;
+            string BGM = "";
+            bool Starter = true;
 
-            if (LevelInt == 5)
+            switch (LevelInt)
             {
-                LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, false);
+                case 0:
+                    GameManager.GM.TutorialMode = true;
+                    BGM = "BGM_tutorial";
+                    
+                    break;
+                    //break;
+
+                case 1:
+                    BGM = "BGM_one";
+                    break;
+
+                case 2:
+                    BGM = "BGM_two";
+                    break;
+
+                case 3:
+                    BGM = "BGM_three";
+                    break;
+
+                case 4:
+                    BGM = "BGM_four";
+                    break;
+
+                case 5:
+                    BGM = "BGM_boss";
+                    Starter = false;
+                    LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, false, "BGM_boss");
+                    return;
+
+                default:
+                    break;
             }
-            else
-            {
-                LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
-            }
+            LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, Starter, BGM);
+            //LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+
+            //if (LevelInt == 0)
+            //{
+            //    GameManager.GM.TutorialMode = true;
+            //}
+            //else
+            //{
+            //    GameManager.GM.TutorialMode = false;
+            //}
+
+            //if (LevelInt == 5)
+            //{
+            //    //LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, false);
+            //    LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, false, "BGM_boss");
+            //}
+            //else
+            //{
+            //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
+            //}         
         }        
     }
 

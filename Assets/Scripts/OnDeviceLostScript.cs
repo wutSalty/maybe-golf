@@ -50,13 +50,6 @@ public class OnDeviceLostScript : MonoBehaviour
     //If the host needs to back out for whatever reason
     void OnExitMenu()
     {
-        if (uiManager.MultiplayerSelect.activeSelf)
-        {
-            uiManager.ReturnMainFromMulti();
-        }
-        else if (uiManager.LevelSelectScreen.activeSelf)
-        {
-            uiManager.LevelSelectToMultiplayer();
-        }
+        uiManager.BackingOut();
     }
 }

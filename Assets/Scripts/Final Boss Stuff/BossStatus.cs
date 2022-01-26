@@ -241,7 +241,8 @@ public class BossStatus : MonoBehaviour
     //Butten when restaring the course
     public void RestartScene()
     {
-        LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
+        //LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
+        LoadingScreen.loadMan.BetaLoading(SceneManager.GetActiveScene().name, false, "BGM_boss");
     }
 
     //Button for returning to main menu
@@ -250,13 +251,15 @@ public class BossStatus : MonoBehaviour
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.BetaLoading("MainMenu", false, "BGM_title");
     }
 
     //Button for returning to stage select
     public void StageSelect()
     {
         GameManager.GM.LoadIntoLevelSelect = true;
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.BetaLoading("MainMenu", false, "BGM_title");
     }
 }

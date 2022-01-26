@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    public string CurrentlyPlayingBGM;
     public Sound[] sounds;
 
     private void Awake()
@@ -46,6 +47,26 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Uhoh, can't find " + name + " to play");
             return;
         }
+
+        switch (s.audioPurpose)
+        {
+            case 0:
+                s.source.volume = PlayerPrefs.GetFloat("BGM", 5f) / 10;
+                CurrentlyPlayingBGM = s.name;
+                break;
+
+            case 1:
+                s.source.volume = PlayerPrefs.GetFloat("UI", 5f) / 10;
+                break;
+
+            case 2:
+                s.source.volume = PlayerPrefs.GetFloat("InGame", 5f) / 10;
+                break;
+
+            default:
+                break;
+        }
+
         s.source.Play();
     }
 
@@ -57,6 +78,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Uhoh, can't find " + name + " to play");
             return;
         }
+
         s.source.Stop();
     }
 }

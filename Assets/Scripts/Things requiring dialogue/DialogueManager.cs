@@ -48,6 +48,8 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector]
     public string KeyboardB = "If you ever need to restart your position back to the start, press R. And use ESC to pause the game.";
 
+    public bool DialogueOpen;
+
     //When awake, grab necessary components
     private void Awake()
     {
@@ -78,7 +80,7 @@ public class DialogueManager : MonoBehaviour
     //Dialogue gets passed into here. Pauses the timer and sets up the dialogue box
     public void StartDialogue(Dialogue dialogue)
     {
-        GameStatus.gameStat.ForcePause = true;
+        DialogueOpen = true;
 
         dMan.sentences.Clear();
         foreach (string sentence in dialogue.sentences)
@@ -174,7 +176,7 @@ public class DialogueManager : MonoBehaviour
             multiplayerEvent.firstSelectedGameObject = null;
         }
         ContinueButton.SetActive(false);
-        GameStatus.gameStat.ForcePause = false;
+        DialogueOpen = false;
     }
 
     //When dialogue box is needed, steal input to button can be clicked

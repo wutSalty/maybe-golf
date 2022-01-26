@@ -78,53 +78,58 @@ public class UIManager : MonoBehaviour
     {
         if (value.performed)
         {
-            if (MainMenu.activeSelf)
+            BackingOut();
+        }
+    }
+
+    public void BackingOut()
+    {
+        if (MainMenu.activeSelf)
+        {
+            //Lol shouldn't do anything here so its fine
+        }
+        else if (Settings.activeSelf) //If it's the settings
+        {
+            if (ConfirmRevertScreen.activeSelf) //Check the res menu isn't open. if it is, cancel the res screen instead
             {
-                //Lol shouldn't do anything here so its fine
+                settingsManager.RevertButton();
             }
-            else if (Settings.activeSelf) //If it's the settings
+            else if (DeleteConfirmScreen.activeSelf) //Or else, check it isn't the delete screen. Cancel the delete instead
             {
-                if (ConfirmRevertScreen.activeSelf) //Check the res menu isn't open. if it is, cancel the res screen instead
-                {
-                    settingsManager.RevertButton();
-                }
-                else if (DeleteConfirmScreen.activeSelf) //Or else, check it isn't the delete screen. Cancel the delete instead
-                {
-                    settingsManager.CancelDelete();
-                }
-                else //If none those screens are open
-                {
-                    if (settingsManager.WindowMode.gameObject.transform.childCount == 3 && settingsManager.WindowSize.gameObject.transform.childCount == 3 && settingsManager.InputType.gameObject.transform.childCount == 3) //Make sure a dropdown isn't open
-                    {
-                        PressReturnToMain(); //Then exit the screen
-                    }
-                }
+                settingsManager.CancelDelete();
             }
-            else if (RecordsScreen.activeSelf)
+            else //If none those screens are open
             {
-                if (ScrollStoryScreen.activeSelf)
+                if (settingsManager.WindowMode.gameObject.transform.childCount == 3 && settingsManager.WindowSize.gameObject.transform.childCount == 3 && settingsManager.InputType.gameObject.transform.childCount == 3) //Make sure a dropdown isn't open
                 {
-                    recordManager.ClickCloseScroll();
-                }
-                else
-                {
-                    ReturnFromRecords();
+                    PressReturnToMain(); //Then exit the screen
                 }
             }
-            else if (LevelSelectScreen.activeSelf)
+        }
+        else if (RecordsScreen.activeSelf)
+        {
+            if (ScrollStoryScreen.activeSelf)
             {
-                if (LevelSelectGhostPanel.activeSelf)
-                {
-                    levelManager.CancelButton();
-                }
-                else if (LevelSelectHowToBoss.activeSelf)
-                {
-                    levelManager.HowBossOK();
-                }
-                else
-                {
-                    ReturnFromLevelSelect();
-                }
+                recordManager.ClickCloseScroll();
+            }
+            else
+            {
+                ReturnFromRecords();
+            }
+        }
+        else if (LevelSelectScreen.activeSelf)
+        {
+            if (LevelSelectGhostPanel.activeSelf)
+            {
+                levelManager.CancelButton();
+            }
+            else if (LevelSelectHowToBoss.activeSelf)
+            {
+                levelManager.HowBossOK();
+            }
+            else
+            {
+                ReturnFromLevelSelect();
             }
         }
     }
@@ -183,6 +188,7 @@ public class UIManager : MonoBehaviour
         MultiSelectScript.CurrentlyLoading = true;
 
         //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
     }
@@ -195,6 +201,7 @@ public class UIManager : MonoBehaviour
         MultiSelectScript.CurrentlyLoading = true;
 
         //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
     }
@@ -207,12 +214,14 @@ public class UIManager : MonoBehaviour
         inputManager.EnableJoining();
 
         //ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(MainMenuRect, MultiplayerRect, MultiplayerFirstButton));
     }
 
     //Settings button
     public void PressSettings()
     {
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeLeft(MainMenuRect, SettingsRect, SettingsFirstButton));
         //ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
@@ -221,6 +230,7 @@ public class UIManager : MonoBehaviour
     public void PressRecords()
     {
         recordManager.UpdateThings();
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeRight(MainMenuRect, RecordsRect, RecordsFirstButton));
         //ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
     }
@@ -238,6 +248,7 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
         GameManager.GM.SavePlayer();
         //ButtonManager(Settings, MainMenu, SettingsButton);
@@ -260,6 +271,7 @@ public class UIManager : MonoBehaviour
 
         inputSystem.enabled = true; //Re-enable menu input player
         //ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MultiplayerRect, MainMenuRect, TwoPlayerBtn));
     }
 
@@ -291,24 +303,28 @@ public class UIManager : MonoBehaviour
 
         GameManager.GM.GhostMode = false;
         //ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
         levelManager.enabled = false;
     }
 
     public void ReturnFromRecords()
     {
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeLeft(RecordsRect, MainMenuRect, RecordButton));
         //ButtonManager(RecordsScreen, MainMenu, RecordButton);
     }
 
     public void MultiplayerToLevelSelect()
     {
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MultiplayerRect, LevelSelectRect, LevelSelectFirstButton));
     }
 
     public void LevelSelectToMultiplayer()
     {
         MultiSelectScript.CurrentlyLoading = false;
+        AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(LevelSelectRect, MultiplayerRect, MultiplayerFirstButton));
         //ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
         levelManager.enabled = false;

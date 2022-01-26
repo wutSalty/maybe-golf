@@ -13,6 +13,9 @@ public class SettingsManager : MonoBehaviour
     public Dropdown InputType;
     public Slider Sensitivity;
     public Toggle DebugWindow;
+    public Slider BGMSlider;
+    public Slider UISlider;
+    public Slider InGameSlider;
 
     //UI element for delete button
     public GameObject DelPanel;
@@ -32,7 +35,7 @@ public class SettingsManager : MonoBehaviour
     public Button TheRevertButton;
 
     //For UI funky business
-    public Selectable LastButtonSelected;
+    private Selectable LastButtonSelected;
 
     //To take over the selected object
     public EventSystem eventSystem;
@@ -44,9 +47,12 @@ public class SettingsManager : MonoBehaviour
     private int OldInputType;
     private float OldSensitivity;
     private bool OldDebugWindow;
+    private float OldBGM;
+    private float OldUI;
+    private float OldInGame;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
-    private int NumOfDelete = 0;
+    private int NumOfDelete = 0; //Keeps track of delete
 
     //Default playerdata in-case data is reset or other
     public List<LevelFormat> DefaultLevelData;
@@ -60,6 +66,9 @@ public class SettingsManager : MonoBehaviour
         OldInputType = PlayerPrefs.GetInt("InputType", 0);
         OldSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4);
         OldDebugWindow = IntToBool(PlayerPrefs.GetInt("DebugWindow", 0));
+        OldBGM = PlayerPrefs.GetFloat("BGM", 5f);
+        OldUI = PlayerPrefs.GetFloat("UI", 5f);
+        OldInGame = PlayerPrefs.GetFloat("InGame", 5f);
 
         //Update the values of each setting
         ForcedOverride = true;
@@ -69,6 +78,9 @@ public class SettingsManager : MonoBehaviour
         InputType.value = OldInputType;
         Sensitivity.value = OldSensitivity;
         DebugWindow.isOn = OldDebugWindow;
+        BGMSlider.value = OldBGM;
+        UISlider.value = OldUI;
+        InGameSlider.value = OldInGame;
 
         ForcedOverride = false;
 
@@ -210,6 +222,9 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InputType", 0);
         PlayerPrefs.SetFloat("Sensitivity", 4);
         PlayerPrefs.SetInt("DebugWindow", 0);
+        PlayerPrefs.SetFloat("BGM", 5);
+        PlayerPrefs.SetFloat("UI", 5);
+        PlayerPrefs.SetFloat("InGame", 5);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
@@ -356,12 +371,39 @@ public class SettingsManager : MonoBehaviour
     {
         foreach (Sound s in AudioManager.instance.sounds)
         {
-            if (s.audioPurpose == 0)
+            if (s.audioPurpose == 0) //0 = BGM
             {
                 s.source.volume = value / 10;
             }
         }
-        //Save option to prefs
+        PlayerPrefs.SetFloat("BGM", value);
+        PlayerPrefs.Save();
+    }
+
+    public void AdjustUI(float value)
+    {
+        foreach (Sound s in AudioManager.instance.sounds)
+        {
+            if (s.audioPurpose == 1) //1 = UI sounds
+            {
+                s.source.volume = value / 10;
+            }
+        }
+        PlayerPrefs.SetFloat("UI", value);
+        PlayerPrefs.Save();
+    }
+
+    public void AdjustInGame(float value)
+    {
+        foreach (Sound s in AudioManager.instance.sounds)
+        {
+            if (s.audioPurpose == 2) //2 = InGame sounds
+            {
+                s.source.volume = value / 10;
+            }
+        }
+        PlayerPrefs.SetFloat("InGame", value);
+        PlayerPrefs.Save();
     }
 
     //Countdown timer before reverting screen options
