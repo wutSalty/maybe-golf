@@ -22,6 +22,8 @@ public class MultiplayerSelect : MonoBehaviour
     //List of dropdown for keyboard user
     public List<Dropdown> DropdownList;
 
+    public List<GameObject> PlayerPanels;
+
     //Input managers
     public PlayerInputManager inputManager;
     public EventSystem eventSystem;
@@ -72,6 +74,9 @@ public class MultiplayerSelect : MonoBehaviour
         GameManager.GM.NumPlayers[pIndex].ControlType = ControlType;
         GameManager.GM.NumPlayers[pIndex].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
         Debug.Log("Player " + pIndex + "'s input device is: " + InputUser.all[pIndex].pairedDevices[0]);
+
+        //Display player's card
+        PlayerPanels[pIndex].SetActive(true);
    
         //Once more than 1 player is present, allow game to start
         if (inputManager.playerCount > 1)
@@ -112,6 +117,7 @@ public class MultiplayerSelect : MonoBehaviour
         if (CurrentlyLoading == false) //Needs check in-case game is changing scenes
         {
             //Disable and reset everything
+            PlayerPanels[value.playerIndex].SetActive(false);
             DropdownList[value.playerIndex].gameObject.SetActive(false);
             TextList[value.playerIndex].text = "Not Connected";
             GameManager.GM.NumPlayers[value.playerIndex].PlayerIndex = 99;
@@ -131,6 +137,7 @@ public class MultiplayerSelect : MonoBehaviour
     {
         GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
+        inputManager.DisableJoining();
 
         uiManager.MultiplayerToLevelSelect();
         levelManager.enabled = true;

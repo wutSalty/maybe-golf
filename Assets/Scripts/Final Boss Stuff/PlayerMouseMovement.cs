@@ -75,9 +75,4 @@ public class PlayerMouseMovement : MonoBehaviour
             gameObject.transform.position = new Vector3(transform.position.x, YPos, 0);
         }
     }
-
-    public void DirtyQuit()
-    {
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
-    }
 }

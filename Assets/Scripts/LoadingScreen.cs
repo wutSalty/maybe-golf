@@ -34,9 +34,9 @@ public class LoadingScreen : MonoBehaviour
         StartCoroutine(StartLoad(SceneToLoad, timer));
     }
 
-    public void BetaLoading(string SceneToLoad, bool timer, string newAudio)
+    public void LoadingMusic(string SceneToLoad, bool timer, string newAudio)
     {
-        StartCoroutine(BetaStartLoad(SceneToLoad, timer, AudioManager.instance.CurrentlyPlayingBGM, newAudio));
+        StartCoroutine(StartLoadMusic(SceneToLoad, timer, AudioManager.instance.CurrentlyPlayingBGM, newAudio));
     }
 
     //Begins fade to black, loads the scene in the background, then fades out
@@ -67,7 +67,7 @@ public class LoadingScreen : MonoBehaviour
         }
     }
 
-    IEnumerator BetaStartLoad(string SceneToLoad, bool timer, string oldAudio, string newAudio)
+    IEnumerator StartLoadMusic(string SceneToLoad, bool timer, string oldAudio, string newAudio)
     {
         BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
 

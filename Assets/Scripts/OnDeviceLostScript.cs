@@ -44,6 +44,10 @@ public class OnDeviceLostScript : MonoBehaviour
     //If 'Back' is pressed, also delete the game object (but no delay cause this doesn't break things for some reason)
     void OnRemoveController()
     {
+        if (uiManager.MultiSelectScript.CurrentlyLoading)
+        {
+            return;
+        }
         Destroy(this.gameObject);
     }
 

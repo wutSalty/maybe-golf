@@ -34,7 +34,7 @@ public class PlayerShootProjectile : MonoBehaviour
     {
         if (Holding)
         {
-            GolfBall.transform.Rotate(0, 0, 600 * Time.deltaTime);
+            GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);
         } else
         {
             GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
@@ -68,7 +68,7 @@ public class PlayerShootProjectile : MonoBehaviour
         BulletImage.gameObject.SetActive(true);
         MissileImage.gameObject.SetActive(false);
         CurrentProjectile = 0;
-        WaitTime = 0.25f;
+        WaitTime = 0.3f;
     }
 
     void OnSwitchToSecondary()

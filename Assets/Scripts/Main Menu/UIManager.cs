@@ -88,6 +88,10 @@ public class UIManager : MonoBehaviour
         {
             //Lol shouldn't do anything here so its fine
         }
+        else if (MultiplayerSelect.activeSelf)
+        {
+            ReturnMainFromMulti();
+        }
         else if (Settings.activeSelf) //If it's the settings
         {
             if (ConfirmRevertScreen.activeSelf) //Check the res menu isn't open. if it is, cancel the res screen instead
@@ -117,7 +121,7 @@ public class UIManager : MonoBehaviour
                 ReturnFromRecords();
             }
         }
-        else if (LevelSelectScreen.activeSelf)
+        else if (LevelSelectScreen.activeSelf && GameManager.GM.SingleMode)
         {
             if (LevelSelectGhostPanel.activeSelf)
             {
@@ -130,6 +134,21 @@ public class UIManager : MonoBehaviour
             else
             {
                 ReturnFromLevelSelect();
+            }
+        }
+        else if (LevelSelectScreen.activeSelf && !GameManager.GM.SingleMode)
+        {
+            if (LevelSelectGhostPanel.activeSelf)
+            {
+                levelManager.CancelButton();
+            }
+            else if (LevelSelectHowToBoss.activeSelf)
+            {
+                levelManager.HowBossOK();
+            }
+            else
+            {
+                LevelSelectToMultiplayer();
             }
         }
     }
@@ -283,29 +302,16 @@ public class UIManager : MonoBehaviour
             GameManager.GM.NumPlayers.Clear();
             GameManager.GM.SingleMode = false;
             MultiSelectScript.CurrentlyLoading = false;
+
+            GameManager.GM.GhostMode = false;
+            //ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+            AudioManager.instance.PlaySound("UI_beep");
+            StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
+            levelManager.enabled = false;
         } else
         {
-            MultiSelectScript.CurrentlyLoading = false;
-
-            inputManager.DisableJoining(); //Disable new players from joining
-
-            OnDeviceLostScript[] objects = FindObjectsOfType<OnDeviceLostScript>(); //Find and remove all guest game objects
-            foreach (var item in objects)
-            {
-                Destroy(item.gameObject);
-            }
-
-            GameManager.GM.NumPlayers.Clear();
-
-            inputManager.enabled = false; //Disable input manager
-            inputSystem.enabled = true; //Re-enable menu input player
+            LevelSelectToMultiplayer();
         }
-
-        GameManager.GM.GhostMode = false;
-        //ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
-        AudioManager.instance.PlaySound("UI_beep");
-        StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
-        levelManager.enabled = false;
     }
 
     public void ReturnFromRecords()
@@ -324,6 +330,7 @@ public class UIManager : MonoBehaviour
     public void LevelSelectToMultiplayer()
     {
         MultiSelectScript.CurrentlyLoading = false;
+        inputManager.EnableJoining();
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(LevelSelectRect, MultiplayerRect, MultiplayerFirstButton));
         //ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
@@ -350,16 +357,8 @@ public class UIManager : MonoBehaviour
 
             levelManager.enabled = true;
 
-            if (inputSystem.currentControlScheme == "Controller")
-            {
-                LevelSelectFirstButton.Select();
-                eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
-            }
-            else
-            {
-                eventSystem.firstSelectedGameObject = LevelSelectFirstButton.gameObject;
-                eventSystem.SetSelectedGameObject(null);
-            }
+            LevelSelectFirstButton.Select();
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
         }
     }
 
@@ -488,8 +487,8 @@ public class UIManager : MonoBehaviour
 
         float time = 0;
         float Duration = 0.4f;
-        float newValue = -519.62f;
-        float otherTargetValue = 519.62f;
+        float newValue = -600f;
+        float otherTargetValue = 600f;
         float oldValue = 0;
 
         float NewScreenLocation;
@@ -539,8 +538,8 @@ public class UIManager : MonoBehaviour
 
         float time = 0;
         float Duration = 0.4f;
-        float newValue = 519.62f;
-        float otherTargetValue = -519.62f;
+        float newValue = 600f;
+        float otherTargetValue = -600f;
         float oldValue = 0;
 
         float NewScreenLocation;

@@ -27,6 +27,8 @@ public class GameStatus : MonoBehaviour
     public bool GameOver; //Has the game ended yet
     [HideInInspector]
     public bool ForcePause = false; //Whether the dialogue menu has to appear or not
+    public bool DialogueOpen = false;
+
     private bool SingleMode = false; //Are we playing in singleplayer mode
 
     //Input systems for player one (so they can take control of the results screen)
@@ -341,7 +343,7 @@ public class GameStatus : MonoBehaviour
     //Butten when restaring the course
     public void RestartScene()
     {
-        LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, true);
+        LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, true, AudioManager.instance.CurrentlyPlayingBGM);
     }
 
     //Button for returning to main menu
@@ -350,13 +352,13 @@ public class GameStatus : MonoBehaviour
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
     //Button for returning to stage select
     public void StageSelect()
     {
         GameManager.GM.LoadIntoLevelSelect = true;
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 }

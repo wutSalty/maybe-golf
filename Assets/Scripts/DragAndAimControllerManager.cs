@@ -73,7 +73,7 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' is pressed
     public void OnMenuMouse()
     {
-        if (GameStatus.gameStat.GameOver)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen)
         {
             return;
         }
@@ -100,7 +100,7 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' pressed from in menu
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || DialogueManager.dMan.DialogueOpen)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen)
         {
             return;
         }

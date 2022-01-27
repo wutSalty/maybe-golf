@@ -242,7 +242,7 @@ public class BossStatus : MonoBehaviour
     public void RestartScene()
     {
         //LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
-        LoadingScreen.loadMan.BetaLoading(SceneManager.GetActiveScene().name, false, "BGM_boss");
+        LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, false, "BGM_boss");
     }
 
     //Button for returning to main menu
@@ -252,7 +252,7 @@ public class BossStatus : MonoBehaviour
         GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
         //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
-        LoadingScreen.loadMan.BetaLoading("MainMenu", false, "BGM_title");
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
     //Button for returning to stage select
@@ -260,6 +260,6 @@ public class BossStatus : MonoBehaviour
     {
         GameManager.GM.LoadIntoLevelSelect = true;
         //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
-        LoadingScreen.loadMan.BetaLoading("MainMenu", false, "BGM_title");
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 }

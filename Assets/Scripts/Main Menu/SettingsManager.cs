@@ -239,7 +239,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.CheckLocked();
         GameManager.GM.SavePlayer();
 
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
     //If the player cancels deleting data, reset the counter

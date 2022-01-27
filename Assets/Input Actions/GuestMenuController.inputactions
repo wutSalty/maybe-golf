@@ -164,6 +164,39 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "Button With One Modifier",
+                    "id": "88e38b5e-e31e-4e81-9345-1cc1c21a7c29",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Remove Controller",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "09e6f565-e4b6-406d-9f8c-fcd343ee4a28",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "ce30799c-7c8d-4520-9117-1409caf43a28",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "ed0b19a3-dee6-4c75-918f-45ec1d125e6d",
                     "path": "<Keyboard>/backspace",
@@ -253,50 +286,6 @@
                 },
                 {
                     "name": "",
-                    "id": "80815412-e5f0-4063-9ed4-e21d0c3e293b",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Remove Controller",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "88e38b5e-e31e-4e81-9345-1cc1c21a7c29",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Exit Menu",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "09e6f565-e4b6-406d-9f8c-fcd343ee4a28",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Exit Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "ce30799c-7c8d-4520-9117-1409caf43a28",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Exit Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
                     "id": "28431225-fbd7-49a0-a8b7-7975081a20a2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -360,6 +349,17 @@
                     "action": "ScrollWheeling",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80815412-e5f0-4063-9ed4-e21d0c3e293b",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Exit Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -380,17 +380,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "4e1b41ca-74c8-43c3-80b9-a9a87a0b1f70",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Remove Controller",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "886e4df9-a0ed-46ca-84dd-33231fea5e80",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
@@ -399,6 +388,39 @@
                     "action": "Remove Controller",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "79d3c155-d9b8-47ec-851f-b5f61cedd06e",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "9f7e290d-bc4f-40e7-b389-e95220bdc1b0",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "button",
+                    "id": "905a05f6-6196-46ef-8091-5d2a8ad79628",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Remove Controller",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

@@ -9,7 +9,6 @@ public class AdjustPlayerBossHUD : MonoBehaviour
     private PlayerInput playerInput;
     private int pIndex;
 
-    private int XDist = 120;
     private int YDist = 35;
 
     public RectTransform HUDObject;
@@ -38,9 +37,9 @@ public class AdjustPlayerBossHUD : MonoBehaviour
                     PlayerText.color = new Color(57 * 1.0f / 255, 76 * 1.0f / 255, 255 * 1.0f / 255);
                 }
 
-                HUDObject.anchorMax = new Vector2(0, 0);
-                HUDObject.anchorMin = new Vector2(0, 0);
-                HUDObject.anchoredPosition = new Vector2(XDist, YDist);
+                HUDObject.anchorMax = new Vector2(0.5f, 0);
+                HUDObject.anchorMin = new Vector2(0.5f, 0);
+                HUDObject.anchoredPosition = new Vector2(-300, YDist);
                 break;
 
             case 1:
@@ -53,7 +52,7 @@ public class AdjustPlayerBossHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(0.5f, 0);
                 HUDObject.anchorMin = new Vector2(0.5f, 0);
-                HUDObject.anchoredPosition = new Vector2(-XDist, YDist);
+                HUDObject.anchoredPosition = new Vector2(-100, YDist);
                 break;
 
             case 2:
@@ -66,7 +65,7 @@ public class AdjustPlayerBossHUD : MonoBehaviour
 
                 HUDObject.anchorMax = new Vector2(0.5f, 0);
                 HUDObject.anchorMin = new Vector2(0.5f, 0);
-                HUDObject.anchoredPosition = new Vector2(XDist, YDist);
+                HUDObject.anchoredPosition = new Vector2(100, YDist);
                 break;
 
             case 3:
@@ -77,9 +76,9 @@ public class AdjustPlayerBossHUD : MonoBehaviour
                     PlayerText.color = new Color(255 * 1.0f / 255, 20 * 1.0f / 255, 246 * 1.0f / 255);
                 }
 
-                HUDObject.anchorMax = new Vector2(1, 0);
-                HUDObject.anchorMin = new Vector2(1, 0);
-                HUDObject.anchoredPosition = new Vector2(-XDist, YDist);
+                HUDObject.anchorMax = new Vector2(0.5f, 0);
+                HUDObject.anchorMin = new Vector2(0.5f, 0);
+                HUDObject.anchoredPosition = new Vector2(300, YDist);
                 break;
 
             default:

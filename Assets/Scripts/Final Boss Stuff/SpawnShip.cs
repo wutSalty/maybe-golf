@@ -10,6 +10,7 @@ public class SpawnShip : MonoBehaviour
 
     public Transform[] SpawnLocs;
     public Sprite[] MultiSprites;
+    public Sprite[] ShipSprite;
 
     GameObject Player;
     PlayerInput player;
@@ -55,6 +56,7 @@ public class SpawnShip : MonoBehaviour
                             player.transform.position = SpawnLocs[item.PlayerIndex].position;
                             playerShootProjectile = player.gameObject.GetComponentInChildren<PlayerShootProjectile>();
                             playerShootProjectile.GolfBall.gameObject.GetComponent<SpriteRenderer>().sprite = MultiSprites[item.PlayerIndex];
+                            player.GetComponentInChildren<PlayerHealth>().GolfGear.GetComponent<SpriteRenderer>().sprite = ShipSprite[item.PlayerIndex];
                             break;
 
                         case 1:
@@ -63,6 +65,7 @@ public class SpawnShip : MonoBehaviour
                             player.transform.position = SpawnLocs[item.PlayerIndex].position;
                             playerShootProjectile = player.gameObject.GetComponentInChildren<PlayerShootProjectile>();
                             playerShootProjectile.GolfBall.gameObject.GetComponent<SpriteRenderer>().sprite = MultiSprites[item.PlayerIndex];
+                            player.GetComponentInChildren<PlayerHealth>().GolfGear.GetComponent<SpriteRenderer>().sprite = ShipSprite[item.PlayerIndex];
                             break;
 
                         case 2:
@@ -71,6 +74,7 @@ public class SpawnShip : MonoBehaviour
                             player.transform.position = SpawnLocs[item.PlayerIndex].position;
                             playerShootProjectile = player.gameObject.GetComponentInChildren<PlayerShootProjectile>();
                             playerShootProjectile.GolfBall.gameObject.GetComponent<SpriteRenderer>().sprite = MultiSprites[item.PlayerIndex];
+                            player.GetComponentInChildren<PlayerHealth>().GolfGear.GetComponent<SpriteRenderer>().sprite = ShipSprite[item.PlayerIndex];
                             break;
 
                         default:

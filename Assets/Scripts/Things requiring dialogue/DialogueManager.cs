@@ -80,6 +80,7 @@ public class DialogueManager : MonoBehaviour
     //Dialogue gets passed into here. Pauses the timer and sets up the dialogue box
     public void StartDialogue(Dialogue dialogue)
     {
+        GameStatus.gameStat.DialogueOpen = true;
         DialogueOpen = true;
 
         dMan.sentences.Clear();
@@ -177,6 +178,7 @@ public class DialogueManager : MonoBehaviour
         }
         ContinueButton.SetActive(false);
         DialogueOpen = false;
+        GameStatus.gameStat.DialogueOpen = false;
     }
 
     //When dialogue box is needed, steal input to button can be clicked

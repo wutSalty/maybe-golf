@@ -105,16 +105,14 @@ public class PlayerPause : MonoBehaviour
         GameManager.GM.NumPlayers.Clear();
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
     public void RestartScene()
     {
         //Time.timeScale = 1;
 
-        //Find a way to pause everything without breaking anything. Or use unscaled time.
-
         BossStatus.bossStat.ForcePause = true;
-        LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
+        LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, true, AudioManager.instance.CurrentlyPlayingBGM);
     }
 }

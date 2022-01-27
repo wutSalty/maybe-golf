@@ -68,7 +68,7 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || DialogueManager.dMan.DialogueOpen)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen)
         {
             return;
         }

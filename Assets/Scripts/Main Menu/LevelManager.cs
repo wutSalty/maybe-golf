@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     public Button HowToBossButton;
     public Button HowToBossOK;
 
+    public Text CurrentMode;
+
     private int TempLevelInt;
     private GameObject LastSelected;
 
@@ -42,10 +44,12 @@ public class LevelManager : MonoBehaviour
             if (GameManager.GM.SingleMode)
             {
                 TutorialButton.interactable = true;
+                CurrentMode.text = "Singleplayer Mode";
             }
             else
             {
                 TutorialButton.interactable = false;
+                CurrentMode.text = "Multiplayer Mode";
             }
 
             //If the Boss Level hasn't been unlocked yet, keep it tight lipped
@@ -70,6 +74,7 @@ public class LevelManager : MonoBehaviour
             if (GameManager.GM.GhostMode)
             {
                 BossButton.interactable = false;
+                CurrentMode.text = "Vs. Ghost Mode";
             }
             else
             {
@@ -126,13 +131,13 @@ public class LevelManager : MonoBehaviour
                 case 5:
                     BGM = "BGM_boss";
                     Starter = false;
-                    LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, false, "BGM_boss");
+                    LoadingScreen.loadMan.LoadingMusic(LevelList[LevelInt].LevelName, false, "BGM_boss");
                     return;
 
                 default:
                     break;
             }
-            LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, Starter, BGM);
+            LoadingScreen.loadMan.LoadingMusic(LevelList[LevelInt].LevelName, Starter, BGM);
             //LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
 
             //if (LevelInt == 0)
@@ -158,23 +163,63 @@ public class LevelManager : MonoBehaviour
 
     public void OKButton()
     {
-        if (TempLevelInt == 0)
-        {
-            GameManager.GM.TutorialMode = true;
-        }
-        else
-        {
-            GameManager.GM.TutorialMode = false;
-        }
+        GameManager.GM.TutorialMode = false;
+        string BGM = "";
+        bool Starter = true;
 
-        if (TempLevelInt == 5)
+        switch (TempLevelInt)
         {
-            LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, false);
+            case 0:
+                GameManager.GM.TutorialMode = true;
+                BGM = "BGM_tutorial";
+
+                break;
+            //break;
+
+            case 1:
+                BGM = "BGM_one";
+                break;
+
+            case 2:
+                BGM = "BGM_two";
+                break;
+
+            case 3:
+                BGM = "BGM_three";
+                break;
+
+            case 4:
+                BGM = "BGM_four";
+                break;
+
+            case 5:
+                BGM = "BGM_boss";
+                Starter = false;
+                LoadingScreen.loadMan.LoadingMusic(LevelList[TempLevelInt].LevelName, false, "BGM_boss");
+                return;
+
+            default:
+                break;
         }
-        else
-        {
-            LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
-        }
+        LoadingScreen.loadMan.LoadingMusic(LevelList[TempLevelInt].LevelName, Starter, BGM);
+
+        //if (TempLevelInt == 0)
+        //{
+        //    GameManager.GM.TutorialMode = true;
+        //}
+        //else
+        //{
+        //    GameManager.GM.TutorialMode = false;
+        //}
+
+        //if (TempLevelInt == 5)
+        //{
+        //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, false);
+        //}
+        //else
+        //{
+        //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
+        //}
     }
 
     public void CancelButton()

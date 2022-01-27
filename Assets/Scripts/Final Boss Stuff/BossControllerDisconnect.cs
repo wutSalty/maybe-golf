@@ -153,6 +153,6 @@ public class BossControllerDisconnect : MonoBehaviour
         GameManager.GM.NumPlayers.Clear();
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
-        LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
+        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 }
