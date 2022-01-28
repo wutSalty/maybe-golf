@@ -100,6 +100,8 @@ public class DialogueManager : MonoBehaviour
     //For every string of sentences, gets passed into here. It also checks if any strings need replacing then begings displaying them
     public void DisplayNextSentence()
     {
+        AudioManager.instance.PlaySound("UI_dialogue");
+
         //Debug.Log("DisplayNextSentence has been pressed");
         if (sentences.Count == 0)
         {

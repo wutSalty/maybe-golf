@@ -34,6 +34,8 @@ public class EscMenu : MonoBehaviour
         GameManager.GM.NumPlayers.Clear();
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
+
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
@@ -45,6 +47,8 @@ public class EscMenu : MonoBehaviour
         }
         Time.timeScale = 1;
         GameStatus.gameStat.ForcePause = true;
+
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, true, AudioManager.instance.CurrentlyPlayingBGM);
     }
 }

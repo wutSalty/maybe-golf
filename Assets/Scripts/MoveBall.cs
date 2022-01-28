@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 //Script that receives information to move the ball
 public class MoveBall : MonoBehaviour
@@ -16,6 +17,8 @@ public class MoveBall : MonoBehaviour
 
     public Text NumHitsText;
     public Text TimeTakenText;
+
+    public AudioSource[] audios; //0=water, 1=flag, 2=golf hit
 
     private Vector3 LastBallLocation; //The ball's last location
 
@@ -36,6 +39,10 @@ public class MoveBall : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        foreach (var item in audios)
+        {
+            item.volume = PlayerPrefs.GetFloat("InGame", 5) / 10;
+        }
     }
 
     //Every frame, check has the ball stopped moving yet and to rotate the ball while in motion
@@ -50,6 +57,7 @@ public class MoveBall : MonoBehaviour
     {
         if (collision.gameObject.layer == 6 || collision.tag == "Enemy") //When the ball hits the water or illegal area
         {
+            audios[0].Play();
             CurrentlyDead = true;
             TheBall.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
@@ -66,6 +74,8 @@ public class MoveBall : MonoBehaviour
     //Gets the info from Ballthings and converts into angle and speed, then launches the ball
     public void ReceiveBallInfo(float HitStrength, float HitAngle)
     {
+        audios[2].Play();
+
         NumHits += 1;
         NumHitsText.text = "Shots taken: " + NumHits;
         if (NumHits >= 1)
@@ -94,6 +104,7 @@ public class MoveBall : MonoBehaviour
     //Handles when ball has hit flag
     public void BallHasWon()
     {
+        audios[1].Play();
         gameObject.SendMessage("TurnThingsOff");
         FlagHitYet = true;
         TheBall.velocity = Vector2.zero;

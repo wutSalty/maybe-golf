@@ -70,6 +70,7 @@ public class PlayerPause : MonoBehaviour
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     void OnControlsChanged()
@@ -100,6 +101,7 @@ public class PlayerPause : MonoBehaviour
         //Time.timeScale = 1;
 
         //Find a way to pause everything without breaking anything. Or use unscaled time.
+        AudioManager.instance.PlaySound("UI_beep");
 
         BossStatus.bossStat.ForcePause = true;
         GameManager.GM.NumPlayers.Clear();
@@ -111,8 +113,9 @@ public class PlayerPause : MonoBehaviour
     public void RestartScene()
     {
         //Time.timeScale = 1;
+        AudioManager.instance.PlaySound("UI_beep");
 
         BossStatus.bossStat.ForcePause = true;
-        LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, true, AudioManager.instance.CurrentlyPlayingBGM);
+        LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, false, AudioManager.instance.CurrentlyPlayingBGM);
     }
 }

@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
     public GameObject DeleteConfirmScreen; //Setting's delete everything screen
+    public GameObject CreditsScreen;
+    public GameObject AttributeScreen;
 
     public GameObject LevelSelectScreen; //Level select screen
     public GameObject LevelSelectGhostPanel;
@@ -101,6 +103,14 @@ public class UIManager : MonoBehaviour
             else if (DeleteConfirmScreen.activeSelf) //Or else, check it isn't the delete screen. Cancel the delete instead
             {
                 settingsManager.CancelDelete();
+            }
+            else if (CreditsScreen.activeSelf)
+            {
+                settingsManager.ReturnFromCredits();
+            }
+            else if (AttributeScreen.activeSelf)
+            {
+                settingsManager.CloseAttributes();
             }
             else //If none those screens are open
             {
@@ -267,7 +277,7 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
-        AudioManager.instance.PlaySound("UI_beep");
+        AudioManager.instance.PlaySound("UI_confirm");
         StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
         GameManager.GM.SavePlayer();
         //ButtonManager(Settings, MainMenu, SettingsButton);
@@ -323,7 +333,7 @@ public class UIManager : MonoBehaviour
 
     public void MultiplayerToLevelSelect()
     {
-        AudioManager.instance.PlaySound("UI_beep");
+        AudioManager.instance.PlaySound("UI_confirm");
         StartCoroutine(SwipeUp(MultiplayerRect, LevelSelectRect, LevelSelectFirstButton));
     }
 

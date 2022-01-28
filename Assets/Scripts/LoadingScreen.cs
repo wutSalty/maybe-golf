@@ -115,7 +115,7 @@ public class LoadingScreen : MonoBehaviour
 
     public void FadeBGM(string name)
     {
-        StartCoroutine(name, 1);
+        StartCoroutine(TransitionBGM(name, 1));
     }
 
     IEnumerator TransitionBGM(string oldAudio, float duration)
@@ -129,6 +129,7 @@ public class LoadingScreen : MonoBehaviour
 
         float ogValue = 0;
         float newValue = 0;
+        bool WasPlaying = false;
 
         if (!s.source.isPlaying)
         {
@@ -158,6 +159,7 @@ public class LoadingScreen : MonoBehaviour
         }
         else
         {
+            WasPlaying = true;
             ogValue = s.source.volume;
             newValue = 0;
         }
@@ -172,7 +174,7 @@ public class LoadingScreen : MonoBehaviour
         }
         s.source.volume = newValue;
 
-        if (newValue == 0)
+        if (WasPlaying)
         {
             s.source.Stop();
             s.source.volume = ogValue;

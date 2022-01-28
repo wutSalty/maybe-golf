@@ -7,6 +7,7 @@ public class ScrollCollectable : MonoBehaviour
     int CollectableStatus;
     SpriteRenderer rendering;
     Animator animator;
+    bool Collected;
 
     void Start()
     {
@@ -67,6 +68,11 @@ public class ScrollCollectable : MonoBehaviour
 
                 default:
                     break;
+            }
+            if (!Collected)
+            {
+                AudioManager.instance.PlaySound("IG_scroll");
+                Collected = true;
             }
         }
     }

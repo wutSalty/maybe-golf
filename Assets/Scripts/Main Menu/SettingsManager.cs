@@ -34,6 +34,17 @@ public class SettingsManager : MonoBehaviour
     public Button TheConfirmButton;
     public Button TheRevertButton;
 
+    //Elements for Credits
+    public GameObject CreditPanel;
+    public Text CreditText;
+    public Button CreditButton;
+    public Button ReturnCredit;
+
+    //Elements for Attributes
+    public GameObject AttributePanel;
+    public Button AttributeButton;
+    public Button ReturnAttribute;
+
     //For UI funky business
     private Selectable LastButtonSelected;
 
@@ -57,6 +68,8 @@ public class SettingsManager : MonoBehaviour
     //Default playerdata in-case data is reset or other
     public List<LevelFormat> DefaultLevelData;
     public bool[] DefaultUnlockables;
+
+    private Coroutine textScroll;
 
     //On start, check the saved values and set them to old
     private void Start()
@@ -174,6 +187,7 @@ public class SettingsManager : MonoBehaviour
                 DelButtonTxt.text = "Yes";
 
                 StartCoroutine(FadeText(1, 1, 0));
+                AudioManager.instance.PlaySound("UI_beep");
                 break;
 
             case 1:
@@ -181,6 +195,7 @@ public class SettingsManager : MonoBehaviour
 
                 DelText.text = "Really, really sure? (Last chance)";
                 DelButtonTxt.text = "Yes, nuke it all";
+                AudioManager.instance.PlaySound("UI_beep");
                 break;
 
             case 2:
@@ -195,6 +210,7 @@ public class SettingsManager : MonoBehaviour
                 DelText.text = "Done. Game will reload in 3";
                 DelButtonTxt.text = "Confirmed";
                 StartCoroutine(DeleteCountdown());
+                AudioManager.instance.PlaySound("UI_confirm");
                 break;
 
             default:
@@ -251,6 +267,7 @@ public class SettingsManager : MonoBehaviour
         DelButtonTxt.text = "Yes";
 
         eventSystem.SetSelectedGameObject(WindowMode.gameObject);
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Text fade for the ominous delete message
@@ -348,6 +365,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         LastButtonSelected.Select();
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void RevertButton()
@@ -364,6 +382,7 @@ public class SettingsManager : MonoBehaviour
         ForcedOverride = false;
 
         LastButtonSelected.Select();
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Audio stuff
@@ -391,6 +410,10 @@ public class SettingsManager : MonoBehaviour
         }
         PlayerPrefs.SetFloat("UI", value);
         PlayerPrefs.Save();
+        if (!ForcedOverride)
+        {
+            AudioManager.instance.PlaySound("UI_beep");
+        }
     }
 
     public void AdjustInGame(float value)
@@ -404,6 +427,10 @@ public class SettingsManager : MonoBehaviour
         }
         PlayerPrefs.SetFloat("InGame", value);
         PlayerPrefs.Save();
+        if (!ForcedOverride)
+        {
+            AudioManager.instance.PlaySound("IG_golfhit");
+        }
     }
 
     //Countdown timer before reverting screen options
@@ -466,4 +493,77 @@ public class SettingsManager : MonoBehaviour
             return false;
     }
 
+    //Credits stuff
+    public void CreditsButton()
+    {
+        AudioManager.instance.PlaySound("UI_beep");
+        CreditPanel.SetActive(true);
+        eventSystem.firstSelectedGameObject = ReturnCredit.gameObject;
+        eventSystem.SetSelectedGameObject(ReturnCredit.gameObject);
+
+        AudioManager.instance.StopPlaying("BGM_title");
+        AudioManager.instance.PlaySound("BGM_credits");
+        textScroll = StartCoroutine(ScrollCredits());
+    }
+
+    public void ReturnFromCredits()
+    {
+        AudioManager.instance.PlaySound("UI_beep");
+        CreditPanel.SetActive(false);
+        eventSystem.firstSelectedGameObject = CreditButton.gameObject;
+        eventSystem.SetSelectedGameObject(CreditButton.gameObject);
+
+        if (textScroll != null)
+        {
+            StopCoroutine(textScroll);
+        }
+        AudioManager.instance.StopPlaying("BGM_credits");
+        AudioManager.instance.PlaySound("BGM_title");
+    }
+
+    IEnumerator ScrollCredits()
+    {
+        float time = 0;
+        float duration = 31.8f;
+        float oldValue = -609f;
+        float newValue = 0;
+        float lerping = 0;
+
+        double aspect = (Screen.width * 1.0) / Screen.height;
+        if (aspect == (16 * 1.0) / 9)
+        {
+            newValue = 635f;
+        }
+        else
+        {
+            newValue = 690f;
+        }
+
+        while (time < duration)
+        {
+            lerping = Mathf.Lerp(oldValue, newValue, time / duration);
+            CreditText.rectTransform.anchoredPosition = new Vector2(0, lerping);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        CreditText.rectTransform.anchoredPosition = new Vector2(0, newValue);
+    }
+
+    //Attribute stuff
+    public void OpenAttributes()
+    {
+        AudioManager.instance.PlaySound("UI_beep");
+        AttributePanel.SetActive(true);
+        eventSystem.firstSelectedGameObject = ReturnAttribute.gameObject;
+        eventSystem.SetSelectedGameObject(ReturnAttribute.gameObject);
+    }
+
+    public void CloseAttributes()
+    {
+        AudioManager.instance.PlaySound("UI_beep");
+        AttributePanel.SetActive(false);
+        eventSystem.firstSelectedGameObject = AttributeButton.gameObject;
+        eventSystem.SetSelectedGameObject(AttributeButton.gameObject);
+    }
 }

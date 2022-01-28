@@ -95,6 +95,8 @@ public class DragAndAimControllerManager : MonoBehaviour
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //When 'esc' pressed from in menu
@@ -120,6 +122,8 @@ public class DragAndAimControllerManager : MonoBehaviour
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Changes input stuff

@@ -44,6 +44,7 @@ public class ScrollWindow : MonoBehaviour
         //Updates the image, saves the preference, updates debug stuff
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
         GameManager.GM.BallSkin = CurrentIndex;
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //When the player goes right
@@ -65,5 +66,6 @@ public class ScrollWindow : MonoBehaviour
         //Then saves everything and fixes things up as usual
         ImageWindow.sprite = ListOfSprites[CurrentIndex];
         GameManager.GM.BallSkin = CurrentIndex;
+        AudioManager.instance.PlaySound("UI_beep");
     }
 }

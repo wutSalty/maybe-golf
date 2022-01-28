@@ -67,6 +67,7 @@ public class BossPatternsManager : MonoBehaviour
         GameObject warning = Instantiate(LazerWarning, new Vector3(7, Locations[index], 0), Quaternion.identity);
         warning.SetActive(false);
 
+        AudioManager.instance.PlaySound("IG_warning");
         for (int i = 0; i < 6; i++)
         {
             if (warning.activeSelf)
@@ -82,6 +83,7 @@ public class BossPatternsManager : MonoBehaviour
 
         index += 1;
         Destroy(warning, 0.02f);
+        AudioManager.instance.PlaySound("IG_lazer");
     }
 
     public void BossDefeated()

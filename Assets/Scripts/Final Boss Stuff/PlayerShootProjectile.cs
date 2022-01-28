@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PlayerShootProjectile : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerShootProjectile : MonoBehaviour
     public Slider BulletImage;
     public Slider MissileImage;
 
+    public AudioSource[] audios;
+
     private PlayerProjectileBehaviour[] ListOfProjectiles;
     private int CurrentProjectile;
     private float WaitTime;
@@ -28,6 +31,11 @@ public class PlayerShootProjectile : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         StartCoroutine(HoldingMouse());
         OnSwitchToPrimary();
+
+        foreach (var item in audios)
+        {
+            item.volume = PlayerPrefs.GetFloat("InGame", 5) / 10;
+        }
     }
 
     private void Update()
@@ -94,12 +102,14 @@ public class PlayerShootProjectile : MonoBehaviour
                         case 0:
                             Instantiate(BulletObject, ProjectileSpawnLocation.position, Quaternion.identity);
                             StartCoroutine(WeaponCooldown(BulletImage, WaitTime));
+                            //audios[0].Play();
                             yield return new WaitForSeconds(WaitTime);
                             break;
 
                         case 1:
                             Instantiate(MissileObject, ProjectileSpawnLocation.position, Quaternion.identity);
                             StartCoroutine(WeaponCooldown(MissileImage, WaitTime));
+                            //audios[1].Play();
                             yield return new WaitForSeconds(WaitTime);
                             break;
 

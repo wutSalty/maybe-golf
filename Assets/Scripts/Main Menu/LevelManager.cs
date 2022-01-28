@@ -96,6 +96,7 @@ public class LevelManager : MonoBehaviour
 
             eventSystem.SetSelectedGameObject(OKGhost.gameObject);
             eventSystem.firstSelectedGameObject = OKGhost.gameObject;
+            AudioManager.instance.PlaySound("UI_beep");
         }
         else
         {
@@ -107,10 +108,8 @@ public class LevelManager : MonoBehaviour
             {
                 case 0:
                     GameManager.GM.TutorialMode = true;
-                    BGM = "BGM_tutorial";
-                    
+                    BGM = "BGM_tutorial";                
                     break;
-                    //break;
 
                 case 1:
                     BGM = "BGM_one";
@@ -132,32 +131,14 @@ public class LevelManager : MonoBehaviour
                     BGM = "BGM_boss";
                     Starter = false;
                     LoadingScreen.loadMan.LoadingMusic(LevelList[LevelInt].LevelName, false, "BGM_boss");
+                    AudioManager.instance.PlaySound("UI_confirm");
                     return;
 
                 default:
                     break;
             }
             LoadingScreen.loadMan.LoadingMusic(LevelList[LevelInt].LevelName, Starter, BGM);
-            //LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
-
-            //if (LevelInt == 0)
-            //{
-            //    GameManager.GM.TutorialMode = true;
-            //}
-            //else
-            //{
-            //    GameManager.GM.TutorialMode = false;
-            //}
-
-            //if (LevelInt == 5)
-            //{
-            //    //LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, false);
-            //    LoadingScreen.loadMan.BetaLoading(LevelList[LevelInt].LevelName, false, "BGM_boss");
-            //}
-            //else
-            //{
-            //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[LevelInt].LevelName, true);
-            //}         
+            AudioManager.instance.PlaySound("UI_confirm");
         }        
     }
 
@@ -172,9 +153,7 @@ public class LevelManager : MonoBehaviour
             case 0:
                 GameManager.GM.TutorialMode = true;
                 BGM = "BGM_tutorial";
-
                 break;
-            //break;
 
             case 1:
                 BGM = "BGM_one";
@@ -196,30 +175,14 @@ public class LevelManager : MonoBehaviour
                 BGM = "BGM_boss";
                 Starter = false;
                 LoadingScreen.loadMan.LoadingMusic(LevelList[TempLevelInt].LevelName, false, "BGM_boss");
+                AudioManager.instance.PlaySound("UI_confirm");
                 return;
 
             default:
                 break;
         }
         LoadingScreen.loadMan.LoadingMusic(LevelList[TempLevelInt].LevelName, Starter, BGM);
-
-        //if (TempLevelInt == 0)
-        //{
-        //    GameManager.GM.TutorialMode = true;
-        //}
-        //else
-        //{
-        //    GameManager.GM.TutorialMode = false;
-        //}
-
-        //if (TempLevelInt == 5)
-        //{
-        //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, false);
-        //}
-        //else
-        //{
-        //    LoadingScreen.loadMan.BeginLoadingScene(LevelList[TempLevelInt].LevelName, true);
-        //}
+        AudioManager.instance.PlaySound("UI_confirm");
     }
 
     public void CancelButton()
@@ -228,6 +191,7 @@ public class LevelManager : MonoBehaviour
 
         eventSystem.SetSelectedGameObject(LastSelected);
         eventSystem.firstSelectedGameObject = LastSelected;
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void HowToBoss()
@@ -235,6 +199,7 @@ public class LevelManager : MonoBehaviour
         HowToBossPanel.SetActive(true);
         eventSystem.firstSelectedGameObject = HowToBossOK.gameObject;
         eventSystem.SetSelectedGameObject(HowToBossOK.gameObject);
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void HowBossOK()
@@ -242,5 +207,6 @@ public class LevelManager : MonoBehaviour
         HowToBossPanel.SetActive(false);
         eventSystem.firstSelectedGameObject = HowToBossButton.gameObject;
         eventSystem.SetSelectedGameObject(HowToBossButton.gameObject);
+        AudioManager.instance.PlaySound("UI_beep");
     }
 }

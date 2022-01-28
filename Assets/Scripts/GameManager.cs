@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
             CheckLocked();
 
             NotiAnimator.SetTrigger("ShowNoti");
+            AudioManager.instance.PlaySound("UI_noti");
         } else
         {
             Debug.Log("No collectables yet");
@@ -117,6 +118,7 @@ public class GameManager : MonoBehaviour
             if (BossLevelUnlocked)
             {
                 BossUnlockNoti.SetTrigger("ShowNoti");
+                AudioManager.instance.PlaySound("UI_noti");
             }
         }
     }

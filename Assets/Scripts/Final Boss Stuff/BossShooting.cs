@@ -73,11 +73,13 @@ public class BossShooting : MonoBehaviour
                     {
                         case 0:
                             Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_bulletboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
                         case 1:
                             Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_rocketboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
@@ -97,11 +99,13 @@ public class BossShooting : MonoBehaviour
                     {
                         case 0:
                             Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_bulletboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
                         case 1:
                             Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_rocketboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
@@ -121,11 +125,13 @@ public class BossShooting : MonoBehaviour
                     {
                         case 0:
                             Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_bulletboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
                         case 1:
                             Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_rocketboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
@@ -150,11 +156,13 @@ public class BossShooting : MonoBehaviour
                     {
                         case 0:
                             Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_bulletboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
                         case 1:
                             Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_rocketboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
@@ -179,11 +187,13 @@ public class BossShooting : MonoBehaviour
                     {
                         case 0:
                             Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_bulletboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
                         case 1:
                             Instantiate(EnemyRocket, transform.position, Quaternion.identity);
+                            AudioManager.instance.PlaySound("IG_rocketboss");
                             yield return new WaitForSeconds(item.TimeBetweenShots);
                             break;
 
@@ -213,6 +223,7 @@ public class BossShooting : MonoBehaviour
         warning = Instantiate(LazerWarning, new Vector3(7, pos.y, 0), Quaternion.identity);
         warning.SetActive(false);
 
+        AudioManager.instance.PlaySound("IG_warning");
         for (int i = 0; i < 6; i++)
         {
             if (warning.activeSelf)
@@ -226,6 +237,7 @@ public class BossShooting : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        AudioManager.instance.PlaySound("IG_lazer");
         Instantiate(EnemyLazer, new Vector3(25f, pos.y, 0), Quaternion.identity);
         Destroy(warning, 0.02f);
     }

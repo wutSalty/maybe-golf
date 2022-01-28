@@ -138,6 +138,7 @@ public class RecordsManager : MonoBehaviour
         LastSelectedObject = eventSystem.currentSelectedGameObject;
         eventSystem.SetSelectedGameObject(ScrollBackButton);
         eventSystem.firstSelectedGameObject = ScrollBackButton;
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Close scroll screen
@@ -148,6 +149,7 @@ public class RecordsManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(LastSelectedObject);
         eventSystem.firstSelectedGameObject = LastSelectedObject;
         LastSelectedObject = null;
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Reset best-stuff to tutorial stuff
@@ -197,7 +199,7 @@ public class RecordsManager : MonoBehaviour
             HitRecordTxt.text = "Hit Record: " + GameManager.GM.LevelData[CurrentLevelIndex].BestHits;
             BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
         }
-
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void LevelClickRight()
@@ -229,6 +231,7 @@ public class RecordsManager : MonoBehaviour
             HitRecordTxt.text = "Hit Record: " + GameManager.GM.LevelData[CurrentLevelIndex].BestHits;
             BestTimeTxt.text = "Best Time: " + GameManager.GM.LevelData[CurrentLevelIndex].BestTime.ToString("F2") + " sec";
         }
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void CheckOtherStats()

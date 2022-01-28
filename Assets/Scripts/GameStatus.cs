@@ -343,6 +343,7 @@ public class GameStatus : MonoBehaviour
     //Butten when restaring the course
     public void RestartScene()
     {
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, true, AudioManager.instance.CurrentlyPlayingBGM);
     }
 
@@ -352,6 +353,7 @@ public class GameStatus : MonoBehaviour
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
@@ -359,6 +361,7 @@ public class GameStatus : MonoBehaviour
     public void StageSelect()
     {
         GameManager.GM.LoadIntoLevelSelect = true;
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 }

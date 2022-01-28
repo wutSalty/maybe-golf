@@ -242,6 +242,7 @@ public class BossStatus : MonoBehaviour
     public void RestartScene()
     {
         //LoadingScreen.loadMan.BeginLoadingScene(SceneManager.GetActiveScene().name, false);
+        AudioManager.instance.PlaySound("UI_beep");
         LoadingScreen.loadMan.LoadingMusic(SceneManager.GetActiveScene().name, false, "BGM_boss");
     }
 
@@ -251,6 +252,7 @@ public class BossStatus : MonoBehaviour
         GameManager.GM.SingleMode = false;
         GameManager.GM.GhostMode = false;
         GameManager.GM.NumPlayers.Clear();
+        AudioManager.instance.PlaySound("UI_beep");
         //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
         LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
@@ -259,6 +261,7 @@ public class BossStatus : MonoBehaviour
     public void StageSelect()
     {
         GameManager.GM.LoadIntoLevelSelect = true;
+        AudioManager.instance.PlaySound("UI_beep");
         //LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
         LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }

@@ -85,6 +85,8 @@ public class AltAimControllerManager : MonoBehaviour
             PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
         }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //When 'left stick' moved

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -21,10 +22,16 @@ public class PlayerHealth : MonoBehaviour
     public bool PlayerDead;
     private Animator animator;
 
+    public AudioSource[] sources; //0=heal, 1=pain
+
     void Start()
     {
         if (tag != "Enemy")
         {
+            foreach (var item in sources)
+            {
+                item.volume = PlayerPrefs.GetFloat("InGame", 5) / 10;
+            }
             pInput = GetComponentInParent<PlayerInput>();
             pIndex = pInput.playerIndex;
             animator = GetComponent<Animator>();
@@ -52,6 +59,12 @@ public class PlayerHealth : MonoBehaviour
             }
 
             IFrames = true;
+            
+            if (IsPlayer)
+            {
+                sources[1].Play();
+            }
+
             StartCoroutine(VulnCountdown());
         }
     }
@@ -62,6 +75,7 @@ public class PlayerHealth : MonoBehaviour
         {
             CurrentHealth += heal;
             healthBar.SetHealth(CurrentHealth);
+            sources[0].Play();
         }
 
         else if (CurrentHealth + heal - MaxHealth < 10)
@@ -69,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
             heal = CurrentHealth + heal - MaxHealth;
             CurrentHealth += heal;
             healthBar.SetHealth(CurrentHealth);
+            sources[0].Play();
         }
         
         Destroy(pack.gameObject, 0.02f);
