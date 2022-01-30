@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public Animator NotiAnimator; //Animation for notification bar
     public Animator BossUnlockNoti;
+    public Animator fcNoti;
 
     public bool SingleMode = false; //Flag for playing in singleplayer
     public bool GhostMode = false; //Whether playing vs ghosts
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     public Sprite[] BallSkins;
     public bool[] UnlockedBallSkins;
     public List<int> LockedBalls;
+
+    public bool FullCleared = false;
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -80,13 +83,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //After every course, check whether it should unlock a skin
+    //After every course, check whether it should unlock something
     [ContextMenu("Force Check")]
     public void CheckUnlockables()
     {
         int LockedIndex;
         int UnlockIndex;
 
+        //Checks whether a new skin should be unlocked
         if ((GM.LockedBalls.Count > 0) && ((TimesPlayedSolo + TimesPlayedMulti) % 5 == 0))
         {
             LockedIndex = Random.Range(0, GM.LockedBalls.Count);
@@ -118,6 +122,30 @@ public class GameManager : MonoBehaviour
             if (BossLevelUnlocked)
             {
                 BossUnlockNoti.SetTrigger("ShowNoti");
+                AudioManager.instance.PlaySound("UI_noti");
+            }
+        }
+
+        //Checks whether all levels have been cleared and all scrolls have been collected
+        if (!FullCleared)
+        {
+            FullCleared = true;
+            foreach (var item in LevelData)
+            {
+                if (item.BestTime == 0)
+                {
+                    FullCleared = false;
+                }
+
+                if (item.CollectableGet != 2 && item.LevelInt != 5)
+                {
+                    FullCleared = false;
+                }
+            }
+
+            if (FullCleared)
+            {
+                fcNoti.SetTrigger("Noti");
                 AudioManager.instance.PlaySound("UI_noti");
             }
         }
@@ -157,6 +185,7 @@ public class GameManager : MonoBehaviour
             TimesPlayedMulti = data.TimesPlayedMulti;
             UnlockedBallSkins = data.UnlockedBallSkins;
             BallSkin = data.BallSkin;
+            FullCleared = data.FullCleared;
 
             Debug.Log("Game loaded at: " + System.DateTime.Now);
         }

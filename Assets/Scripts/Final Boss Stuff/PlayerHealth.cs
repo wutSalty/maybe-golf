@@ -24,6 +24,8 @@ public class PlayerHealth : MonoBehaviour
 
     public AudioSource[] sources; //0=heal, 1=pain
 
+    public ParticleSystem smokeParticle;
+
     void Start()
     {
         if (tag != "Enemy")
@@ -54,7 +56,8 @@ public class PlayerHealth : MonoBehaviour
                 BossStatus.bossStat.UpdatePlayerStatus(pIndex);
 
                 PlayerDead = true;
-                animator.SetTrigger("Death"); //Make death animation
+                animator.SetTrigger("Death");
+                smokeParticle.Play();
                 return;
             }
 

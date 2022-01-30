@@ -1564,6 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NotiAnimator: {fileID: 1045095928}
+  BossUnlockNoti: {fileID: 0}
   SingleMode: 0
   GhostMode: 0
   LoadIntoLevelSelect: 0
@@ -1577,6 +1578,7 @@ MonoBehaviour:
     BestHits: 0
     CollectableGet: 0
     ghostData: []
+  BossLevelUnlocked: 0
   TimesPlayedSolo: 0
   TimesPlayedMulti: 0
   BallSkin: 0
@@ -3602,7 +3604,7 @@ GameObject:
   - component: {fileID: 1860145388}
   m_Layer: 6
   m_Name: Death
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

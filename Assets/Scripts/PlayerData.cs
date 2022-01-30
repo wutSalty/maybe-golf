@@ -12,6 +12,7 @@ public class PlayerData
     public int TimesPlayedSolo;
     public int TimesPlayedMulti;
     public int BallSkin;
+    public bool FullCleared;
 
     public PlayerData(GameManager player)
     {
@@ -21,5 +22,6 @@ public class PlayerData
         TimesPlayedMulti = player.TimesPlayedMulti;
         UnlockedBallSkins = player.UnlockedBallSkins;
         BallSkin = player.BallSkin;
+        FullCleared = player.FullCleared;
     }
 }

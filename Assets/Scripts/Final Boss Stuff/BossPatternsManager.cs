@@ -17,6 +17,8 @@ public class BossPatternsManager : MonoBehaviour
     public Sprite spriteC;
     public Sprite spriteD;
 
+    public ParticleSystem smokeParticle;
+
     //Phases and percentage of HP remaining
     //1.0 -> PhaseA -> 0.85 -> PhaseB -> 0.60 -> PhaseC -> 0.30 -> PhaseD -> 0.15 -> PhaseE -> 0
 
@@ -89,5 +91,10 @@ public class BossPatternsManager : MonoBehaviour
     public void BossDefeated()
     {
         BossStatus.bossStat.BossDefeated();
+    }
+
+    public void BeginSmoke()
+    {
+        smokeParticle.Play();
     }
 }

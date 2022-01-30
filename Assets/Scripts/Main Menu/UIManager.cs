@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 {
     //The different screens
     public GameObject MainMenu; //Main Menu object
+    public GameObject DevMsgPanel;
 
     public GameObject MultiplayerSelect; //Multiplayer controller screen
 
@@ -40,12 +41,14 @@ public class UIManager : MonoBehaviour
     public Button SettingsButton;
     public Button RecordButton;
     public Button QuitButton;
+    public Button DevMsgButton;
 
     //The buttons that should be selected when menus are accessed
     public Selectable SettingsFirstButton;
     public Selectable MultiplayerFirstButton;
     public Selectable LevelSelectFirstButton;
     public Selectable RecordsFirstButton;
+    public Selectable DevMsgFirstButton;
 
     //Any event or input system
     public EventSystem eventSystem;
@@ -178,6 +181,15 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         eventSystem.firstSelectedGameObject = PlayButton.gameObject;
+
+        if (GameManager.GM.FullCleared)
+        {
+            DevMsgButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            DevMsgButton.gameObject.SetActive(false);
+        }
     }
 
     //Subscribes or unsubscribes from sceneLoaded, handles CourseSelect
@@ -272,6 +284,20 @@ public class UIManager : MonoBehaviour
         #else
                 Application.Quit();
         #endif
+    }
+
+    public void PressDevMsg()
+    {
+        DevMsgPanel.SetActive(true);
+        eventSystem.firstSelectedGameObject = DevMsgFirstButton.gameObject;
+        eventSystem.SetSelectedGameObject(DevMsgFirstButton.gameObject);
+    }
+
+    public void ReturnDevMsg()
+    {
+        DevMsgPanel.SetActive(false);
+        eventSystem.firstSelectedGameObject = DevMsgButton.gameObject;
+        eventSystem.SetSelectedGameObject(DevMsgButton.gameObject);
     }
 
     //Returning from Settings

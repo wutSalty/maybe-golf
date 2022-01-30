@@ -252,6 +252,7 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.TimesPlayedMulti = 0;
         GameManager.GM.BallSkin = 0;
         GameManager.GM.BossLevelUnlocked = false;
+        GameManager.GM.FullCleared = false;
         GameManager.GM.CheckLocked();
         GameManager.GM.SavePlayer();
 
@@ -266,7 +267,7 @@ public class SettingsManager : MonoBehaviour
         DelText.text = "Are you sure?";
         DelButtonTxt.text = "Yes";
 
-        eventSystem.SetSelectedGameObject(WindowMode.gameObject);
+        eventSystem.SetSelectedGameObject(OriginalDeleteButton.gameObject);
         AudioManager.instance.PlaySound("UI_beep");
     }
 

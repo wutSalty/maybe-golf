@@ -699,6 +699,7 @@ MonoBehaviour:
   playerStatuses: []
   GameOver: 0
   ForcePause: 0
+  DialogueOpen: 0
   GMLevelIndex: 1
   timertext: {fileID: 330218118}
   ReturnButton: {fileID: 81296883}
@@ -3056,6 +3057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NotiAnimator: {fileID: 1045095928}
+  BossUnlockNoti: {fileID: 0}
   SingleMode: 0
   GhostMode: 0
   LoadIntoLevelSelect: 0
@@ -3069,6 +3071,7 @@ MonoBehaviour:
     BestHits: 0
     CollectableGet: 0
     ghostData: []
+  BossLevelUnlocked: 0
   TimesPlayedSolo: 0
   TimesPlayedMulti: 0
   BallSkin: 0
@@ -3085,6 +3088,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d23d21eb1e80ff343a772796557a0db7, type: 3}
   UnlockedBallSkins: 0101000000000000
   LockedBalls: 
+  FullCleared: 0
 --- !u!4 &949260927
 Transform:
   m_ObjectHideFlags: 0
@@ -13588,21 +13592,21 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 1, y: 2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 2
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 4, y: 2, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 4
       m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 2
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535

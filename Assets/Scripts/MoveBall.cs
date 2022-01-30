@@ -18,7 +18,10 @@ public class MoveBall : MonoBehaviour
     public Text NumHitsText;
     public Text TimeTakenText;
 
-    public AudioSource[] audios; //0=water, 1=flag, 2=golf hit
+    public AudioSource[] audios; //0=water, 1=flag, 2=golf hit, 3=enemy
+
+    public ParticleSystem flagParticle;
+    public ParticleSystem waterParticle;
 
     private Vector3 LastBallLocation; //The ball's last location
 
@@ -36,12 +39,22 @@ public class MoveBall : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public GameObject fcParticle;
+    private GameObject particleObject;
+    private bool SpecialBall;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         foreach (var item in audios)
         {
             item.volume = PlayerPrefs.GetFloat("InGame", 5) / 10;
+        }
+
+        if (GameManager.GM.FullCleared)
+        {
+            particleObject = Instantiate(fcParticle, TheBall.transform, false);
+            SpecialBall = true;
         }
     }
 
@@ -50,14 +63,49 @@ public class MoveBall : MonoBehaviour
     {
         float BallVelocity = TheBall.velocity.magnitude * RotateMultiplier;
         TheBall.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
+
+        if (SpecialBall)
+        {
+            particleObject.transform.localRotation = Quaternion.identity;
+        }
     }
 
     //Handles the ball going into areas it might be in
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 || collision.tag == "Enemy") //When the ball hits the water or illegal area
+        if (collision.gameObject.layer == 6) //When the ball hits the water or illegal area
         {
-            audios[0].Play();
+            waterParticle.transform.localPosition = TheBall.transform.localPosition;
+
+            if (collision.tag == "TheVoid")
+            {
+
+            }
+            else if (collision.tag == "Lava")
+            {
+                var main = waterParticle.main;
+                main.startColor = new Color(245 / 255f, 104 / 255f, 22/ 225f, 255 / 255f);
+                audios[0].Play();
+                waterParticle.Play();
+            }
+            else
+            {
+                var main = waterParticle.main;
+                main.startColor = new Color(0, 136 / 255f, 255 / 255f, 255 / 255f);
+                audios[0].Play();
+                waterParticle.Play();
+            }
+
+            CurrentlyDead = true;
+            TheBall.velocity = new Vector2(0, 0);
+            StartCoroutine(DeathFade());
+        }
+        else if (collision.tag == "Enemy")
+        {
+            //audio
+            //particle
+            audios[3].Play();
+
             CurrentlyDead = true;
             TheBall.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
@@ -105,6 +153,9 @@ public class MoveBall : MonoBehaviour
     public void BallHasWon()
     {
         audios[1].Play();
+        flagParticle.transform.localPosition = TheBall.transform.localPosition;
+        flagParticle.Play();
+
         gameObject.SendMessage("TurnThingsOff");
         FlagHitYet = true;
         TheBall.velocity = Vector2.zero;

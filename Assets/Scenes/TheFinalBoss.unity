@@ -2712,6 +2712,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709476883}
   m_CullTransparentMesh: 1
+--- !u!1001 &1895080468
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 145688253277867055}
+    m_Modifications:
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067093095981793192, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_Name
+      value: Smoke Particle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678274190423453314, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+--- !u!4 &1895080469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5294424723205591504, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+  m_PrefabInstance: {fileID: 1895080468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1895080470 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 294992488759981676, guid: 6a481cd1bfebc984aad66e4cfea4c0e5, type: 3}
+  m_PrefabInstance: {fileID: 1895080468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1908729623
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,6 +3456,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231034606777502754}
+  - {fileID: 1895080469}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3450,6 +3522,7 @@ MonoBehaviour:
   spriteB: {fileID: 21300000, guid: ed63dda4a074cc74abb3c9375e6d22b1, type: 3}
   spriteC: {fileID: 21300000, guid: 52790d640de279a489540138527e0721, type: 3}
   spriteD: {fileID: 21300000, guid: 47cf5c320a6760d4c96ccff9cf396611, type: 3}
+  smokeParticle: {fileID: 1895080470}
 --- !u!4 &4231034606777502754
 Transform:
   m_ObjectHideFlags: 0
@@ -3671,6 +3744,8 @@ MonoBehaviour:
   VulnCounter: 0
   IFrames: 1
   PlayerDead: 0
+  sources: []
+  smokeParticle: {fileID: 0}
 --- !u!50 &4231034606777502760
 Rigidbody2D:
   serializedVersion: 4
