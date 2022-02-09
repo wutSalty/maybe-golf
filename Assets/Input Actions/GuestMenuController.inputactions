@@ -27,7 +27,7 @@
                     "name": "MiddleClicking",
                     "type": "PassThrough",
                     "id": "40a55961-25b8-4c06-a7a0-468a38aac969",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,7 @@
                     "name": "RightClicking",
                     "type": "PassThrough",
                     "id": "9ef26df2-74cd-4502-8239-cea31a8179f3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -90,6 +90,15 @@
                     "name": "Exit Menu",
                     "type": "Button",
                     "id": "f8b21177-9ba6-44dd-8080-60f68c93b2a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchControl",
+                    "type": "Button",
+                    "id": "6a794859-61ba-43e1-b1fe-29f2f48a3052",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -155,7 +164,7 @@
                 {
                     "name": "",
                     "id": "91c1ed4c-df22-44aa-8e4a-24c5d9c9bc5e",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
@@ -254,7 +263,7 @@
                 {
                     "name": "left",
                     "id": "2d60fcdc-7ed4-43c9-868a-178af091f09f",
-                    "path": "<Gamepad>/leftStick/right",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -274,12 +283,67 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "c2a96acb-39a5-4a52-82a8-dc2bf011dfc0",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "a3a9f0e9-25de-4f5d-a9ab-06f0c699a28d",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8c133977-267d-413f-9fa0-c6c217948400",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "996ac539-072e-4879-a158-f60d9e3b884f",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "cc850cbb-4ee8-4f6e-a7e4-126c3d30d142",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "b8e9921f-1d7e-48f7-b0fb-42b549250b2b",
                     "path": "*/{Submit}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
+                    "groups": "Controller;Mouse Keyboard",
                     "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -360,6 +424,17 @@
                     "action": "Exit Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "624aca23-aba8-4249-b57d-f634b4f2c09a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "SwitchControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -371,6 +446,15 @@
                     "name": "Remove Controller",
                     "type": "Button",
                     "id": "46e82fac-fda7-49b7-9446-845370f46711",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchControl",
+                    "type": "Button",
+                    "id": "8274e4d1-b5ab-4c6a-9fdb-15403dc04fbf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -421,6 +505,17 @@
                     "action": "Remove Controller",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "58de4e40-1624-4431-ad44-4f355c68e589",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "SwitchControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

@@ -6,7 +6,7 @@
             "id": "59f41a1d-830c-4f2f-aeac-4551e7795221",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Moving",
                     "type": "PassThrough",
                     "id": "2d1c271c-0df7-4238-af7a-ae2a7b8d71f4",
                     "expectedControlType": "Vector2",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Enter",
+                    "name": "Entering",
                     "type": "Button",
                     "id": "63c8def4-f8e4-4186-bbe9-ea31aecaafac",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Escape",
+                    "name": "Escaping",
                     "type": "Button",
                     "id": "44e7518e-ae24-4d29-8fcb-9129cd983235",
                     "expectedControlType": "Button",
@@ -40,6 +40,51 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Curser",
+                    "type": "PassThrough",
+                    "id": "1cbfe5d3-03fd-4551-81b3-50cfa3205b05",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollWheeling",
+                    "type": "PassThrough",
+                    "id": "976fb766-6659-4012-8e65-4bbdf84bb8aa",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightClicking",
+                    "type": "PassThrough",
+                    "id": "99f216d9-c1e2-4161-830c-0aade590d42b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiddleClicking",
+                    "type": "PassThrough",
+                    "id": "0abf3144-d362-4471-9706-1105857624f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Clicking",
+                    "type": "PassThrough",
+                    "id": "6852f160-fc86-4aed-8b39-e8201fe75d9c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -50,7 +95,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -61,7 +106,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -72,7 +117,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -83,7 +128,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -94,7 +139,62 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Move",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "7a5bbab6-7ccf-491f-b343-3a0edc3ada4b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Moving",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6d59b7b4-29b6-4a6e-b5ee-286015658c11",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7f75521c-eda9-42f2-be95-dc1cf4717241",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "aa28028d-88cd-4266-8c3f-bdbdce6597c7",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "573fa2c2-0389-4872-ad73-3d00da0646c9",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -105,7 +205,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -116,7 +216,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -127,7 +227,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -138,7 +238,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -149,18 +249,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Move",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
                     "id": "29e7adfb-d4c5-4519-ab28-36f77acf717a",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Enter",
+                    "action": "Entering",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -170,8 +270,8 @@
                     "path": "*/{Submit}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
-                    "action": "Enter",
+                    "groups": "Controller;Mouse Keyboard",
+                    "action": "Entering",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -182,7 +282,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Escape",
+                    "action": "Escaping",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -193,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
-                    "action": "Escape",
+                    "action": "Escaping",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -205,6 +305,61 @@
                     "processors": "",
                     "groups": "Mouse Keyboard",
                     "action": "Click Started",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a6d060e-8352-4548-a0bd-42d59dd45868",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Curser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a7e7fea-2691-48a3-843f-378916720fe2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cfa37f47-b329-4bc4-9f55-78885b690cd1",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "MiddleClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09dea9a1-9f6b-49de-a162-ae985e3e73f4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "RightClicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbc17644-ea37-4401-a1c7-5e0b7c13ad89",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "ScrollWheeling",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

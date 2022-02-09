@@ -16,6 +16,10 @@ public class SettingsManager : MonoBehaviour
     public Slider BGMSlider;
     public Slider UISlider;
     public Slider InGameSlider;
+    public Slider ColourPickerSlider;
+    public GameObject ColourPickerObj;
+
+    public Text DemoColour;
 
     //UI element for delete button
     public GameObject DelPanel;
@@ -61,6 +65,7 @@ public class SettingsManager : MonoBehaviour
     private float OldBGM;
     private float OldUI;
     private float OldInGame;
+    private float OldColourPicker;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
     private int NumOfDelete = 0; //Keeps track of delete
@@ -82,6 +87,7 @@ public class SettingsManager : MonoBehaviour
         OldBGM = PlayerPrefs.GetFloat("BGM", 5f);
         OldUI = PlayerPrefs.GetFloat("UI", 5f);
         OldInGame = PlayerPrefs.GetFloat("InGame", 5f);
+        OldColourPicker = PlayerPrefs.GetFloat("ColourPicker", 0);
 
         //Update the values of each setting
         ForcedOverride = true;
@@ -94,11 +100,22 @@ public class SettingsManager : MonoBehaviour
         BGMSlider.value = OldBGM;
         UISlider.value = OldUI;
         InGameSlider.value = OldInGame;
+        ColourPickerSlider.value = OldColourPicker;
+        DemoColour.color = Color.HSVToRGB(OldColourPicker, 0.75f, 1f);
 
         ForcedOverride = false;
 
         //Get the game to actually update the screen size
         RevertWindowed();
+
+        if (GameManager.GM.FullCleared)
+        {
+            ColourPickerObj.SetActive(true);
+        }
+        else
+        {
+            ColourPickerObj.SetActive(false);
+        }
     }
 
     //Check the dropdown for window mode (fullscreen or not)
@@ -241,6 +258,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("BGM", 5);
         PlayerPrefs.SetFloat("UI", 5);
         PlayerPrefs.SetFloat("InGame", 5);
+        PlayerPrefs.SetFloat("ColourPicker", 0);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
@@ -566,5 +584,14 @@ public class SettingsManager : MonoBehaviour
         AttributePanel.SetActive(false);
         eventSystem.firstSelectedGameObject = AttributeButton.gameObject;
         eventSystem.SetSelectedGameObject(AttributeButton.gameObject);
+    }
+
+    //Colour picker
+    public void AdjustColourPicker(float value)
+    {
+        DemoColour.color = Color.HSVToRGB(value, 0.75f, 1f);
+
+        PlayerPrefs.SetFloat("ColourPicker", value);
+        PlayerPrefs.Save();
     }
 }

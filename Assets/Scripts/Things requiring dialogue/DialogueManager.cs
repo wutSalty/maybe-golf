@@ -38,15 +38,11 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector]
     public string ControlScheme;
 
-    [HideInInspector]
-    public string ControllerA = "To get started, use the LEFT STICK and RIGHT STICK to aim, and SUBMIT to shoot.";
-    [HideInInspector]
-    public string KeyboardA = "To get started, use the ARROW KEYS to aim, and ENTER to shoot.";
+    private string ControllerA = "To get started, use the LEFT STICK and RIGHT STICK to aim, and SUBMIT to shoot.";
+    private string KeyboardA = "To get started, use the ARROW KEYS to aim, and SPACE to shoot.";
 
-    [HideInInspector]
-    public string ControllerB = "If you ever need to restart your position back to the start, press LB + RB. And use MENU to pause the game.";
-    [HideInInspector]
-    public string KeyboardB = "If you ever need to restart your position back to the start, press R. And use ESC to pause the game.";
+    private string ControllerB = "If you ever need to restart your position back to the start, press LB + RB. And use MENU to pause the game.";
+    private string KeyboardB = "If you ever need to restart your position back to the start, press R. And use ESC to pause the game.";
 
     public bool DialogueOpen;
 

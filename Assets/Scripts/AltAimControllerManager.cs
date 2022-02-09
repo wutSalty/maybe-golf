@@ -37,11 +37,11 @@ public class AltAimControllerManager : MonoBehaviour
 
         if (playerInput.currentControlScheme == "Keyboard")
         {
-            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nShoot - Enter\nRestart Position - R\nPause Game - ESC";
+            ControlsText.text = "Aim - Arrow Keys LEFT/RIGHT\nPower - Arrow Keys UP/DOWN\nShoot - SPACE\nRestart Position - R\nPause Game - ESC";
             //HUDUi.sortingOrder = 19;
         } else
         {
-            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
+            ControlsText.text = "Aim - Left Stick LEFT/RIGHT\nPower - Right Stick UP/DOWN\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
         }
         
     }
@@ -100,11 +100,11 @@ public class AltAimControllerManager : MonoBehaviour
     {
         if (pInput.currentControlScheme == "Keyboard")
         {
-            ControlsText.text = "Aim - Arrow Keys Up/Down\nPower - Arrow Keys Left/Right\nShoot - Enter\nRestart Position - R\nPause Game - ESC";
+            ControlsText.text = "Aim - Arrow Keys LEFT/RIGHT\nPower - Arrow Keys UP/DOWN\nShoot - SPACE\nRestart Position - R\nPause Game - ESC";
         }
         else
         {
-            ControlsText.text = "Aim - Left Stick Left/Right\nPower - Right Stick Up/Down\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
+            ControlsText.text = "Aim - Aim - Left Stick LEFT/RIGHT\nPower - Right Stick UP/DOWN\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
         }
     }
 

@@ -309,7 +309,7 @@
                 {
                     "name": "",
                     "id": "7dcbea5c-2bba-4a9f-ba30-d7434fb71562",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -688,6 +688,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller;Keyboard",
+                    "action": "Submitting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94f7b047-9c4e-4c9a-a9bc-782daf506eba",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Submitting",
                     "isComposite": false,
                     "isPartOfComposite": false

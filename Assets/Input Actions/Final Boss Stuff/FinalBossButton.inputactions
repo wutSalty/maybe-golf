@@ -67,7 +67,18 @@
                     "path": "*/{Submit}",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
-                    "groups": "Controller;Keyboard",
+                    "groups": "Controller",
+                    "action": "Firing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e1c37d7b-b4d8-4f30-be69-87dcdac24013",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Firing",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -586,6 +597,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard;Controller",
+                    "action": "Submitting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df7d3cb5-3f4d-45da-bb8d-93c7b737aee0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Submitting",
                     "isComposite": false,
                     "isPartOfComposite": false

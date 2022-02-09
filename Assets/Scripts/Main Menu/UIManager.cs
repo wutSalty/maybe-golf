@@ -314,7 +314,7 @@ public class UIManager : MonoBehaviour
     {
         inputManager.DisableJoining(); //Disable new players from joining
 
-        OnDeviceLostScript[] objects = FindObjectsOfType<OnDeviceLostScript>(); //Find and remove all guest game objects
+        MultiMenuPlayer[] objects = FindObjectsOfType<MultiMenuPlayer>(); //Find and remove all guest game objects
         foreach (var item in objects)
         {
             Destroy(item.gameObject);
@@ -322,8 +322,10 @@ public class UIManager : MonoBehaviour
 
         GameManager.GM.NumPlayers.Clear();
 
-        inputManager.enabled = false; //Disable input manager
+        MultiSelectScript.ResetActions();
 
+        inputManager.enabled = false; //Disable input manager
+        
         inputSystem.enabled = true; //Re-enable menu input player
         //ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
         AudioManager.instance.PlaySound("UI_beep");
@@ -336,11 +338,14 @@ public class UIManager : MonoBehaviour
         if (GameManager.GM.SingleMode)
         {
             GameManager.GM.NumPlayers.Clear();
+
+            MultiSelectScript.ResetActions();
+
             GameManager.GM.SingleMode = false;
             MultiSelectScript.CurrentlyLoading = false;
 
             GameManager.GM.GhostMode = false;
-            //ButtonManager(LevelSelectScreen, MainMenu, PlayButton);
+
             AudioManager.instance.PlaySound("UI_beep");
             StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
             levelManager.enabled = false;

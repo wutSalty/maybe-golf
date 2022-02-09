@@ -1204,7 +1204,7 @@ MonoBehaviour:
   WhatShouldControlsSay:
   - 'Movement - W/S or Arrow Keys UP/DOWN
 
-    Shoot - ENTER
+    Shoot - SPACE
 
     Switch projectiles
     - TAB
@@ -1249,7 +1249,6 @@ MonoBehaviour:
   - {fileID: 7180230501679993630}
   - {fileID: 27125538923243896}
   smokeParticle: {fileID: 5745999597635818071}
-  engineParticle: {fileID: 0}
 --- !u!70 &8905325435184285691
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

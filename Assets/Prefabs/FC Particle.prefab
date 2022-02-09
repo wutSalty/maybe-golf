@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 715427529288822410}
   - component: {fileID: 715427529288822409}
   - component: {fileID: 715427529288822408}
+  - component: {fileID: 8389853673314374699}
   m_Layer: 0
   m_Name: FC Particle
   m_TagString: Untagged
@@ -1295,7 +1296,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -4804,3 +4805,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8389853673314374699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715427529288822391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d7a41d53b0e684db7eccf435388efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

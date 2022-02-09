@@ -74,3 +74,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e49842c9121b84ea2c61639c108440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointing: {fileID: -4176216186697451267, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  Lclick: {fileID: 7525638868898100180, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  Mclick: {fileID: 377949913912800387, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  Rclick: {fileID: -52578325129791985, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  scroll: {fileID: 8497240200251283017, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  navi: {fileID: -5940591733718336909, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  submit: {fileID: -3346348431818921585, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}
+  cancel: {fileID: 8911464040102974457, guid: bea1f7d5b49c4084c8788642ccda6029, type: 3}

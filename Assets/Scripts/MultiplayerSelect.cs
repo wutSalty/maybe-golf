@@ -29,6 +29,8 @@ public class MultiplayerSelect : MonoBehaviour
     public EventSystem eventSystem;
     public UIManager uiManager;
     public LevelManager levelManager;
+    public InputSystemUIInputModule uiModule;
+    public PlayerInput defaultInput;
 
     //Flag to signal switch scenes
     [HideInInspector]
@@ -141,5 +143,29 @@ public class MultiplayerSelect : MonoBehaviour
 
         uiManager.MultiplayerToLevelSelect();
         levelManager.enabled = true;
+    }
+
+    public InputActionReference pointing;
+    public InputActionReference Lclick;
+    public InputActionReference Mclick;
+    public InputActionReference Rclick;
+    public InputActionReference scroll;
+    public InputActionReference navi;
+    public InputActionReference submit;
+    public InputActionReference cancel;
+
+    public void ResetActions()
+    {
+        defaultInput.uiInputModule = uiModule;
+        uiModule.actionsAsset = defaultInput.actions;
+
+        uiModule.point = pointing;
+        uiModule.leftClick = Lclick;
+        uiModule.middleClick = Mclick;
+        uiModule.rightClick = Rclick;
+        uiModule.scrollWheel = scroll;
+        uiModule.move = navi;
+        uiModule.submit = submit;
+        uiModule.cancel = cancel;
     }
 }
