@@ -54,11 +54,13 @@ public class PauseGame : MonoBehaviour
                 } else
                 { //Or else make sure the user can't do anything
                     item.SwitchCurrentActionMap("Not Caller Menu");
+                    item.GetComponent<MultiplayerEventSystem>().enabled = false;
                 }
             }
             else
             {
                 item.SwitchCurrentActionMap("In-Game Ball");
+                item.GetComponent<MultiplayerEventSystem>().enabled = true;
             }
         }
         OpenCloseMenu(); //Do menu stuff

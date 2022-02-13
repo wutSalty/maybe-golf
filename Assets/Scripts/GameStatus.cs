@@ -330,6 +330,15 @@ public class GameStatus : MonoBehaviour
         }
         POneUISys.firstSelectedGameObject = ReturnButton.gameObject;
 
+        //Disable other player's inputs
+        foreach (var item in inputs)
+        {
+            if (item.playerIndex != 0)
+            {
+                item.GetComponent<MultiplayerEventSystem>().enabled = false;
+            }
+        }
+
         //Checks unlockables then saves the game
         if (CollectableStatus == 1)
         {

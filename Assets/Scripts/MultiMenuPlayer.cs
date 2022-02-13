@@ -74,6 +74,11 @@ public class MultiMenuPlayer : MonoBehaviour
 
     void OnSwitchControl()
     {
+        if (uiManager.MultiSelectScript.CurrentlyLoading)
+        {
+            return;
+        }
+
         if (controlType == "KB")
         {
             if (uiManager.MultiSelectScript.DropdownList[pIndex].value == 0)
@@ -89,8 +94,13 @@ public class MultiMenuPlayer : MonoBehaviour
     }
 
     //If the controller has been disconnected due to running out of batteries or other, delete the object with a delay
-    void OnDeviceLost()
+    void OnDeviceLost(PlayerInput input)
     {
+        if (uiManager.MultiSelectScript.CurrentlyLoading && input.playerIndex == 0)
+        {
+            uiManager.LevelSelectToMultiplayer();
+        }
+
         Destroy(this.gameObject, 0.005f);
     }
 

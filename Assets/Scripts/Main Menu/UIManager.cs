@@ -91,7 +91,11 @@ public class UIManager : MonoBehaviour
     {
         if (MainMenu.activeSelf)
         {
-            //Lol shouldn't do anything here so its fine
+            //Dev message panel
+            if (DevMsgPanel.activeSelf)
+            {
+                ReturnDevMsg();
+            }
         }
         else if (MultiplayerSelect.activeSelf)
         {
@@ -251,6 +255,7 @@ public class UIManager : MonoBehaviour
     public void PressPlay2P()
     {
         inputSystem.enabled = false;
+
         inputManager.enabled = true;
         inputManager.EnableJoining();
 
@@ -327,6 +332,7 @@ public class UIManager : MonoBehaviour
         inputManager.enabled = false; //Disable input manager
         
         inputSystem.enabled = true; //Re-enable menu input player
+
         //ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MultiplayerRect, MainMenuRect, TwoPlayerBtn));
@@ -384,8 +390,6 @@ public class UIManager : MonoBehaviour
         if (GameManager.GM.LoadIntoLevelSelect)
         {
             GameManager.GM.LoadIntoLevelSelect = false;
-            //StartCoroutine(SwipeDown(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
-            //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
 
             MainMenu.SetActive(false);
             LevelSelectScreen.SetActive(true);
@@ -397,6 +401,8 @@ public class UIManager : MonoBehaviour
             LevelSelectRect.offsetMax = new Vector2(0, 0);
 
             levelManager.enabled = true;
+
+            MultiSelectScript.StraightIntoLevelSelect();
 
             LevelSelectFirstButton.Select();
             eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;

@@ -428,7 +428,7 @@
                 {
                     "name": "",
                     "id": "624aca23-aba8-4249-b57d-f634b4f2c09a",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/backslash",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",
@@ -509,7 +509,7 @@
                 {
                     "name": "",
                     "id": "58de4e40-1624-4431-ad44-4f355c68e589",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/backslash",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse Keyboard",

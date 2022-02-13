@@ -234,6 +234,15 @@ public class BossStatus : MonoBehaviour
         }
         PlayerOneEvent.firstSelectedGameObject = ResultsFirstButton.gameObject;
 
+        //Disable other player's inputs
+        foreach (var item in playerInputs)
+        {
+            if (item.playerIndex != 0)
+            {
+                item.GetComponent<MultiplayerEventSystem>().enabled = false;
+            }
+        }
+
         GameManager.GM.CheckUnlockables();
         GameManager.GM.SavePlayer();
     }

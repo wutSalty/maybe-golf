@@ -16,6 +16,8 @@ public class MultiplayerSelect : MonoBehaviour
     public Text PlayText;
     public GameObject dummyObject;
 
+    public GameObject emptyPlayerObject;
+
     //List of text showing connected players
     public List<Text> TextList;
 
@@ -37,11 +39,13 @@ public class MultiplayerSelect : MonoBehaviour
     public bool CurrentlyLoading = false;
 
     //Sets text and everything ready
-    private void Start()
+    private void Awake()
     {
         CurrentlyLoading = false;
         PlayBtn.interactable = false;
         PlayText.text = "Waiting for players...";
+
+        print("awake disable play");
     }
 
     //When the player joins, add them to GameManager, change text, etc etc
@@ -67,6 +71,7 @@ public class MultiplayerSelect : MonoBehaviour
         {
             ControlName = "";
             DropdownList[pIndex].gameObject.SetActive(true);
+            DropdownList[pIndex].value = 0;
             ControlType = 0;
         }
 
@@ -74,8 +79,10 @@ public class MultiplayerSelect : MonoBehaviour
         TextList[pIndex].text = "Connected\n" + ControlName;
         GameManager.GM.NumPlayers[pIndex].PlayerIndex = pIndex;
         GameManager.GM.NumPlayers[pIndex].ControlType = ControlType;
-        GameManager.GM.NumPlayers[pIndex].inputDevice = InputUser.all[value.playerIndex].pairedDevices[0];
-        Debug.Log("Player " + pIndex + "'s input device is: " + InputUser.all[pIndex].pairedDevices[0]);
+        GameManager.GM.NumPlayers[pIndex].inputDevice = value.GetDevice<InputDevice>();
+        GameManager.GM.NumPlayers[pIndex].deviceName = value.GetDevice<InputDevice>().name;
+
+        print("Player " + pIndex + "'s input device is: " + value.GetDevice<InputDevice>().name);
 
         //Display player's card
         PlayerPanels[pIndex].SetActive(true);
@@ -87,6 +94,8 @@ public class MultiplayerSelect : MonoBehaviour
             eventSystem.firstSelectedGameObject = dummyObject;
             eventSystem.SetSelectedGameObject(dummyObject);
             PlayText.text = "Ready to Play!";
+
+            print("ping actual play btn");
         }
     }
 
@@ -94,7 +103,7 @@ public class MultiplayerSelect : MonoBehaviour
     public void DropdownUpdate(int playerIndex)
     {
         GameManager.GM.NumPlayers[playerIndex].ControlType = DropdownList[playerIndex].value;
-        StartCoroutine(Delay());
+        //StartCoroutine(Delay());
     }
 
     //Delay for non-host controller trickery
@@ -127,9 +136,11 @@ public class MultiplayerSelect : MonoBehaviour
             if (inputManager.playerCount == 1 || value.playerIndex == 0) //If player left is only 1, disable play button
             {
                 PlayBtn.interactable = false;
-                eventSystem.firstSelectedGameObject = null;
+                //eventSystem.firstSelectedGameObject = null;
                 eventSystem.SetSelectedGameObject(null);
                 PlayText.text = "Waiting for players...";
+
+                print("ping disabled play btn");
             }
         }
     }
@@ -143,6 +154,53 @@ public class MultiplayerSelect : MonoBehaviour
 
         uiManager.MultiplayerToLevelSelect();
         levelManager.enabled = true;
+    }
+
+    public void StraightIntoLevelSelect()
+    {
+        uiManager.inputSystem.enabled = false;
+
+        uiManager.inputManager.enabled = true;
+
+        foreach (var item in GameManager.GM.NumPlayers)
+        {
+            string ControlName = "Demo";
+            int pIndex = item.PlayerIndex;
+
+            //Checks device type being connected. Applies appropriate text or control type
+            if (item.ControlType == 2)
+            {
+                ControlName = "Controller/Buttons";
+
+                PlayerInput.Instantiate(emptyPlayerObject, pIndex, "Controller", -1, item.inputDevice);
+
+            }
+            else //Or else it's a keyboard user and let them make a choice
+            {
+                ControlName = "";
+                DropdownList[pIndex].gameObject.SetActive(true);
+                DropdownList[pIndex].value = item.ControlType;
+
+                PlayerInput.Instantiate(emptyPlayerObject, pIndex, "Mouse Keyboard", -1, item.inputDevice);
+            }
+
+            //Displays all relevant information
+            TextList[pIndex].text = "Connected\n" + ControlName;
+
+            //Display player's card
+            PlayerPanels[pIndex].SetActive(true);
+        }
+
+        PlayBtn.interactable = true;
+        //eventSystem.firstSelectedGameObject = dummyObject;
+        //eventSystem.SetSelectedGameObject(dummyObject);
+        PlayText.text = "Ready to Play!";
+
+        GameManager.GM.SingleMode = false;
+        CurrentlyLoading = true;
+        inputManager.DisableJoining();
+
+        print("ping override play btn");
     }
 
     public InputActionReference pointing;

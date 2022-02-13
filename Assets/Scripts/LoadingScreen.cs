@@ -79,6 +79,15 @@ public class LoadingScreen : MonoBehaviour
 
         Time.timeScale = 1;
 
+        //If loading a course and Player 1 disconnects then cancel the SceneLoad
+        if (SceneManager.GetActiveScene().name == "MainMenu" && GameManager.GM.NumPlayers[0].PlayerIndex == 99)
+        {
+            StartCoroutine(TransitionBGM(oldAudio, 1));
+            yield return StartCoroutine(FadeScreen(0, 1, 1));
+            loadingCanvas.SetActive(false);
+            yield break;
+        }
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneToLoad);
         while (!operation.isDone)
         {

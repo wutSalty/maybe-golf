@@ -11,4 +11,5 @@ public class MultiPlayerClass
     public int PlayerIndex;
     public float AimingSensitivity = 4;
     public InputDevice inputDevice;
+    public string deviceName;
 }

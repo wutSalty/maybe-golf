@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 public class BossPauseGame : MonoBehaviour
 {
@@ -41,11 +42,13 @@ public class BossPauseGame : MonoBehaviour
                 else
                 {
                     item.SwitchCurrentActionMap("Not Caller Menu");
+                    item.GetComponent<MultiplayerEventSystem>().enabled = false;
                 }
             }
             else
             {
                 item.SwitchCurrentActionMap("In-Game");
+                item.GetComponent<MultiplayerEventSystem>().enabled = true;
             }
         }
 
