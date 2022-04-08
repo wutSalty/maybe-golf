@@ -196,7 +196,6 @@ public class MultiplayerSelect : MonoBehaviour
         //eventSystem.SetSelectedGameObject(dummyObject);
         PlayText.text = "Ready to Play!";
 
-        GameManager.GM.SingleMode = false;
         CurrentlyLoading = true;
         inputManager.DisableJoining();
 

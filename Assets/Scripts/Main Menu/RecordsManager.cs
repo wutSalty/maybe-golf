@@ -103,12 +103,7 @@ public class RecordsManager : MonoBehaviour
         int index = 0;
         foreach (var item in GameManager.GM.LevelData)
         {
-            if (item.LevelInt == 5)
-            {
-                break;
-            }
-
-            if (item.CollectableGet != 2)
+            if ((item.LevelInt != 5 && item.CollectableGet != 2) || (item.LevelInt == 5 && item.BestTime == 0))
             {
                 ScrollImages[index].sprite = UnknownScrollSprite;
             } else
@@ -122,7 +117,7 @@ public class RecordsManager : MonoBehaviour
     //When scroll button pressed, update the text then show the screen
     public void ClickScroll(int ScrollInt)
     {
-        if (GameManager.GM.LevelData[ScrollInt].CollectableGet != 2)
+        if ((ScrollInt != 5 && GameManager.GM.LevelData[ScrollInt].CollectableGet != 2) || (ScrollInt == 5 && GameManager.GM.LevelData[ScrollInt].BestTime == 0))
         {
             ScrollTitle.text = "???";
             ScrollBody.text = "This scroll hasn't been collected yet. Try looking around different levels to see if you can find it...";
