@@ -112,6 +112,15 @@ public class RecordsManager : MonoBehaviour
             }
             index += 1;
         }
+
+        //Hide scroll button if not unlocked yet
+        if (GameManager.GM.LevelData[5].LevelInt == 5 && GameManager.GM.LevelData[5].BestTime == 0)
+        {
+            ScrollButtons[5].gameObject.SetActive(false);
+        } else
+        {
+            ScrollButtons[5].gameObject.SetActive(true);
+        }
     }
 
     //When scroll button pressed, update the text then show the screen

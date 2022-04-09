@@ -61,6 +61,10 @@ public class UIManager : MonoBehaviour
     public LevelManager levelManager;
     public RecordsManager recordManager;
 
+    //Skybox for full clears
+    public Material notFullSky;
+    public Material fullSky;
+
     [HideInInspector]
     public Vector2 LeftMove;
 
@@ -189,10 +193,12 @@ public class UIManager : MonoBehaviour
         if (GameManager.GM.FullCleared)
         {
             DevMsgButton.gameObject.SetActive(true);
+            RenderSettings.skybox = fullSky;
         }
         else
         {
             DevMsgButton.gameObject.SetActive(false);
+            RenderSettings.skybox = notFullSky;
         }
     }
 

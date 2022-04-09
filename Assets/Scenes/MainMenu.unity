@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 383355205}
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -3781,14 +3781,14 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 907953903}
-    m_SelectOnLeft: {fileID: 696074107}
-    m_SelectOnRight: {fileID: 1371234790}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 881757274}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.85882354, g: 0.85882354, b: 0.85882354, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3872,7 +3872,7 @@ RectTransform:
   - {fileID: 1145171503}
   - {fileID: 1705799700}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4474,12 +4474,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 179698055}
   - {fileID: 881757271}
   - {fileID: 1177033123}
   - {fileID: 1514568191}
   - {fileID: 2030841508}
   - {fileID: 696074110}
-  - {fileID: 179698055}
   m_Father: {fileID: 1722791901}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7174,7 +7174,7 @@ GameObject:
   - component: {fileID: 410052893}
   - component: {fileID: 410052892}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11790,12 +11790,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Pre-Release 4.0.0!
+  m_Text: '0.4.0-alpha!
 
 
-    Thank you for patiently waiting for the game''s
-    release! We''re still in beta so be sure to expect some bugs. Feel free to report
-    any issues!'
+    Thank you for patiently waiting for the game''s release!
+    We''re still in beta so be sure to expect some bugs. Feel free to report any
+    issues!'
 --- !u!222 &675191469
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12064,7 +12064,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 907953903}
     m_SelectOnLeft: {fileID: 2030841511}
-    m_SelectOnRight: {fileID: 179698052}
+    m_SelectOnRight: {fileID: 1371234790}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -12154,7 +12154,7 @@ RectTransform:
   - {fileID: 100688492}
   - {fileID: 756308995}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15300,7 +15300,7 @@ RectTransform:
   - {fileID: 50610342}
   - {fileID: 793708785}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15362,7 +15362,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 907953903}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 179698052}
     m_SelectOnRight: {fileID: 1177033126}
   m_Transition: 1
   m_Colors:
@@ -16056,7 +16056,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 67766152}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 67766152}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -19763,7 +19763,7 @@ RectTransform:
   - {fileID: 72853473}
   - {fileID: 1217323106}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22102,7 +22102,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 907953903}
-    m_SelectOnLeft: {fileID: 179698052}
+    m_SelectOnLeft: {fileID: 696074107}
     m_SelectOnRight: {fileID: 67766152}
   m_Transition: 1
   m_Colors:
@@ -23373,6 +23373,8 @@ MonoBehaviour:
   MultiSelectScript: {fileID: 1479502443}
   levelManager: {fileID: 826511049}
   recordManager: {fileID: 1479502444}
+  notFullSky: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  fullSky: {fileID: 2100000, guid: 20f6d22d93779de4ea6f62f8ab305593, type: 2}
   LeftMove: {x: 0, y: 0}
 --- !u!4 &1479502441
 Transform:
@@ -24374,7 +24376,7 @@ RectTransform:
   - {fileID: 1608359444}
   - {fileID: 170564295}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -31629,7 +31631,7 @@ RectTransform:
   - {fileID: 536798072}
   - {fileID: 1823197371}
   m_Father: {fileID: 231300279}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
