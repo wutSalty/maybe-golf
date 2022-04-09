@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
     public Button RecordButton;
     public Button QuitButton;
     public Button DevMsgButton;
+    public Button HideUIButton;
+    public Button ReturnUIButton;
 
     //The buttons that should be selected when menus are accessed
     public Selectable SettingsFirstButton;
@@ -172,11 +174,16 @@ public class UIManager : MonoBehaviour
                 LevelSelectToMultiplayer();
             }
         }
+        else if (ReturnUIButton.gameObject.activeSelf)
+        {
+            PressReturnUI();
+        }
     }
 
     //When the game starts, make sure all the menus are correctly active or not
     private void Awake()
     {
+        ReturnUIButton.gameObject.SetActive(false);
         ScrollStoryScreen.SetActive(false);
         RecordsScreen.SetActive(false);
         LevelSelectScreen.SetActive(false);
@@ -297,6 +304,7 @@ public class UIManager : MonoBehaviour
         #endif
     }
 
+    //For displaying dev messages
     public void PressDevMsg()
     {
         DevMsgPanel.SetActive(true);
@@ -309,6 +317,45 @@ public class UIManager : MonoBehaviour
         DevMsgPanel.SetActive(false);
         eventSystem.firstSelectedGameObject = DevMsgButton.gameObject;
         eventSystem.SetSelectedGameObject(DevMsgButton.gameObject);
+    }
+
+    //For hiding then returning UI
+    public void PressHideUI()
+    {
+        MainMenu.SetActive(false);
+        ReturnUIButton.gameObject.SetActive(true);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(ReturnUIButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = ReturnUIButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void PressReturnUI()
+    {
+        MainMenu.SetActive(true);
+        ReturnUIButton.gameObject.SetActive(false);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(HideUIButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = HideUIButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Returning from Settings
