@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DownToWin",
+                    "type": "Button",
+                    "id": "22e7f910-b6c5-4b82-b7a7-56f6b8a42364",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -360,6 +369,28 @@
                     "processors": "",
                     "groups": "Mouse Keyboard",
                     "action": "ScrollWheeling",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55eb6a27-b49e-4a62-8ff8-14a3730b05b8",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownToWin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7602c76e-03ae-4e97-83f8-82333df2c2d3",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownToWin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

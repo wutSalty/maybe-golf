@@ -199,15 +199,16 @@ public class BossStatus : MonoBehaviour
             //Singleplayer logic
             ResultsText.text += "If you'd like to shave some more time to get a better score, feel free to try again! If not, you can always return to Level Select or Main Menu.";
 
-            if (GameManager.GM.LevelData[GMLevelIndex].BestTime == 0)
+            if (GameManager.GM.LevelData[GMLevelIndex].BestTime == 0) //First clear
+            {
+                GameManager.GM.LevelData[GMLevelIndex].BestTime = Timer;
+                GameManager.GM.LevelData[5].CollectableGet = 2;
+            }
+            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime > Timer) //Beat best time
             {
                 GameManager.GM.LevelData[GMLevelIndex].BestTime = Timer;
             }
-            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime > Timer)
-            {
-                GameManager.GM.LevelData[GMLevelIndex].BestTime = Timer;
-            }
-            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime <= Timer)
+            else if (GameManager.GM.LevelData[GMLevelIndex].BestTime <= Timer) //Slower than best time
             {
                 //Nothing lol
             }

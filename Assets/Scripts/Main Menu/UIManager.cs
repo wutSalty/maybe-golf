@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
 
     //Main Menu Buttons
     public Button PlayButton;
+    public Button PlayGhostButton;
     public Button TwoPlayerBtn;
     public Button SettingsButton;
     public Button RecordButton;
@@ -66,6 +67,8 @@ public class UIManager : MonoBehaviour
     //Skybox for full clears
     public Material notFullSky;
     public Material fullSky;
+
+    public Light dirLight;
 
     [HideInInspector]
     public Vector2 LeftMove;
@@ -180,6 +183,17 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void DownToWin(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            settingsManager.HoldingDown = true;
+        } else if (value.canceled)
+        {
+            settingsManager.HoldingDown = false;
+        }
+    }
+
     //When the game starts, make sure all the menus are correctly active or not
     private void Awake()
     {
@@ -193,6 +207,8 @@ public class UIManager : MonoBehaviour
         MainMenu.SetActive(true);
     }
 
+    //Default white FFFFFF
+    //Sunset orange FFE7C4
     private void Start()
     {
         eventSystem.firstSelectedGameObject = PlayButton.gameObject;
@@ -201,11 +217,13 @@ public class UIManager : MonoBehaviour
         {
             DevMsgButton.gameObject.SetActive(true);
             RenderSettings.skybox = fullSky;
+            dirLight.color = Color.HSVToRGB(36/360f, 0.23f, 1f);
         }
         else
         {
             DevMsgButton.gameObject.SetActive(false);
             RenderSettings.skybox = notFullSky;
+            dirLight.color = Color.HSVToRGB(0f, 0f, 1f);
         }
     }
 
@@ -308,15 +326,37 @@ public class UIManager : MonoBehaviour
     public void PressDevMsg()
     {
         DevMsgPanel.SetActive(true);
-        eventSystem.firstSelectedGameObject = DevMsgFirstButton.gameObject;
-        eventSystem.SetSelectedGameObject(DevMsgFirstButton.gameObject);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(DevMsgFirstButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = DevMsgFirstButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void ReturnDevMsg()
     {
         DevMsgPanel.SetActive(false);
-        eventSystem.firstSelectedGameObject = DevMsgButton.gameObject;
-        eventSystem.SetSelectedGameObject(DevMsgButton.gameObject);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(DevMsgButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = DevMsgButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
     }
 
     //For hiding then returning UI
@@ -400,13 +440,21 @@ public class UIManager : MonoBehaviour
 
             MultiSelectScript.ResetActions();
 
-            GameManager.GM.SingleMode = false;
-            MultiSelectScript.CurrentlyLoading = false;
+            if (!GameManager.GM.GhostMode)
+            {
+                StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton)); //Not ghost mode
+            } else
+            {
+                StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayGhostButton)); //Ghost mode
+            }
 
+            GameManager.GM.SingleMode = false;
             GameManager.GM.GhostMode = false;
 
+            MultiSelectScript.CurrentlyLoading = false;
+
             AudioManager.instance.PlaySound("UI_beep");
-            StartCoroutine(SwipeDown(LevelSelectRect, MainMenuRect, PlayButton));
+            
             levelManager.enabled = false;
         } else
         {
@@ -455,7 +503,10 @@ public class UIManager : MonoBehaviour
 
             levelManager.enabled = true;
 
-            MultiSelectScript.StraightIntoLevelSelect();
+            if (GameManager.GM.SingleMode == false)
+            {
+                MultiSelectScript.StraightIntoLevelSelect();
+            }
 
             LevelSelectFirstButton.Select();
             eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;

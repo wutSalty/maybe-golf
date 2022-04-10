@@ -74,7 +74,14 @@ public class SettingsManager : MonoBehaviour
     public List<LevelFormat> DefaultLevelData;
     public bool[] DefaultUnlockables;
 
+    //Player data that has already been fully unlocked
+    public List<LevelFormat> FullLevelData;
+    public bool[] FullUnlockables;
+
     private Coroutine textScroll;
+
+    //[HideInInspector]
+    public bool HoldingDown = false;
 
     //On start, check the saved values and set them to old
     private void Start()
@@ -264,15 +271,29 @@ public class SettingsManager : MonoBehaviour
         SetWindow(0);
         SetResolution(0);
 
-        GameManager.GM.LevelData = DefaultLevelData;
-        GameManager.GM.UnlockedBallSkins = DefaultUnlockables;
-        GameManager.GM.TimesPlayedSolo = 0;
-        GameManager.GM.TimesPlayedMulti = 0;
-        GameManager.GM.BallSkin = 0;
-        GameManager.GM.BossLevelUnlocked = false;
-        GameManager.GM.FullCleared = false;
-        GameManager.GM.CheckLocked();
-        GameManager.GM.SavePlayer();
+        if (!HoldingDown)
+        {
+            GameManager.GM.LevelData = DefaultLevelData;
+            GameManager.GM.UnlockedBallSkins = DefaultUnlockables;
+            GameManager.GM.TimesPlayedSolo = 0;
+            GameManager.GM.TimesPlayedMulti = 0;
+            GameManager.GM.BallSkin = 0;
+            GameManager.GM.BossLevelUnlocked = false;
+            GameManager.GM.FullCleared = false;
+            GameManager.GM.CheckLocked();
+            GameManager.GM.SavePlayer();
+        } else
+        {
+            GameManager.GM.LevelData = FullLevelData;
+            GameManager.GM.UnlockedBallSkins = FullUnlockables;
+            GameManager.GM.TimesPlayedSolo = 0;
+            GameManager.GM.TimesPlayedMulti = 0;
+            GameManager.GM.BallSkin = 0;
+            GameManager.GM.BossLevelUnlocked = true;
+            GameManager.GM.FullCleared = true;
+            GameManager.GM.CheckLocked();
+            GameManager.GM.SavePlayer();
+        }
 
         //LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);

@@ -103,7 +103,7 @@ public class RecordsManager : MonoBehaviour
         int index = 0;
         foreach (var item in GameManager.GM.LevelData)
         {
-            if ((item.LevelInt != 5 && item.CollectableGet != 2) || (item.LevelInt == 5 && item.BestTime == 0))
+            if (item.CollectableGet != 2)
             {
                 ScrollImages[index].sprite = UnknownScrollSprite;
             } else
@@ -114,19 +114,20 @@ public class RecordsManager : MonoBehaviour
         }
 
         //Hide scroll button if not unlocked yet
-        if (GameManager.GM.LevelData[5].LevelInt == 5 && GameManager.GM.LevelData[5].BestTime == 0)
-        {
-            ScrollButtons[5].gameObject.SetActive(false);
-        } else
+        if (GameManager.GM.BossLevelUnlocked)
         {
             ScrollButtons[5].gameObject.SetActive(true);
+
+        } else
+        {
+            ScrollButtons[5].gameObject.SetActive(false);
         }
     }
 
     //When scroll button pressed, update the text then show the screen
     public void ClickScroll(int ScrollInt)
     {
-        if ((ScrollInt != 5 && GameManager.GM.LevelData[ScrollInt].CollectableGet != 2) || (ScrollInt == 5 && GameManager.GM.LevelData[ScrollInt].BestTime == 0))
+        if (GameManager.GM.LevelData[ScrollInt].CollectableGet != 2)
         {
             ScrollTitle.text = "???";
             ScrollBody.text = "This scroll hasn't been collected yet. Try looking around different levels to see if you can find it...";
