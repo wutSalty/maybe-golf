@@ -51,8 +51,8 @@ public class MultiplayerSelect : MonoBehaviour
     //When the player joins, add them to GameManager, change text, etc etc
     public void WhenAPlayerJoins(PlayerInput value)
     {
-        string ControlName = "Demo";
-        int ControlType = 0;
+        string ControlName;
+        int ControlType;
         int pIndex = value.playerIndex;
 
         //Checks if enough indexes are available, if not create new index
@@ -106,22 +106,6 @@ public class MultiplayerSelect : MonoBehaviour
         //StartCoroutine(Delay());
     }
 
-    //Delay for non-host controller trickery
-    IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(0.05f);
-        if (PlayBtn.interactable == true)
-        {
-            eventSystem.firstSelectedGameObject = dummyObject;
-            eventSystem.SetSelectedGameObject(dummyObject);
-        } else
-        {
-            eventSystem.firstSelectedGameObject = null;
-            eventSystem.SetSelectedGameObject(null);
-        }
-        
-    }
-
     //When a controller disconnects or other
     public void WhenAPlayerDisconnects(PlayerInput value)
     {
@@ -164,7 +148,7 @@ public class MultiplayerSelect : MonoBehaviour
 
         foreach (var item in GameManager.GM.NumPlayers)
         {
-            string ControlName = "Demo";
+            string ControlName;
             int pIndex = item.PlayerIndex;
 
             //Checks device type being connected. Applies appropriate text or control type

@@ -211,7 +211,7 @@ public class UIManager : MonoBehaviour
     //Sunset orange FFE7C4
     private void Start()
     {
-        eventSystem.firstSelectedGameObject = PlayButton.gameObject;
+        //eventSystem.firstSelectedGameObject = PlayButton.gameObject;
 
         if (GameManager.GM.FullCleared)
         {

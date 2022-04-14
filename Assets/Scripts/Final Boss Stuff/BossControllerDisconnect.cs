@@ -149,6 +149,10 @@ public class BossControllerDisconnect : MonoBehaviour
 
     public void ReturnToMain()
     {
+        Time.timeScale = 1;
+
+        AudioManager.instance.PlaySound("UI_beep");
+
         BossStatus.bossStat.ForcePause = true;
         GameManager.GM.NumPlayers.Clear();
         GameManager.GM.SingleMode = false;

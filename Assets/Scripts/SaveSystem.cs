@@ -7,6 +7,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 //The big ol Save and Load system
 public static class SaveSystem 
 {
+    public static int LoadStatus = 0;
+    //0 = Success
+    //1 = Hash Fail
+    //2 = Not Exist
+
     //To save the game. Convert data to binary then save to file
     public static void SaveGame(PlayerData data)
     {
@@ -74,6 +79,7 @@ public static class SaveSystem
                 {
                     PlayerData data = (PlayerData)formatter.Deserialize(memStream);
                     Debug.Log("Data loaded successfully!");
+                    LoadStatus = 0;
                     return data;
                 }
                 
@@ -81,13 +87,14 @@ public static class SaveSystem
             {
                 //If invalid, don't do anything and return null to force new save file
                 Debug.Log("File Checksum invalid. Creating new Save File");
+                LoadStatus = 1;
+                return null;
             }
-
-            return null;
 
         } else
         {
             Debug.Log("Oopsie woopsie, file doesn't exist");
+            LoadStatus = 2;
             return null;
         }
     }

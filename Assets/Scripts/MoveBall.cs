@@ -77,11 +77,11 @@ public class MoveBall : MonoBehaviour
         {
             waterParticle.transform.localPosition = TheBall.transform.localPosition;
 
-            if (collision.tag == "TheVoid")
+            if (collision.CompareTag("TheVoid"))
             {
 
             }
-            else if (collision.tag == "Lava")
+            else if (collision.CompareTag("Lava"))
             {
                 var main = waterParticle.main;
                 main.startColor = new Color(245 / 255f, 104 / 255f, 22/ 225f, 255 / 255f);
@@ -100,7 +100,7 @@ public class MoveBall : MonoBehaviour
             TheBall.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
         }
-        else if (collision.tag == "Enemy")
+        else if (collision.CompareTag("Enemy"))
         {
             //audio
             //particle
@@ -111,7 +111,7 @@ public class MoveBall : MonoBehaviour
             StartCoroutine(DeathFade());
         }
 
-        if (collision.tag == "Flag") //When the ball hits the flag
+        if (collision.CompareTag("Flag")) //When the ball hits the flag
         {
             Debug.Log("Player " + (playerIndex + 1) + " cleared");
 

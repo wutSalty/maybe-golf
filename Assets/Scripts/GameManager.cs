@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
-    public Animator NotiAnimator; //Animation for notification bar
+    //Animation for notification bars
+    public Animator NotiAnimator; 
     public Animator BossUnlockNoti;
     public Animator fcNoti;
 
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     public int TimesPlayedSolo; //Number of times the user has cleared a course by themselves
     public int TimesPlayedMulti; //Number of times user has cleared a course in multiplayer
 
-    public int BallSkin = 0; //Migrate ball skins from playerPrefs to serialisation cause cheaters
+    public int BallSkin = 0; //Migrate ball skins from playerPrefs to internal cause cheaters
 
     public string Version = "Pre-Alpha v0.0.0";
     public string LastSaved;
@@ -38,6 +39,9 @@ public class GameManager : MonoBehaviour
     public List<int> LockedBalls;
 
     public bool FullCleared = false;
+
+    public int ErrorStatus; //Has data loaded with an error?
+    public bool FirstLoaded = true; //Is this the first time the game's at title screen?
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -173,11 +177,25 @@ public class GameManager : MonoBehaviour
 
         if (data == null)
         {
-            Debug.Log("Instead of not having data, how about I create some for you.");
-            SavePlayer();
-            Debug.Log("No need to thank me.");
+            switch (SaveSystem.LoadStatus)
+            {
+                case 1: //Hash Error
+                    ErrorStatus = 1;
+                    break;
+
+                case 2: //File not exists
+                    SavePlayer(); //Assume fresh save file
+                    break;
+
+                default: //Unknown error
+                    ErrorStatus = 99;
+                    break;
+            }
+            
         } else
         {
+            ErrorStatus = 0;
+
             //Insert back into GM
             LevelData = data.LevelData;
             BossLevelUnlocked = data.BossLevelUnlocked;

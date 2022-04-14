@@ -11,10 +11,14 @@ public class LoadingScreen : MonoBehaviour
     public static LoadingScreen loadMan;
 
     //UI elements for loading
-    public GameObject loadingCanvas;
     public Slider loadingSlider;
-    public CanvasGroup canvasGroup;
     public Image BallImg;
+    public Text NextStopText;
+    public Image NextStopImg;
+    public Sprite[] NextStopSprites;
+
+    public Animator anim;
+    public float WaitTime = 1f;
 
     private void Awake()
     {
@@ -43,26 +47,70 @@ public class LoadingScreen : MonoBehaviour
     IEnumerator StartLoad(string SceneToLoad, bool timer)
     {
         BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
-
         loadingSlider.value = 0;
-        loadingCanvas.SetActive(true);
-        yield return StartCoroutine(FadeScreen(1, 1, 0));
+
+        switch (SceneToLoad)
+        {
+            case "MainMenu":
+                NextStopText.text = "Next Stop: Main Menu";
+                NextStopImg.sprite = NextStopSprites[0];
+                break;
+
+            case "SampleScene":
+                NextStopText.text = "Next Stop: Tutorial";
+                NextStopImg.sprite = NextStopSprites[1];
+                break;
+
+            case "LevelOne":
+                NextStopText.text = "Next Stop: Level One";
+                NextStopImg.sprite = NextStopSprites[2];
+                break;
+
+            case "LevelTwo":
+                NextStopText.text = "Next Stop: Level Two";
+                NextStopImg.sprite = NextStopSprites[3];
+                break;
+
+            case "LevelThree":
+                NextStopText.text = "Next Stop: Level Three";
+                NextStopImg.sprite = NextStopSprites[4];
+                break;
+
+            case "LevelFour":
+                NextStopText.text = "Next Stop: Level Four";
+                NextStopImg.sprite = NextStopSprites[5];
+                break;
+
+            case "TheFinalBoss":
+                NextStopText.text = "Next Stop: Final Boss";
+                NextStopImg.sprite = NextStopSprites[6];
+                break;
+
+            default:
+                NextStopText.text = "Next Stop: Unknown...?";
+                NextStopImg.sprite = NextStopSprites[0];
+                break;
+        }
+        NextStopImg.SetNativeSize();
+
+        anim.SetTrigger("BeginLoad");
+        yield return new WaitForSecondsRealtime(WaitTime);
 
         Time.timeScale = 1;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneToLoad);
         while (!operation.isDone)
         {
-            //loadingSlider.value = Mathf.Clamp01(operation.progress / 0.9f);
             loadingSlider.value = Mathf.Clamp(operation.progress / 0.9f, 0, 0.94f);
             yield return null;
         }
 
-        yield return StartCoroutine(FadeScreen(0, 1, 1));
-        loadingCanvas.SetActive(false);
+        anim.SetTrigger("EndLoad");
+        yield return new WaitForSecondsRealtime(WaitTime);
 
         if (timer)
         {
+            yield return new WaitForSecondsRealtime(0.3f);
             GameStatus.gameStat.BeginGame();
         }
     }
@@ -70,12 +118,56 @@ public class LoadingScreen : MonoBehaviour
     IEnumerator StartLoadMusic(string SceneToLoad, bool timer, string oldAudio, string newAudio)
     {
         BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
-
         loadingSlider.value = 0;
-        loadingCanvas.SetActive(true);
+
+        switch (SceneToLoad)
+        {
+            case "MainMenu":
+                NextStopText.text = "Next Stop: Main Menu";
+                NextStopImg.sprite = NextStopSprites[0];
+                break;
+
+            case "SampleScene":
+                NextStopText.text = "Next Stop: Tutorial";
+                NextStopImg.sprite = NextStopSprites[1];
+                break;
+
+            case "LevelOne":
+                NextStopText.text = "Next Stop: Level One";
+                NextStopImg.sprite = NextStopSprites[2];
+                break;
+
+            case "LevelTwo":
+                NextStopText.text = "Next Stop: Level Two";
+                NextStopImg.sprite = NextStopSprites[3];
+                break;
+
+            case "LevelThree":
+                NextStopText.text = "Next Stop: Level Three";
+                NextStopImg.sprite = NextStopSprites[4];
+                break;
+
+            case "LevelFour":
+                NextStopText.text = "Next Stop: Level Four";
+                NextStopImg.sprite = NextStopSprites[5];
+                break;
+
+            case "TheFinalBoss":
+                NextStopText.text = "Next Stop: Final Boss";
+                NextStopImg.sprite = NextStopSprites[6];
+                break;
+
+            default:
+                NextStopText.text = "Next Stop: Unknown...?";
+                NextStopImg.sprite = NextStopSprites[0];
+                break;
+        }
+        NextStopImg.SetNativeSize();
+
         StartCoroutine(TransitionBGM(oldAudio, 1));
 
-        yield return StartCoroutine(FadeScreen(1, 1, 0));
+        anim.SetTrigger("BeginLoad");
+        yield return new WaitForSecondsRealtime(WaitTime);
 
         Time.timeScale = 1;
 
@@ -83,43 +175,28 @@ public class LoadingScreen : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainMenu" && GameManager.GM.NumPlayers[0].PlayerIndex == 99)
         {
             StartCoroutine(TransitionBGM(oldAudio, 1));
-            yield return StartCoroutine(FadeScreen(0, 1, 1));
-            loadingCanvas.SetActive(false);
+            anim.SetTrigger("EndLoad");
+            yield return new WaitForSecondsRealtime(WaitTime);
             yield break;
         }
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneToLoad);
         while (!operation.isDone)
         {
-            //loadingSlider.value = Mathf.Clamp01(operation.progress / 0.9f);
             loadingSlider.value = Mathf.Clamp(operation.progress / 0.9f, 0, 0.94f);
             yield return null;
         }
 
         StartCoroutine(TransitionBGM(newAudio, 1));
 
-        yield return StartCoroutine(FadeScreen(0, 1, 1));
-        loadingCanvas.SetActive(false);
+        anim.SetTrigger("EndLoad");
+        yield return new WaitForSecondsRealtime(WaitTime);
 
         if (timer)
         {
+            yield return new WaitForSecondsRealtime(0.3f);
             GameStatus.gameStat.BeginGame();
         }
-    }
-
-    //Fades or unfades the screen as required
-    IEnumerator FadeScreen(float targetValue, float duration, float ogValue)
-    {
-        float startValue = ogValue;
-        float time = 0;
-
-        while (time < duration)
-        {
-            canvasGroup.alpha = Mathf.Lerp(startValue, targetValue, time / duration);
-            time += Time.unscaledDeltaTime;
-            yield return null;
-        }
-        canvasGroup.alpha = targetValue;
     }
 
     public void FadeBGM(string name)
@@ -129,6 +206,8 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator TransitionBGM(string oldAudio, float duration)
     {
+        print("ping, music change");
+
         Sound s = Array.Find(AudioManager.instance.sounds, sound => sound.name == oldAudio);
         if (s == null)
         {

@@ -128,8 +128,6 @@ public class LevelManager : MonoBehaviour
                     break;
 
                 case 5:
-                    BGM = "BGM_boss";
-                    Starter = false;
                     LoadingScreen.loadMan.LoadingMusic(LevelList[LevelInt].LevelName, false, "BGM_boss");
                     AudioManager.instance.PlaySound("UI_confirm");
                     return;
@@ -172,8 +170,6 @@ public class LevelManager : MonoBehaviour
                 break;
 
             case 5:
-                BGM = "BGM_boss";
-                Starter = false;
                 LoadingScreen.loadMan.LoadingMusic(LevelList[TempLevelInt].LevelName, false, "BGM_boss");
                 AudioManager.instance.PlaySound("UI_confirm");
                 return;

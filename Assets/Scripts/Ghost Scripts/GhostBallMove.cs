@@ -89,14 +89,14 @@ public class GhostBallMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 || collision.tag == "Enemy") //When the ball hits the water or illegal area
+        if (collision.gameObject.layer == 6 || collision.CompareTag("Enemy")) //When the ball hits the water or illegal area
         {
             //CurrentlyDead = true;
             BallRigidbody.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
         }
 
-        if (collision.tag == "Flag") //When the ball hits the flag
+        if (collision.CompareTag("Flag")) //When the ball hits the flag
         {
             Debug.Log("Ghost cleared");
 

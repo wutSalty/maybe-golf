@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        if (tag != "Enemy")
+        if (!CompareTag("Enemy"))
         {
             foreach (var item in sources)
             {

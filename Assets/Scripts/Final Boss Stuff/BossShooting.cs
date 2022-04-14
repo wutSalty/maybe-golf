@@ -63,12 +63,21 @@ public class BossShooting : MonoBehaviour
     {
         while (true)
         {
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
+
             if (PhaseA) //Phase A Attacks
             {
                 yield return new WaitForSeconds(attackPattern[0].TimeBetweenWaves);
 
                 foreach (var item in attackPattern[0].details)
                 {
+                    if (BossStatus.bossStat.ForcePause)
+                    {
+                        yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -95,6 +104,10 @@ public class BossShooting : MonoBehaviour
 
                 foreach (var item in attackPattern[1].details)
                 {
+                    if (BossStatus.bossStat.ForcePause)
+                    {
+                        yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -121,6 +134,10 @@ public class BossShooting : MonoBehaviour
 
                 foreach (var item in attackPattern[2].details)
                 {
+                    if (BossStatus.bossStat.ForcePause)
+                    {
+                        yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -152,6 +169,10 @@ public class BossShooting : MonoBehaviour
 
                 foreach (var item in attackPattern[3].details)
                 {
+                    if (BossStatus.bossStat.ForcePause)
+                    {
+                        yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -183,6 +204,10 @@ public class BossShooting : MonoBehaviour
 
                 foreach (var item in attackPattern[4].details)
                 {
+                    if (BossStatus.bossStat.ForcePause)
+                    {
+                        yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -223,9 +248,17 @@ public class BossShooting : MonoBehaviour
         warning = Instantiate(LazerWarning, new Vector3(7, pos.y, 0), Quaternion.identity);
         warning.SetActive(false);
 
+        if (BossStatus.bossStat.ForcePause)
+        {
+            yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+        }
         AudioManager.instance.PlaySound("IG_warning");
         for (int i = 0; i < 6; i++)
         {
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
             if (warning.activeSelf)
             {
                 warning.SetActive(false);
@@ -237,6 +270,10 @@ public class BossShooting : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        if (BossStatus.bossStat.ForcePause)
+        {
+            yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+        }
         AudioManager.instance.PlaySound("IG_lazer");
         Instantiate(EnemyLazer, new Vector3(25f, pos.y, 0), Quaternion.identity);
         Destroy(warning, 0.02f);
@@ -244,7 +281,7 @@ public class BossShooting : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerHealth>().TakeDamage(20);
         }

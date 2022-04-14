@@ -54,7 +54,7 @@ public class DialogueTrigger : MonoBehaviour
             TriggerDialogue(FirstDeath);
         }
 
-        if (collision.tag == "Scroll" && !ScrollHit)
+        if (collision.CompareTag("Scroll") && !ScrollHit)
         {
             ScrollHit = true;
             TriggerDialogue(FirstScroll);

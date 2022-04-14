@@ -98,7 +98,7 @@ public class PlayerPause : MonoBehaviour
 
     public void ReturnToMain()
     {
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
 
         //Find a way to pause everything without breaking anything. Or use unscaled time.
         AudioManager.instance.PlaySound("UI_beep");
@@ -112,7 +112,7 @@ public class PlayerPause : MonoBehaviour
 
     public void RestartScene()
     {
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
         AudioManager.instance.PlaySound("UI_beep");
 
         BossStatus.bossStat.ForcePause = true;

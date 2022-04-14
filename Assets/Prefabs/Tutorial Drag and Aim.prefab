@@ -2899,14 +2899,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: 'Aim & Power - Left Click and Drag
+  m_Text: 'Aim & Power - Left Click & Drag
 
-    Shoot - Enter
+    Shoot - Release Click
 
-    Restart Position
-    - LB+RB
+    Restart
+    Position - R
 
-    Pause Game - Menu Button'
+    Pause Game - ESC'
 --- !u!1 &9188436381435212077
 GameObject:
   m_ObjectHideFlags: 0

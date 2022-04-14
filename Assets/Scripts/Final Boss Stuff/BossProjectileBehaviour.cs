@@ -29,6 +29,11 @@ public class BossProjectileBehaviour : MonoBehaviour
 
         while (time < duration)
         {
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
+
             MyX += -speed * Time.deltaTime;
             transform.position = new Vector3(MyX, MyY, 0);
             time += Time.deltaTime;
@@ -40,7 +45,7 @@ public class BossProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             if (!AmLazer)
             {

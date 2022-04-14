@@ -36,22 +36,35 @@ public class PlayerShootProjectile : MonoBehaviour
         {
             item.volume = PlayerPrefs.GetFloat("InGame", 5) / 10;
         }
+
+        StartCoroutine(SpinBall());
     }
 
     private void Update()
     {
-        if (Holding)
-        {
-            GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);
-        } else
-        {
-            GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
-        }
-
         if ((BossControllerDisconnect.BossControlDC.CurrentlyDC || BossPauseGame.bossPause.MenuIsOpen || BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause || playerHealth.PlayerDead) && Holding)
         {
             Holding = false;
         }
+    }
+
+    IEnumerator SpinBall()
+    {
+        if (BossStatus.bossStat.ForcePause)
+        {
+            yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+        }
+
+        if (Holding)
+        {
+            GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);
+        }
+        else
+        {
+            GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
+        }
+
+        yield return null;
     }
 
     void OnFiring()

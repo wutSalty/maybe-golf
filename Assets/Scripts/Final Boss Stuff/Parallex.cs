@@ -12,15 +12,27 @@ public class Parallex : MonoBehaviour
     private void Start()
     {
         rendering = gameObject.GetComponent<Renderer>();
+
+        StartCoroutine(ScrollThing());
     }
 
-    private void Update()
+    IEnumerator ScrollThing()
     {
-        pos += speed * Time.deltaTime;
-        if (pos > 1.0f)
+        while (true)
         {
-            pos -= 1.0f;
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
+
+            pos += speed * Time.deltaTime;
+            if (pos > 1.0f)
+            {
+                pos -= 1.0f;
+            }
+            rendering.material.mainTextureOffset = new Vector2(pos, 0);
+
+            yield return null;
         }
-        rendering.material.mainTextureOffset = new Vector2(pos, 0);
     }
 }

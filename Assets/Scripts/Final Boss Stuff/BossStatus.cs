@@ -24,6 +24,7 @@ public class BossStatus : MonoBehaviour
     //Boss scripts
     private PlayerHealth BossHealth;
     private BossShooting bossShooting;
+    private Animator BossAnimator;
 
     //Keeping track of level
     public int GMLevelIndex = 5;
@@ -36,10 +37,6 @@ public class BossStatus : MonoBehaviour
     public Text ResultsTitle;
     public Text ResultsText;
     public Button ResultsFirstButton;
-
-    //Death screen UI elements
-    public GameObject LoseScreen;
-    public Button LoseFirstButton;
 
     //Holds status about each player to make sure they haven't died yet
     [System.Serializable]
@@ -74,6 +71,7 @@ public class BossStatus : MonoBehaviour
         inputManager = GetComponent<PlayerInputManager>();
         bossShooting = FindObjectOfType<BossShooting>();
         BossHealth = bossShooting.GetComponent<PlayerHealth>();
+        BossAnimator = bossShooting.GetComponentInParent<Animator>();
 
         foreach (var item in playerInputs)
         {
@@ -92,8 +90,18 @@ public class BossStatus : MonoBehaviour
         BossHealth.CurrentHealth = BossHP;
         BossHealth.MaxHealth = BossHP;
 
-        //Temp Begin Game, hook into loading screen
         BeginGame();
+    }
+
+    private void Update()
+    {
+        if (ForcePause)
+        {
+            BossAnimator.enabled = false;
+        } else
+        {
+            BossAnimator.enabled = true;
+        }
     }
 
     //When the loading screen finishes loading, then start the game

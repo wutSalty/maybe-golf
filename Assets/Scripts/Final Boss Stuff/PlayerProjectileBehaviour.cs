@@ -30,6 +30,11 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
         while (time < duration)
         {
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
+
             MyX += FlightSpeed * Time.deltaTime;
             transform.position = new Vector3(MyX, MyY, 0);
             time += Time.deltaTime;
@@ -41,7 +46,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "EnemyProjectileA")
+        if (collision.CompareTag("EnemyProjectileA"))
         {
             Destroy(collision.gameObject, 0.02f);
 
@@ -51,7 +56,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
             }
         }
 
-        if (collision.tag == "EnemyProjectileB")
+        if (collision.CompareTag("EnemyProjectileB"))
         {
             if (BeatEnemyProjectileA)
             {
@@ -62,12 +67,12 @@ public class PlayerProjectileBehaviour : MonoBehaviour
             Destroy(this.gameObject, 0.02f);
         }
 
-        if (collision.tag == "EnemyProjectileC")
+        if (collision.CompareTag("EnemyProjectileC"))
         {
             Destroy(this.gameObject, 0.02f);
         }
 
-        if (collision.tag == "Enemy")
+        if (collision.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(DamageGiven);
             Destroy(this.gameObject, 0.02f);

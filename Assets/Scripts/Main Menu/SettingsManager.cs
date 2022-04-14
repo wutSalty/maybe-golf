@@ -78,6 +78,7 @@ public class SettingsManager : MonoBehaviour
     public List<LevelFormat> FullLevelData;
     public bool[] FullUnlockables;
 
+    private Coroutine ScreenCheck;
     private Coroutine textScroll;
 
     //[HideInInspector]
@@ -134,7 +135,7 @@ public class SettingsManager : MonoBehaviour
 
             SetWindow(WindowMode.value);
             ConfirmRevertScreen.SetActive(true);
-            StartCoroutine("StartCountdown", 10);
+            ScreenCheck = StartCoroutine(StartCountdown(10));
 
             StartCoroutine(WeirdOverride());
         }
@@ -149,7 +150,7 @@ public class SettingsManager : MonoBehaviour
 
             SetResolution(WindowSize.value);
             ConfirmRevertScreen.SetActive(true);
-            StartCoroutine("StartCountdown", 10);
+            ScreenCheck = StartCoroutine(StartCountdown(10));
 
             StartCoroutine(WeirdOverride());
         }
@@ -307,7 +308,7 @@ public class SettingsManager : MonoBehaviour
         DelText.text = "Are you sure?";
         DelButtonTxt.text = "Yes";
 
-        eventSystem.SetSelectedGameObject(OriginalDeleteButton.gameObject);
+        eventSystem.SetSelectedGameObject(OriginalDeleteButton);
         AudioManager.instance.PlaySound("UI_beep");
     }
 
@@ -393,7 +394,7 @@ public class SettingsManager : MonoBehaviour
     //Confirming display options buttons
     public void ConfirmButton()
     {
-        StopCoroutine("StartCountdown");
+        StopCoroutine(ScreenCheck);
         ConfirmRevertScreen.SetActive(false);
 
         OldWindow = WindowMode.value;
@@ -411,7 +412,7 @@ public class SettingsManager : MonoBehaviour
 
     public void RevertButton()
     {
-        StopCoroutine("StartCountdown");
+        StopCoroutine(ScreenCheck);
         RevertWindowed();
         ConfirmRevertScreen.SetActive(false);
 
@@ -500,7 +501,7 @@ public class SettingsManager : MonoBehaviour
                 RevertWindowed();
                 ConfirmRevertScreen.SetActive(false);
                 Debug.Log("Co has been stopped");
-                StopCoroutine("StartCountdown");
+                StopCoroutine(ScreenCheck);
 
                 LastButtonSelected.Select();
             }
@@ -567,8 +568,8 @@ public class SettingsManager : MonoBehaviour
         float time = 0;
         float duration = 31.8f;
         float oldValue = -609f;
-        float newValue = 0;
-        float lerping = 0;
+        float newValue;
+        float lerping;
 
         double aspect = (Screen.width * 1.0) / Screen.height;
         if (aspect == (16 * 1.0) / 9)
