@@ -50,21 +50,24 @@ public class PlayerShootProjectile : MonoBehaviour
 
     IEnumerator SpinBall()
     {
-        if (BossStatus.bossStat.ForcePause)
+        while (true)
         {
-            yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
-        }
+            if (BossStatus.bossStat.ForcePause)
+            {
+                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
 
-        if (Holding)
-        {
-            GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);
-        }
-        else
-        {
-            GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
-        }
+            if (Holding)
+            {
+                GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);
+            }
+            else
+            {
+                GolfBall.transform.Rotate(0, 0, 200 * Time.deltaTime);
+            }
 
-        yield return null;
+            yield return null;
+        }
     }
 
     void OnFiring()

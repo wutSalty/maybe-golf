@@ -211,7 +211,10 @@ public class UIManager : MonoBehaviour
     //Sunset orange FFE7C4
     private void Start()
     {
-        //eventSystem.firstSelectedGameObject = PlayButton.gameObject;
+        if (!GameManager.GM.FirstLoaded)
+        {
+            eventSystem.firstSelectedGameObject = PlayButton.gameObject;
+        }
 
         if (GameManager.GM.FullCleared)
         {
@@ -545,18 +548,21 @@ public class UIManager : MonoBehaviour
 
         newScreen.gameObject.SetActive(true);
 
-        while (time < Duration)
+        if (PlayerPrefs.GetInt("ReduceMotion", 0) == 0) //If false
         {
-            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
-            oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
-            oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
+            while (time < Duration)
+            {
+                OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+                oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
+                oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
 
-            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
-            newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
-            newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
+                NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+                newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
+                newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         oldScreen.offsetMin = new Vector2(otherTargetValue, 0);
@@ -596,18 +602,21 @@ public class UIManager : MonoBehaviour
 
         newScreen.gameObject.SetActive(true);
 
-        while (time < Duration)
+        if (PlayerPrefs.GetInt("ReduceMotion", 0) == 0) //If false
         {
-            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
-            oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
-            oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
+            while (time < Duration)
+            {
+                OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+                oldScreen.offsetMin = new Vector2(OldScreenLocation, 0);
+                oldScreen.offsetMax = new Vector2(OldScreenLocation, 0);
 
-            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
-            newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
-            newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
+                NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+                newScreen.offsetMin = new Vector2(NewScreenLocation, 0);
+                newScreen.offsetMax = new Vector2(NewScreenLocation, 0);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         oldScreen.offsetMin = new Vector2(otherTargetValue, 0);
@@ -647,18 +656,21 @@ public class UIManager : MonoBehaviour
 
         newScreen.gameObject.SetActive(true);
 
-        while (time < Duration)
+        if (PlayerPrefs.GetInt("ReduceMotion", 0) == 0) //If false
         {
-            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
-            oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
-            oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
+            while (time < Duration)
+            {
+                OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+                oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
+                oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
 
-            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
-            newScreen.offsetMin = new Vector2(0, NewScreenLocation);
-            newScreen.offsetMax = new Vector2(0, NewScreenLocation);
+                NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+                newScreen.offsetMin = new Vector2(0, NewScreenLocation);
+                newScreen.offsetMax = new Vector2(0, NewScreenLocation);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         oldScreen.offsetMin = new Vector2(0, otherTargetValue);
@@ -698,18 +710,21 @@ public class UIManager : MonoBehaviour
 
         newScreen.gameObject.SetActive(true);
 
-        while (time < Duration)
+        if (PlayerPrefs.GetInt("ReduceMotion", 0) == 0) //If false
         {
-            OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
-            oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
-            oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
+            while (time < Duration)
+            {
+                OldScreenLocation = Mathf.Lerp(oldValue, otherTargetValue, time / Duration);
+                oldScreen.offsetMin = new Vector2(0, OldScreenLocation);
+                oldScreen.offsetMax = new Vector2(0, OldScreenLocation);
 
-            NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
-            newScreen.offsetMin = new Vector2(0, NewScreenLocation);
-            newScreen.offsetMax = new Vector2(0, NewScreenLocation);
+                NewScreenLocation = Mathf.Lerp(newValue, oldValue, time / Duration);
+                newScreen.offsetMin = new Vector2(0, NewScreenLocation);
+                newScreen.offsetMax = new Vector2(0, NewScreenLocation);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         oldScreen.offsetMin = new Vector2(0, otherTargetValue);

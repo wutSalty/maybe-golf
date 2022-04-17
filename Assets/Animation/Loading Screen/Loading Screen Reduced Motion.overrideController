@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Loading Screen Reduced Motion
+  m_Controller: {fileID: 9100000, guid: 29c88e13d22c2634f925f9931f7ac647, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 35a70679e1407f747b705738e7fbc155, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ef4537c751b7600448b0aa3d8973d699, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f3680bc92a47d7742a36d0388e3698fb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6b9708cb0d700ae458bb088911cfff3b, type: 2}

@@ -18,6 +18,7 @@ public class SettingsManager : MonoBehaviour
     public Slider InGameSlider;
     public Slider ColourPickerSlider;
     public GameObject ColourPickerObj;
+    public Toggle ReduceMotion;
 
     public Text DemoColour;
 
@@ -66,6 +67,7 @@ public class SettingsManager : MonoBehaviour
     private float OldUI;
     private float OldInGame;
     private float OldColourPicker;
+    private bool OldReduceMotion;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
     private int NumOfDelete = 0; //Keeps track of delete
@@ -95,7 +97,8 @@ public class SettingsManager : MonoBehaviour
         OldBGM = PlayerPrefs.GetFloat("BGM", 5f);
         OldUI = PlayerPrefs.GetFloat("UI", 5f);
         OldInGame = PlayerPrefs.GetFloat("InGame", 5f);
-        OldColourPicker = PlayerPrefs.GetFloat("ColourPicker", 0);
+        OldColourPicker = GameManager.GM.SparkleColour;
+        OldReduceMotion = IntToBool(PlayerPrefs.GetInt("ReduceMotion", 0));
 
         //Update the values of each setting
         ForcedOverride = true;
@@ -110,6 +113,7 @@ public class SettingsManager : MonoBehaviour
         InGameSlider.value = OldInGame;
         ColourPickerSlider.value = OldColourPicker;
         DemoColour.color = Color.HSVToRGB(OldColourPicker, 0.75f, 1f);
+        ReduceMotion.isOn = OldReduceMotion;
 
         ForcedOverride = false;
 
@@ -226,6 +230,9 @@ public class SettingsManager : MonoBehaviour
             case 2:
                 NumOfDelete = 0;
 
+                eventSystem.SetSelectedGameObject(DelCancel.gameObject);
+                eventSystem.firstSelectedGameObject = null;
+
                 DelButton.interactable = false;
                 DelCancel.interactable = false;
 
@@ -266,7 +273,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("BGM", 5);
         PlayerPrefs.SetFloat("UI", 5);
         PlayerPrefs.SetFloat("InGame", 5);
-        PlayerPrefs.SetFloat("ColourPicker", 0);
+        //PlayerPrefs.SetFloat("ColourPicker", 0);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
@@ -281,6 +288,7 @@ public class SettingsManager : MonoBehaviour
             GameManager.GM.BallSkin = 0;
             GameManager.GM.BossLevelUnlocked = false;
             GameManager.GM.FullCleared = false;
+            GameManager.GM.SparkleColour = 0;
             GameManager.GM.CheckLocked();
             GameManager.GM.SavePlayer();
         } else
@@ -292,6 +300,7 @@ public class SettingsManager : MonoBehaviour
             GameManager.GM.BallSkin = 0;
             GameManager.GM.BossLevelUnlocked = true;
             GameManager.GM.FullCleared = true;
+            GameManager.GM.SparkleColour = 0;
             GameManager.GM.CheckLocked();
             GameManager.GM.SavePlayer();
         }
@@ -614,7 +623,23 @@ public class SettingsManager : MonoBehaviour
     {
         DemoColour.color = Color.HSVToRGB(value, 0.75f, 1f);
 
-        PlayerPrefs.SetFloat("ColourPicker", value);
+        //PlayerPrefs.SetFloat("ColourPicker", value);
+        GameManager.GM.SparkleColour = value;
+    }
+
+    //Reduced Motion
+    public void ToggleReduceMotion(bool value)
+    {
+        if (value)
+        {
+            LoadingScreen.loadMan.SetReducedMotion();
+
+        } else
+        {
+            LoadingScreen.loadMan.SetReducedMotion();
+        }
+
+        PlayerPrefs.SetInt("ReduceMotion", BoolToInt(value));
         PlayerPrefs.Save();
     }
 }

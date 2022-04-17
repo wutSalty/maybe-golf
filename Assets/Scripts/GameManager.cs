@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     public bool FullCleared = false;
 
+    public float SparkleColour = 0;
+
     public int ErrorStatus; //Has data loaded with an error?
     public bool FirstLoaded = true; //Is this the first time the game's at title screen?
 
@@ -204,6 +206,7 @@ public class GameManager : MonoBehaviour
             UnlockedBallSkins = data.UnlockedBallSkins;
             BallSkin = data.BallSkin;
             FullCleared = data.FullCleared;
+            SparkleColour = data.SparkleColour;
 
             Debug.Log("Game loaded at: " + System.DateTime.Now);
         }

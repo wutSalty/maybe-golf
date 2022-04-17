@@ -13,6 +13,7 @@ public class PlayerData
     public int TimesPlayedMulti;
     public int BallSkin;
     public bool FullCleared;
+    public float SparkleColour;
 
     public PlayerData(GameManager player)
     {
@@ -23,5 +24,6 @@ public class PlayerData
         UnlockedBallSkins = player.UnlockedBallSkins;
         BallSkin = player.BallSkin;
         FullCleared = player.FullCleared;
+        SparkleColour = player.SparkleColour;
     }
 }

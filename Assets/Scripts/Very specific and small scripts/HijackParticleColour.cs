@@ -9,7 +9,7 @@ public class HijackParticleColour : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        float hueValue = PlayerPrefs.GetFloat("ColourPicker", 0);
+        float hueValue = GameManager.GM.SparkleColour;
 
         pSys = GetComponent<ParticleSystem>();
         var pMain = pSys.main;

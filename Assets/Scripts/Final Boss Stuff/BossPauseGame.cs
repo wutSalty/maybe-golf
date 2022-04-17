@@ -12,6 +12,15 @@ public class BossPauseGame : MonoBehaviour
 
     private PlayerInput[] playerInputs;
 
+    [System.Serializable]
+    public class PausedAudio
+    {
+        public AudioSource source;
+        public bool IsPaused;
+    }
+
+    public List<PausedAudio> paused;
+
     void Awake()
     {
         if (bossPause != null && bossPause != this)
@@ -27,6 +36,14 @@ public class BossPauseGame : MonoBehaviour
     private void Start()
     {
         playerInputs = FindObjectsOfType<PlayerInput>();
+
+        foreach (var item in AudioManager.instance.sounds)
+        {
+            if (item.audioPurpose == 2)
+            {
+                paused.Add(new PausedAudio { source = item.source, IsPaused = false });
+            }
+        }
     }
 
     public void SetPause(int playerIndex)
@@ -56,11 +73,27 @@ public class BossPauseGame : MonoBehaviour
         {
             Time.timeScale = 0;
             MenuIsOpen = true;
+            foreach (var item in paused)
+            {
+                if (item.source.isPlaying)
+                {
+                    item.source.Pause();
+                    item.IsPaused = true;
+                }
+            }
         }
         else
         {
             Time.timeScale = 1;
             MenuIsOpen = false;
+            foreach (var item in paused)
+            {
+                if (item.IsPaused)
+                {
+                    item.source.UnPause();
+                    item.IsPaused = false;
+                }
+            }
         }
     }
 }

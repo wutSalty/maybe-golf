@@ -20,6 +20,9 @@ public class LoadingScreen : MonoBehaviour
     public Animator anim;
     public float WaitTime = 1f;
 
+    public RuntimeAnimatorController originalAnim;
+    public AnimatorOverrideController animOverride;
+
     private void Awake()
     {
         if (loadMan != null && loadMan != this)
@@ -30,6 +33,18 @@ public class LoadingScreen : MonoBehaviour
             loadMan = this;
         }
         DontDestroyOnLoad(this);
+    }
+
+    //If the option is set, switch to Reduced Motion
+    public void SetReducedMotion()
+    {
+        anim.runtimeAnimatorController = animOverride;
+    }
+
+    //If disable, set to Normal
+    public void SetNormal()
+    {
+        anim.runtimeAnimatorController = originalAnim;
     }
 
     //When instructed to begin, begin loading
