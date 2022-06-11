@@ -73,6 +73,14 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public Vector2 LeftMove;
 
+    [HideInInspector]
+    public Vector2 CurserPos;
+
+    public void GetCurserPos(InputAction.CallbackContext value)
+    {
+        CurserPos = value.ReadValue<Vector2>();
+    }
+
     //Gets value of movement stick
     public void UpDownLeftRight(InputAction.CallbackContext value)
     {
@@ -266,7 +274,6 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
@@ -279,7 +286,6 @@ public class UIManager : MonoBehaviour
         GameManager.GM.NumPlayers.Add(new MultiPlayerClass { PlayerIndex = 0, AimingSensitivity = PlayerPrefs.GetFloat("Sensitivity", 4) });
         MultiSelectScript.CurrentlyLoading = true;
 
-        //ButtonManager(MainMenu, LevelSelectScreen, LevelSelectFirstButton);
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MainMenuRect, LevelSelectRect, LevelSelectFirstButton));
         levelManager.enabled = true;
@@ -293,7 +299,6 @@ public class UIManager : MonoBehaviour
         inputManager.enabled = true;
         inputManager.EnableJoining();
 
-        //ButtonManager(MainMenu, MultiplayerSelect, MultiplayerFirstButton);
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(MainMenuRect, MultiplayerRect, MultiplayerFirstButton));
     }
@@ -303,7 +308,6 @@ public class UIManager : MonoBehaviour
     {
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeLeft(MainMenuRect, SettingsRect, SettingsFirstButton));
-        //ButtonManager(MainMenu, Settings, SettingsFirstButton);
     }
 
     //Records button
@@ -312,7 +316,6 @@ public class UIManager : MonoBehaviour
         recordManager.UpdateThings();
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeRight(MainMenuRect, RecordsRect, RecordsFirstButton));
-        //ButtonManager(MainMenu, RecordsScreen, RecordsFirstButton);
     }
 
     //Quit button
@@ -469,7 +472,6 @@ public class UIManager : MonoBehaviour
     {
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeLeft(RecordsRect, MainMenuRect, RecordButton));
-        //ButtonManager(RecordsScreen, MainMenu, RecordButton);
     }
 
     public void MultiplayerToLevelSelect()
@@ -484,7 +486,6 @@ public class UIManager : MonoBehaviour
         inputManager.EnableJoining();
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeDown(LevelSelectRect, MultiplayerRect, MultiplayerFirstButton));
-        //ButtonManager(LevelSelectScreen, MultiplayerSelect, MultiplayerFirstButton);
         levelManager.enabled = false;
     }
 

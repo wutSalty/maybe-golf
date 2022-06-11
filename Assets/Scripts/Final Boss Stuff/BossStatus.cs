@@ -125,7 +125,6 @@ public class BossStatus : MonoBehaviour
             if (!ForcePause)
             {
                 Timer += Time.deltaTime;
-                //Text here
             }
             yield return null;
         }

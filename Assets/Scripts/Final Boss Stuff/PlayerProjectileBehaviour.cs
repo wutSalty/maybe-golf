@@ -46,7 +46,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EnemyProjectileA"))
+        if (collision.CompareTag("EnemyProjectileA")) //Bullets
         {
             Destroy(collision.gameObject, 0.02f);
 
@@ -56,7 +56,7 @@ public class PlayerProjectileBehaviour : MonoBehaviour
             }
         }
 
-        if (collision.CompareTag("EnemyProjectileB"))
+        if (collision.CompareTag("EnemyProjectileB")) //Missiles
         {
             if (BeatEnemyProjectileA)
             {
@@ -67,12 +67,12 @@ public class PlayerProjectileBehaviour : MonoBehaviour
             Destroy(this.gameObject, 0.02f);
         }
 
-        if (collision.CompareTag("EnemyProjectileC"))
+        if (collision.CompareTag("EnemyProjectileC")) //Lazers
         {
             Destroy(this.gameObject, 0.02f);
         }
 
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy")) //The boss itself
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(DamageGiven);
             Destroy(this.gameObject, 0.02f);

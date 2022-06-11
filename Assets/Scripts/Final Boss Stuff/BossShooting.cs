@@ -21,7 +21,7 @@ public class BossShooting : MonoBehaviour
 
     private GameObject warning;
 
-    //Figure this out
+    //The attacks in the phases
     [System.Serializable]
     public class PhaseDetails
     {
@@ -29,6 +29,7 @@ public class BossShooting : MonoBehaviour
         public float TimeBetweenShots;
     }
 
+    //The different phases
     [System.Serializable]
     public class AttackPattern
     {

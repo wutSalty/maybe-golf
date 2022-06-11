@@ -58,15 +58,15 @@ public class LevelManager : MonoBehaviour
                 BossButton.gameObject.SetActive(true);
                 HowToBossButton.gameObject.SetActive(true);
 
-                LevelPanel.offsetMax = new Vector2(0, -70);
-                LevelPanel.offsetMin = new Vector2(0, 115);
+                LevelPanel.offsetMax = new Vector2(0, -140);
+                LevelPanel.offsetMin = new Vector2(0, 100);
             }
             else
             {
                 BossButton.gameObject.SetActive(false);
                 HowToBossButton.gameObject.SetActive(false);
 
-                LevelPanel.offsetMax = new Vector2(0, -70);
+                LevelPanel.offsetMax = new Vector2(0, -100);
                 LevelPanel.offsetMin = new Vector2(0, 15);
             }
 

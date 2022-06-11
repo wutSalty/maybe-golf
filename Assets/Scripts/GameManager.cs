@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
     public bool[] UnlockedBallSkins;
     public List<int> LockedBalls;
 
-    public bool FullCleared = false;
+    public bool FullCleared = false; //Has the user completed everything in the game
 
-    public float SparkleColour = 0;
+    public float SparkleColour = 0; //The Hue value for the colour of sparkles
 
     public int ErrorStatus; //Has data loaded with an error?
     public bool FirstLoaded = true; //Is this the first time the game's at title screen?

@@ -33,6 +33,7 @@ public class GhostBallMove : MonoBehaviour
         }
     }
 
+    //Once GameStatus has started the game
     public void StartReplay()
     {
         StartCoroutine(IterateSteps());
@@ -44,6 +45,7 @@ public class GhostBallMove : MonoBehaviour
         BallRigidbody.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
     }
 
+    //Keep looping through the captured inputs
     IEnumerator IterateSteps()
     {
         foreach (var item in ghostData)
@@ -59,16 +61,9 @@ public class GhostBallMove : MonoBehaviour
         }
     }
 
+    //Make moves from inputs
     public void ReceiveBallInfo(float HitStrength, float HitAngle)
     {
-        //NumHits += 1;
-        //NumHitsText.text = "Shots taken: " + NumHits;
-        //if (NumHits >= 1)
-        //{
-        //    gameObject.layer = 7;
-        //}
-
-        //Debug.Log("Hitstrength: " + HitStrength + " Hitangle: " + HitAngle);
 
         LastBallLocation = transform.position;
 
@@ -80,6 +75,7 @@ public class GhostBallMove : MonoBehaviour
         BallRigidbody.velocity = new Vector3(XDir, YDir);
     }
 
+    //Reset to last stable position
     public void RestartPos()
     {
         BallRigidbody.velocity = Vector2.zero;
@@ -87,11 +83,11 @@ public class GhostBallMove : MonoBehaviour
         BallRigidbody.gameObject.transform.localRotation = Quaternion.identity;
     }
 
+    //Check triggers
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6 || collision.CompareTag("Enemy")) //When the ball hits the water or illegal area
         {
-            //CurrentlyDead = true;
             BallRigidbody.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
         }
@@ -104,15 +100,14 @@ public class GhostBallMove : MonoBehaviour
         }
     }
 
+    //Ball has hit the flag
     public void BallHasWon()
     {
-        //gameObject.SendMessage("TurnThingsOff");
-        //FlagHitYet = true;
         BallRigidbody.velocity = Vector2.zero;
         gameObject.layer = 8;
-        //GameStatus.gameStat.SubmitRecord(playerIndex, NumHits, this);
     }
 
+    //Ball has died
     IEnumerator DeathFade()
     {
         float targetValue = 0;

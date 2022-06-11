@@ -72,11 +72,6 @@ public class PlayerMouseMovement : MonoBehaviour
             YPos = Mathf.Clamp(mousepos.y, 5 * -1 + ObjectHeight, 5 - ObjectHeight);
 
             float diff = (YPos - LastYPos) * Time.deltaTime * 7;
-            //if (Mathf.Abs(diff) > 0.2f)
-            //{
-            //    float Pos = gameObject.transform.position.y + (diff * 10 * Time.deltaTime);
-            //    YPos = Mathf.Clamp(Pos, 5 * -1 + ObjectHeight, 5 - ObjectHeight);
-            //}
 
             if (diff > 0)
             {
@@ -87,7 +82,6 @@ public class PlayerMouseMovement : MonoBehaviour
                 diff = Mathf.Clamp(diff, -1, 0);
             }
 
-            //float Pos = gameObject.transform.position.y + (diff * 10 * Time.deltaTime);
             float Pos = gameObject.transform.position.y + (diff);
             YPos = Mathf.Clamp(Pos, 5 * -1 + ObjectHeight, 5 - ObjectHeight);
             gameObject.transform.position = new Vector3(transform.position.x, YPos, 0);

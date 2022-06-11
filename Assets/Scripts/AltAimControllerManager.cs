@@ -104,7 +104,7 @@ public class AltAimControllerManager : MonoBehaviour
         }
         else
         {
-            ControlsText.text = "Aim - Aim - Left Stick LEFT/RIGHT\nPower - Right Stick UP/DOWN\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
+            ControlsText.text = "Aim - Left Stick LEFT/RIGHT\nPower - Right Stick UP/DOWN\nShoot - A/Submit Button\nRestart Position - LB + RB\nPause Game - Menu Button";
         }
     }
 
