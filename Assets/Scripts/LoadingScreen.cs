@@ -13,6 +13,7 @@ public class LoadingScreen : MonoBehaviour
     //UI elements for loading
     public Slider loadingSlider;
     public Image BallImg;
+    public Image OtherBallImg;
     public Text NextStopText;
     public Image NextStopImg;
     public Sprite[] NextStopSprites;
@@ -62,6 +63,7 @@ public class LoadingScreen : MonoBehaviour
     IEnumerator StartLoad(string SceneToLoad, bool timer)
     {
         BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
+        OtherBallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
         loadingSlider.value = 0;
 
         switch (SceneToLoad)
@@ -133,6 +135,7 @@ public class LoadingScreen : MonoBehaviour
     IEnumerator StartLoadMusic(string SceneToLoad, bool timer, string oldAudio, string newAudio)
     {
         BallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
+        OtherBallImg.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
         loadingSlider.value = 0;
 
         switch (SceneToLoad)

@@ -68,6 +68,10 @@ public class BossShooting : MonoBehaviour
             {
                 yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
             }
+            else if (BossPauseGame.bossPause.MenuIsOpen)
+            {
+                yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+            }
 
             if (PhaseA) //Phase A Attacks
             {
@@ -78,6 +82,10 @@ public class BossShooting : MonoBehaviour
                     if (BossStatus.bossStat.ForcePause)
                     {
                         yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
+                    else if (BossPauseGame.bossPause.MenuIsOpen)
+                    {
+                        yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
                     }
                     switch (item.TypeOfProjectile)
                     {
@@ -109,6 +117,10 @@ public class BossShooting : MonoBehaviour
                     {
                         yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
                     }
+                    else if (BossPauseGame.bossPause.MenuIsOpen)
+                    {
+                        yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -138,6 +150,10 @@ public class BossShooting : MonoBehaviour
                     if (BossStatus.bossStat.ForcePause)
                     {
                         yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
+                    else if (BossPauseGame.bossPause.MenuIsOpen)
+                    {
+                        yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
                     }
                     switch (item.TypeOfProjectile)
                     {
@@ -174,6 +190,10 @@ public class BossShooting : MonoBehaviour
                     {
                         yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
                     }
+                    else if (BossPauseGame.bossPause.MenuIsOpen)
+                    {
+                        yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+                    }
                     switch (item.TypeOfProjectile)
                     {
                         case 0:
@@ -208,6 +228,10 @@ public class BossShooting : MonoBehaviour
                     if (BossStatus.bossStat.ForcePause)
                     {
                         yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+                    }
+                    else if (BossPauseGame.bossPause.MenuIsOpen)
+                    {
+                        yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
                     }
                     switch (item.TypeOfProjectile)
                     {
@@ -253,12 +277,20 @@ public class BossShooting : MonoBehaviour
         {
             yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
         }
+        else if (BossPauseGame.bossPause.MenuIsOpen)
+        {
+            yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+        }
         AudioManager.instance.PlaySound("IG_warning");
         for (int i = 0; i < 6; i++)
         {
             if (BossStatus.bossStat.ForcePause)
             {
                 yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+            }
+            else if (BossPauseGame.bossPause.MenuIsOpen)
+            {
+                yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
             }
             if (warning.activeSelf)
             {
@@ -274,6 +306,10 @@ public class BossShooting : MonoBehaviour
         if (BossStatus.bossStat.ForcePause)
         {
             yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
+        }
+        else if (BossPauseGame.bossPause.MenuIsOpen)
+        {
+            yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
         }
         AudioManager.instance.PlaySound("IG_lazer");
         Instantiate(EnemyLazer, new Vector3(25f, pos.y, 0), Quaternion.identity);

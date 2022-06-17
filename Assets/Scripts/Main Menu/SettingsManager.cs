@@ -641,5 +641,7 @@ public class SettingsManager : MonoBehaviour
 
         PlayerPrefs.SetInt("ReduceMotion", BoolToInt(value));
         PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 }

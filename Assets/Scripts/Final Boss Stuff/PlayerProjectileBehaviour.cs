@@ -34,6 +34,10 @@ public class PlayerProjectileBehaviour : MonoBehaviour
             {
                 yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
             }
+            else if (BossPauseGame.bossPause.MenuIsOpen)
+            {
+                yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+            }
 
             MyX += FlightSpeed * Time.deltaTime;
             transform.position = new Vector3(MyX, MyY, 0);

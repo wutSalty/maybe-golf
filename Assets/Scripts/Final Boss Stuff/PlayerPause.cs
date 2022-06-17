@@ -14,6 +14,8 @@ public class PlayerPause : MonoBehaviour
     Vector2 LeftMove;
     int pIndex;
 
+    public Animator PauseAnimator;
+
     public GameObject PauseUI;
     public Selectable ResumeButton;
     public Text PausedByText;
@@ -61,16 +63,27 @@ public class PlayerPause : MonoBehaviour
 
         if (BossPauseGame.bossPause.MenuIsOpen && BossControllerDisconnect.BossControlDC.CurrentlyDC == false)
         {
-            PauseUI.SetActive(true);
+            //PauseUI.SetActive(true);
+            PauseAnimator.SetTrigger("OpenMenu");
+
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else if (BossControllerDisconnect.BossControlDC.CurrentlyDC == false)
         {
-            PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
+
+            PauseAnimator.SetTrigger("CloseMenu");
+            //PauseUI.SetActive(false);
+
         }
         AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void ApplyObject()
+    {
+        eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
+        eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
     }
 
     void OnControlsChanged()

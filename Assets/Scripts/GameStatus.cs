@@ -11,6 +11,8 @@ public class GameStatus : MonoBehaviour
 {
     public static GameStatus gameStat;
 
+    public Animator ResultsAnimator;
+
     //Holds data for each player and whether they've finished
     [System.Serializable]
     public class PlayerStatus
@@ -321,6 +323,7 @@ public class GameStatus : MonoBehaviour
         InputOne.SwitchCurrentActionMap("UI");
 
         ResultsCanvas.SetActive(true); //Show results screen
+        ResultsAnimator.SetTrigger("ShowResults");
 
         //Hijacks player 1 input
         POneUISys.playerRoot = ResultsCanvas;

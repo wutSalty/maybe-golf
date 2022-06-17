@@ -121,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AltAimControllerManager, Assembly-CSharp
+      - m_Target: {fileID: 2309774031000949981}
+        m_TargetAssemblyTypeName: DragAndAimControllerManager, Assembly-CSharp
         m_MethodName: OnMenu
         m_Mode: 1
         m_Arguments:
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2309774031000949976}
         m_TargetAssemblyTypeName: EscMenu, Assembly-CSharp
         m_MethodName: RestartScene
         m_Mode: 1
@@ -761,7 +761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2388630469920484087
 Transform:
   m_ObjectHideFlags: 0
@@ -2210,7 +2210,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2309774031000949976}
         m_TargetAssemblyTypeName: EscMenu, Assembly-CSharp
         m_MethodName: ReturnToMain
         m_Mode: 1

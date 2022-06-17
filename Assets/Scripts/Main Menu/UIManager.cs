@@ -539,7 +539,7 @@ public class UIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
 
         float time = 0;
-        float Duration = 0.4f;
+        float Duration = 0.3f;
         float newValue = 923.7604f;
         float otherTargetValue = -923.7604f;
         float oldValue = 0;
@@ -593,7 +593,7 @@ public class UIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
 
         float time = 0;
-        float Duration = 0.4f;
+        float Duration = 0.3f;
         float newValue = -923.7604f;
         float otherTargetValue = 923.7604f;
         float oldValue = 0;
@@ -647,7 +647,7 @@ public class UIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
 
         float time = 0;
-        float Duration = 0.4f;
+        float Duration = 0.3f;
         float newValue = -600f;
         float otherTargetValue = 600f;
         float oldValue = 0;
@@ -701,7 +701,7 @@ public class UIManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
 
         float time = 0;
-        float Duration = 0.4f;
+        float Duration = 0.3f;
         float newValue = 600f;
         float otherTargetValue = -600f;
         float oldValue = 0;

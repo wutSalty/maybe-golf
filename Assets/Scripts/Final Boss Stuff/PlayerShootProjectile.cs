@@ -56,6 +56,10 @@ public class PlayerShootProjectile : MonoBehaviour
             {
                 yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
             }
+            else if (BossPauseGame.bossPause.MenuIsOpen)
+            {
+                yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
+            }
 
             if (Holding)
             {

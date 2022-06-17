@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Animator NotiAnimator; 
     public Animator BossUnlockNoti;
     public Animator fcNoti;
+    public Animator SavedNoti;
 
     public bool SingleMode = false; //Flag for playing in singleplayer
     public bool GhostMode = false; //Whether playing vs ghosts
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     public int ErrorStatus; //Has data loaded with an error?
     public bool FirstLoaded = true; //Is this the first time the game's at title screen?
+
+    public string DownloadedText = "";
 
     //Upon first load, make GM the only GameManager possible
     void Awake()
@@ -167,6 +170,8 @@ public class GameManager : MonoBehaviour
         //Send data to SaveSystem
         SaveSystem.SaveGame(data);
 
+        SavedNoti.SetTrigger("GameSaved");
+
         LastSaved = "Game saved at: " + System.DateTime.Now;
         Debug.Log(LastSaved);
     }
@@ -199,14 +204,24 @@ public class GameManager : MonoBehaviour
             ErrorStatus = 0;
 
             //Insert back into GM
-            LevelData = data.LevelData;
+            //LevelData = data.LevelData;
             BossLevelUnlocked = data.BossLevelUnlocked;
             TimesPlayedSolo = data.TimesPlayedSolo;
             TimesPlayedMulti = data.TimesPlayedMulti;
-            UnlockedBallSkins = data.UnlockedBallSkins;
+            //UnlockedBallSkins = data.UnlockedBallSkins;
             BallSkin = data.BallSkin;
             FullCleared = data.FullCleared;
             SparkleColour = data.SparkleColour;
+
+            for (int i = 0; i < data.LevelData.Count; i++)
+            {
+                LevelData[i] = data.LevelData[i];
+            }
+
+            for (int i = 0; i < data.UnlockedBallSkins.Length; i++)
+            {
+                UnlockedBallSkins[i] = data.UnlockedBallSkins[i];
+            }
 
             Debug.Log("Game loaded at: " + System.DateTime.Now);
         }

@@ -10,6 +10,8 @@ public class BossStatus : MonoBehaviour
 {
     public static BossStatus bossStat;
 
+    public Animator ResultsAnimator;
+
     //Flags for keeping track of game status
     public bool GameStart;
     public bool GameOver;
@@ -179,6 +181,7 @@ public class BossStatus : MonoBehaviour
         PlayerOneInput.SwitchCurrentActionMap("Menu");
 
         ResultsScreen.SetActive(true); //Show results screen
+        ResultsAnimator.SetTrigger("ShowResults");
 
         //Hijacks player 1 input
         PlayerOneEvent.playerRoot = ResultsScreen;
@@ -233,6 +236,7 @@ public class BossStatus : MonoBehaviour
         PlayerOneInput.SwitchCurrentActionMap("Menu");
 
         ResultsScreen.SetActive(true); //Show results screen
+        ResultsAnimator.SetTrigger("ShowResults");
 
         //Hijacks player 1 input
         PlayerOneEvent.playerRoot = ResultsScreen;
