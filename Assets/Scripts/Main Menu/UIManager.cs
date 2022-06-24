@@ -407,6 +407,8 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
+        settingsManager.ResetScreens();
+
         AudioManager.instance.PlaySound("UI_confirm");
         StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
         GameManager.GM.SavePlayer();

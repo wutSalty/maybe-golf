@@ -285,7 +285,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &1581040449869002166
 GameObject:
@@ -468,7 +468,7 @@ Canvas:
   m_GameObject: {fileID: 2463166194420207753}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1103,6 +1103,7 @@ GameObject:
   - component: {fileID: 5273972125763460195}
   - component: {fileID: 7180230501679993630}
   - component: {fileID: 27125538923243896}
+  - component: {fileID: 5014419994778427135}
   m_Layer: 8
   m_Name: Shooter Character
   m_TagString: Player
@@ -1677,6 +1678,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5014419994778427135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609364919121563556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a6bf03c93eb364abbc6a73413528e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas:
+  - {fileID: 5609364919880902702}
+  - {fileID: 24212041415209634}
 --- !u!1 &5609364919192495912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2247,7 @@ Canvas:
   m_GameObject: {fileID: 5609364919880902698}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2241,7 +2257,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 75
   m_TargetDisplay: 0
 --- !u!114 &5609364919880902701
 MonoBehaviour:
@@ -2295,7 +2311,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 212cc7ced2e3da64789c5f2b1bbffe09, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -2800,7 +2816,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &6011777891617745018
 GameObject:
@@ -2930,7 +2946,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &6883593013975929739
 GameObject:
@@ -3192,7 +3208,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &8805408634944373911
 GameObject:

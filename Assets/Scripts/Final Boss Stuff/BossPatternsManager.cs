@@ -19,22 +19,22 @@ public class BossPatternsManager : MonoBehaviour
 
     public ParticleSystem smokeParticle;
 
-    private bool EnableAnim = false;
+    //private bool EnableAnim = false;
 
-    private void Update()
-    {
-        if (BossStatus.bossStat.ForcePause || BossPauseGame.bossPause.MenuIsOpen)
-        {
-            animator.speed = 0;
-            EnableAnim = true;
-        }
+    //private void Update()
+    //{
+    //    if (BossStatus.bossStat.ForcePause || BossPauseGame.bossPause.MenuIsOpen)
+    //    {
+    //        animator.speed = 0;
+    //        EnableAnim = true;
+    //    }
 
-        if((!BossStatus.bossStat.ForcePause && !BossPauseGame.bossPause.MenuIsOpen) && EnableAnim)
-        {
-            animator.speed = 1;
-            EnableAnim = false;
-        }
-    }
+    //    if((!BossStatus.bossStat.ForcePause && !BossPauseGame.bossPause.MenuIsOpen) && EnableAnim)
+    //    {
+    //        animator.speed = 1;
+    //        EnableAnim = false;
+    //    }
+    //}
 
     //Phases and percentage of HP remaining
     //1.0 -> PhaseA -> 0.85 -> PhaseB -> 0.60 -> PhaseC -> 0.30 -> PhaseD -> 0.15 -> PhaseE -> 0

@@ -12,6 +12,8 @@ public class DragAndAimControllerManager : MonoBehaviour
     public MultiplayerEventSystem eventSystem; //Multiplayer event system to set active object
     public InputSystemUIInputModule inputModule; //ui input system to hijack actions
 
+    public Animator pauseAnimator;
+
     //Pointing and clicking for in-game HUD
     public InputActionReference InGamePoint;
     public InputActionReference InGameLeftClick;
@@ -79,6 +81,7 @@ public class DragAndAimControllerManager : MonoBehaviour
         }
 
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex); //Set global pause
+
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false) //Then do local menu
         {
             //Hijack input actions
@@ -86,14 +89,18 @@ public class DragAndAimControllerManager : MonoBehaviour
 
             //Pull up menu
             PauseUI.SetActive(true);
+            pauseAnimator.SetTrigger("OpenMenu");
+
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         } else if (ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
             SetToInGame();
 
-            PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
+
+            pauseAnimator.SetTrigger("CloseMenu");
+            //PauseUI.SetActive(false);
         }
 
         AudioManager.instance.PlaySound("UI_beep");
@@ -102,25 +109,31 @@ public class DragAndAimControllerManager : MonoBehaviour
     //When 'esc' pressed from in menu
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen || pauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("PauseOpen") || pauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("PauseClose"))
         {
             return;
         }
 
         PauseGame.pM.ButtonClickOverrideCauseImLazy(PlayerIndex);
+
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
             SetToUI();
 
             PauseUI.SetActive(true);
+            pauseAnimator.SetTrigger("OpenMenu");
+
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else if (ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
+            eventSystem.SetSelectedGameObject(null);
+
+            pauseAnimator.SetTrigger("CloseMenu");
+
             SetToInGame();
 
-            PauseUI.SetActive(false);
-            eventSystem.SetSelectedGameObject(null);
+            //PauseUI.SetActive(false);
         }
 
         AudioManager.instance.PlaySound("UI_beep");

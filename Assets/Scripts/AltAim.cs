@@ -62,12 +62,6 @@ public class AltAim : MonoBehaviour
     //Rest of the Script
     private void Update()
     {
-        //When the ball has stopped moving, enable things again
-        if (InMotion && BallPhysics.velocity.magnitude < 0.005f && !ScriptToMoveTheBall.FlagHitYet && !ScriptToMoveTheBall.CurrentlyDead)
-        {
-            TurnThingsOn();
-        }
-
         if (InMotion == false && PlayOK == true) //As long as the ball isn't already moving or the game is paused
         {
             ArrowOutline.transform.Rotate(0, 0, -AimingVal * RotMultiplier * (AimingSensitivity / 4) * Time.deltaTime);
@@ -85,6 +79,15 @@ public class AltAim : MonoBehaviour
         else
         {
             PlayOK = true;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        //When the ball has stopped moving, enable things again
+        if (InMotion && BallPhysics.velocity.magnitude < 0.005f && !ScriptToMoveTheBall.FlagHitYet && !ScriptToMoveTheBall.CurrentlyDead && !PauseGame.pM.MenuIsOpen && !GameStatus.gameStat.ForcePause)
+        {
+            TurnThingsOn();
         }
     }
 

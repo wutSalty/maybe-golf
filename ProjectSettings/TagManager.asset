@@ -16,6 +16,11 @@ TagManager:
   - EnemyProjectileC
   - TheVoid
   - Lava
+  - GameplayButton
+  - GraphicsButton
+  - AudioButton
+  - OtherButton
+  - ReturnButton
   layers:
   - Default
   - TransparentFX

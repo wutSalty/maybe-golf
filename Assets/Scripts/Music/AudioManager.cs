@@ -11,6 +11,14 @@ public class AudioManager : MonoBehaviour
     public string CurrentlyPlayingBGM;
     public Sound[] sounds;
 
+    [ContextMenu("GetCurrentBGM")]
+    public void GetCurrentBGM()
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == CurrentlyPlayingBGM);
+        print(CurrentlyPlayingBGM + " with vol: " + s.source.volume);
+        print(PlayerPrefs.GetFloat("BGM", 5f) / 10);
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)

@@ -344,9 +344,9 @@ Canvas:
   m_GameObject: {fileID: 105568691}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -354,7 +354,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 70
   m_TargetDisplay: 0
 --- !u!1001 &253586621
 PrefabInstance:
@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f7ce8b3386a9341a52c20d0171d02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResultsAnimator: {fileID: 0}
   playerStatuses: []
   GameOver: 0
   ForcePause: 0
@@ -3002,6 +3003,7 @@ MonoBehaviour:
   NotiAnimator: {fileID: 1045095928}
   BossUnlockNoti: {fileID: 0}
   fcNoti: {fileID: 0}
+  SavedNoti: {fileID: 0}
   SingleMode: 0
   GhostMode: 0
   LoadIntoLevelSelect: 0
@@ -3033,6 +3035,11 @@ MonoBehaviour:
   UnlockedBallSkins: 0101000000000000
   LockedBalls: 
   FullCleared: 0
+  SparkleColour: 0
+  ErrorStatus: 0
+  FirstLoaded: 1
+  DownloadedText: 
+  mat: {fileID: 0}
 --- !u!4 &949260927
 Transform:
   m_ObjectHideFlags: 0

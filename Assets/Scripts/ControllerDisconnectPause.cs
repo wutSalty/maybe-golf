@@ -83,13 +83,13 @@ public class ControllerDisconnectPause : MonoBehaviour
 
         if (ControlDC.CurrentlyDC == false)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             ControlDC.CurrentlyDC = true;
             DisconnectPanel.gameObject.SetActive(true);
         }
         else
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
             ControlDC.CurrentlyDC = false;
             DisconnectPanel.gameObject.SetActive(false);
         }

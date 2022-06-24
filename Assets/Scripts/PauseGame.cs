@@ -12,7 +12,6 @@ public class PauseGame : MonoBehaviour
 {
     public static PauseGame pM;
 
-    [HideInInspector]
     public bool MenuIsOpen = false;
 
     private PlayerInput[] listofInputs;
@@ -73,11 +72,13 @@ public class PauseGame : MonoBehaviour
         {
             Time.timeScale = 0;
             MenuIsOpen = true;
+            print("game paused");
         }
         else
         {
             Time.timeScale = 1;
             MenuIsOpen = false;
+            print("game unpaused");
         }
     }
 }

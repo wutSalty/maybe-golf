@@ -7,6 +7,13 @@ using UnityEngine.EventSystems;
 //Handles most of the settings on the settings screen
 public class SettingsManager : MonoBehaviour
 {
+    public Animator anim;
+    private int CurrentSlide = 1;
+
+    public Text NavCentre;
+    public Text NavLeft;
+    public Text NavRight;
+
     //Settings buttons
     public Dropdown WindowMode;
     public Dropdown WindowSize;
@@ -18,7 +25,9 @@ public class SettingsManager : MonoBehaviour
     public Slider InGameSlider;
     public Slider ColourPickerSlider;
     public GameObject ColourPickerObj;
+    public GameObject ShuffleGameplayObj;
     public Toggle ReduceMotion;
+    public Toggle CRTSelect;
 
     public Text DemoColour;
 
@@ -31,6 +40,7 @@ public class SettingsManager : MonoBehaviour
     public Text DelTextA;
     public Text DelTextB;
     public GameObject ReturnButton;
+    public Button ReturnButtonButton;
     public GameObject OriginalDeleteButton;
 
     //Elements for screen resolution confirm
@@ -53,8 +63,11 @@ public class SettingsManager : MonoBehaviour
     //For UI funky business
     private Selectable LastButtonSelected;
 
+    public UIManager uiManager;
+
     //To take over the selected object
     public EventSystem eventSystem;
+    public OverrideRenderPipeline OverrideRenderPipeline;
 
     //Holds data loaded from prefs or if it needs to revert
     private bool CurrentlyFullscreen; //true = yes its fullscreen. false = window mode.
@@ -68,6 +81,7 @@ public class SettingsManager : MonoBehaviour
     private float OldInGame;
     private float OldColourPicker;
     private bool OldReduceMotion;
+    private bool OldCRT;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
     private int NumOfDelete = 0; //Keeps track of delete
@@ -86,6 +100,11 @@ public class SettingsManager : MonoBehaviour
     //[HideInInspector]
     public bool HoldingDown = false;
 
+    private Navigation ZeroUp = new Navigation() { mode = Navigation.Mode.Explicit };
+    private Navigation OneUp = new Navigation() { mode = Navigation.Mode.Explicit };
+    private Navigation TwoUp = new Navigation() { mode = Navigation.Mode.Explicit };
+    private Navigation ThreeUp = new Navigation() { mode = Navigation.Mode.Explicit };
+
     //On start, check the saved values and set them to old
     private void Start()
     {
@@ -99,6 +118,7 @@ public class SettingsManager : MonoBehaviour
         OldInGame = PlayerPrefs.GetFloat("InGame", 5f);
         OldColourPicker = GameManager.GM.SparkleColour;
         OldReduceMotion = IntToBool(PlayerPrefs.GetInt("ReduceMotion", 0));
+        OldCRT = IntToBool(PlayerPrefs.GetInt("CRT", 0));
 
         //Update the values of each setting
         ForcedOverride = true;
@@ -114,6 +134,7 @@ public class SettingsManager : MonoBehaviour
         ColourPickerSlider.value = OldColourPicker;
         DemoColour.color = Color.HSVToRGB(OldColourPicker, 0.75f, 1f);
         ReduceMotion.isOn = OldReduceMotion;
+        CRTSelect.isOn = OldCRT;
 
         ForcedOverride = false;
 
@@ -122,12 +143,20 @@ public class SettingsManager : MonoBehaviour
 
         if (GameManager.GM.FullCleared)
         {
+            ShuffleGameplayObj.transform.localPosition = new Vector3(0, 0, 0);
             ColourPickerObj.SetActive(true);
         }
         else
         {
+            ShuffleGameplayObj.transform.localPosition = new Vector3(0, 25, 0);
             ColourPickerObj.SetActive(false);
         }
+
+        ReturnButtonButton = ReturnButton.GetComponent<Button>();
+        ZeroUp.selectOnUp = CRTSelect;
+        OneUp.selectOnUp = Sensitivity;
+        TwoUp.selectOnUp = InGameSlider;
+        ThreeUp.selectOnUp = OriginalDeleteButton.GetComponent<Button>();
     }
 
     //Check the dropdown for window mode (fullscreen or not)
@@ -270,14 +299,21 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("InputType", 0);
         PlayerPrefs.SetFloat("Sensitivity", 4);
         PlayerPrefs.SetInt("DebugWindow", 0);
-        PlayerPrefs.SetFloat("BGM", 5);
-        PlayerPrefs.SetFloat("UI", 5);
-        PlayerPrefs.SetFloat("InGame", 5);
-        //PlayerPrefs.SetFloat("ColourPicker", 0);
+        PlayerPrefs.SetFloat("BGM", 5f);
+        PlayerPrefs.SetFloat("UI", 5f);
+        PlayerPrefs.SetFloat("InGame", 5f);
+        PlayerPrefs.SetInt("ReduceMotion", 0);
+        PlayerPrefs.SetInt("CRT", 0);
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         SetWindow(0);
         SetResolution(0);
+        OverrideRenderPipeline.SwitchToDefault();
+
+        //foreach (Sound s in AudioManager.instance.sounds)
+        //{
+        //    s.source.volume = 5f / 10f;
+        //}
 
         if (!HoldingDown)
         {
@@ -305,7 +341,6 @@ public class SettingsManager : MonoBehaviour
             GameManager.GM.SavePlayer();
         }
 
-        //LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);
     }
 
@@ -557,6 +592,7 @@ public class SettingsManager : MonoBehaviour
         textScroll = StartCoroutine(ScrollCredits());
     }
 
+    // Closing credits
     public void ReturnFromCredits()
     {
         AudioManager.instance.PlaySound("UI_beep");
@@ -572,6 +608,7 @@ public class SettingsManager : MonoBehaviour
         AudioManager.instance.PlaySound("BGM_title");
     }
 
+    //Scrolling credits
     IEnumerator ScrollCredits()
     {
         float time = 0;
@@ -623,7 +660,6 @@ public class SettingsManager : MonoBehaviour
     {
         DemoColour.color = Color.HSVToRGB(value, 0.75f, 1f);
 
-        //PlayerPrefs.SetFloat("ColourPicker", value);
         GameManager.GM.SparkleColour = value;
     }
 
@@ -633,15 +669,155 @@ public class SettingsManager : MonoBehaviour
         if (value)
         {
             LoadingScreen.loadMan.SetReducedMotion();
+            GameManager.GM.mat.DisableKeyword("IMAGEDISTORTION");
+            GameManager.GM.mat.DisableKeyword("SCROLLINGSTATIC");
 
         } else
         {
-            LoadingScreen.loadMan.SetReducedMotion();
+            LoadingScreen.loadMan.SetNormal();
+            GameManager.GM.mat.EnableKeyword("IMAGEDISTORTION");
+            GameManager.GM.mat.EnableKeyword("SCROLLINGSTATIC");
         }
 
         PlayerPrefs.SetInt("ReduceMotion", BoolToInt(value));
         PlayerPrefs.Save();
 
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+    }
+
+    //CRT Screen Effect
+    public void ToggleCRTEffect(bool value)
+    {
+        if (value)
+        {
+            OverrideRenderPipeline.SwitchToCRT();
+        } else
+        {
+            OverrideRenderPipeline.SwitchToDefault();
+        }
+
+        PlayerPrefs.SetInt("CRT", BoolToInt(value));
+        PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+    }
+
+    public void ButtonPanelGoRight(UnityEngine.InputSystem.InputAction.CallbackContext value)
+    {
+        if (value.canceled)
+        {
+            PanelGoRight();
+        }
+    }
+
+    public void ButtonPanelGoLeft(UnityEngine.InputSystem.InputAction.CallbackContext value)
+    {
+        if (value.canceled)
+        {
+            PanelGoLeft();
+        }
+    }
+
+    public void PanelGoRight()
+    {
+        if (CurrentSlide == 0 || !uiManager.Settings.activeSelf)
+        {
+            return;
+        }
+
+        CurrentSlide -= 1;
+        anim.SetInteger("currentslide", CurrentSlide);
+
+        SwitchPanelsMaster();
+    }
+
+    public void PanelGoLeft()
+    {
+        if (CurrentSlide == 3 || !uiManager.Settings.activeSelf)
+        {
+            return;
+        }
+
+        CurrentSlide += 1;
+        anim.SetInteger("currentslide", CurrentSlide);
+
+        SwitchPanelsMaster();
+    }
+
+    private void SwitchPanelsMaster()
+    {
+        AudioManager.instance.PlaySound("UI_beep");
+
+        switch (CurrentSlide)
+        {
+            case 0:
+                NavCentre.text = "Graphics";
+                NavLeft.text = "";
+                NavRight.text = "Gameplay";
+                ReturnButtonButton.navigation = ZeroUp;
+
+                if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
+                {
+                    eventSystem.firstSelectedGameObject = WindowMode.gameObject;
+                    eventSystem.SetSelectedGameObject(WindowMode.gameObject);
+                }
+
+                break;
+
+            case 1:
+                NavCentre.text = "Gameplay";
+                NavLeft.text = "Graphics";
+                NavRight.text = "Audio";
+                ReturnButtonButton.navigation = OneUp;
+
+                if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
+                {
+                    eventSystem.firstSelectedGameObject = InputType.gameObject;
+                    eventSystem.SetSelectedGameObject(InputType.gameObject);
+                }
+
+                break;
+
+            case 2:
+                NavCentre.text = "Audio";
+                NavLeft.text = "Gameplay";
+                NavRight.text = "Other";
+                ReturnButtonButton.navigation = TwoUp;
+
+                if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
+                {
+                    eventSystem.firstSelectedGameObject = BGMSlider.gameObject;
+                    eventSystem.SetSelectedGameObject(BGMSlider.gameObject);
+                }
+                break;
+
+            case 3:
+                NavCentre.text = "Other";
+                NavLeft.text = "Audio";
+                NavRight.text = "";
+                ReturnButtonButton.navigation = ThreeUp;
+
+                if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
+                {
+                    eventSystem.firstSelectedGameObject = DebugWindow.gameObject;
+                    eventSystem.SetSelectedGameObject(DebugWindow.gameObject);
+                }
+                break;
+
+            default:
+                NavCentre.text = "Broke.";
+                NavLeft.text = "Something";
+                NavRight.text = "Whoops";
+                break;
+        }
+    }
+
+    public void ResetScreens()
+    {
+        CurrentSlide = 1;
+        NavCentre.text = "Gameplay";
+        NavLeft.text = "Graphics";
+        NavRight.text = "Audio";
+        ReturnButtonButton.navigation = ZeroUp;
     }
 }

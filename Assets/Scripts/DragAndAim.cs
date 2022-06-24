@@ -70,11 +70,6 @@ public class DragAndAim : MonoBehaviour
     //Every frame, check the position of the mouse and the movement of the ball
     private void Update()
     {
-        if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && !BallMoveScript.FlagHitYet && !BallMoveScript.CurrentlyDead)
-        {
-            TurnOnThings();
-        }
-
         mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         //If the selected object is the one we want, adjust direction and power
@@ -95,6 +90,14 @@ public class DragAndAim : MonoBehaviour
             MaskScaleX = Vector3.Distance(TheObjectWeWantToMove.transform.position, ClickableObject.transform.position) * 1.35f;
             MaskScaleX = Mathf.Clamp(MaskScaleX, 0, 3);
             TheMask.transform.localScale = new Vector3(MaskScaleX, TheMask.transform.localScale.y);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (InMotion == true && BallPhysics.velocity.magnitude < 0.005f && !BallMoveScript.FlagHitYet && !BallMoveScript.CurrentlyDead && !PauseGame.pM.MenuIsOpen && !GameStatus.gameStat.ForcePause)
+        {
+            TurnOnThings();
         }
     }
 

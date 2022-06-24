@@ -26,6 +26,7 @@ public class EnemyMovementLevelTwo : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(startPos, endPos, time / TimeMoving);
                 time += Time.deltaTime;
+
                 yield return null;
             }
             transform.position = endPos;
@@ -36,6 +37,7 @@ public class EnemyMovementLevelTwo : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(endPos, startPos, time / TimeMoving);
                 time += Time.deltaTime;
+
                 yield return null;
             }
             transform.position = startPos;

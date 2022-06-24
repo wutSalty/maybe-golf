@@ -11,6 +11,8 @@ public class AltAimControllerManager : MonoBehaviour
     private PlayerInput playerInput; //player input to switch stuff
     public MultiplayerEventSystem eventSystem; //the input system
 
+    public Animator pauseAnimator;
+
     //Any UI components
     public GameObject PauseUI;
     public Selectable ResumeButton;
@@ -68,7 +70,7 @@ public class AltAimControllerManager : MonoBehaviour
     //When 'Menu' pressed
     public void OnMenu()
     {
-        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen)
+        if (GameStatus.gameStat.GameOver || GameStatus.gameStat.ForcePause || GameStatus.gameStat.DialogueOpen || pauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("PauseOpen") || pauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("PauseClose"))
         {
             return;
         }
@@ -77,13 +79,18 @@ public class AltAimControllerManager : MonoBehaviour
         if (PauseGame.pM.MenuIsOpen && ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
             PauseUI.SetActive(true);
+            pauseAnimator.SetTrigger("OpenMenu");
+
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
             eventSystem.firstSelectedGameObject = ResumeButton.gameObject;
         }
         else if (ControllerDisconnectPause.ControlDC.CurrentlyDC == false)
         {
-            PauseUI.SetActive(false);
             eventSystem.SetSelectedGameObject(null);
+
+            pauseAnimator.SetTrigger("CloseMenu");
+            //PauseUI.SetActive(false);
+
         }
 
         AudioManager.instance.PlaySound("UI_beep");

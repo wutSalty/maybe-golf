@@ -54,7 +54,7 @@ public class PlayerPause : MonoBehaviour
     public void OnMenu()
     {
         //If currently game over or force pause
-        if (BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause)
+        if (BossStatus.bossStat.GameOver || BossStatus.bossStat.ForcePause || PauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("BossPauseOpen") || PauseAnimator.GetCurrentAnimatorStateInfo(0).IsName("BossPauseClose"))
         {
             return;
         }
@@ -63,7 +63,7 @@ public class PlayerPause : MonoBehaviour
 
         if (BossPauseGame.bossPause.MenuIsOpen && BossControllerDisconnect.BossControlDC.CurrentlyDC == false)
         {
-            //PauseUI.SetActive(true);
+            PauseUI.SetActive(true);
             PauseAnimator.SetTrigger("OpenMenu");
 
             eventSystem.SetSelectedGameObject(ResumeButton.gameObject);
@@ -111,8 +111,6 @@ public class PlayerPause : MonoBehaviour
 
     public void ReturnToMain()
     {
-        Time.timeScale = 1;
-
         //Find a way to pause everything without breaking anything. Or use unscaled time.
         AudioManager.instance.PlaySound("UI_beep");
 
@@ -125,7 +123,6 @@ public class PlayerPause : MonoBehaviour
 
     public void RestartScene()
     {
-        Time.timeScale = 1;
         AudioManager.instance.PlaySound("UI_beep");
 
         BossStatus.bossStat.ForcePause = true;

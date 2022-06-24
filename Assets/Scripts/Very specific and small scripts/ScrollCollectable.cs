@@ -8,6 +8,7 @@ public class ScrollCollectable : MonoBehaviour
     SpriteRenderer rendering;
     Animator animator;
     bool Collected;
+    ParticleSystem particles;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class ScrollCollectable : MonoBehaviour
 
         animator = GetComponent<Animator>();
         rendering = GetComponent<SpriteRenderer>();
+        particles = GetComponentInChildren<ParticleSystem>();
 
         GameStatus.gameStat.CollectableStatus = GameManager.GM.LevelData[GameStatus.gameStat.GMLevelIndex].CollectableGet;
         CollectableStatus = GameStatus.gameStat.CollectableStatus;

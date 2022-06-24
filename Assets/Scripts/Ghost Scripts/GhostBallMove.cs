@@ -124,6 +124,7 @@ public class GhostBallMove : MonoBehaviour
 
             time += Time.deltaTime;
             yield return null;
+            
         }
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
 
@@ -138,11 +139,10 @@ public class GhostBallMove : MonoBehaviour
             alpha = Mathf.Lerp(startValue, targetValue, time / duration);
 
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alpha);
-
-            time += Time.deltaTime;
+ 
+            time += Time.deltaTime;  
             yield return null;
         }
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
-        //CurrentlyDead = false;
     }
 }

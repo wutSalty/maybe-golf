@@ -71,7 +71,7 @@ public class BossPauseGame : MonoBehaviour
 
         if (MenuIsOpen == false)
         {
-            //Time.timeScale = 0;
+            Time.timeScale = 0;
             MenuIsOpen = true;
             foreach (var item in paused)
             {
@@ -84,7 +84,7 @@ public class BossPauseGame : MonoBehaviour
         }
         else
         {
-            //Time.timeScale = 1;
+            Time.timeScale = 1;
             MenuIsOpen = false;
             foreach (var item in paused)
             {

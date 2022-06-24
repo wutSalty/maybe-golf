@@ -52,15 +52,6 @@ public class PlayerShootProjectile : MonoBehaviour
     {
         while (true)
         {
-            if (BossStatus.bossStat.ForcePause)
-            {
-                yield return new WaitUntil(() => BossStatus.bossStat.ForcePause == false);
-            }
-            else if (BossPauseGame.bossPause.MenuIsOpen)
-            {
-                yield return new WaitUntil(() => BossPauseGame.bossPause.MenuIsOpen == false);
-            }
-
             if (Holding)
             {
                 GolfBall.transform.Rotate(0, 0, 800 * Time.deltaTime);

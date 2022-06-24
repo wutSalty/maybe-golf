@@ -194,6 +194,7 @@ public class MoveBall : MonoBehaviour
 
             time += Time.deltaTime;
             yield return null;
+
         }
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
 

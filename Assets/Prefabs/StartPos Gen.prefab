@@ -47,7 +47,7 @@ MonoBehaviour:
   BallDragPrefab: {fileID: 2309774031000949982, guid: f3dcd785065e28141a72d4616e16c987, type: 3}
   BallButtonPrefab: {fileID: 1986369610367205534, guid: 66303089865a19449afd7f23b552eb8a, type: 3}
   GhostBallPrefab: {fileID: 1949507972895733981, guid: a452872d0203a804888b2c284d360e4a, type: 3}
-  DefaultSpriteMasks: 64000000c80000002c01000090010000
+  DefaultSpriteMasks: 1e00000028000000320000003c000000
   MultiSprites:
   - {fileID: 21300000, guid: 467f3f68b21b89c4e939216a619d28a2, type: 3}
   - {fileID: 21300000, guid: 5cc2cb6bcffd25c489a64ad51d5a1a61, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 //Handles save data, any data that needs to travel through scenes, other things that are handy to have just one copy of, etc etc
 public class GameManager : MonoBehaviour
@@ -48,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     public string DownloadedText = "";
 
+    public Material mat;
+
     //Upon first load, make GM the only GameManager possible
     void Awake()
     {
@@ -67,6 +70,13 @@ public class GameManager : MonoBehaviour
     {
         Application.wantsToQuit += WantsToQuit;
         CheckLocked();
+
+        //print("current renderer " + RenderPipelineManager.currentPipeline);
+    }
+
+    private void Update()
+    {
+        mat.SetFloat("_unscaledTime", Time.unscaledTime);
     }
 
     //Just makes a message when the application is quitting

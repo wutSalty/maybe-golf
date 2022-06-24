@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7494527467303218888}
   - component: {fileID: 7494527467303218889}
   - component: {fileID: 7494527467303218891}
+  - component: {fileID: 7201965021280903883}
   m_Layer: 0
   m_Name: boat
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7201965021280903883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494527467303218894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c1b233473a333449c4f75867c3e0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
