@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
 
     public Material mat;
 
+    public bool SilentSave = false; //Flag to save game without audio/anim cue
+
     //Upon first load, make GM the only GameManager possible
     void Awake()
     {
@@ -180,7 +182,11 @@ public class GameManager : MonoBehaviour
         //Send data to SaveSystem
         SaveSystem.SaveGame(data);
 
-        SavedNoti.SetTrigger("GameSaved");
+        if (!SilentSave)
+        {
+            SavedNoti.SetTrigger("GameSaved");
+        }
+        SilentSave = false;
 
         LastSaved = "Game saved at: " + System.DateTime.Now;
         Debug.Log(LastSaved);
@@ -201,6 +207,7 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case 2: //File not exists
+                    SilentSave = true;
                     SavePlayer(); //Assume fresh save file
                     break;
 

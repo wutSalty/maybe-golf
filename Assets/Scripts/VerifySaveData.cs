@@ -75,6 +75,7 @@ public class VerifySaveData : MonoBehaviour
 
     public void ButtonContinue()
     {
+        GameManager.GM.SilentSave = true;
         GameManager.GM.SavePlayer();
         GameManager.GM.LoadPlayer();
         LoadingScreen.loadMan.BeginLoadingScene("MainMenu", false);

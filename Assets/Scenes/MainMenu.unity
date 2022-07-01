@@ -2237,7 +2237,19 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1479502442}
+        m_TargetAssemblyTypeName: SettingsManager, Assembly-CSharp
+        m_MethodName: ControlsChangesEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -6387,7 +6399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 95, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318558750
@@ -7153,7 +7165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -95, y: 0}
+  m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &364155024
@@ -8423,7 +8435,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 35, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427626788
 MonoBehaviour:
@@ -27374,6 +27386,10 @@ MonoBehaviour:
   NavCentre: {fileID: 437484724}
   NavLeft: {fileID: 318558750}
   NavRight: {fileID: 364155024}
+  NavButtonLeft: {fileID: 1827534893}
+  NavButtonLeftText: {fileID: 770260196}
+  NavButtonRight: {fileID: 427626788}
+  NavButtonRightText: {fileID: 959836984}
   WindowMode: {fileID: 928487157}
   WindowSize: {fileID: 532158658}
   InputType: {fileID: 122670439}
@@ -29996,6 +30012,7 @@ GameObject:
   - component: {fileID: 1616751990}
   - component: {fileID: 1616751989}
   - component: {fileID: 1616751991}
+  - component: {fileID: 1616751993}
   - component: {fileID: 1616751992}
   m_Layer: 0
   m_Name: Game Manager
@@ -30092,6 +30109,7 @@ MonoBehaviour:
   FirstLoaded: 1
   DownloadedText: 
   mat: {fileID: 2100000, guid: 689353f7cdd2bc34cbe431416bebac82, type: 2}
+  SilentSave: 0
 --- !u!4 &1616751990
 Transform:
   m_ObjectHideFlags: 0
@@ -30137,6 +30155,19 @@ MonoBehaviour:
   - {fileID: 822465143}
   - {fileID: 689455947}
   - {fileID: 1120409533}
+--- !u!114 &1616751993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616751988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2730ed146208974199c06a506f1e3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avgFrameRate: 0
 --- !u!1 &1618136944
 GameObject:
   m_ObjectHideFlags: 0
@@ -33404,7 +33435,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 35, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827534893
 MonoBehaviour:

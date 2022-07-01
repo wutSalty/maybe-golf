@@ -68,8 +68,8 @@ public class SpawnBall : MonoBehaviour
 
                             ControllerManagerA.BallSprite.sprite = MultiSprites[item.PlayerIndex];
                             ControllerManagerA.gameObject.transform.position = SpawnLocation.transform.position;
-                            ControllerManagerA.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 5;
-                            ControllerManagerA.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 5;
+                            ControllerManagerA.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
+                            ControllerManagerA.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerA.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                             break;
 
@@ -81,8 +81,8 @@ public class SpawnBall : MonoBehaviour
 
                             ControllerManagerB.BallSprite.sprite = MultiSprites[item.PlayerIndex];
                             ControllerManagerB.gameObject.transform.position = SpawnLocation.transform.position;
-                            ControllerManagerB.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 5;
-                            ControllerManagerB.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 5;
+                            ControllerManagerB.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
+                            ControllerManagerB.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerB.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                             break;
 
@@ -94,8 +94,8 @@ public class SpawnBall : MonoBehaviour
 
                             ControllerManagerC.BallSprite.sprite = MultiSprites[item.PlayerIndex];
                             ControllerManagerC.gameObject.transform.position = SpawnLocation.transform.position;
-                            ControllerManagerC.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 5;
-                            ControllerManagerC.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 5;
+                            ControllerManagerC.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
+                            ControllerManagerC.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerC.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
                             break;
 

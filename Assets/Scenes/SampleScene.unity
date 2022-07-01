@@ -614,9 +614,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f7ce8b3386a9341a52c20d0171d02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResultsAnimator: {fileID: 0}
   playerStatuses: []
   GameOver: 0
   ForcePause: 0
+  DialogueOpen: 0
   GMLevelIndex: 0
   timertext: {fileID: 330218118}
   ReturnButton: {fileID: 81296883}
@@ -2804,6 +2806,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NotiAnimator: {fileID: 1045095928}
+  BossUnlockNoti: {fileID: 0}
+  fcNoti: {fileID: 0}
+  SavedNoti: {fileID: 0}
   SingleMode: 0
   GhostMode: 0
   LoadIntoLevelSelect: 0
@@ -2834,6 +2839,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d23d21eb1e80ff343a772796557a0db7, type: 3}
   UnlockedBallSkins: 0101000000000000
   LockedBalls: 
+  FullCleared: 0
+  SparkleColour: 0
+  ErrorStatus: 0
+  FirstLoaded: 1
+  DownloadedText: 
+  mat: {fileID: 0}
 --- !u!4 &949260927
 Transform:
   m_ObjectHideFlags: 0
@@ -2905,7 +2916,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: d19af0fd0b4e0c640bd85529fa19976e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -71,10 +71,10 @@ public class DebugLogCallbacks : MonoBehaviour
     {
         GUI.Label(
            new Rect(
-               5,                   // x, left offset
-               Screen.height - (Screen.height * 270f / 1080) - 5, // y, bottom offset
-               Screen.width * 600f / 1920,                // width
-               Screen.height * 270f / 1080                 // height
+               5,                                                    // x, left offset
+               Screen.height - (Screen.height * 270f / 1080) - 5,    // y, bottom offset
+               Screen.width * 600f / 1920,                           // width
+               Screen.height * 270f / 1080                           // height
            ),
            currentText,             // the display text
            styleA = new GUIStyle(GUI.skin.textArea)

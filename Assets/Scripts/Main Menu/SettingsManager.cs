@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 //Handles most of the settings on the settings screen
 public class SettingsManager : MonoBehaviour
@@ -13,6 +14,11 @@ public class SettingsManager : MonoBehaviour
     public Text NavCentre;
     public Text NavLeft;
     public Text NavRight;
+
+    public Button NavButtonLeft;
+    public Text NavButtonLeftText;
+    public Button NavButtonRight;
+    public Text NavButtonRightText;
 
     //Settings buttons
     public Dropdown WindowMode;
@@ -669,14 +675,14 @@ public class SettingsManager : MonoBehaviour
         if (value)
         {
             LoadingScreen.loadMan.SetReducedMotion();
-            GameManager.GM.mat.DisableKeyword("IMAGEDISTORTION");
-            GameManager.GM.mat.DisableKeyword("SCROLLINGSTATIC");
+            GameManager.GM.mat.DisableKeyword("BOOLEAN_B653FFBD9C0241A680FF0CEADD5501B6_ON");
+            GameManager.GM.mat.DisableKeyword("BOOLEAN_4E2168F80EE34B66B671D45E9D0775A0_ON");
 
         } else
         {
             LoadingScreen.loadMan.SetNormal();
-            GameManager.GM.mat.EnableKeyword("IMAGEDISTORTION");
-            GameManager.GM.mat.EnableKeyword("SCROLLINGSTATIC");
+            GameManager.GM.mat.EnableKeyword("BOOLEAN_B653FFBD9C0241A680FF0CEADD5501B6_ON");
+            GameManager.GM.mat.EnableKeyword("BOOLEAN_4E2168F80EE34B66B671D45E9D0775A0_ON");
         }
 
         PlayerPrefs.SetInt("ReduceMotion", BoolToInt(value));
@@ -756,6 +762,9 @@ public class SettingsManager : MonoBehaviour
                 NavRight.text = "Gameplay";
                 ReturnButtonButton.navigation = ZeroUp;
 
+                NavButtonLeft.interactable = false;
+                NavButtonRight.interactable = true;
+
                 if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
                 {
                     eventSystem.firstSelectedGameObject = WindowMode.gameObject;
@@ -769,6 +778,9 @@ public class SettingsManager : MonoBehaviour
                 NavLeft.text = "Graphics";
                 NavRight.text = "Audio";
                 ReturnButtonButton.navigation = OneUp;
+
+                NavButtonLeft.interactable = true;
+                NavButtonRight.interactable = true;
 
                 if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
                 {
@@ -784,6 +796,9 @@ public class SettingsManager : MonoBehaviour
                 NavRight.text = "Other";
                 ReturnButtonButton.navigation = TwoUp;
 
+                NavButtonLeft.interactable = true;
+                NavButtonRight.interactable = true;
+
                 if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
                 {
                     eventSystem.firstSelectedGameObject = BGMSlider.gameObject;
@@ -796,6 +811,9 @@ public class SettingsManager : MonoBehaviour
                 NavLeft.text = "Audio";
                 NavRight.text = "";
                 ReturnButtonButton.navigation = ThreeUp;
+
+                NavButtonLeft.interactable = true;
+                NavButtonRight.interactable = false;
 
                 if (!eventSystem.firstSelectedGameObject.CompareTag("ReturnButton"))
                 {
@@ -819,5 +837,22 @@ public class SettingsManager : MonoBehaviour
         NavLeft.text = "Graphics";
         NavRight.text = "Audio";
         ReturnButtonButton.navigation = ZeroUp;
+
+        NavButtonLeft.interactable = true;
+        NavButtonRight.interactable = true;
+    }
+
+    public void ControlsChangesEvent(PlayerInput input)
+    {
+        if (input.currentControlScheme == "Controller")
+        {
+            NavButtonLeftText.text = "<LB";
+            NavButtonRightText.text = "RB>";
+        }
+        else
+        {
+            NavButtonLeftText.text = "<Z";
+            NavButtonRightText.text = "X>";
+        }
     }
 }
