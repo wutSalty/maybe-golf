@@ -30,7 +30,7 @@ public class FPSCounter : MonoBehaviour
             new Rect (
                 10,                              // x, left offset
                 10,                              // y, bottom offset
-                Screen.width * 50f / 1920,      // width
+                Screen.width * 70f / 1920,      // width
                 Screen.height * 30f / 1080      // height
                 ),
             avgFrameRate.ToString(),

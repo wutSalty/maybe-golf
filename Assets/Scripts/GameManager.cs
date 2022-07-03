@@ -11,42 +11,50 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
+    [Header("Animation")]
     //Animation for notification bars
     public Animator NotiAnimator; 
     public Animator BossUnlockNoti;
     public Animator fcNoti;
     public Animator SavedNoti;
 
+    [Header("Current Mode")]
     public bool SingleMode = false; //Flag for playing in singleplayer
     public bool GhostMode = false; //Whether playing vs ghosts
     public bool LoadIntoLevelSelect = false; //Flag for whether user needs to go straight into Level Select
     public bool TutorialMode = false; //Flag for whether the game is currently playing the tutorial
 
+    [Header("Current Players")]
     public List<MultiPlayerClass> NumPlayers; //Holds data for every player playing or connected
 
-    public List<LevelFormat> LevelData; //Holds data about every level (This data is saved)
-    public bool BossLevelUnlocked; //Flag for whether the user has unlocked the Boss Level yet (Also saved)
+    [Header("Level Info")]
+    [Tooltip("This is Saved")] public List<LevelFormat> LevelData; //Holds data about every level (This data is saved)
+    [Tooltip("This is Saved")] public bool BossLevelUnlocked; //Flag for whether the user has unlocked the Boss Level yet (Also saved)
 
-    public int TimesPlayedSolo; //Number of times the user has cleared a course by themselves
-    public int TimesPlayedMulti; //Number of times user has cleared a course in multiplayer
+    [Header("Fun Stats")]
+    [Tooltip("This is Saved")] public int TimesPlayedSolo; //Number of times the user has cleared a course by themselves
+    [Tooltip("This is Saved")] public int TimesPlayedMulti; //Number of times user has cleared a course in multiplayer
+    [Tooltip("This is Saved")] public int BallSkin = 0; //Migrate ball skins from playerPrefs to internal cause cheaters
 
-    public int BallSkin = 0; //Migrate ball skins from playerPrefs to internal cause cheaters
-
+    [Header("Internal Info")]
     public string Version = "Pre-Alpha v0.0.0";
     public string LastSaved;
 
+    [Header("Ball Data")]
     //Holds the sprites and status of unlockable balls
     public Sprite[] BallSkins;
-    public bool[] UnlockedBallSkins;
+    [Tooltip("This is Saved")] public bool[] UnlockedBallSkins;
     public List<int> LockedBalls;
 
-    public bool FullCleared = false; //Has the user completed everything in the game
+    [Header("Save Completion")]
+    [Tooltip("This is Saved")] public bool FullCleared = false; //Has the user completed everything in the game
+    [Tooltip("This is Saved")] public float SparkleColour = 0; //The Hue value for the colour of sparkles
 
-    public float SparkleColour = 0; //The Hue value for the colour of sparkles
-
+    [Header("Save Status")]
     public int ErrorStatus; //Has data loaded with an error?
     public bool FirstLoaded = true; //Is this the first time the game's at title screen?
 
+    [Header("Random")]
     public string DownloadedText = "";
 
     public Material mat;
@@ -73,7 +81,8 @@ public class GameManager : MonoBehaviour
         Application.wantsToQuit += WantsToQuit;
         CheckLocked();
 
-        //print("current renderer " + RenderPipelineManager.currentPipeline);
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 60;
     }
 
     private void Update()
@@ -221,11 +230,9 @@ public class GameManager : MonoBehaviour
             ErrorStatus = 0;
 
             //Insert back into GM
-            //LevelData = data.LevelData;
             BossLevelUnlocked = data.BossLevelUnlocked;
             TimesPlayedSolo = data.TimesPlayedSolo;
             TimesPlayedMulti = data.TimesPlayedMulti;
-            //UnlockedBallSkins = data.UnlockedBallSkins;
             BallSkin = data.BallSkin;
             FullCleared = data.FullCleared;
             SparkleColour = data.SparkleColour;

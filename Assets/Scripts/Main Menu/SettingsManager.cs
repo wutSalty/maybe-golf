@@ -8,9 +8,11 @@ using UnityEngine.InputSystem;
 //Handles most of the settings on the settings screen
 public class SettingsManager : MonoBehaviour
 {
+    [Header("Animation")]
     public Animator anim;
     private int CurrentSlide = 1;
 
+    [Header("Navigtion Bar")]
     public Text NavCentre;
     public Text NavLeft;
     public Text NavRight;
@@ -20,6 +22,7 @@ public class SettingsManager : MonoBehaviour
     public Button NavButtonRight;
     public Text NavButtonRightText;
 
+    [Header("Selectable Options")]
     //Settings buttons
     public Dropdown WindowMode;
     public Dropdown WindowSize;
@@ -34,9 +37,14 @@ public class SettingsManager : MonoBehaviour
     public GameObject ShuffleGameplayObj;
     public Toggle ReduceMotion;
     public Toggle CRTSelect;
+    public Toggle fpsCounter;
+    public Slider FPSSlider;
+    public Toggle vSyncToggle;
 
+    public Text FPSText;
     public Text DemoColour;
 
+    [Header("Delete Sequence")]
     //UI element for delete button
     public GameObject DelPanel;
     public Button DelButton;
@@ -46,32 +54,32 @@ public class SettingsManager : MonoBehaviour
     public Text DelTextA;
     public Text DelTextB;
     public GameObject ReturnButton;
-    public Button ReturnButtonButton;
+    [HideInInspector] public Button ReturnButtonButton;
     public GameObject OriginalDeleteButton;
 
+    [Header("Display Confirmation")]
     //Elements for screen resolution confirm
     public GameObject ConfirmRevertScreen;
     public Text CountdownText;
     public Button TheConfirmButton;
     public Button TheRevertButton;
+    public Text ChangedOptionsText;
 
+    [Header("Credits")]
     //Elements for Credits
     public GameObject CreditPanel;
     public Text CreditText;
     public Button CreditButton;
     public Button ReturnCredit;
 
+    [Header("Attributes")]
     //Elements for Attributes
     public GameObject AttributePanel;
     public Button AttributeButton;
     public Button ReturnAttribute;
 
-    //For UI funky business
-    private Selectable LastButtonSelected;
-
+    [Header("Other Scripts")]
     public UIManager uiManager;
-
-    //To take over the selected object
     public EventSystem eventSystem;
     public OverrideRenderPipeline OverrideRenderPipeline;
 
@@ -88,14 +96,19 @@ public class SettingsManager : MonoBehaviour
     private float OldColourPicker;
     private bool OldReduceMotion;
     private bool OldCRT;
+    private bool OldShowFrames;
+    private int OldFPS;
+    private bool OldvSync;
 
     private bool ForcedOverride; //Makes sure the revert menu doesn't appear while resetting Display values
     private int NumOfDelete = 0; //Keeps track of delete
 
+    [Header("Default Save Data")]
     //Default playerdata in-case data is reset or other
     public List<LevelFormat> DefaultLevelData;
     public bool[] DefaultUnlockables;
 
+    [Header("Complete Save Data")]
     //Player data that has already been fully unlocked
     public List<LevelFormat> FullLevelData;
     public bool[] FullUnlockables;
@@ -103,13 +116,14 @@ public class SettingsManager : MonoBehaviour
     private Coroutine ScreenCheck;
     private Coroutine textScroll;
 
-    //[HideInInspector]
-    public bool HoldingDown = false;
+    [HideInInspector] public bool HoldingDown = false;
 
     private Navigation ZeroUp = new Navigation() { mode = Navigation.Mode.Explicit };
     private Navigation OneUp = new Navigation() { mode = Navigation.Mode.Explicit };
     private Navigation TwoUp = new Navigation() { mode = Navigation.Mode.Explicit };
     private Navigation ThreeUp = new Navigation() { mode = Navigation.Mode.Explicit };
+
+    [HideInInspector] public bool ChangedDisplayOption = false;
 
     //On start, check the saved values and set them to old
     private void Start()
@@ -125,6 +139,9 @@ public class SettingsManager : MonoBehaviour
         OldColourPicker = GameManager.GM.SparkleColour;
         OldReduceMotion = IntToBool(PlayerPrefs.GetInt("ReduceMotion", 0));
         OldCRT = IntToBool(PlayerPrefs.GetInt("CRT", 0));
+        OldShowFrames = IntToBool(PlayerPrefs.GetInt("ShowFrames", 0));
+        OldFPS = PlayerPrefs.GetInt("FPS", 1);
+        OldvSync = IntToBool(PlayerPrefs.GetInt("vSync", 1));
 
         //Update the values of each setting
         ForcedOverride = true;
@@ -141,6 +158,9 @@ public class SettingsManager : MonoBehaviour
         DemoColour.color = Color.HSVToRGB(OldColourPicker, 0.75f, 1f);
         ReduceMotion.isOn = OldReduceMotion;
         CRTSelect.isOn = OldCRT;
+        fpsCounter.isOn = OldShowFrames;
+        FPSSlider.value = OldFPS;
+        vSyncToggle.isOn = OldvSync;
 
         ForcedOverride = false;
 
@@ -163,6 +183,11 @@ public class SettingsManager : MonoBehaviour
         OneUp.selectOnUp = Sensitivity;
         TwoUp.selectOnUp = InGameSlider;
         ThreeUp.selectOnUp = OriginalDeleteButton.GetComponent<Button>();
+
+        if (OldvSync)
+        {
+            FPSSlider.interactable = false;
+        }
     }
 
     //Check the dropdown for window mode (fullscreen or not)
@@ -170,13 +195,18 @@ public class SettingsManager : MonoBehaviour
     {
         if (ForcedOverride == false)
         {
-            LastButtonSelected = WindowMode;
-
             SetWindow(WindowMode.value);
-            ConfirmRevertScreen.SetActive(true);
-            ScreenCheck = StartCoroutine(StartCountdown(10));
 
-            StartCoroutine(WeirdOverride());
+            if (OldWindow == WindowMode.value)
+            {
+                ChangedDisplayOption = false;
+            }
+            else
+            {
+                ChangedDisplayOption = true;
+            }
+
+            AudioManager.instance.PlaySound("UI_beep");
         }
     }
 
@@ -185,13 +215,21 @@ public class SettingsManager : MonoBehaviour
     {
         if (ForcedOverride == false)
         {
-            LastButtonSelected = WindowSize;
-
+            //LastButtonSelected = WindowSize;
             SetResolution(WindowSize.value);
-            ConfirmRevertScreen.SetActive(true);
-            ScreenCheck = StartCoroutine(StartCountdown(10));
 
-            StartCoroutine(WeirdOverride());
+            ChangedDisplayOption = true;
+
+            if (OldResolution == WindowSize.value)
+            {
+                ChangedDisplayOption = false;
+            }
+            else
+            {
+                ChangedDisplayOption = true;
+            }
+
+            AudioManager.instance.PlaySound("UI_beep");
         }
     }
 
@@ -310,16 +348,20 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("InGame", 5f);
         PlayerPrefs.SetInt("ReduceMotion", 0);
         PlayerPrefs.SetInt("CRT", 0);
+        PlayerPrefs.SetInt("ShowFrames", 0);
+        PlayerPrefs.SetInt("FPS", 1);
+        PlayerPrefs.SetInt("vSync", 1);
+        PlayerPrefs.Save();
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().enabled = false;
+        GameManager.GM.gameObject.GetComponent<FPSCounter>().enabled = false;
 
         SetWindow(0);
         SetResolution(0);
+        SetFramesPerSecond(1);
+        QualitySettings.vSyncCount = 1;
         OverrideRenderPipeline.SwitchToDefault();
-
-        //foreach (Sound s in AudioManager.instance.sounds)
-        //{
-        //    s.source.volume = 5f / 10f;
-        //}
 
         if (!HoldingDown)
         {
@@ -383,11 +425,20 @@ public class SettingsManager : MonoBehaviour
         DelTextB.color = new Color(DelTextB.color.r, DelTextB.color.g, DelTextB.color.b, targetValue);
     }
 
+    public void DisplayCheck()
+    {
+        ChangedDisplayOption = false;
+        ConfirmRevertScreen.SetActive(true);
+        ScreenCheck = StartCoroutine(DisplayCountdown(10));
+    }
+
     //Reset windows to original values
     public void RevertWindowed()
     {
         SetWindow(OldWindow);
         SetResolution(OldResolution);
+        SetFramesPerSecond(OldFPS);
+        QualitySettings.vSyncCount = BoolToInt(OldvSync);
     }
 
     //Change window mode or window size
@@ -441,6 +492,97 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    public void SetFramesPerSecond(int value)
+    {
+        switch (value)
+        {
+            case 0: //30
+                Application.targetFrameRate = 30;
+                FPSText.text = "30";
+                break;
+
+            case 1: //60
+                Application.targetFrameRate = 60;
+                FPSText.text = "60";
+                break;
+
+            case 2: //120
+                Application.targetFrameRate = 120;
+                FPSText.text = "120";
+                break;
+
+            case 3: //144
+                Application.targetFrameRate = 144;
+                FPSText.text = "144";
+                break;
+
+            case 4: //300
+                Application.targetFrameRate = 300;
+                FPSText.text = "300";
+                break;
+
+            default: //60
+                Application.targetFrameRate = 60;
+                FPSText.text = "60";
+                break;
+        }
+    }
+
+    //Countdown timer before reverting screen options
+    float currentCountdownValue;
+    public IEnumerator DisplayCountdown(float countdownValue)
+    {
+        eventSystem.SetSelectedGameObject(TheConfirmButton.gameObject);
+        eventSystem.firstSelectedGameObject = TheConfirmButton.gameObject;
+
+        currentCountdownValue = countdownValue;
+
+        ChangedOptionsText.text = "";
+        if (OldWindow != WindowMode.value)
+        {
+            ChangedOptionsText.text += "Window Mode, ";
+        }
+        if (OldResolution != WindowSize.value)
+        {
+            ChangedOptionsText.text += " Window Size, ";
+        }
+        if (OldFPS != FPSSlider.value)
+        {
+            ChangedOptionsText.text += "Frame Rate, ";
+        }
+        if (OldvSync != vSyncToggle.isOn)
+        {
+            ChangedOptionsText.text += "vSync, ";
+        }
+        ChangedOptionsText.text = ChangedOptionsText.text.Remove(ChangedOptionsText.text.Length - 2, 2);
+
+        while (currentCountdownValue >= 0)
+        {
+            CountdownText.text = "Graphics will revert in " + currentCountdownValue.ToString() + " seconds";
+            yield return new WaitForSeconds(1f);
+            currentCountdownValue--;
+
+            if (currentCountdownValue == 0)
+            {
+                ForcedOverride = true;
+
+                WindowMode.value = OldWindow;
+                WindowSize.value = OldResolution;
+                FPSSlider.value = OldFPS;
+                vSyncToggle.isOn = OldvSync;
+
+                ForcedOverride = false;
+
+                RevertWindowed();
+
+                ConfirmRevertScreen.SetActive(false);
+                uiManager.PressReturnToMain();
+
+                StopCoroutine(ScreenCheck);
+            }
+        }
+    }
+
     //Confirming display options buttons
     public void ConfirmButton()
     {
@@ -449,15 +591,19 @@ public class SettingsManager : MonoBehaviour
 
         OldWindow = WindowMode.value;
         OldResolution = WindowSize.value;
+        OldFPS = (int)FPSSlider.value;
+        OldvSync = vSyncToggle.isOn;
 
         PlayerPrefs.SetInt("WindowMode", WindowMode.value);
         PlayerPrefs.SetInt("WindowSize", WindowSize.value);
+        PlayerPrefs.SetInt("FPS", (int)FPSSlider.value);
+        PlayerPrefs.SetInt("vSync", BoolToInt(vSyncToggle.isOn));
         PlayerPrefs.Save();
 
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
-        LastButtonSelected.Select();
-        AudioManager.instance.PlaySound("UI_beep");
+        uiManager.PressReturnToMain();
+        //AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void RevertButton()
@@ -470,11 +616,13 @@ public class SettingsManager : MonoBehaviour
 
         WindowMode.value = OldWindow;
         WindowSize.value = OldResolution;
+        FPSSlider.value = OldFPS;
+        vSyncToggle.isOn = OldvSync;
 
         ForcedOverride = false;
 
-        LastButtonSelected.Select();
-        AudioManager.instance.PlaySound("UI_beep");
+        uiManager.PressReturnToMain();
+        //AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Audio stuff
@@ -523,48 +671,6 @@ public class SettingsManager : MonoBehaviour
         {
             AudioManager.instance.PlaySound("IG_golfhit");
         }
-    }
-
-    //Countdown timer before reverting screen options
-    float currentCountdownValue;
-    public IEnumerator StartCountdown(float countdownValue = 10)
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        TheConfirmButton.Select();
-
-        currentCountdownValue = countdownValue;
-
-        while (currentCountdownValue >= 0)
-        {
-            CountdownText.text = "Display will revert in " + currentCountdownValue.ToString() + " seconds";
-            yield return new WaitForSeconds(1f);
-            currentCountdownValue--;
-
-            if (currentCountdownValue == 0)
-            {
-                ForcedOverride = true;
-
-                WindowMode.value = OldWindow;
-                WindowSize.value = OldResolution;
-
-                ForcedOverride = false;
-                RevertWindowed();
-                ConfirmRevertScreen.SetActive(false);
-                Debug.Log("Co has been stopped");
-                StopCoroutine(ScreenCheck);
-
-                LastButtonSelected.Select();
-            }
-        }
-    }
-
-    //To allow confirm button to be default when revert screen appears
-    public IEnumerator WeirdOverride()
-    {
-        yield return new WaitForSeconds(0.05f);
-        eventSystem.SetSelectedGameObject(null);
-        TheConfirmButton.Select();
-        eventSystem.firstSelectedGameObject = TheConfirmButton.gameObject;
     }
 
     //Converts boolean to int and int to boolean so that they can be saved in playerprefs
@@ -708,7 +814,77 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
     }
 
-    public void ButtonPanelGoRight(UnityEngine.InputSystem.InputAction.CallbackContext value)
+    //FPS Counter
+    public void ToggleFPSStuff(bool value)
+    {
+        PlayerPrefs.SetInt("ShowFrames", BoolToInt(value));
+        GameManager.GM.gameObject.GetComponent<FPSCounter>().enabled = value;
+
+        PlayerPrefs.Save();
+
+        GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
+    }
+
+    //Change in-game FPS
+    public void AdjustFrameRate(float value)
+    {
+        if (ForcedOverride)
+        {
+            return;
+        }
+
+        SetFramesPerSecond((int)value);
+
+        if (OldFPS == value)
+        {
+            ChangedDisplayOption = false;
+        }
+        else
+        {
+            ChangedDisplayOption = true;
+        }
+    }
+
+    //vSync handling
+    public void TogglevSync(bool value)
+    {
+        if (value)
+        {
+            FPSSlider.interactable = false;
+        }
+        else
+        {
+            FPSSlider.interactable = true;
+        }
+
+        if (ForcedOverride)
+        {
+            return;
+        }
+
+        if (value)
+        {
+            QualitySettings.vSyncCount = 1;
+            FPSSlider.interactable = false;
+        }
+        else
+        {
+            QualitySettings.vSyncCount = 0;
+            FPSSlider.interactable = true;
+        }
+
+        if (OldvSync == value)
+        {
+            ChangedDisplayOption = false;
+        }
+        else
+        {
+            ChangedDisplayOption = true;
+        }
+    }
+
+    //Navigation bar button and logic handling
+    public void ButtonPanelGoRight(InputAction.CallbackContext value)
     {
         if (value.canceled)
         {
@@ -716,7 +892,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public void ButtonPanelGoLeft(UnityEngine.InputSystem.InputAction.CallbackContext value)
+    public void ButtonPanelGoLeft(InputAction.CallbackContext value)
     {
         if (value.canceled)
         {

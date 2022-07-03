@@ -20,7 +20,7 @@ public class DebugLogCallbacks : MonoBehaviour
 
     public void UpdatePlayPrefsText()
     {
-        playerPrefsTxt = "WindowMode: " + PlayerPrefs.GetInt("WindowMode") + "\nWindowSize: " + PlayerPrefs.GetInt("WindowSize", 0) + "\nInputType: " + PlayerPrefs.GetInt("InputType", 0) + "\nSensitivity: " + PlayerPrefs.GetFloat("Sensitivity", 4) + "\nDebugWindow: " + PlayerPrefs.GetInt("DebugWindow", 0) + "\nReduceMotion: " + PlayerPrefs.GetInt("ReduceMotion", 0) + "\nCRTEffect: " + PlayerPrefs.GetInt("CRT", 0);
+        playerPrefsTxt = "WindowMode: " + PlayerPrefs.GetInt("WindowMode") + "\nWindowSize: " + PlayerPrefs.GetInt("WindowSize", 0) + "\nInputType: " + PlayerPrefs.GetInt("InputType", 0) + "\nSensitivity: " + PlayerPrefs.GetFloat("Sensitivity", 4) + "\nDebugWindow: " + PlayerPrefs.GetInt("DebugWindow", 0) + "\nReduceMotion: " + PlayerPrefs.GetInt("ReduceMotion", 0) + "\nCRTEffect: " + PlayerPrefs.GetInt("CRT", 0) + "\nShowFrames: " + PlayerPrefs.GetInt("ShowFrames", 0);
     }
 
     //When the script is enabled, subscribe to the debug log. This will make HandleLog occur whenever something happens

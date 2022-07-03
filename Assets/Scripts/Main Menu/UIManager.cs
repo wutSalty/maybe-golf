@@ -10,12 +10,11 @@ using UnityEditor;
 //Handles Main Menu and other wacky UI business
 public class UIManager : MonoBehaviour
 {
+    [Header("All Screen Objects")]
     //The different screens
     public GameObject MainMenu; //Main Menu object
     public GameObject DevMsgPanel;
-
     public GameObject MultiplayerSelect; //Multiplayer controller screen
-
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
     public GameObject DeleteConfirmScreen; //Setting's delete everything screen
@@ -29,12 +28,14 @@ public class UIManager : MonoBehaviour
     public GameObject RecordsScreen; //Records screen
     public GameObject ScrollStoryScreen;
 
+    [Header("Main Screen Transforms")]
     public RectTransform MainMenuRect;
     public RectTransform SettingsRect;
     public RectTransform RecordsRect;
     public RectTransform MultiplayerRect;
     public RectTransform LevelSelectRect;
 
+    [Header("Main Menu Buttons")]
     //Main Menu Buttons
     public Button PlayButton;
     public Button PlayGhostButton;
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
     public Button HideUIButton;
     public Button ReturnUIButton;
 
+    [Header("First Selected Buttons")]
     //The buttons that should be selected when menus are accessed
     public Selectable SettingsFirstButton;
     public Selectable MultiplayerFirstButton;
@@ -53,17 +55,20 @@ public class UIManager : MonoBehaviour
     public Selectable RecordsFirstButton;
     public Selectable DevMsgFirstButton;
 
+    [Header("Managers")]
     //Any event or input system
     public EventSystem eventSystem;
     public PlayerInput inputSystem;
     public PlayerInputManager inputManager;
 
+    [Header("Scripts")]
     //Scripts for interfacing
     public SettingsManager settingsManager;
     public MultiplayerSelect MultiSelectScript;
     public LevelManager levelManager;
     public RecordsManager recordManager;
 
+    [Header("Skybox and Light")]
     //Skybox for full clears
     public Material notFullSky;
     public Material fullSky;
@@ -407,12 +412,22 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
-        settingsManager.ResetScreens();
+        
+
+        if (settingsManager.ChangedDisplayOption) //If critical display options have been changed, confirm with user first
+        {
+            AudioManager.instance.PlaySound("UI_beep");
+            settingsManager.DisplayCheck();
+            return;
+        }
 
         AudioManager.instance.PlaySound("UI_confirm");
+
+        settingsManager.ResetScreens();
         StartCoroutine(SwipeRight(SettingsRect, MainMenuRect, SettingsButton));
+
+        GameManager.GM.SilentSave = true;
         GameManager.GM.SavePlayer();
-        //ButtonManager(Settings, MainMenu, SettingsButton);
     }
 
     //Returning from Multiplayer
@@ -434,7 +449,6 @@ public class UIManager : MonoBehaviour
         
         inputSystem.enabled = true; //Re-enable menu input player
 
-        //ButtonManager(MultiplayerSelect, MainMenu, TwoPlayerBtn);
         AudioManager.instance.PlaySound("UI_beep");
         StartCoroutine(SwipeUp(MultiplayerRect, MainMenuRect, TwoPlayerBtn));
     }
