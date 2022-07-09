@@ -33,11 +33,11 @@ public class PauseGame : MonoBehaviour
         listofInputs = FindObjectsOfType<PlayerInput>(); //Get all the PlayerInputs in play
     }
 
-    //If by any chance the pause menu has to be opened by the "host" user
-    public void OverrideForThePauseOverride()
-    {
-        ButtonClickOverrideCauseImLazy(99);
-    }
+    ////If by any chance the pause menu has to be opened by the "host" user
+    //public void OverrideForThePauseOverride()
+    //{
+    //    ButtonClickOverrideCauseImLazy(99);
+    //}
 
     //When the pause menu is accessed
     public void ButtonClickOverrideCauseImLazy(int pIndex)

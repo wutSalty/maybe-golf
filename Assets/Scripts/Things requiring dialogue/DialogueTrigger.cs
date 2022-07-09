@@ -25,7 +25,9 @@ public class DialogueTrigger : MonoBehaviour
     //For first load
     private void Start()
     {
-        MoveBallScript = GetComponent<MoveBall>();
+        GameObject pInput = GetComponentInParent<PlayerInput>().gameObject;
+        MoveBallScript = pInput.GetComponentInChildren<MoveBall>();
+
         TriggerDialogue(FirstPlay);
     }
 
@@ -45,21 +47,39 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    //Checks whether user died
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void HittingWater(Collider2D collision)
     {
         if (collision.gameObject.layer == 6 && WaterHit == false)
         {
             WaterHit = true;
             TriggerDialogue(FirstDeath);
         }
+    }
 
-        if (collision.CompareTag("Scroll") && !ScrollHit)
+    public void HittingScroll(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Scroll") && !ScrollHit)
         {
             ScrollHit = true;
             TriggerDialogue(FirstScroll);
         }
     }
+
+    //Checks whether user died
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.layer == 6 && WaterHit == false)
+    //    {
+    //        WaterHit = true;
+    //        TriggerDialogue(FirstDeath);
+    //    }
+
+    //    if (collision.gameObject.CompareTag("Scroll") && !ScrollHit)
+    //    {
+    //        ScrollHit = true;
+    //        TriggerDialogue(FirstScroll);
+    //    }
+    //}
 
     public void TriggerDialogue(Dialogue dialogue)
     {

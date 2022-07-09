@@ -117,7 +117,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _unscaledTime: 1420.5009
+    - _unscaledTime: 80.128426
     m_Colors:
     - Vector2_726edeeaca21461698991f5ed891e9b8: {r: 0.22, g: 0.16, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

@@ -347,7 +347,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2678296994772582074}
   - component: {fileID: 2678296994772582075}
-  m_Layer: 0
+  - component: {fileID: 4460331478542752402}
+  - component: {fileID: 5087950533408289469}
+  m_Layer: 3
   m_Name: Dialogue Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,6 +393,69 @@ MonoBehaviour:
   LastSelectedObject: {fileID: 0}
   ControlScheme: 
   DialogueOpen: 0
+--- !u!114 &4460331478542752402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2678296994772582053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a6bf03c93eb364abbc6a73413528e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas:
+  - {fileID: 2678296994186533968}
+--- !u!114 &5087950533408289469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2678296994772582053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ae82002e31c084d941a22386326593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstPlay:
+    name: Tutorial Master
+    sentences:
+    - Welcome to Golf (But it's not original)! I'm the Tutorial Master and I'll teach
+      you how to play the game.
+    - 'As it seems you are using Drag and Aim, I''ll only cover that for now. If
+      you want to learn how to use Buttons, return to the Main Menu, go to Settings,
+      then change your Input Type. '
+    - To get started, why not click, drag, then let go of the ball.
+  FirstShoot:
+    name: Tutorial Master
+    sentences: []
+  FirstGoal:
+    name: Tutorial Master
+    sentences:
+    - Congrats! You managed to hit the flag!
+    - From here on out, feel free to restart the course (and tutorial), return to
+      the level select, or quit to main menu.
+    - Don't forget that the more you play, the more collectables you'll be able to
+      unlock! And keep working on new records!
+  FirstDeath:
+    name: Tutorial Master
+    sentences:
+    - Now what did I say about shooting the ball into the water. That's precious
+      time loss. (Well they do say time loss is time saved for next time)
+    - Anyways, now you can see that if you happen to land in the water, we'll just
+      place you back on solid ground. Back to making those shots!
+  FirstScroll:
+    name: Tutorial Master
+    sentences:
+    - Seems like you've just found an ancient scroll. Haven't seen any of those around
+      recently.
+    - You can find these scrolls in other places as well, though they may be slightly
+      trickier to reach.
+    - The scrolls usually contain random tidbits that may or may not be useful. If
+      you'd like to check them, feel free to read up on their secrets in the Records
+      tab.
 --- !u!1 &2678296995536957355
 GameObject:
   m_ObjectHideFlags: 0

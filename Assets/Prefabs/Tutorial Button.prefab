@@ -816,6 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcdafc06feba65e45872a945e8d75745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
   CurrentPlayerText: {fileID: 6999888028794557690}
 --- !u!114 &1449465925609421509
 MonoBehaviour:
@@ -2101,12 +2102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b225b12b265e249b676bd4c1d20877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TheBall: {fileID: 6628228445740085668}
-  TheScriptForFlagWin: {fileID: 0}
+  BallRigidbody: {fileID: 0}
   RotateMultiplier: 100
   VelocityMultiplier: 5
-  MaskSprite: {fileID: 6628228445177780877}
-  InsideSprite: {fileID: 6628228445687544760}
   NumHitsText: {fileID: 4383676150203840445}
   TimeTakenText: {fileID: 3041091494902732673}
   audios:
@@ -2121,6 +2119,8 @@ MonoBehaviour:
   playerIndex: 0
   CurrentlyDead: 0
   fcParticle: {fileID: 715427529288822391, guid: 5546c6f7550a5b54ab1d2579ea3514f0, type: 3}
+  MasterBall: {fileID: 0}
+  DialogueExtras: {fileID: 0}
 --- !u!50 &6628228445740085668
 Rigidbody2D:
   serializedVersion: 4
@@ -3037,10 +3037,6 @@ PrefabInstance:
     - target: {fileID: 2678296994772582053, guid: 9e8f353e34fd5c5449ab01c49d9af23a, type: 3}
       propertyPath: m_Name
       value: Dialogue Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2678296994772582053, guid: 9e8f353e34fd5c5449ab01c49d9af23a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2678296994772582074, guid: 9e8f353e34fd5c5449ab01c49d9af23a, type: 3}
       propertyPath: m_RootOrder

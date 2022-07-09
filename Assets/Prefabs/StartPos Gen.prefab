@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnLocation: {fileID: 0}
-  BallDragPrefab: {fileID: 2309774031000949982, guid: f3dcd785065e28141a72d4616e16c987, type: 3}
-  BallButtonPrefab: {fileID: 1986369610367205534, guid: 66303089865a19449afd7f23b552eb8a, type: 3}
+  BallDragPrefab: {fileID: 6524890045875122131, guid: 28facd43d105c8e468204daccda894ac, type: 3}
+  BallButtonPrefab: {fileID: 5894748721385761651, guid: f7d301f211fdfdf4088a40c7db81a995, type: 3}
   GhostBallPrefab: {fileID: 1949507972895733981, guid: a452872d0203a804888b2c284d360e4a, type: 3}
   DefaultSpriteMasks: 1e00000028000000320000003c000000
   MultiSprites:

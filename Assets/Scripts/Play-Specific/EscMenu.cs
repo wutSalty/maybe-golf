@@ -9,16 +9,12 @@ using UnityEngine.InputSystem;
 //Used to handle the global pause menu, now handles local pause menu
 public class EscMenu : MonoBehaviour
 {
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
     public Text CurrentPlayerText;
 
     private void Start()
     {
-        if (gameObject.TryGetComponent(out PlayerInput manager))
-        {
-            playerInput = manager;
-            CurrentPlayerText.text = "Paused By: Player " + (playerInput.playerIndex + 1);
-        }
+        CurrentPlayerText.text = "Paused By: Player " + (playerInput.playerIndex + 1);
     }
 
     //Returns to main menu
@@ -29,7 +25,6 @@ public class EscMenu : MonoBehaviour
             item.EmergancyEscape();
         }
         Time.timeScale = 1;
-        //PauseGame.pM.MenuIsOpen = false;
         GameStatus.gameStat.ForcePause = true;
         GameManager.GM.NumPlayers.Clear();
         GameManager.GM.SingleMode = false;

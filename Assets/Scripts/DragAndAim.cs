@@ -20,8 +20,8 @@ public class DragAndAim : MonoBehaviour
     float AngleOfAim; //The Angle the ball is intended to go towards
     float MaskScaleX; //The size of the spirte mask. Also the power of the shot
 
-    private Rigidbody2D BallPhysics;
-    private MoveBall BallMoveScript;
+    public Rigidbody2D BallPhysics;
+    public MoveBall BallMoveScript;
     private bool InMotion = false;
 
     private Vector3 mousePosition;
@@ -61,9 +61,6 @@ public class DragAndAim : MonoBehaviour
     //Set components to easier accessed identifiers
     private void Start()
     {
-        BallPhysics = TheBall.GetComponent<Rigidbody2D>();
-        BallMoveScript = TheBall.GetComponent<MoveBall>();
-
         BallMoveScript.playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
     }
 

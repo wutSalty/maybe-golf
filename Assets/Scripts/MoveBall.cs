@@ -7,13 +7,12 @@ using UnityEngine.Audio;
 //Script that receives information to move the ball
 public class MoveBall : MonoBehaviour
 {
-    public Rigidbody2D TheBall; //The ball itself
-    public FlagWin TheScriptForFlagWin; //the script for the flag
+    public Rigidbody2D BallRigidbody; //The ball itself
     public int RotateMultiplier = 100; //Multiply how fast the ball rotates
     public int VelocityMultiplier = 5; //Multiply how fast the ball goes
 
-    public GameObject MaskSprite;
-    public GameObject InsideSprite;
+    //public GameObject MaskSprite;
+    //public GameObject InsideSprite;
 
     public Text NumHitsText;
     public Text TimeTakenText;
@@ -43,6 +42,15 @@ public class MoveBall : MonoBehaviour
     private GameObject particleObject;
     private bool SpecialBall;
 
+    public Transform MasterBall;
+    public GameObject DialogueExtras;
+
+    [SerializeField] private Dialogue FirstPlay;
+    [SerializeField] private Dialogue FirstShoot;
+
+    private bool TutorialMode = false;
+    private DialogueTrigger dTrigger;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -53,16 +61,26 @@ public class MoveBall : MonoBehaviour
 
         if (GameManager.GM.FullCleared)
         {
-            particleObject = Instantiate(fcParticle, TheBall.transform, false);
+            particleObject = Instantiate(fcParticle, BallRigidbody.transform, false);
             SpecialBall = true;
+        }
+
+        if (GameManager.GM.TutorialMode)
+        {
+            GameObject dialogueThing = Instantiate(DialogueExtras, MasterBall.position, Quaternion.identity, MasterBall);
+            dTrigger = dialogueThing.GetComponent<DialogueTrigger>();
+
+            dTrigger.FirstPlay = FirstPlay;
+            dTrigger.FirstShoot = FirstShoot;
+            TutorialMode = true;
         }
     }
 
     //Every frame, check has the ball stopped moving yet and to rotate the ball while in motion
     private void Update()
     {
-        float BallVelocity = TheBall.velocity.magnitude * RotateMultiplier;
-        TheBall.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
+        float BallVelocity = BallRigidbody.velocity.magnitude * RotateMultiplier;
+        BallRigidbody.transform.Rotate(0, 0, BallVelocity * Time.deltaTime);
 
         if (SpecialBall)
         {
@@ -73,13 +91,18 @@ public class MoveBall : MonoBehaviour
     //Handles the ball going into areas it might be in
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (TutorialMode)
+        {
+            dTrigger.HittingScroll(collision);
+        }
+
         if (collision.gameObject.layer == 6) //When the ball hits the water or illegal area
         {
-            waterParticle.transform.localPosition = TheBall.transform.localPosition;
+            waterParticle.transform.localPosition = BallRigidbody.transform.localPosition;
 
             if (collision.CompareTag("TheVoid"))
             {
-
+                
             }
             else if (collision.CompareTag("Lava"))
             {
@@ -96,18 +119,21 @@ public class MoveBall : MonoBehaviour
                 waterParticle.Play();
             }
 
+            if (TutorialMode)
+            {
+                dTrigger.HittingWater(collision);
+            }
+
             CurrentlyDead = true;
-            TheBall.velocity = new Vector2(0, 0);
+            BallRigidbody.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
         }
         else if (collision.CompareTag("Enemy"))
         {
-            //audio
-            //particle
             audios[3].Play();
 
             CurrentlyDead = true;
-            TheBall.velocity = new Vector2(0, 0);
+            BallRigidbody.velocity = new Vector2(0, 0);
             StartCoroutine(DeathFade());
         }
 
@@ -139,26 +165,26 @@ public class MoveBall : MonoBehaviour
             GameStatus.gameStat.AddGhostData(HitStrength, HitAngle, false);
         }
 
-        LastBallLocation = TheBall.transform.position;
+        LastBallLocation = BallRigidbody.transform.position;
 
         HitStrength = HitStrength * VelocityMultiplier;
 
         float XDir = HitStrength * Mathf.Cos(HitAngle * Mathf.Deg2Rad);
         float YDir = HitStrength * Mathf.Sin(HitAngle * Mathf.Deg2Rad);
 
-        TheBall.velocity = new Vector3(XDir, YDir);
+        BallRigidbody.velocity = new Vector3(XDir, YDir);
     }
 
     //Handles when ball has hit flag
     public void BallHasWon()
     {
         audios[1].Play();
-        flagParticle.transform.localPosition = TheBall.transform.localPosition;
+        flagParticle.transform.localPosition = BallRigidbody.transform.localPosition;
         flagParticle.Play();
 
         gameObject.SendMessage("TurnThingsOff");
         FlagHitYet = true;
-        TheBall.velocity = Vector2.zero;
+        BallRigidbody.velocity = Vector2.zero;
         gameObject.layer = 8;
         GameStatus.gameStat.SubmitRecord(playerIndex, NumHits, this);
     }
@@ -167,7 +193,7 @@ public class MoveBall : MonoBehaviour
     public void EmergancyEscape()
     {
         FlagHitYet = true;
-        TheBall.velocity = Vector2.zero;
+        BallRigidbody.velocity = Vector2.zero;
         gameObject.layer = 8;
     }
 
@@ -198,7 +224,7 @@ public class MoveBall : MonoBehaviour
         }
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, targetValue);
 
-        TheBall.transform.position = LastBallLocation;
+        BallRigidbody.transform.position = LastBallLocation;
 
         targetValue = 1;
         startValue = 0;
