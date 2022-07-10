@@ -25,6 +25,7 @@ public class AltAimControllerManager : MonoBehaviour
     public SpriteRenderer BallSprite;
     public SpriteMask spriteMask;
     public SpriteRenderer insideSprite;
+    public SpriteRenderer outlineSprite;
 
     //When awake, grab the things we need
     private void Awake()

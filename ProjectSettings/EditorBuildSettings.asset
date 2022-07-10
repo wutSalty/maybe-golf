@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TheFinalBoss.unity
     guid: 46154c1f2ef00cc4eb9d7aeba80b0a76
+  - enabled: 1
+    path: Assets/FunnyShooter/FunnyShooter.unity
+    guid: d44c00dd2746db74e81f83936693a989
   m_configObjects: {}

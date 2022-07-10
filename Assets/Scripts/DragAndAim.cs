@@ -45,11 +45,11 @@ public class DragAndAim : MonoBehaviour
         if (ClickableObject.gameObject == targetObject)
         {
             targetObject = null;
-            if (MaskScaleX <= 1)
+            if (MaskScaleX <= 0.65f)
             {
-                Debug.Log("Less than 1");
+                Debug.Log("Less than required");
             }
-            else if (MaskScaleX > 1)
+            else if (MaskScaleX > 0.65f)
             {
                 BallMoveScript.ReceiveBallInfo(MaskScaleX, AngleOfAim);
                 
@@ -62,6 +62,11 @@ public class DragAndAim : MonoBehaviour
     private void Start()
     {
         BallMoveScript.playerIndex = gameObject.GetComponentInParent<PlayerInput>().playerIndex;
+
+        if (!GameManager.GM.SingleMode)
+        {
+            ClickableObject.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 61;
+        }
     }
 
     //Every frame, check the position of the mouse and the movement of the ball
@@ -85,7 +90,7 @@ public class DragAndAim : MonoBehaviour
             TheActualArrow.transform.rotation = Quaternion.Euler(0, 0, AngleOfAim);
 
             MaskScaleX = Vector3.Distance(TheObjectWeWantToMove.transform.position, ClickableObject.transform.position) * 1.35f;
-            MaskScaleX = Mathf.Clamp(MaskScaleX, 0, 3);
+            MaskScaleX = Mathf.Clamp(MaskScaleX, 0, 2.2f);
             TheMask.transform.localScale = new Vector3(MaskScaleX, TheMask.transform.localScale.y);
         }
     }
@@ -122,7 +127,7 @@ public class DragAndAim : MonoBehaviour
         InMotion = false;
 
         ClickableObject.gameObject.SetActive(true);
-        TheMask.transform.localScale = new Vector3(0.9f, 0.7f, 0);
+        TheMask.transform.localScale = new Vector3(0.55f, 0.7f, 0);
         TheObjectShowingDirection.transform.localPosition = new Vector3(0, 0, 0);
         TheObjectWeWantToMove.transform.localPosition = new Vector3(0, 0, 0);
         TheActualArrow.SetActive(true);
@@ -139,14 +144,14 @@ public class DragAndAim : MonoBehaviour
     //This call is made from respective Controller Managers. Restarts position of ball
     void OnRestartBall()
     {
-        if (BallMoveScript.FlagHitYet == false)
+        if (BallMoveScript.FlagHitYet == false && !BallMoveScript.CurrentlyDead)
         {
-            gameObject.transform.localPosition = Vector3.zero;
-            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            BallMoveScript.transform.localPosition = Vector3.zero;
+            BallMoveScript.transform.rotation = new Quaternion(0, 0, 0, 0);
             BallPhysics.velocity = Vector2.zero;
             TheActualArrow.transform.rotation = new Quaternion(0, 0, 0, 0);
-            TheMask.transform.localScale = new Vector3(1f, 0.7f, 0);
-            gameObject.layer = 8;
+            TheMask.transform.localScale = new Vector3(0.65f, 0.7f, 0);
+            BallMoveScript.gameObject.layer = 8;
 
             GameStatus.gameStat.AddGhostData(0, 0, true);
         }

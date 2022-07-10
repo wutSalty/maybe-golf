@@ -19,6 +19,8 @@ public class SpawnBall : MonoBehaviour
     //Different sprites for the balls in multiplayer
     public Sprite[] MultiSprites;
 
+    public Color[] MultiColours;
+
     void Awake()
     {
         GameManager gameMan = GameManager.GM;
@@ -71,6 +73,8 @@ public class SpawnBall : MonoBehaviour
                             ControllerManagerA.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
                             ControllerManagerA.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerA.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerA.outlineSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerA.insideSprite.color = MultiColours[item.PlayerIndex];
                             break;
 
                         case 1: //Keyboard
@@ -84,6 +88,8 @@ public class SpawnBall : MonoBehaviour
                             ControllerManagerB.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
                             ControllerManagerB.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerB.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerB.outlineSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerB.insideSprite.color = MultiColours[item.PlayerIndex];
                             break;
 
                         case 2: //Controller
@@ -97,6 +103,8 @@ public class SpawnBall : MonoBehaviour
                             ControllerManagerC.spriteMask.frontSortingOrder = DefaultSpriteMasks[item.PlayerIndex] + 1;
                             ControllerManagerC.spriteMask.backSortingOrder = DefaultSpriteMasks[item.PlayerIndex] - 1;
                             ControllerManagerC.insideSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerC.outlineSprite.sortingOrder = DefaultSpriteMasks[item.PlayerIndex];
+                            ControllerManagerC.insideSprite.color = MultiColours[item.PlayerIndex];
                             break;
 
                         default:

@@ -81,6 +81,20 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public Vector2 CurserPos;
 
+    public bool EnableFunny = false;
+
+    public void GetFunnyInput(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            EnableFunny = true;
+        }
+        else if (value.canceled)
+        {
+            EnableFunny = false;
+        }
+    }
+
     public void GetCurserPos(InputAction.CallbackContext value)
     {
         CurserPos = value.ReadValue<Vector2>();
@@ -336,6 +350,13 @@ public class UIManager : MonoBehaviour
     //For displaying dev messages
     public void PressDevMsg()
     {
+        if (EnableFunny)
+        {
+            AudioManager.instance.PlaySound("UI_beep");
+            LoadingScreen.loadMan.BeginLoadingScene("FunnyShooter", false);
+            return;
+        }
+
         DevMsgPanel.SetActive(true);
 
         if (inputSystem.currentControlScheme == "Controller")

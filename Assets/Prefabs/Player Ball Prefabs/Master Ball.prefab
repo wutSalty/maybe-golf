@@ -190,7 +190,7 @@ Transform:
   m_GameObject: {fileID: 6654825785522808124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.65, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 6654825785547171180}
   m_RootOrder: 2
@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 6654825785547171179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 6654825787313434122}
   - {fileID: 6654825785808273165}
@@ -349,8 +349,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 0d73156f3c97a3549b2732ad948d17cc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4415c14df6e00384c9bcdc567baa4f4c, type: 3}
+  m_Color: {r: 1, g: 0.23529412, b: 0.16862746, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BallRigidbody: {fileID: 6654825787004672605}
   RotateMultiplier: 100
-  VelocityMultiplier: 5
+  VelocityMultiplier: 7
   NumHitsText: {fileID: 2277435975118792525}
   TimeTakenText: {fileID: 683070852568532849}
   audios:
@@ -1013,7 +1013,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 6d5f91559faadad41b52ad801a656dc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10bcac4df74c9e0488b46cd8046ce5ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

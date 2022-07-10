@@ -160,6 +160,7 @@ MonoBehaviour:
   BallSprite: {fileID: 1249399543535592238}
   spriteMask: {fileID: 1249399542048021583}
   insideSprite: {fileID: 1249399542332950143}
+  outlineSprite: {fileID: 1249399543763670906}
 --- !u!1001 &5551938371271309681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -337,6 +338,11 @@ GameObject:
 --- !u!1 &1249399542073957402 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6654825785547171179, guid: 09b028fbdbe53524d85a422f0fb177b3, type: 3}
+  m_PrefabInstance: {fileID: 5551938371271309681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1249399543763670906 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6654825787313434123, guid: 09b028fbdbe53524d85a422f0fb177b3, type: 3}
   m_PrefabInstance: {fileID: 5551938371271309681}
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &1249399542332950143 stripped

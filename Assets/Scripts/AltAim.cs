@@ -67,7 +67,7 @@ public class AltAim : MonoBehaviour
             ArrowOutline.transform.Rotate(0, 0, -AimingVal * RotMultiplier * (AimingSensitivity / 4) * Time.deltaTime);
 
             ScaleX = ArrowMask.transform.localScale.x + (PowerVal * MaskScale * Time.deltaTime);
-            ScaleX = Mathf.Clamp(ScaleX, 1, 3);
+            ScaleX = Mathf.Clamp(ScaleX, 0.65f, 2.2f);
             ArrowMask.transform.localScale = new Vector3(ScaleX, ArrowMask.transform.localScale.y, ArrowMask.transform.localScale.z);
         }
 
@@ -103,20 +103,20 @@ public class AltAim : MonoBehaviour
     {
         InMotion = false;
         ArrowOutline.SetActive(true);
-        ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
+        ArrowMask.transform.localScale = new Vector3(0.65f, 0.7f, 0);
     }
 
     //When ball is asked to restart position
     void OnRestartBall()
     {
-        if (ScriptToMoveTheBall.FlagHitYet == false)
+        if (ScriptToMoveTheBall.FlagHitYet == false && !ScriptToMoveTheBall.CurrentlyDead)
         {
-            gameObject.transform.localPosition = Vector3.zero;
-            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            ScriptToMoveTheBall.transform.localPosition = Vector3.zero;
+            ScriptToMoveTheBall.transform.rotation = new Quaternion(0, 0, 0, 0);
             BallPhysics.velocity = Vector2.zero;
             ArrowOutline.transform.rotation = new Quaternion(0, 0, 0, 0);
-            ArrowMask.transform.localScale = new Vector3(1f, 0.7f, 0);
-            gameObject.layer = 8;
+            ArrowMask.transform.localScale = new Vector3(0.65f, 0.7f, 0);
+            ScriptToMoveTheBall.gameObject.layer = 8;
 
             GameStatus.gameStat.AddGhostData(0, 0, true);
         }

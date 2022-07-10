@@ -13,6 +13,11 @@ public class Parallex : MonoBehaviour
     {
         rendering = gameObject.GetComponent<Renderer>();
 
+        if (PlayerPrefs.GetInt("ReduceMotion", 0) == 1)
+        {
+            speed = 0.4f;
+        }
+
         StartCoroutine(ScrollThing());
     }
 
