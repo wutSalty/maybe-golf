@@ -7,8 +7,10 @@ public class FunnyProjectile : MonoBehaviour
     public float speed;
     public float aliveTime = 10;
     public int damage = 1;
+    public int maxHits = 3;
 
     private float time;
+    private int noHits = 0;
 
     private void Start()
     {
@@ -32,7 +34,11 @@ public class FunnyProjectile : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<EnemyHealth>().TakeDamage(damage);
-            Destroy(gameObject);
+            noHits += 1;
+            if (noHits >= 3)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

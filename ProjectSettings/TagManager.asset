@@ -21,6 +21,8 @@ TagManager:
   - AudioButton
   - OtherButton
   - ReturnButton
+  - Money
+  - Magnet
   layers:
   - Default
   - TransparentFX
@@ -32,7 +34,7 @@ TagManager:
   - Player
   - Player-OnT
   - GhostBall
-  - 
+  - MagnetAffected
   - 
   - 
   - 
