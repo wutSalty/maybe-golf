@@ -99,8 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   aliveTime: 3
-  damage: 1
+  damage: 7
   maxHits: 3
+  critChance: 0.1
 --- !u!58 &-54168763197046814
 CircleCollider2D:
   m_ObjectHideFlags: 0

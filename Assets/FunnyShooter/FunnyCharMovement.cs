@@ -7,49 +7,51 @@ using UnityEngine.EventSystems;
 
 public class FunnyCharMovement : MonoBehaviour
 {
+    [Header("References")]
     public Rigidbody2D rb;
     public GameObject arrow;
     public GameObject bullet;
+    public CircleCollider2D magnetCollider;
+
     private Camera mainCam;
+    public Camera secondCam;
 
-    public EventSystem eventSys;
-    public GameObject PausePanel;
-    public GameObject ResumeButton;
+    [SerializeField] private int damage = 1;
+    [Header("Properties Text")]
+    public Text damageText;
 
-    public float speed;
-    public float waitTime = 0.3f;
+    [SerializeField] private float critRate = 0.1f;
+    public Text critText;
 
+    [SerializeField] private float speed;
+    public Text speedText;
+
+    public Text rangeText;
+
+    [SerializeField] private int DeathCount = 0;
     public Text deathCounterText;
+
+    [SerializeField] private int MoneyCount = 0;
     public Text moneyCounterText;
+
+    [Header("Other")]
+    public float waitTime = 0.3f;
 
     private PlayerInput pInput;
     private Vector2 moveValue;
     private Vector2 aimValue;
     private bool HoldingFire = false;
 
-    private Vector2 LeftMove;
-    private bool gamePaused = false;
-
-    private int DeathCount = 0;
-    private int MoneyCount = 0;
-
-    public int maxHealth = 75;
-    private int currentHealth;
-    public Slider healthSlider;
-
     public Text timerText;
-    public float currentTime;
+    [HideInInspector] public float currentTime;
 
     private void Start()
     {
         mainCam = Camera.main;
         pInput = GetComponent<PlayerInput>();
 
-        currentHealth = maxHealth;
-        healthSlider.maxValue = maxHealth;
-        healthSlider.value = maxHealth;
-
-        deathCounterText.text = "0";
+        deathCounterText.text = DeathCount.ToString();
+        moneyCounterText.text = MoneyCount.ToString();
 
         StartCoroutine(Shooting());
         StartCoroutine(IncrementTimer());
@@ -58,6 +60,7 @@ public class FunnyCharMovement : MonoBehaviour
     private void Update()
     {
         mainCam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        secondCam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
         if (aimValue != Vector2.zero)
         {
@@ -72,21 +75,6 @@ public class FunnyCharMovement : MonoBehaviour
             dire = dire.normalized * 0.35f;
             arrow.transform.localPosition = dire;
         }
-
-        if (eventSys.firstSelectedGameObject == null)
-        {
-            eventSys.firstSelectedGameObject = eventSys.currentSelectedGameObject;
-        }
-
-        if ((LeftMove != Vector2.zero) && (eventSys.currentSelectedGameObject != null))
-        {
-            eventSys.firstSelectedGameObject = eventSys.currentSelectedGameObject;
-        }
-
-        if ((LeftMove != Vector2.zero) && (eventSys.currentSelectedGameObject == null || eventSys.currentSelectedGameObject.activeSelf))
-        {
-            eventSys.SetSelectedGameObject(eventSys.firstSelectedGameObject);
-        }
     }
 
     private void FixedUpdate()
@@ -94,11 +82,6 @@ public class FunnyCharMovement : MonoBehaviour
         Vector3 tempVect = new Vector3(moveValue.x, moveValue.y, 0);
         tempVect = tempVect.normalized * speed * Time.deltaTime;
         rb.MovePosition(transform.position + tempVect);
-    }
-
-    private void OnMoving(InputValue value)
-    {
-        LeftMove = value.Get<Vector2>();
     }
 
     private void OnMove(InputValue value)
@@ -122,13 +105,23 @@ public class FunnyCharMovement : MonoBehaviour
         HoldingFire = !HoldingFire;
     }
 
+    public void SetHoldingFireState(bool value)
+    {
+        HoldingFire = value;
+    }
+
     private IEnumerator Shooting()
     {
         while (true)
         {
             if (HoldingFire)
             {
-                Instantiate(bullet, arrow.transform.position, arrow.transform.rotation);
+                GameObject theBullet = Instantiate(bullet, arrow.transform.position, arrow.transform.rotation);
+                FunnyProjectile funnyProjectile = theBullet.GetComponent<FunnyProjectile>();
+
+                funnyProjectile.damage = damage;
+                funnyProjectile.critChance = critRate;
+
                 yield return new WaitForSeconds(waitTime);
             }
             else
@@ -136,39 +129,6 @@ public class FunnyCharMovement : MonoBehaviour
                 yield return null;
             }
         }
-    }
-
-    private void OnMenu()
-    {
-        CheckPauseGame();
-    }
-
-    public void CheckPauseGame()
-    {
-        if (gamePaused)
-        {
-            Time.timeScale = 1;
-            gamePaused = false;
-            pInput.SwitchCurrentActionMap("Game");
-            PausePanel.SetActive(false);
-            eventSys.SetSelectedGameObject(null);
-
-            HoldingFire = false;
-        } 
-        else
-        {
-            Time.timeScale = 0;
-            gamePaused = true;
-            pInput.SwitchCurrentActionMap("Menu");
-            PausePanel.SetActive(true);
-            eventSys.SetSelectedGameObject(ResumeButton);
-        }
-    }
-
-    public void ReturnToMain()
-    {
-        AudioManager.instance.PlaySound("UI_beep");
-        LoadingScreen.loadMan.LoadingMusic("MainMenu", false, "BGM_title");
     }
 
     public void AddToDeathCounter(int add)
@@ -183,18 +143,9 @@ public class FunnyCharMovement : MonoBehaviour
         moneyCounterText.text = MoneyCount.ToString();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public int GetCash()
     {
-        if (collision.CompareTag("Enemy"))
-        {
-            TakeDamage(1);
-        }
-    }
-
-    public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
-        healthSlider.value = currentHealth;
+        return MoneyCount;
     }
 
     private IEnumerator IncrementTimer()
@@ -209,5 +160,29 @@ public class FunnyCharMovement : MonoBehaviour
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             yield return null;
         }
+    }
+
+    public void UpdateSpeed(float newSpeed, string newText)
+    {
+        speed = newSpeed;
+        speedText.text = newText;
+    }
+
+    public void UpdateDamage(int newDamage, string newText)
+    {
+        damage = newDamage;
+        damageText.text = newText;
+    }
+
+    public void UpdateCritRate(float newRate, string newText)
+    {
+        critRate = newRate;
+        critText.text = newText;
+    }
+
+    public void UpdateMagnetRange(float newRange, string newText)
+    {
+        magnetCollider.radius = newRange;
+        rangeText.text = newText;
     }
 }

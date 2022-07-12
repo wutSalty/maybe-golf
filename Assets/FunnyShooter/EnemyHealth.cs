@@ -33,13 +33,23 @@ public class EnemyHealth : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), 0.5f * Time.deltaTime);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool crit)
     {
         internalHealth -= damage;
         hpBar.value = internalHealth;
 
         GameObject counter = Instantiate(damageCounter, canvas.transform, false);
-        counter.GetComponentInChildren<Text>().text = damage.ToString();
+        Text counterText = counter.GetComponentInChildren<Text>();
+
+        counterText.text = damage.ToString();
+        if (crit)
+        {
+            counterText.color = Color.red;
+        }
+        else
+        {
+            counterText.color = Color.white;
+        }
         counter.transform.localPosition = GetRandomPosition();
 
         if (internalHealth <= 0)
@@ -48,6 +58,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 Instantiate(coinDrop, transform.position, Quaternion.identity);
             }
+
             playerScript.AddToDeathCounter(1);
             Destroy(gameObject);
         }

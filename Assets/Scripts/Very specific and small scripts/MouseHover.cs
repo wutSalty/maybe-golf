@@ -35,4 +35,9 @@ public class MouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         AboutText.text = DefaultText;
     }
+
+    public void ForceDeselect()
+    {
+        AboutText.text = DefaultText;
+    }
 }
