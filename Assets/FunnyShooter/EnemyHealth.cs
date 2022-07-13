@@ -8,37 +8,43 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int enemyHealth = 50;
     private int internalHealth;
 
-    private Canvas canvas;
+    public int damageGiven = 2;
+    public float moveSpeed = 0.5f;
+    public float timeBetweenChangeTarget = 1f;
+
+    public float maxRad = 0.5f;
+    public float minRad = 0.2f;
+
     private Camera cam;
     private FunnyCharMovement playerScript;
 
-    [SerializeField] private Slider hpBar;
     [SerializeField] private GameObject damageCounter;
 
     public float spawnRate = 0.3f;
     [SerializeField] private GameObject coinDrop;
 
+    private Vector3 targetLocation;
+
     private void Start()
     {
         internalHealth = enemyHealth;
-        hpBar.value = enemyHealth;
         cam = Camera.main;
-        canvas = GetComponentInChildren<Canvas>();
-        canvas.worldCamera = cam;
         playerScript = FindObjectOfType<FunnyCharMovement>();
+
+        StartCoroutine(generateRandomTargetPos());
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(cam.transform.position.x, cam.transform.position.y, 0), 0.5f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetLocation + playerScript.transform.position, moveSpeed * Time.deltaTime);
     }
 
     public void TakeDamage(int damage, bool crit)
     {
         internalHealth -= damage;
-        hpBar.value = internalHealth;
 
-        GameObject counter = Instantiate(damageCounter, canvas.transform, false);
+        GameObject counter = Instantiate(damageCounter, transform, false);
+        counter.GetComponent<Canvas>().worldCamera = cam;
         Text counterText = counter.GetComponentInChildren<Text>();
 
         counterText.text = damage.ToString();
@@ -59,6 +65,14 @@ public class EnemyHealth : MonoBehaviour
                 Instantiate(coinDrop, transform.position, Quaternion.identity);
             }
 
+            Canvas[] canvases = GetComponentsInChildren<Canvas>();
+            foreach (var item in canvases)
+            {
+                Vector3 currentTrans = item.transform.position;
+                item.transform.SetParent(null, true);
+                item.transform.position = currentTrans;
+            }
+
             playerScript.AddToDeathCounter(1);
             Destroy(gameObject);
         }
@@ -66,9 +80,30 @@ public class EnemyHealth : MonoBehaviour
 
     private Vector3 GetRandomPosition()
     {
-        float x = Random.Range(-200f, 200f);
-        float y = Random.Range(100f, 200f);
+        float x = Random.Range(-0.2f, 0.2f);
+        float y = Random.Range(0.1f, 0.2f);
         Vector3 pos = new Vector3(x, y, 0);
         return pos;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<FunnyPlayerHealth>().TakeDamage(damageGiven);
+        }
+    }
+
+    private IEnumerator generateRandomTargetPos()
+    {
+        while (true)
+        {
+            Vector2 rndPos = Random.insideUnitCircle * (maxRad - minRad);
+            rndPos += rndPos.normalized * minRad;
+            //targetLocation = new Vector3(playerScript.transform.position.x + rndPos.x, playerScript.transform.position.y, 0);
+            targetLocation = rndPos;
+
+            yield return new WaitForSeconds(timeBetweenChangeTarget);
+        }
     }
 }

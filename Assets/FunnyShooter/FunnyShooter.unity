@@ -146,14 +146,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26747507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 736661328}
   - {fileID: 1910345745}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 8
+  m_Father: {fileID: 914573046}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -190,8 +190,8 @@ RectTransform:
   - {fileID: 1291605808}
   - {fileID: 1713321491}
   - {fileID: 458312448}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 5
+  m_Father: {fileID: 1427962401}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -534,13 +534,13 @@ MonoBehaviour:
       - m_Target: {fileID: 391831170}
         m_TargetAssemblyTypeName: PlayerUpgradesScript, Assembly-CSharp
         m_MethodName: ClickedOnUpgrade
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Speed
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &296504493
@@ -613,6 +613,57 @@ MonoBehaviour:
   AboutText: {fileID: 1674788136}
   WhatShouldTheTextSay: Dummy Text
   DefaultText: 
+--- !u!1 &306848934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 306848936}
+  - component: {fileID: 306848935}
+  m_Layer: 0
+  m_Name: DamageUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &306848935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306848934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1286470d8df04a5489a3fab8f63a55e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: Damage
+  <CurrentLevel>k__BackingField: 1
+  <DefaultDescription>k__BackingField: Increase damage per bullet
+  <UpgradeCost>k__BackingField: 000000000a000000140000003200000064000000
+  <HoverForDesc>k__BackingField: {fileID: 1548285943}
+  <HoverForAddition>k__BackingField: {fileID: 1548285944}
+  <UpgradeIndicator>k__BackingField: {fileID: 1464863182}
+  <Damages>k__BackingField: 060000000a0000000e0000001200000016000000
+--- !u!4 &306848936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306848934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391831166}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &338007736
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +818,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365166433}
   m_CullTransparentMesh: 1
+--- !u!1 &376633036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 376633037}
+  - component: {fileID: 376633038}
+  m_Layer: 0
+  m_Name: HealthUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &376633037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376633036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391831166}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376633038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376633036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6354c571e08ec6f47b04f10b90e3fb43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: Health
+  <CurrentLevel>k__BackingField: 1
+  <DefaultDescription>k__BackingField: Increase your health
+  <UpgradeCost>k__BackingField: 000000000a000000140000003200000064000000
+  <HoverForDesc>k__BackingField: {fileID: 1484677120}
+  <HoverForAddition>k__BackingField: {fileID: 1484677121}
+  <UpgradeIndicator>k__BackingField: {fileID: 1632337255}
+  <PlayerHealths>k__BackingField: 320000004b000000640000007d00000096000000
 --- !u!1 &391831161
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +1026,11 @@ Transform:
   - {fileID: 1327163916}
   - {fileID: 571838535}
   - {fileID: 893941244}
+  - {fileID: 306848936}
+  - {fileID: 1233684590}
+  - {fileID: 436863450}
+  - {fileID: 376633037}
+  - {fileID: 2131233638}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -943,6 +1050,7 @@ MonoBehaviour:
   arrow: {fileID: 1681993729}
   bullet: {fileID: 7693173304573566812, guid: d24bc752f8f5e694f97feb8060b121b6, type: 3}
   magnetCollider: {fileID: 571838536}
+  mapPlayer: {fileID: 893941243}
   secondCam: {fileID: 274872295}
   damage: 1
   damageText: {fileID: 547325627}
@@ -953,11 +1061,10 @@ MonoBehaviour:
   rangeText: {fileID: 1676163058}
   DeathCount: 0
   deathCounterText: {fileID: 1855946153}
-  MoneyCount: 0
+  MoneyCount: 180
   moneyCounterText: {fileID: 736661329}
+  ControlsText: {fileID: 1854685967}
   waitTime: 0.2
-  timerText: {fileID: 836189606}
-  currentTime: 0
 --- !u!114 &391831168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,20 +1111,12 @@ MonoBehaviour:
   eventSys: {fileID: 516804469}
   shopObject: {fileID: 1423974466}
   firstShopItem: {fileID: 1548285938}
-  UpgradeLevel: 0100000001000000010000000100000001000000
-  UpgradeCost: 000000000a000000140000003200000064000000
-  DefaultText:
-  - Increase damage per bullet
-  - Increase chances for crits
-  - Increase your movement speed
-  - Increase your health
-  - Increase range to pickup items
-  MouseHovers:
-  - {fileID: 1548285943}
-  - {fileID: 1925511229}
-  - {fileID: 296504495}
-  - {fileID: 1484677120}
-  - {fileID: 561932255}
+  Upgrades:
+  - {fileID: 306848935}
+  - {fileID: 1233684591}
+  - {fileID: 436863451}
+  - {fileID: 376633038}
+  - {fileID: 2131233639}
   UpgradeImages:
   - {fileID: 21300000, guid: 6d140da1e6ca0cd499cb2878ff739785, type: 3}
   - {fileID: 21300000, guid: 8f1d7845af8f1d1478f121a87f12a8ca, type: 3}
@@ -1025,46 +1124,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 802a281615dbaf748a19119e4369b694, type: 3}
   - {fileID: 21300000, guid: 94643c207255de34ea5771643b3363ab, type: 3}
   - {fileID: 21300000, guid: fdd2efc325b0cfc42a98e0e9a23a7c1b, type: 3}
-  UpgradeIndicators:
-  - {fileID: 1464863182}
-  - {fileID: 1662782055}
-  - {fileID: 493222651}
-  - {fileID: 1632337255}
-  - {fileID: 422756499}
-  NumUpgrades: 5
-  WhatWillChangeHovers:
-  - {fileID: 1548285944}
-  - {fileID: 1925511230}
-  - {fileID: 296504496}
-  - {fileID: 1484677121}
-  - {fileID: 561932256}
-  UpgradeButtons:
-  - {fileID: 1548285940}
-  - {fileID: 1925511226}
-  - {fileID: 296504492}
-  - {fileID: 1484677117}
-  - {fileID: 561932252}
   shopOpened: 0
-  Damages: 060000000a0000000e0000001200000016000000
-  CritRates:
-  - 0.05
-  - 0.1
-  - 0.15
-  - 0.2
-  - 0.25
-  PlayerSpeeds:
-  - 2
-  - 2.2
-  - 2.4
-  - 2.7
-  - 3
-  PlayerHealths: 320000004b000000640000007d00000096000000
-  PickupRange:
-  - 0.8
-  - 0.9
-  - 1
-  - 1.1
-  - 1.2
 --- !u!1 &418830808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1279,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422756497}
   m_CullTransparentMesh: 1
+--- !u!1 &436863449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 436863450}
+  - component: {fileID: 436863451}
+  m_Layer: 0
+  m_Name: SpeedUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &436863450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436863449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391831166}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436863451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436863449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2805b1ffbd88e43b07dec869c81518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: Speed
+  <CurrentLevel>k__BackingField: 1
+  <DefaultDescription>k__BackingField: Increase your movement speed
+  <UpgradeCost>k__BackingField: 000000000a000000140000003200000064000000
+  <HoverForDesc>k__BackingField: {fileID: 296504495}
+  <HoverForAddition>k__BackingField: {fileID: 296504496}
+  <UpgradeIndicator>k__BackingField: {fileID: 493222651}
+  <PlayerSpeeds>k__BackingField:
+  - 2
+  - 2.2
+  - 2.4
+  - 2.7
+  - 3
 --- !u!1 &458312447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,13 +1732,13 @@ MonoBehaviour:
       - m_Target: {fileID: 391831170}
         m_TargetAssemblyTypeName: PlayerUpgradesScript, Assembly-CSharp
         m_MethodName: ClickedOnUpgrade
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Pickup
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &561932253
@@ -1950,9 +2066,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d757ffed18e6a4aa6f4d109ece9f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredWaitingTime: 3
-  SpawnAtATime: 3
-  enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+  timerText: {fileID: 836189606}
+  currentTime: 0
+  spawnPattern:
+  - RequiredWaitingTime: 3
+    SpawnAtATime: 3
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 3
+  - RequiredWaitingTime: 2.6
+    SpawnAtATime: 3
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 7
+  - RequiredWaitingTime: 2.4
+    SpawnAtATime: 3
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 10
+  - RequiredWaitingTime: 2.2
+    SpawnAtATime: 4
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 14
+  - RequiredWaitingTime: 2
+    SpawnAtATime: 4
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 17
+  - RequiredWaitingTime: 1.8
+    SpawnAtATime: 4
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 21
+  - RequiredWaitingTime: 1.6
+    SpawnAtATime: 5
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 23
+  - RequiredWaitingTime: 1.4
+    SpawnAtATime: 5
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 25
+  - RequiredWaitingTime: 1.2
+    SpawnAtATime: 5
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 27
+  - RequiredWaitingTime: 1
+    SpawnAtATime: 6
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 29
+  - RequiredWaitingTime: 1
+    SpawnAtATime: 8
+    enemyPrefab: {fileID: 957740755310452906, guid: 4419d82bcad2f9c4680993bbb9c69ad0, type: 3}
+    EndTimeInMinutes: 100
 --- !u!4 &680456329
 Transform:
   m_ObjectHideFlags: 0
@@ -1997,8 +2157,8 @@ RectTransform:
   - {fileID: 1676163057}
   - {fileID: 1174985982}
   - {fileID: 1387740844}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 6
+  m_Father: {fileID: 1427962401}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2182,14 +2342,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776608116}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1855946152}
   - {fileID: 1463899486}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 7
+  m_Father: {fileID: 914573046}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2305,7 +2465,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1861782509}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2425,7 +2585,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7cecbd6fcc129e24699946a93d3673b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e89bd4218bc2d61469dca0d7617774be, type: 3}
   m_Color: {r: 0, g: 0.3482437, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2515,6 +2675,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898665454}
   m_CullTransparentMesh: 1
+--- !u!1 &914573045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914573046}
+  m_Layer: 5
+  m_Name: RightSideIndicators
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &914573046
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914573045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 776608117}
+  - {fileID: 26747508}
+  m_Father: {fileID: 1861782509}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &937888725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,6 +3770,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174985981}
   m_CullTransparentMesh: 1
+--- !u!1 &1233684589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233684590}
+  - component: {fileID: 1233684591}
+  m_Layer: 0
+  m_Name: CritUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233684590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233684589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391831166}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233684591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233684589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab27c5c8b7237554d9eabb8e0b4fc8a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: Critical
+  <CurrentLevel>k__BackingField: 1
+  <DefaultDescription>k__BackingField: Increase chances for crits
+  <UpgradeCost>k__BackingField: 000000000a000000140000003200000064000000
+  <HoverForDesc>k__BackingField: {fileID: 1925511229}
+  <HoverForAddition>k__BackingField: {fileID: 1925511230}
+  <UpgradeIndicator>k__BackingField: {fileID: 1662782055}
+  <Crits>k__BackingField:
+  - 0.05
+  - 0.1
+  - 0.15
+  - 0.2
+  - 0.25
 --- !u!1 &1291605807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,7 +4026,7 @@ RectTransform:
   m_Children:
   - {fileID: 1292107297}
   m_Father: {fileID: 1861782509}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3841,15 +4094,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296273894}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1084590007}
   - {fileID: 1052805379}
   - {fileID: 1674788135}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 3
+  m_Father: {fileID: 1427962401}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4337,15 +4590,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405046663}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 941374093}
   - {fileID: 1166521869}
   - {fileID: 1104681245}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 2
+  m_Father: {fileID: 1427962401}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4666,6 +4919,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427100554}
   m_CullTransparentMesh: 1
+--- !u!1 &1427962400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1427962401}
+  m_Layer: 5
+  m_Name: LeftSideIndicators
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1427962401
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427962400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1405046664}
+  - {fileID: 1296273895}
+  - {fileID: 1438663281}
+  - {fileID: 87495139}
+  - {fileID: 711014014}
+  m_Father: {fileID: 1861782509}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1438663280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4689,15 +4982,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438663280}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 547325626}
   - {fileID: 1072123833}
   - {fileID: 1298717297}
-  m_Father: {fileID: 1861782509}
-  m_RootOrder: 4
+  m_Father: {fileID: 1427962401}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4943,13 +5236,13 @@ MonoBehaviour:
       - m_Target: {fileID: 391831170}
         m_TargetAssemblyTypeName: PlayerUpgradesScript, Assembly-CSharp
         m_MethodName: ClickedOnUpgrade
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Health
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1484677118
@@ -5111,13 +5404,13 @@ MonoBehaviour:
       - m_Target: {fileID: 391831170}
         m_TargetAssemblyTypeName: PlayerUpgradesScript, Assembly-CSharp
         m_MethodName: ClickedOnUpgrade
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Damage
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1548285941
@@ -5588,7 +5881,7 @@ GameObject:
   - component: {fileID: 1681993730}
   - component: {fileID: 1681993731}
   m_Layer: 0
-  m_Name: other arrow
+  m_Name: Aiming Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5733,6 +6026,87 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713321490}
+  m_CullTransparentMesh: 1
+--- !u!1 &1854685965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854685966}
+  - component: {fileID: 1854685968}
+  - component: {fileID: 1854685967}
+  m_Layer: 5
+  m_Name: Controls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1854685966
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854685965}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1861782509}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -260, y: 15}
+  m_SizeDelta: {x: 500, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1854685967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854685965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 5
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'DefaultText
+
+'
+--- !u!222 &1854685968
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854685965}
   m_CullTransparentMesh: 1
 --- !u!1 &1855946151
 GameObject:
@@ -5906,15 +6280,11 @@ RectTransform:
   m_Children:
   - {fileID: 898665455}
   - {fileID: 1423974467}
-  - {fileID: 1405046664}
-  - {fileID: 1296273895}
-  - {fileID: 1438663281}
-  - {fileID: 87495139}
-  - {fileID: 711014014}
-  - {fileID: 776608117}
-  - {fileID: 26747508}
+  - {fileID: 1427962401}
+  - {fileID: 914573046}
   - {fileID: 836189605}
   - {fileID: 1296089755}
+  - {fileID: 1854685966}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6168,13 +6538,13 @@ MonoBehaviour:
       - m_Target: {fileID: 391831170}
         m_TargetAssemblyTypeName: PlayerUpgradesScript, Assembly-CSharp
         m_MethodName: ClickedOnUpgrade
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Critical
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1925511227
@@ -6540,3 +6910,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082289025}
   m_CullTransparentMesh: 1
+--- !u!1 &2131233637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2131233638}
+  - component: {fileID: 2131233639}
+  m_Layer: 0
+  m_Name: PickupUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2131233638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131233637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 391831166}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2131233639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131233637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d651cc2152d276d4995fcc49f8a62f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UpgradeName>k__BackingField: Pickup
+  <CurrentLevel>k__BackingField: 1
+  <DefaultDescription>k__BackingField: Increase range to pickup items
+  <UpgradeCost>k__BackingField: 000000000a000000140000003200000064000000
+  <HoverForDesc>k__BackingField: {fileID: 561932255}
+  <HoverForAddition>k__BackingField: {fileID: 561932256}
+  <UpgradeIndicator>k__BackingField: {fileID: 422756499}
+  <PickupRanges>k__BackingField:
+  - 0.8
+  - 0.9
+  - 1
+  - 1.1
+  - 1.2

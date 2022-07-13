@@ -36,12 +36,4 @@ public class FunnyPlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
         healthText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            TakeDamage(2);
-        }
-    }
 }

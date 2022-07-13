@@ -13,11 +13,13 @@ public class FunnyCharMovement : MonoBehaviour
     public GameObject bullet;
     public CircleCollider2D magnetCollider;
 
+    public GameObject mapPlayer;
+
     private Camera mainCam;
     public Camera secondCam;
 
-    [SerializeField] private int damage = 1;
     [Header("Properties Text")]
+    [SerializeField] private int damage = 1;
     public Text damageText;
 
     [SerializeField] private float critRate = 0.1f;
@@ -34,6 +36,10 @@ public class FunnyCharMovement : MonoBehaviour
     [SerializeField] private int MoneyCount = 0;
     public Text moneyCounterText;
 
+    private int maxHits = 3;
+
+    public Text ControlsText;
+
     [Header("Other")]
     public float waitTime = 0.3f;
 
@@ -42,19 +48,22 @@ public class FunnyCharMovement : MonoBehaviour
     private Vector2 aimValue;
     private bool HoldingFire = false;
 
-    public Text timerText;
-    [HideInInspector] public float currentTime;
+    private PlayerUpgradesScript upgradesScript;
+    private Vector3 LastDirection;
+
+    private bool ShopJustClosed;
+    private Coroutine LerpingVector;
 
     private void Start()
     {
-        mainCam = Camera.main;
         pInput = GetComponent<PlayerInput>();
+        upgradesScript = GetComponent<PlayerUpgradesScript>();
+        mainCam = Camera.main;
 
         deathCounterText.text = DeathCount.ToString();
         moneyCounterText.text = MoneyCount.ToString();
 
         StartCoroutine(Shooting());
-        StartCoroutine(IncrementTimer());
     }
 
     private void Update()
@@ -62,7 +71,7 @@ public class FunnyCharMovement : MonoBehaviour
         mainCam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         secondCam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
-        if (aimValue != Vector2.zero)
+        if (aimValue != Vector2.zero && !upgradesScript.shopOpened)
         {
             float aimX = aimValue.x;
             float aimY = aimValue.y;
@@ -70,6 +79,8 @@ public class FunnyCharMovement : MonoBehaviour
             float radian = Mathf.Atan2(aimY, aimX);
             float angle = Mathf.Rad2Deg * radian;
             arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            mapPlayer.transform.rotation = Quaternion.Euler(0, 0, angle);
 
             Vector3 dire = new Vector3(aimX, aimY, 0);
             dire = dire.normalized * 0.35f;
@@ -79,9 +90,51 @@ public class FunnyCharMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 tempVect = new Vector3(moveValue.x, moveValue.y, 0);
-        tempVect = tempVect.normalized * speed * Time.deltaTime;
-        rb.MovePosition(transform.position + tempVect);
+        if (upgradesScript.shopOpened) //If the shop is open, keep the user moving in one direction
+        {
+            if (LerpingVector != null)
+            {
+                StopCoroutine(LerpingVector);
+                LerpingVector = null;
+            }
+
+            rb.MovePosition(transform.position + LastDirection);
+            ShopJustClosed = true;
+        }
+        else
+        {
+            if (ShopJustClosed && moveValue == Vector2.zero) //If the shop has just closed and no movement detected, start automove
+            {
+                LerpingVector = StartCoroutine(LerpVectorToZero());
+                ShopJustClosed = false;
+            }
+            else if (LerpingVector == null) //If not lerping then move as normal
+            {
+                Vector3 tempVect = new Vector3(moveValue.x, moveValue.y, 0);
+                tempVect = tempVect * speed * Time.deltaTime;
+                rb.MovePosition(transform.position + tempVect);
+
+                LastDirection = tempVect;
+            }
+            else if (LerpingVector != null && moveValue != Vector2.zero) //If lerping but movement detected, stop lerp
+            {
+                StopCoroutine(LerpingVector);
+                LerpingVector = null;
+            }
+        }
+    }
+
+    private IEnumerator LerpVectorToZero()
+    {
+        float duration = 5f;
+
+        for (float t = 0f; t < duration; t+= Time.deltaTime)
+        {
+            LastDirection = Vector3.Lerp(LastDirection, Vector3.zero, t / duration);
+            rb.MovePosition(transform.position + LastDirection);
+            yield return null;
+        }
+        LastDirection = Vector3.zero;
     }
 
     private void OnMove(InputValue value)
@@ -121,6 +174,7 @@ public class FunnyCharMovement : MonoBehaviour
 
                 funnyProjectile.damage = damage;
                 funnyProjectile.critChance = critRate;
+                funnyProjectile.maxHits = maxHits;
 
                 yield return new WaitForSeconds(waitTime);
             }
@@ -148,20 +202,6 @@ public class FunnyCharMovement : MonoBehaviour
         return MoneyCount;
     }
 
-    private IEnumerator IncrementTimer()
-    {
-        while (true)
-        {
-            currentTime += Time.deltaTime;
-
-            int minutes = Mathf.FloorToInt(currentTime / 60);
-            int seconds = Mathf.FloorToInt(currentTime - minutes * 60);
-
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            yield return null;
-        }
-    }
-
     public void UpdateSpeed(float newSpeed, string newText)
     {
         speed = newSpeed;
@@ -184,5 +224,22 @@ public class FunnyCharMovement : MonoBehaviour
     {
         magnetCollider.radius = newRange;
         rangeText.text = newText;
+    }
+
+    public void UpdateMaxHits(int newValue)
+    {
+        maxHits = newValue;
+    }
+
+    private void OnControlsChanged(PlayerInput input)
+    {
+        if (input.currentControlScheme == "KBMouse")
+        {
+            ControlsText.text = "Move: WASD, Aim: MOUSE, Shoot: LMB, Upgrades: E, Menu: ESC";
+        }
+        else
+        {
+            ControlsText.text = "Move: LEFTSTICK, Aim: RIGHTSTICK, Shoot: RT, Upgrades: LB, Menu: MENU";
+        }
     }
 }
