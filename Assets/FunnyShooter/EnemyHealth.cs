@@ -15,6 +15,9 @@ public class EnemyHealth : MonoBehaviour
     public float maxRad = 0.5f;
     public float minRad = 0.2f;
 
+    public float KBAmount = 0.2f;
+    public float KBTime = 1f;
+
     private Camera cam;
     private FunnyCharMovement playerScript;
 
@@ -23,7 +26,13 @@ public class EnemyHealth : MonoBehaviour
     public float spawnRate = 0.3f;
     [SerializeField] private GameObject coinDrop;
 
+    public float TimeBetweenAttack = 0.5f;
     private Vector3 targetLocation;
+    private Coroutine coroutine;
+
+    private bool AutoMoveOK = true;
+
+    private Coroutine co;
 
     private void Start()
     {
@@ -36,7 +45,10 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetLocation + playerScript.transform.position, moveSpeed * Time.deltaTime);
+        if (AutoMoveOK)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetLocation + playerScript.transform.position, moveSpeed * Time.deltaTime);
+        }
     }
 
     public void TakeDamage(int damage, bool crit)
@@ -78,6 +90,42 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void TakeKnockback(Transform bulletPos)
+    {
+        if (co != null)
+        {
+            return;
+        }
+
+        float angle = bulletPos.eulerAngles.z;
+        float x = Mathf.Cos(angle * Mathf.Deg2Rad);
+        float y = Mathf.Sin(angle * Mathf.Deg2Rad);
+        Vector3 posDifference = new Vector3(x, y, 0);
+
+        posDifference = posDifference.normalized * KBAmount;
+
+        co = StartCoroutine(TakingKnockback(posDifference));
+    }
+
+    private IEnumerator TakingKnockback(Vector3 dir)
+    {
+        AutoMoveOK = false;
+        float t = 0;
+        Vector3 currentPos = transform.position;
+        Vector3 targetPos = transform.position + dir;
+
+        while (t < KBTime)
+        {
+            transform.position = Vector3.Lerp(currentPos, targetPos, t / KBTime);
+            t += Time.deltaTime;
+
+            yield return null;
+        }
+
+        AutoMoveOK = true;
+        co = null;
+    }
+
     private Vector3 GetRandomPosition()
     {
         float x = Random.Range(-0.2f, 0.2f);
@@ -90,7 +138,33 @@ public class EnemyHealth : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+
+            coroutine = StartCoroutine(damageingPlayer(collision));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+        }
+    }
+
+    private IEnumerator damageingPlayer(Collider2D collision)
+    {
+        while (true)
+        {
             collision.GetComponent<FunnyPlayerHealth>().TakeDamage(damageGiven);
+
+            yield return new WaitForSeconds(TimeBetweenAttack);
         }
     }
 
@@ -100,7 +174,6 @@ public class EnemyHealth : MonoBehaviour
         {
             Vector2 rndPos = Random.insideUnitCircle * (maxRad - minRad);
             rndPos += rndPos.normalized * minRad;
-            //targetLocation = new Vector3(playerScript.transform.position.x + rndPos.x, playerScript.transform.position.y, 0);
             targetLocation = rndPos;
 
             yield return new WaitForSeconds(timeBetweenChangeTarget);

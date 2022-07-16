@@ -353,7 +353,7 @@ public class UIManager : MonoBehaviour
         if (EnableFunny)
         {
             AudioManager.instance.PlaySound("UI_beep");
-            LoadingScreen.loadMan.BeginLoadingScene("FunnyShooter", false);
+            LoadingScreen.loadMan.LoadingMusic("FunnyShooter", false, "BGM_boss");
             return;
         }
 

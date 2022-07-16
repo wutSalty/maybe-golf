@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FunnyPlayerHealth : MonoBehaviour
 {
+    public FunnyGameManager funnyMan;
     [HideInInspector] public int maxHealth = 50;
     private int currentHealth;
     public Slider healthSlider;
@@ -32,7 +33,20 @@ public class FunnyPlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (currentHealth <= 0)
+        {
+            return;
+        }
+
         currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            GetComponent<FunnyCharMovement>().HoldingFire = false;
+            funnyMan.CheckTime();
+        }
+
         healthSlider.value = currentHealth;
         healthText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
     }

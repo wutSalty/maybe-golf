@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class RandomSpawning : MonoBehaviour
 {
+    public FunnyGameManager gameMan;
+
     public Text timerText;
-    [HideInInspector] public float currentTime;
+    public float currentTime { get; private set; }
 
     [System.Serializable]
     public class Spawning
@@ -19,7 +21,24 @@ public class RandomSpawning : MonoBehaviour
 
     public Spawning[] spawnPattern;
 
+    [System.Serializable]
+    public class SpecialSpawning
+    {
+        public float SpawnTimeInMinutes;
+        public GameObject EnemyToSpawn;
+        public bool HasSpawned;
+    }
+
+    public SpecialSpawning[] specialSpawn;
+
     private Camera cam;
+    public GameObject deathParticles;
+
+    [ContextMenu("Set Timer To 27")]
+    private void CheatTimerTo25()
+    {
+        currentTime = 29 * 60f;
+    }
 
     private void Start()
     {
@@ -31,11 +50,12 @@ public class RandomSpawning : MonoBehaviour
     {
         StartCoroutine(IncrementTimer());
         StartCoroutine(SpawningCycle());
+        StartCoroutine(CheckingSpecialSpawns());
     }
 
     private IEnumerator IncrementTimer()
     {
-        while (true)
+        while (gameMan.GameIsActive)
         {
             currentTime += Time.deltaTime;
 
@@ -50,6 +70,7 @@ public class RandomSpawning : MonoBehaviour
     private IEnumerator SpawningCycle()
     {
         bool SpawnPossible = true;
+        int NumOfIndex = spawnPattern.Length;
 
         while (SpawnPossible)
         {
@@ -68,10 +89,48 @@ public class RandomSpawning : MonoBehaviour
                     yield return new WaitForSeconds(item.RequiredWaitingTime);
                 }
             }
+
             SpawnPossible = false;
             yield return null;
         }
-        print("Out Of Enemies");
+        print("End of game. Resorting to violence");
+
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var item in allEnemies)
+        {
+            Instantiate(deathParticles, item.transform.position, deathParticles.transform.rotation);
+            Destroy(item);
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        var finalSpawn = spawnPattern[NumOfIndex - 1];
+        while (true)
+        {
+            for (int i = 0; i < finalSpawn.SpawnAtATime; i++)
+            {
+                Instantiate(finalSpawn.enemyPrefab, GetRandomSpawn(), Quaternion.identity);
+            }
+            yield return new WaitForSeconds(finalSpawn.RequiredWaitingTime);
+        }
+    }
+
+    private IEnumerator CheckingSpecialSpawns()
+    {
+        if (specialSpawn.Length == 0)
+        {
+            yield break;
+        }
+
+        foreach (var item in specialSpawn) 
+        {
+            while (currentTime < item.SpawnTimeInMinutes * 60f)
+            {
+                yield return null;
+            }
+
+            Instantiate(item.EnemyToSpawn, GetRandomSpawn(), Quaternion.identity);
+        }
     }
 
     private Vector3 GetRandomSpawn()
@@ -79,38 +138,31 @@ public class RandomSpawning : MonoBehaviour
         float x = 0f;
         float y = 0f;
         
-        if (Random.value > 0.5f) //Spawn in the corners of the screen
+        if (Random.value > 0.5f) //Spawn top or bottom of screen
         {
-            if (Random.value > 0.5f)
-            {
-                x = Random.Range(4f, 5f);
-            }
-            else
-            {
-                x = Random.Range(-5f, -4f);
-            }
+            x = Random.Range(-5.8f, 5.8f);
 
             if (Random.value > 0.5f)
             {
-                y = Random.Range(2.7f, 3.7f);
+                y = Random.Range(2.9f, 3.9f);
             }
             else
             {
-                y = Random.Range(-3.7f, -2.7f);
+                y = Random.Range(-3.9f, -2.9f);
             }
         }
         else //Spawn on the left/right side of the screen
         {
             if (Random.value > 0.5f)
             {
-                x = Random.Range(4f, 5f);
+                x = Random.Range(4.8f, 5.8f);
             }
             else
             {
-                x = Random.Range(-5f, -4f);
+                x = Random.Range(-5.8f, -4.8f);
             }
 
-            y = Random.Range(-3.7f, 3.7f);
+            y = Random.Range(-3.9f, 3.9f);
         }
 
         Vector3 pos = new Vector3(x + cam.transform.position.x, y + cam.transform.position.y, 0);

@@ -23,6 +23,7 @@ TagManager:
   - ReturnButton
   - Money
   - Magnet
+  - EnemyB
   layers:
   - Default
   - TransparentFX

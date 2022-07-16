@@ -41,18 +41,24 @@ public class FunnyCharMovement : MonoBehaviour
     public Text ControlsText;
 
     [Header("Other")]
-    public float waitTime = 0.3f;
+    public float waitTimeA = 0.2f;
+    public float waitTimeB = 0.8f;
+
+    public Vector3[] Vector3ForB;
+    public Quaternion[] RotationForB;
 
     private PlayerInput pInput;
     private Vector2 moveValue;
     private Vector2 aimValue;
-    private bool HoldingFire = false;
+    [HideInInspector] public bool HoldingFire = true;
 
     private PlayerUpgradesScript upgradesScript;
     private Vector3 LastDirection;
 
     private bool ShopJustClosed;
     private Coroutine LerpingVector;
+
+    public int CurrentWeapon { get; private set; } //0 or 1
 
     private void Start()
     {
@@ -110,6 +116,8 @@ public class FunnyCharMovement : MonoBehaviour
             }
             else if (LerpingVector == null) //If not lerping then move as normal
             {
+                ShopJustClosed = false;
+
                 Vector3 tempVect = new Vector3(moveValue.x, moveValue.y, 0);
                 tempVect = tempVect * speed * Time.deltaTime;
                 rb.MovePosition(transform.position + tempVect);
@@ -118,6 +126,8 @@ public class FunnyCharMovement : MonoBehaviour
             }
             else if (LerpingVector != null && moveValue != Vector2.zero) //If lerping but movement detected, stop lerp
             {
+                ShopJustClosed = false;
+
                 StopCoroutine(LerpingVector);
                 LerpingVector = null;
             }
@@ -153,14 +163,14 @@ public class FunnyCharMovement : MonoBehaviour
         }
     }
 
-    private void OnShoot()
+    private void OnWeaponUp()
     {
-        HoldingFire = !HoldingFire;
+        CurrentWeapon = 0;
     }
 
-    public void SetHoldingFireState(bool value)
+    private void OnWeaponDown()
     {
-        HoldingFire = value;
+        CurrentWeapon = 1;
     }
 
     private IEnumerator Shooting()
@@ -169,14 +179,42 @@ public class FunnyCharMovement : MonoBehaviour
         {
             if (HoldingFire)
             {
-                GameObject theBullet = Instantiate(bullet, arrow.transform.position, arrow.transform.rotation);
-                FunnyProjectile funnyProjectile = theBullet.GetComponent<FunnyProjectile>();
+                switch (CurrentWeapon)
+                {
+                    case 0:
+                        GameObject theBullet = Instantiate(bullet, arrow.transform.position, arrow.transform.rotation);
+                        FunnyProjectile funnyProjectile = theBullet.GetComponent<FunnyProjectile>();
 
-                funnyProjectile.damage = damage;
-                funnyProjectile.critChance = critRate;
-                funnyProjectile.maxHits = maxHits;
+                        funnyProjectile.damage = damage;
+                        funnyProjectile.critChance = critRate;
+                        funnyProjectile.maxHits = maxHits;
 
-                yield return new WaitForSeconds(waitTime);
+                        yield return new WaitForSeconds(waitTimeA);
+                        break;
+
+                    case 1:
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Vector3 finalOffset = arrow.transform.rotation * Vector3ForB[i];
+
+                            GameObject otherBullet = Instantiate(bullet, transform.position + finalOffset, RotationForB[i] * arrow.transform.rotation);
+                            FunnyProjectile otherProjectiles = otherBullet.GetComponent<FunnyProjectile>();
+
+                            otherProjectiles.damage = damage;
+                            otherProjectiles.critChance = critRate;
+                            otherProjectiles.maxHits = maxHits;
+                        }
+
+                        yield return new WaitForSeconds(waitTimeB);
+                        break;
+
+                    default:
+
+                        yield return null;
+                        break;
+                }
+                
+                
             }
             else
             {
@@ -235,11 +273,11 @@ public class FunnyCharMovement : MonoBehaviour
     {
         if (input.currentControlScheme == "KBMouse")
         {
-            ControlsText.text = "Move: WASD, Aim: MOUSE, Shoot: LMB, Upgrades: E, Menu: ESC";
+            ControlsText.text = "Move: WASD, Aim: MOUSE, Switch: LMB/RMB, Upgrades: E, Menu: ESC";
         }
         else
         {
-            ControlsText.text = "Move: LEFTSTICK, Aim: RIGHTSTICK, Shoot: RT, Upgrades: LB, Menu: MENU";
+            ControlsText.text = "Move: LEFTSTICK, Aim: RIGHTSTICK, Switch: UP/DOWN, Upgrades: LB, Menu: MENU";
         }
     }
 }

@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: RetroMat
   m_Shader: {fileID: -6465566751694194690, guid: adeaae633a66dd64dbe09265008fc47a, type: 3}
-  m_ShaderKeywords: BOOLEAN_1C6126774993454FA7119F7A448DA8CE_ON BOOLEAN_8E1F7D5FCA0E4FE997B3B0322EE78B5C_ON
+  m_ShaderKeywords: BOOLEAN_1C6126774993454FA7119F7A448DA8CE_ON BOOLEAN_4E2168F80EE34B66B671D45E9D0775A0_ON
+    BOOLEAN_8E1F7D5FCA0E4FE997B3B0322EE78B5C_ON BOOLEAN_B653FFBD9C0241A680FF0CEADD5501B6_ON
     IMAGEDISTORTION SCROLLINGSTATIC
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -116,7 +117,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _unscaledTime: 158.43983
+    - _unscaledTime: 81.83171
     m_Colors:
     - Vector2_726edeeaca21461698991f5ed891e9b8: {r: 0.22, g: 0.16, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

@@ -90,9 +90,12 @@ MonoBehaviour:
   timeBetweenChangeTarget: 0.6
   maxRad: 0.5
   minRad: 0.2
+  KBAmount: 0.2
+  KBTime: 0.2
   damageCounter: {fileID: 9212157464424446852, guid: 9f9c3c1ccbd3231458bafe842ffa471b, type: 3}
   spawnRate: 0.2
   coinDrop: {fileID: 1226737163203136527, guid: af96aada4d08caf44bb83dfb2e70e08e, type: 3}
+  TimeBetweenAttack: 0.5
 --- !u!1 &3842859560298890582
 GameObject:
   m_ObjectHideFlags: 0

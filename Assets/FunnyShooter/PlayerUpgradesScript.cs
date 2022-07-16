@@ -5,18 +5,35 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 public class PlayerUpgradesScript : MonoBehaviour
 {
+    public FunnyGameManager gameMan;
     private PlayerInput pInput;
     private FunnyCharMovement movementScript;
     private FunnyPlayerPause playerPause;
-    //private FunnyPlayerHealth playerHealth;
 
     public EventSystem eventSys;
+    public InputSystemUIInputModule normalInputModule;
 
+    [Header("Input Action References")]
+    public InputActionReference gamePoint;
+    public InputActionReference menuPoint;
+
+    public InputActionReference gameMove;
+    public InputActionReference menuMove;
+
+    public InputActionReference gameClick;
+    public InputActionReference menuClick;
+
+    public InputActionReference gameSubmit;
+    public InputActionReference menuSubmit;
+
+    [Header("Others")]
     public GameObject shopObject;
     public GameObject firstShopItem;
+    public Text ShopErrorText;
 
     public PlayerUpgrades[] Upgrades;
 
@@ -25,12 +42,13 @@ public class PlayerUpgradesScript : MonoBehaviour
 
     [HideInInspector] public bool shopOpened = false;
 
+    private Coroutine coroutine;
+
     void Start()
     {
         pInput = GetComponent<PlayerInput>();
         movementScript = GetComponent<FunnyCharMovement>();
         playerPause = GetComponent<FunnyPlayerPause>();
-        //playerHealth = GetComponent<FunnyPlayerHealth>();
 
         SetupInitialUpgrades();
     }
@@ -48,7 +66,7 @@ public class PlayerUpgradesScript : MonoBehaviour
     //When menu button pushed
     private void OnShop()
     {
-        if (playerPause.gamePaused)
+        if (playerPause.gamePaused || !gameMan.GameIsActive)
         {
             return;
         }
@@ -61,11 +79,23 @@ public class PlayerUpgradesScript : MonoBehaviour
     {
         if (shopOpened)
         {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+            ShopErrorText.text = "";
+
             Time.timeScale = 1;
             shopOpened = false;
             shopObject.SetActive(false);
             eventSys.SetSelectedGameObject(null);
-            pInput.SwitchCurrentActionMap("Game");
+
+            normalInputModule.point = menuPoint;
+            normalInputModule.move = menuMove;
+            normalInputModule.leftClick = menuClick;
+            normalInputModule.submit = menuSubmit;
+
+            //pInput.SwitchCurrentActionMap("Game");
 
             foreach (var item in Upgrades)
             {
@@ -76,11 +106,35 @@ public class PlayerUpgradesScript : MonoBehaviour
         {
             Time.timeScale = 0.1f;
             shopOpened = true;
-            pInput.SwitchCurrentActionMap("Menu");
+
+            normalInputModule.point = gamePoint;
+            normalInputModule.move = gameMove;
+            normalInputModule.leftClick = gameClick;
+            normalInputModule.submit = gameSubmit;
+
+            //pInput.SwitchCurrentActionMap("Menu");
+
             shopObject.SetActive(true);
             eventSys.SetSelectedGameObject(firstShopItem);
 
-            movementScript.SetHoldingFireState(false);
+            //movementScript.SetHoldingFireState(false);
+        }
+    }
+
+    public void ForceCloseShop()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        ShopErrorText.text = "";
+
+        shopOpened = false;
+        shopObject.SetActive(false);
+        eventSys.SetSelectedGameObject(null);
+        foreach (var item in Upgrades)
+        {
+            item.HoverForAddition.ForceDeselect();
         }
     }
 
@@ -89,13 +143,25 @@ public class PlayerUpgradesScript : MonoBehaviour
         PlayerUpgrades theUpgrade = Array.Find(Upgrades, u => u.UpgradeName == UpgradeName);
         if (theUpgrade == null)
         {
-            print("Error. Upgrade " + UpgradeName + " not found.");
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+
+            print("Error. Upgrade " + UpgradeName + " not found");
+            coroutine = StartCoroutine(TextForAFewSeconds("Error. Upgrade " + UpgradeName + " not found"));
             return;
         }
 
         if (theUpgrade.CurrentLevel >= theUpgrade.UpgradeCost.Length)
         {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+
             print("Upgrade already maxed");
+            coroutine = StartCoroutine(TextForAFewSeconds("Upgrade already maxed"));
             return;
         }
 
@@ -104,13 +170,25 @@ public class PlayerUpgradesScript : MonoBehaviour
 
         if (cash < required)
         {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+
             print("Not enough cash. Currently have " + cash.ToString() + ". Require " + required.ToString());
+            coroutine = StartCoroutine(TextForAFewSeconds("Not enough cash. Currently have " + cash.ToString() + ". Require " + required.ToString()));
         }
         else
         {
-            print("Successful. Subtracted " + required.ToString());
-            movementScript.AddToCash(-required); //Subtract amount
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
 
+            print("Successful. Subtracted " + required.ToString());
+            coroutine = StartCoroutine(TextForAFewSeconds("Successful. Subtracted " + required.ToString()));
+
+            movementScript.AddToCash(-required); //Subtract amount
             ApplyUpgrade(theUpgrade);
         }
     }
@@ -134,5 +212,12 @@ public class PlayerUpgradesScript : MonoBehaviour
         }
 
         theUpgrade.ApplyUpgrade();
+    }
+
+    private IEnumerator TextForAFewSeconds(string WhatToSay)
+    {
+        ShopErrorText.text = WhatToSay;
+        yield return new WaitForSecondsRealtime(2f);
+        ShopErrorText.text = "";
     }
 }

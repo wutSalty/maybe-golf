@@ -475,6 +475,17 @@
                     "action": "LplusDown",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e132c82-9d31-41b1-92d8-5a102e50cf46",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse Keyboard",
+                    "action": "LplusDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

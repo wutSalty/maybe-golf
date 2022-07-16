@@ -11,7 +11,6 @@ public class FunnyProjectile : MonoBehaviour
     [HideInInspector] public float critChance = 0.1f;
 
     private float time;
-    private int noHits = 0;
 
     private void Start()
     {
@@ -34,16 +33,22 @@ public class FunnyProjectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            int amount = 0;
-            bool crit = false;
-            DamageCritChance(out amount, out crit);
+            DamageCritChance(out int amount, out bool crit);
 
             collision.GetComponent<EnemyHealth>().TakeDamage(amount, crit);
-            noHits += 1;
-            if (noHits >= 3)
-            {
-                Destroy(gameObject);
-            }
+            collision.GetComponent<EnemyHealth>().TakeKnockback(transform);
+        }
+        else if (collision.CompareTag("EnemyB"))
+        {
+            DamageCritChance(out int amount, out bool crit);
+
+            collision.GetComponent<EnemyHealth>().TakeDamage(amount, crit);
+            collision.GetComponent<EnemyHealth>().TakeKnockback(transform);
+        }
+
+        if (collision.CompareTag("TheVoid"))
+        {
+            Destroy(gameObject);
         }
     }
 

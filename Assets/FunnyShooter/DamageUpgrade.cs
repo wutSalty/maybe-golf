@@ -22,19 +22,5 @@ public class DamageUpgrade : PlayerUpgrades
     public override void ApplyUpgrade()
     {
         CharMovement.UpdateDamage(Damages[CurrentLevel - 1], CalculatePercentage(Damages[CurrentLevel - 1], Damages[2]));
-
-        switch (CurrentLevel)
-        {
-            case 3:
-                CharMovement.UpdateMaxHits(5);
-                break;
-
-            case 5:
-                CharMovement.UpdateMaxHits(7);
-                break;
-
-            default:
-                break;
-        }
     }
 }

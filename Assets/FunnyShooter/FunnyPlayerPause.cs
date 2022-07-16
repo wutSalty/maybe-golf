@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class FunnyPlayerPause : MonoBehaviour
 {
+    public FunnyGameManager gameMan;
     private FunnyCharMovement movementScript;
     private PlayerUpgradesScript upgradesScript;
 
@@ -50,11 +51,12 @@ public class FunnyPlayerPause : MonoBehaviour
 
     private void OnMenu()
     {
-        if (upgradesScript.shopOpened)
+        if (upgradesScript.shopOpened || !gameMan.GameIsActive)
         {
             return;
         }
 
+        //AudioManager.instance.PlaySound("UI_beep");
         CheckPauseGame();
     }
 
@@ -67,8 +69,6 @@ public class FunnyPlayerPause : MonoBehaviour
             pInput.SwitchCurrentActionMap("Game");
             PausePanel.SetActive(false);
             eventSys.SetSelectedGameObject(null);
-
-            movementScript.SetHoldingFireState(false);
         }
         else
         {

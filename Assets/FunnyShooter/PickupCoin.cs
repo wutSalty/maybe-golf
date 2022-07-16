@@ -5,7 +5,9 @@ using UnityEngine;
 public class PickupCoin : MonoBehaviour
 {
     private TargetJoint2D joint;
-    public int MaxForce;
+    public float MaxForce = 80;
+    public float MaxFreq = 10;
+    public float Dampening = 0.2f;
 
     private void Update()
     {
@@ -29,6 +31,8 @@ public class PickupCoin : MonoBehaviour
         {
             joint = gameObject.AddComponent<TargetJoint2D>();
             joint.maxForce = MaxForce;
+            joint.frequency = MaxFreq;
+            joint.dampingRatio = Dampening;
         }
     }
 }

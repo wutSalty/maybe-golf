@@ -218,3 +218,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxForce: 80
+  MaxFreq: 7
+  Dampening: 0.8
