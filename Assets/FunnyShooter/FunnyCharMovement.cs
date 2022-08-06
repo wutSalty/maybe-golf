@@ -18,6 +18,8 @@ public class FunnyCharMovement : MonoBehaviour
     private Camera mainCam;
     public Camera secondCam;
 
+    public SpriteRenderer golfSprite;
+
     [Header("Properties Text")]
     [SerializeField] private int damage = 1;
     public Text damageText;
@@ -65,6 +67,8 @@ public class FunnyCharMovement : MonoBehaviour
         pInput = GetComponent<PlayerInput>();
         upgradesScript = GetComponent<PlayerUpgradesScript>();
         mainCam = Camera.main;
+
+        golfSprite.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
 
         deathCounterText.text = DeathCount.ToString();
         moneyCounterText.text = MoneyCount.ToString();

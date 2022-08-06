@@ -296,6 +296,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "ac87e92d-8c91-46c2-b965-2fcdd5fe35e8",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBMouse",
+                    "action": "Submitting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "2D Vector",
                     "id": "00f153a9-8669-4c8d-bc97-90ad4b153d5d",
                     "path": "2DVector",
@@ -709,6 +720,17 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Shop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dadfda0a-2af9-4908-82e5-219d46923333",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBMouse",
+                    "action": "Submitting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

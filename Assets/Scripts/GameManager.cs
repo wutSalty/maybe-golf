@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("This is Saved")] public int BallSkin = 0; //Migrate ball skins from playerPrefs to internal cause cheaters
 
     [Header("Internal Info")]
-    public string Version = "Pre-Alpha v0.0.0";
-    public string LastSaved;
+    public string appID = "FE08EA34-BBE9-4400-A36F-DEB5009E7986";
+    public string appBuild = "22w31a";
 
     [Header("Ball Data")]
     //Holds the sprites and status of unlockable balls
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
         }
         SilentSave = false;
 
-        LastSaved = "Game saved at: " + System.DateTime.Now;
+        string LastSaved = "Game saved at: " + System.DateTime.Now;
         Debug.Log(LastSaved);
     }
 

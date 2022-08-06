@@ -603,7 +603,6 @@ public class SettingsManager : MonoBehaviour
         GameManager.GM.gameObject.GetComponent<DebugLogCallbacks>().UpdatePlayPrefsText();
 
         uiManager.PressReturnToMain();
-        //AudioManager.instance.PlaySound("UI_beep");
     }
 
     public void RevertButton()
@@ -622,7 +621,6 @@ public class SettingsManager : MonoBehaviour
         ForcedOverride = false;
 
         uiManager.PressReturnToMain();
-        //AudioManager.instance.PlaySound("UI_beep");
     }
 
     //Audio stuff

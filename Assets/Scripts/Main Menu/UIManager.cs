@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     //The different screens
     public GameObject MainMenu; //Main Menu object
     public GameObject DevMsgPanel;
+    public GameObject HelpPanel;
     public GameObject MultiplayerSelect; //Multiplayer controller screen
     public GameObject Settings; //Settings object
     public GameObject ConfirmRevertScreen; //Confirm Reject screen object
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
     public Button DevMsgButton;
     public Button HideUIButton;
     public Button ReturnUIButton;
+    public Button HelpButton;
 
     [Header("First Selected Buttons")]
     //The buttons that should be selected when menus are accessed
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour
     public Selectable LevelSelectFirstButton;
     public Selectable RecordsFirstButton;
     public Selectable DevMsgFirstButton;
+    public Selectable HelpFirstButton;
 
     [Header("Managers")]
     //Any event or input system
@@ -131,6 +134,10 @@ public class UIManager : MonoBehaviour
             if (DevMsgPanel.activeSelf)
             {
                 ReturnDevMsg();
+            }
+            else if (HelpPanel.activeSelf)
+            {
+                CloseHelpMenu();
             }
         }
         else if (MultiplayerSelect.activeSelf)
@@ -433,8 +440,6 @@ public class UIManager : MonoBehaviour
     //Returning from Settings
     public void PressReturnToMain()
     {
-        
-
         if (settingsManager.ChangedDisplayOption) //If critical display options have been changed, confirm with user first
         {
             AudioManager.instance.PlaySound("UI_beep");
@@ -552,6 +557,70 @@ public class UIManager : MonoBehaviour
             LevelSelectFirstButton.Select();
             eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
         }
+    }
+
+    //Buttons for help documents
+    public void OpenHelpMenu()
+    {
+        HelpPanel.SetActive(true);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(HelpFirstButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = HelpFirstButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void CloseHelpMenu()
+    {
+        HelpPanel.SetActive(false);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(HelpButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = HelpButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void OpenHelpDocs(int value)
+    {
+        string file = "";
+
+        switch (value)
+        {
+            case 0: //user manual
+                file = Application.streamingAssetsPath + "/Software Major Yr 12 User Manual.pdf";
+                break;
+
+            case 1: //install guide
+                file = Application.streamingAssetsPath + "/Software Major Yr 12 Installation Guide.pdf";
+                break;
+
+            case 2: //dev docs
+                file = Application.streamingAssetsPath + "/Software Major Yr 12 Project Report.pdf";
+                break;
+
+            default:
+                file = Application.streamingAssetsPath + "/Software Major Yr 12 User Manual.pdf";
+                break;
+        }
+
+        Application.OpenURL(file);
+        CloseHelpMenu();
     }
 
     //Handles swapping screens in and out and setting the active object

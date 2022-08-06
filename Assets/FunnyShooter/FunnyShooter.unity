@@ -1422,6 +1422,7 @@ MonoBehaviour:
   magnetCollider: {fileID: 571838536}
   mapPlayer: {fileID: 893941243}
   secondCam: {fileID: 274872295}
+  golfSprite: {fileID: 391831165}
   damage: 1
   damageText: {fileID: 547325627}
   critRate: 0.1

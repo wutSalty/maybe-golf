@@ -95,7 +95,6 @@ public class PlayerUpgradesScript : MonoBehaviour
             normalInputModule.leftClick = menuClick;
             normalInputModule.submit = menuSubmit;
 
-            //pInput.SwitchCurrentActionMap("Game");
 
             foreach (var item in Upgrades)
             {
@@ -112,12 +111,8 @@ public class PlayerUpgradesScript : MonoBehaviour
             normalInputModule.leftClick = gameClick;
             normalInputModule.submit = gameSubmit;
 
-            //pInput.SwitchCurrentActionMap("Menu");
-
             shopObject.SetActive(true);
             eventSys.SetSelectedGameObject(firstShopItem);
-
-            //movementScript.SetHoldingFireState(false);
         }
     }
 
