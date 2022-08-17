@@ -15,9 +15,6 @@ public class TextDownloader : MonoBehaviour
     [SerializeField, TextArea(5, 10)]
     private string NoInternetText = "";
 
-    //[SerializeField]
-    //private string LinkToText = "https://drive.google.com/uc?export=download&id=1GMU49z_jDFNIPY1T0uSCVo5LG87J1twq";
-
     [SerializeField]
     private string LinkToAppData = "https://drive.google.com/uc?export=download&id=1kzGmaJT3tPalS1BbYc4WG4VqjVg8Z6kz";
 
@@ -54,7 +51,7 @@ public class TextDownloader : MonoBehaviour
         if (webRequest.result != UnityWebRequest.Result.Success) //If no good, just say no internet
         {
             print(webRequest.error);
-            GameManager.GM.DownloadedText = NoInternetText;
+            GameManager.GM.DownloadedText = Application.version + NoInternetText;
         }
         else //Or else download json as text file and chuck it into check the json
         {
@@ -65,7 +62,8 @@ public class TextDownloader : MonoBehaviour
 
     private void CheckTheJSON(string json)
     {
-        jsonHere = JsonUtility.FromJson<AppdataClass>(json); //Chuck text into class
+        GameManager.GM.jsonHere = JsonUtility.FromJson<AppdataClass>(json); //Chuck text into class
+        jsonHere = GameManager.GM.jsonHere;
 
         if (jsonHere.appID != GameManager.GM.appID) //If the id in json is different to internal id, throw error
         {
@@ -81,22 +79,4 @@ public class TextDownloader : MonoBehaviour
             GameManager.GM.DownloadedText = text; //If they are the same, then we can say success
         }
     }
-
-    //IEnumerator GetText()
-    //{
-    //    UnityWebRequest www = new UnityWebRequest(LinkToText);
-    //    www.downloadHandler = new DownloadHandlerBuffer();
-    //    yield return www.SendWebRequest();
-
-    //    if (www.result != UnityWebRequest.Result.Success)
-    //    {
-    //        Debug.Log(www.error);
-    //        GameManager.GM.DownloadedText = NoInternetText;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log(www.downloadHandler.text);
-    //        GameManager.GM.DownloadedText = www.downloadHandler.text;
-    //    }
-    //}
 }

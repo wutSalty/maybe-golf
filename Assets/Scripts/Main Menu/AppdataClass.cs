@@ -10,4 +10,5 @@ public class AppdataClass
     public string appBuild;
     public string internetAvailable;
     public string updateAvailable;
+    public string downloadServer;
 }

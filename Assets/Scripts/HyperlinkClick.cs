@@ -69,7 +69,14 @@ public class HyperlinkClick : MonoBehaviour, IPointerClickHandler
         {
             TMP_LinkInfo linkInfo = pTextMeshPro.textInfo.linkInfo[linkIndex];
 
-            Application.OpenURL(linkInfo.GetLinkID());
+            if (linkInfo.GetLinkID() != "InitiateUpdate")
+            {
+                Application.OpenURL(linkInfo.GetLinkID());
+            }
+            else
+            {
+                uiManager.OpenUpdaterMenu();
+            }
         }
     }
 

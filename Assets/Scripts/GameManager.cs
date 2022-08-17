@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
 
     public bool SilentSave = false; //Flag to save game without audio/anim cue
 
+    public AppdataClass jsonHere;
+
     //Upon first load, make GM the only GameManager possible
     void Awake()
     {

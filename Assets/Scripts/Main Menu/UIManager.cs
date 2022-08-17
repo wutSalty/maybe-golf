@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class UIManager : MonoBehaviour
     public GameObject DeleteConfirmScreen; //Setting's delete everything screen
     public GameObject CreditsScreen;
     public GameObject AttributeScreen;
+    public GameObject UpdaterPanel;
+    public GameObject UpdatingScreen;
 
     public GameObject LevelSelectScreen; //Level select screen
     public GameObject LevelSelectGhostPanel;
@@ -48,6 +51,7 @@ public class UIManager : MonoBehaviour
     public Button HideUIButton;
     public Button ReturnUIButton;
     public Button HelpButton;
+    public Button UpdaterButton;
 
     [Header("First Selected Buttons")]
     //The buttons that should be selected when menus are accessed
@@ -57,6 +61,7 @@ public class UIManager : MonoBehaviour
     public Selectable RecordsFirstButton;
     public Selectable DevMsgFirstButton;
     public Selectable HelpFirstButton;
+    public Selectable UpdaterFirstButton;
 
     [Header("Managers")]
     //Any event or input system
@@ -70,6 +75,7 @@ public class UIManager : MonoBehaviour
     public MultiplayerSelect MultiSelectScript;
     public LevelManager levelManager;
     public RecordsManager recordManager;
+    public UpdateManager updateManager;
 
     [Header("Skybox and Light")]
     //Skybox for full clears
@@ -138,6 +144,10 @@ public class UIManager : MonoBehaviour
             else if (HelpPanel.activeSelf)
             {
                 CloseHelpMenu();
+            } 
+            else if (UpdaterPanel.activeSelf)
+            {
+                CloseUpdaterMenu();
             }
         }
         else if (MultiplayerSelect.activeSelf)
@@ -621,6 +631,61 @@ public class UIManager : MonoBehaviour
 
         Application.OpenURL(file);
         CloseHelpMenu();
+    }
+
+    //Buttons for the updater menu
+    public void OpenUpdaterMenu()
+    {
+        UpdaterPanel.SetActive(true);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(UpdaterFirstButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = UpdaterFirstButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void CloseUpdaterMenu()
+    {
+        UpdaterPanel.SetActive(false);
+
+        if (inputSystem.currentControlScheme == "Controller")
+        {
+            eventSystem.SetSelectedGameObject(PlayButton.gameObject);
+            eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else
+        {
+            eventSystem.firstSelectedGameObject = PlayButton.gameObject;
+            eventSystem.SetSelectedGameObject(null);
+        }
+
+        AudioManager.instance.PlaySound("UI_beep");
+    }
+
+    public void BeginUpdater()
+    {
+        if (Application.isEditor)
+        {
+            print("Updating not available inside editor. Please access standalone to continue.");
+            return;
+        }
+
+        UpdaterPanel.SetActive(false);
+        MainMenu.SetActive(false);
+        UpdatingScreen.SetActive(true);
+
+        eventSystem.SetSelectedGameObject(null);
+        eventSystem.firstSelectedGameObject = eventSystem.currentSelectedGameObject;
+
+        updateManager.BeginDownloadingUpdate();
     }
 
     //Handles swapping screens in and out and setting the active object
