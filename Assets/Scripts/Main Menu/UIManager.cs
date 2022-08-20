@@ -674,6 +674,7 @@ public class UIManager : MonoBehaviour
     {
         if (Application.isEditor)
         {
+            print(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\" + Application.productName + "\\Temp");
             print("Updating not available inside editor. Please access standalone to continue.");
             return;
         }

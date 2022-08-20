@@ -82,9 +82,7 @@ public class GameManager : MonoBehaviour
     {
         Application.wantsToQuit += WantsToQuit;
         CheckLocked();
-
-        QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 60;
+        CheckTempFolder();
     }
 
     private void Update()
@@ -112,6 +110,25 @@ public class GameManager : MonoBehaviour
                 GM.LockedBalls.Add(index);
             }
             index += 1;
+        }
+    }
+
+    public void CheckTempFolder()
+    {
+        UpdateManager updateManager = FindObjectOfType<UpdateManager>();
+        string appName = "\\" + Application.productName;
+        string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + appName + updateManager.saveTo;
+
+        print(path);
+
+        DirectoryInfo di = new DirectoryInfo(path);
+        foreach (FileInfo file in di.GetFiles())
+        {
+            file.Delete();
+        }
+        foreach (DirectoryInfo dir in di.GetDirectories())
+        {
+            dir.Delete();
         }
     }
 

@@ -71,7 +71,7 @@ public class TextDownloader : MonoBehaviour
         }
         else if (jsonHere.appBuild != GameManager.GM.appBuild) //If build is different, say update available
         {
-            GameManager.GM.DownloadedText = "Your version: " + Application.version + "\n" + "Current version: " + jsonHere.appVer + "\n\n" + jsonHere.updateAvailable;
+            GameManager.GM.DownloadedText = "Your version: " + Application.version + "\n" + "Latest version: " + jsonHere.appVer + "\n\n" + jsonHere.updateAvailable;
         }
         else
         {
