@@ -121,14 +121,17 @@ public class GameManager : MonoBehaviour
 
         print(path);
 
-        DirectoryInfo di = new DirectoryInfo(path);
-        foreach (FileInfo file in di.GetFiles())
+        if (Directory.Exists(path))
         {
-            file.Delete();
-        }
-        foreach (DirectoryInfo dir in di.GetDirectories())
-        {
-            dir.Delete();
+            DirectoryInfo di = new DirectoryInfo(path);
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete();
+            }
         }
     }
 
