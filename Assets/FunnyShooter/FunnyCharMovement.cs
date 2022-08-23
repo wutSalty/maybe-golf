@@ -169,12 +169,18 @@ public class FunnyCharMovement : MonoBehaviour
 
     private void OnWeaponUp()
     {
-        CurrentWeapon = 0;
+        if (!upgradesScript.shopOpened)
+        {
+            CurrentWeapon = 0;
+        }
     }
 
     private void OnWeaponDown()
     {
-        CurrentWeapon = 1;
+        if (!upgradesScript.shopOpened)
+        {
+            CurrentWeapon = 1;
+        }
     }
 
     private IEnumerator Shooting()
