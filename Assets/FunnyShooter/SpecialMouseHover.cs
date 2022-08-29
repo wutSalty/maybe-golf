@@ -1,23 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class MouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDeselectHandler
+public class SpecialMouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDeselectHandler
 {
     public EventSystem eventSystem;
     public Text AboutText;
     [TextArea(2, 5)]
     public string WhatShouldTheTextSay;
     [TextArea(2, 5)]
-    public string DefaultText = "Welcome to Golf, enjoy your stay!";
+    public string DefaultText = "";
 
     public void Update()
     {
         if (eventSystem.currentSelectedGameObject == gameObject)
         {
             AboutText.text = WhatShouldTheTextSay;
+        } 
+        else if (eventSystem.firstSelectedGameObject == null)
+        {
+            AboutText.text = DefaultText;
         }
     }
 

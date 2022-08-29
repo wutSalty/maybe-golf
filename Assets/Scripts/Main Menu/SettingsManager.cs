@@ -116,8 +116,6 @@ public class SettingsManager : MonoBehaviour
     private Coroutine ScreenCheck;
     private Coroutine textScroll;
 
-    [HideInInspector] public bool HoldingDown = false;
-
     private Navigation ZeroUp = new Navigation() { mode = Navigation.Mode.Explicit };
     private Navigation OneUp = new Navigation() { mode = Navigation.Mode.Explicit };
     private Navigation TwoUp = new Navigation() { mode = Navigation.Mode.Explicit };
@@ -363,7 +361,7 @@ public class SettingsManager : MonoBehaviour
         QualitySettings.vSyncCount = 1;
         OverrideRenderPipeline.SwitchToDefault();
 
-        if (!HoldingDown)
+        if (!uiManager.HoldingToggle)
         {
             GameManager.GM.LevelData = DefaultLevelData;
             GameManager.GM.UnlockedBallSkins = DefaultUnlockables;

@@ -15,7 +15,7 @@ public class SpeedUpgrade : PlayerUpgrades
     public override void CalculateStatDiff()
     {
         float speedDiff = PlayerSpeeds[CurrentLevel] - PlayerSpeeds[CurrentLevel - 1];
-        HoverForAddition.WhatShouldTheTextSay = "+ " + CalculatePercentage(speedDiff, PlayerSpeeds[2]);
+        SetNewAddition("+ " + CalculatePercentage(speedDiff, PlayerSpeeds[2]));
     }
 
     public override void ApplyUpgrade()

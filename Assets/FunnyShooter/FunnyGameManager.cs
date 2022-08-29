@@ -24,6 +24,13 @@ public class FunnyGameManager : MonoBehaviour
 
     private float FinalTime;
 
+    private Animator canvasAnim;
+
+    private void Start()
+    {
+        canvasAnim = ResultsCanvas.GetComponentInParent<Animator>();
+    }
+
     public void CheckTime()
     {
         GameIsActive = false;
@@ -56,7 +63,7 @@ public class FunnyGameManager : MonoBehaviour
             PlayerHasLost();
         }
 
-        ResultsCanvas.SetActive(true);
+        canvasAnim.Play("Result_Open");
         eventSys.firstSelectedGameObject = DefaultButton;
         eventSys.SetSelectedGameObject(DefaultButton);
     }

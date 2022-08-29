@@ -15,7 +15,7 @@ public class CritUpgrade : PlayerUpgrades
     public override void CalculateStatDiff()
     {
         float critDiff = Crits[CurrentLevel] - Crits[CurrentLevel - 1];
-        HoverForAddition.WhatShouldTheTextSay = "+ " + (critDiff * 100).ToString() + "%";
+        SetNewAddition("+ " + (critDiff * 100).ToString() + "%");
     }
 
     public override void ApplyUpgrade()

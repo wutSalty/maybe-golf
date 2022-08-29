@@ -15,7 +15,7 @@ public class PickupUpgrade : PlayerUpgrades
     public override void CalculateStatDiff()
     {
         float rangeDiff = PickupRanges[CurrentLevel] - PickupRanges[CurrentLevel - 1];
-        HoverForAddition.WhatShouldTheTextSay = "+ " + CalculatePercentage(rangeDiff, PickupRanges[2]);
+        SetNewAddition("+ " + CalculatePercentage(rangeDiff, PickupRanges[2]));
     }
 
     public override void ApplyUpgrade()

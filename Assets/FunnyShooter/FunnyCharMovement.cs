@@ -62,10 +62,13 @@ public class FunnyCharMovement : MonoBehaviour
 
     public int CurrentWeapon { get; private set; } //0 or 1
 
+    private FunnyPlayerPause playerPause;
+
     private void Start()
     {
         pInput = GetComponent<PlayerInput>();
         upgradesScript = GetComponent<PlayerUpgradesScript>();
+        playerPause = GetComponent<FunnyPlayerPause>();
         mainCam = Camera.main;
 
         golfSprite.sprite = GameManager.GM.BallSkins[GameManager.GM.BallSkin];
@@ -158,6 +161,11 @@ public class FunnyCharMovement : MonoBehaviour
 
     private void OnAim(InputValue value)
     {
+        if (playerPause.gamePaused)
+        {
+            return;
+        }
+
         aimValue = value.Get<Vector2>();
 
         if (pInput.currentControlScheme == "KBMouse")

@@ -10,11 +10,11 @@ using UnityEngine.InputSystem.UI;
 public class PlayerUpgradesScript : MonoBehaviour
 {
     public FunnyGameManager gameMan;
-    private PlayerInput pInput;
     private FunnyCharMovement movementScript;
     private FunnyPlayerPause playerPause;
 
     public EventSystem eventSys;
+    public PlayerInput pInput;
     public InputSystemUIInputModule normalInputModule;
 
     [Header("Input Action References")]
@@ -44,11 +44,14 @@ public class PlayerUpgradesScript : MonoBehaviour
 
     private Coroutine coroutine;
 
+    private Animator canvasAnim;
+
     void Start()
     {
-        pInput = GetComponent<PlayerInput>();
         movementScript = GetComponent<FunnyCharMovement>();
         playerPause = GetComponent<FunnyPlayerPause>();
+        canvasAnim = shopObject.GetComponentInParent<Animator>();
+        pInput = GetComponent<PlayerInput>();
 
         SetupInitialUpgrades();
     }
@@ -87,19 +90,15 @@ public class PlayerUpgradesScript : MonoBehaviour
 
             Time.timeScale = 1;
             shopOpened = false;
-            shopObject.SetActive(false);
+
+            canvasAnim.Play("Shop_Close");
             eventSys.SetSelectedGameObject(null);
+            eventSys.firstSelectedGameObject = null;
 
             normalInputModule.point = menuPoint;
             normalInputModule.move = menuMove;
             normalInputModule.leftClick = menuClick;
             normalInputModule.submit = menuSubmit;
-
-
-            foreach (var item in Upgrades)
-            {
-                item.HoverForAddition.ForceDeselect();
-            }
         }
         else
         {
@@ -111,8 +110,13 @@ public class PlayerUpgradesScript : MonoBehaviour
             normalInputModule.leftClick = gameClick;
             normalInputModule.submit = gameSubmit;
 
-            shopObject.SetActive(true);
-            eventSys.SetSelectedGameObject(firstShopItem);
+            canvasAnim.Play("Shop_Open");
+            eventSys.firstSelectedGameObject = firstShopItem;
+
+            if (pInput.currentControlScheme == "Controller")
+            {
+                eventSys.SetSelectedGameObject(firstShopItem);
+            }
         }
     }
 
@@ -125,12 +129,8 @@ public class PlayerUpgradesScript : MonoBehaviour
         ShopErrorText.text = "";
 
         shopOpened = false;
-        shopObject.SetActive(false);
+        canvasAnim.Play("Shop_Close");
         eventSys.SetSelectedGameObject(null);
-        foreach (var item in Upgrades)
-        {
-            item.HoverForAddition.ForceDeselect();
-        }
     }
 
     public void ClickedOnUpgrade(string UpgradeName)

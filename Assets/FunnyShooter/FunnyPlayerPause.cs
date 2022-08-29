@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class FunnyPlayerPause : MonoBehaviour
 {
     public FunnyGameManager gameMan;
-    private FunnyCharMovement movementScript;
     private PlayerUpgradesScript upgradesScript;
 
     public EventSystem eventSys;
@@ -19,11 +18,13 @@ public class FunnyPlayerPause : MonoBehaviour
     private Vector2 LeftMove;
     [HideInInspector] public bool gamePaused = false;
 
+    private Animator canvasAnim;
+
     private void Start()
     {
         pInput = GetComponent<PlayerInput>();
-        movementScript = GetComponent<FunnyCharMovement>();
         upgradesScript = GetComponent<PlayerUpgradesScript>();
+        canvasAnim = PausePanel.GetComponentInParent<Animator>();
     }
 
     private void Update()
@@ -56,7 +57,7 @@ public class FunnyPlayerPause : MonoBehaviour
             return;
         }
 
-        //AudioManager.instance.PlaySound("UI_beep");
+        AudioManager.instance.PlaySound("UI_beep");
         CheckPauseGame();
     }
 
@@ -67,16 +68,22 @@ public class FunnyPlayerPause : MonoBehaviour
             Time.timeScale = 1;
             gamePaused = false;
             pInput.SwitchCurrentActionMap("Game");
-            PausePanel.SetActive(false);
             eventSys.SetSelectedGameObject(null);
+            eventSys.firstSelectedGameObject = null;
+            canvasAnim.Play("Pause_Close");
         }
         else
         {
             Time.timeScale = 0;
             gamePaused = true;
             pInput.SwitchCurrentActionMap("Menu");
-            PausePanel.SetActive(true);
-            eventSys.SetSelectedGameObject(ResumeButton);
+            canvasAnim.Play("Pause_Open");
+            eventSys.firstSelectedGameObject = ResumeButton;
+
+            if (pInput.currentControlScheme == "Controller")
+            {
+                eventSys.SetSelectedGameObject(ResumeButton);
+            }
         }
     }
 

@@ -13,7 +13,7 @@ public class PlayerUpgrades : MonoBehaviour
     [field: SerializeField] public int[] UpgradeCost { get; private set; }
 
     [field: SerializeField] public MouseHover HoverForDesc { get; private set; }
-    [field: SerializeField] public MouseHover HoverForAddition { get; private set; }
+    [field: SerializeField] public SpecialMouseHover HoverForAddition { get; private set; }
     [field: SerializeField] public Image UpgradeIndicator { get; private set; }
 
     protected FunnyCharMovement CharMovement;

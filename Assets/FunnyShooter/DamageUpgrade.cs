@@ -16,7 +16,7 @@ public class DamageUpgrade : PlayerUpgrades
     public override void CalculateStatDiff()
     {
         int damageDiff = Damages[CurrentLevel] - Damages[CurrentLevel - 1];
-        HoverForAddition.WhatShouldTheTextSay = "+ " + CalculatePercentage(damageDiff, Damages[2]);
+        SetNewAddition("+ " + CalculatePercentage(damageDiff, Damages[2]));
     }
 
     public override void ApplyUpgrade()

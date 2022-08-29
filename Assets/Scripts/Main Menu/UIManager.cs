@@ -90,19 +90,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public Vector2 CurserPos;
 
-    public bool EnableFunny = false;
-
-    public void GetFunnyInput(InputAction.CallbackContext value)
-    {
-        if (value.started)
-        {
-            EnableFunny = true;
-        }
-        else if (value.canceled)
-        {
-            EnableFunny = false;
-        }
-    }
+    public bool HoldingToggle = false;
 
     public void GetCurserPos(InputAction.CallbackContext value)
     {
@@ -231,10 +219,10 @@ public class UIManager : MonoBehaviour
     {
         if (value.started)
         {
-            settingsManager.HoldingDown = true;
+            HoldingToggle = true;
         } else if (value.canceled)
         {
-            settingsManager.HoldingDown = false;
+            HoldingToggle = false;
         }
     }
 
@@ -367,7 +355,7 @@ public class UIManager : MonoBehaviour
     //For displaying dev messages
     public void PressDevMsg()
     {
-        if (EnableFunny)
+        if (HoldingToggle)
         {
             AudioManager.instance.PlaySound("UI_beep");
             LoadingScreen.loadMan.LoadingMusic("FunnyShooter", false, "BGM_boss");

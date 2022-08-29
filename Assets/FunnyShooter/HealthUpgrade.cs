@@ -15,7 +15,7 @@ public class HealthUpgrade : PlayerUpgrades
     public override void CalculateStatDiff()
     {
         int hpDiff = PlayerHealths[CurrentLevel] - PlayerHealths[CurrentLevel - 1];
-        HoverForAddition.WhatShouldTheTextSay = "+ " + hpDiff.ToString();
+        SetNewAddition("+ " + hpDiff.ToString());
     }
 
     public override void ApplyUpgrade()
