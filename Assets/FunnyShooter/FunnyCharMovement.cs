@@ -291,11 +291,11 @@ public class FunnyCharMovement : MonoBehaviour
     {
         if (input.currentControlScheme == "KBMouse")
         {
-            ControlsText.text = "Move: WASD, Aim: MOUSE, Switch: LMB/RMB, Upgrades: E, Menu: ESC";
+            ControlsText.text = "Move: WASD, Aim: MOUSE, Switch: LMB/RMB, Upgrades: LSHIFT, Map: SPACE, Menu: ESC";
         }
         else
         {
-            ControlsText.text = "Move: LEFTSTICK, Aim: RIGHTSTICK, Switch: UP/DOWN, Upgrades: LB, Menu: MENU";
+            ControlsText.text = "Move: LEFTSTICK, Aim: RIGHTSTICK, Switch: UP/DOWN, Upgrades: LB, Map: RB, Menu: MENU";
         }
     }
 }

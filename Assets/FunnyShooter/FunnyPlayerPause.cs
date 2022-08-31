@@ -8,6 +8,7 @@ public class FunnyPlayerPause : MonoBehaviour
 {
     public FunnyGameManager gameMan;
     private PlayerUpgradesScript upgradesScript;
+    private FunnyMinimapHandling minimapScript;
 
     public EventSystem eventSys;
     public GameObject PausePanel;
@@ -24,6 +25,7 @@ public class FunnyPlayerPause : MonoBehaviour
     {
         pInput = GetComponent<PlayerInput>();
         upgradesScript = GetComponent<PlayerUpgradesScript>();
+        minimapScript = GetComponent<FunnyMinimapHandling>();
         canvasAnim = PausePanel.GetComponentInParent<Animator>();
     }
 
@@ -52,7 +54,7 @@ public class FunnyPlayerPause : MonoBehaviour
 
     private void OnMenu()
     {
-        if (upgradesScript.shopOpened || !gameMan.GameIsActive)
+        if (upgradesScript.shopOpened || !gameMan.GameIsActive || minimapScript.MiniMapOpen)
         {
             return;
         }

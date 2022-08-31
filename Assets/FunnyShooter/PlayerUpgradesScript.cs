@@ -12,6 +12,7 @@ public class PlayerUpgradesScript : MonoBehaviour
     public FunnyGameManager gameMan;
     private FunnyCharMovement movementScript;
     private FunnyPlayerPause playerPause;
+    private FunnyMinimapHandling minimapScript;
 
     public EventSystem eventSys;
     public PlayerInput pInput;
@@ -50,6 +51,7 @@ public class PlayerUpgradesScript : MonoBehaviour
     {
         movementScript = GetComponent<FunnyCharMovement>();
         playerPause = GetComponent<FunnyPlayerPause>();
+        minimapScript = GetComponent<FunnyMinimapHandling>();
         canvasAnim = shopObject.GetComponentInParent<Animator>();
         pInput = GetComponent<PlayerInput>();
 
@@ -69,7 +71,7 @@ public class PlayerUpgradesScript : MonoBehaviour
     //When menu button pushed
     private void OnShop()
     {
-        if (playerPause.gamePaused || !gameMan.GameIsActive)
+        if (playerPause.gamePaused || !gameMan.GameIsActive || minimapScript.MiniMapOpen)
         {
             return;
         }

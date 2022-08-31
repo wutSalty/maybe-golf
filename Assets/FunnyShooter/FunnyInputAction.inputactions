@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Mapping",
+                    "type": "Button",
+                    "id": "d7f5041e-a769-454d-bad8-00a2fef20fc2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -221,7 +230,7 @@
                 {
                     "name": "",
                     "id": "99f76653-48a0-4498-95f7-1d9084df9aa4",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBMouse",
@@ -402,6 +411,28 @@
                     "processors": "",
                     "groups": "KBMouse",
                     "action": "Clicking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "603f0582-8c7f-466a-a610-cbd3f38ff7c1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBMouse",
+                    "action": "Mapping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b71fc4a4-8119-409b-a87a-2e525b6b4a00",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Mapping",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
