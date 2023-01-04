@@ -24259,15 +24259,15 @@ MonoBehaviour:
   m_Text: 'Credits
 
 
-    Director: Dominick
+    Director: Salty
 
-    Producer: Dominick
+    Producer: Salty
 
     Head Developer:
-    Dominick
+    Salty
 
 
-    Main Programmer: Dominick
+    Main Programmer: Salty
 
     Special thanks to:
 
@@ -24275,25 +24275,25 @@ MonoBehaviour:
     Reddit, Unity Forums
 
 
-    UI Designer: Dominick
+    UI Designer: Salty
 
-    Level Designer: Dominick
+    Level Designer: Salty
 
 
     TopDown
     2D RPG BE3 Asset Pack: Goldmetal
 
-    Modified by: Dominick
+    Modified by: Salty
 
 
     All other sprites
-    created by: Dominick
+    created by: Salty
 
 
     Developed in Unity (Engine)
 
-    With the help of
-    C# and Visual Studio (Scripting)
+    With the help of C#
+    and Visual Studio (Scripting)
 
     Carried by Paint.Net (Sprites)
 
@@ -31280,7 +31280,7 @@ MonoBehaviour:
 
     Data could not be downloaded via the internet.
     However, all features are still available offline! Please enjoy!'
-  LinkToAppData: https://drive.google.com/uc?export=download&id=1kzGmaJT3tPalS1BbYc4WG4VqjVg8Z6kz
+  LinkToAppData: https://drive.google.com/uc?id=1i_7xP-zH7KE25ob8mNa2V7hgg9iM3Iuu
 --- !u!114 &1479502447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34239,7 +34239,7 @@ MonoBehaviour:
   TimesPlayedMulti: 0
   BallSkin: 0
   appID: FE08EA34-BBE9-4400-A36F-DEB5009E7986
-  appBuild: 22w35b
+  appBuild: 23w01a
   BallSkins:
   - {fileID: 21300000, guid: db1ff6fffd870e446b764e84169ae2dc, type: 3}
   - {fileID: 21300000, guid: 6803723a326b2054d82ed2ff425fbac8, type: 3}
